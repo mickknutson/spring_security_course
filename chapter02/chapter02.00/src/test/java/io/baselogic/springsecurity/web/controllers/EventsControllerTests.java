@@ -59,9 +59,6 @@ import static org.assertj.core.api.Assertions.*;
 @Slf4j
 public class EventsControllerTests {
 
-//    @LocalServerPort
-//    private Integer port;
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -145,7 +142,6 @@ public class EventsControllerTests {
 
         HtmlSubmitInput button =  page.getHtmlElementById("auto");
         HtmlForm form =  page.getHtmlElementById("newEventForm");
-//        log.info("***: {}", form.asXml());
 
         HtmlPage pageAfterClick = button.click();
 

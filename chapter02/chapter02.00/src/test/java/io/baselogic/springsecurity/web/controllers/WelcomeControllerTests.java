@@ -108,6 +108,8 @@ public class WelcomeControllerTests {
 
         HtmlPage welcomePage = webClient.getPage("http://localhost/");
 
+//        assertThat(welcomePage.getUrl().toString()).endsWith("/messages/123");
+
         String id = welcomePage.getTitleText();
         assertThat(id).isEqualTo("Welcome to the blincEventManager!");
 

@@ -21,13 +21,8 @@ has been used as the view templating engine throughout the book
 ### Chapters
 ***
 
-1. [Anatomy of an Unsafe Application](chapter01/README.md)
+1. [Course Reference Project](chapter01/README.md)
 2. [Getting Started with Spring Security](chapter02/README.md)
-3. [Custom Authentication](chapter03/README.md)
-4. [JDBC-based Authentication](chapter04/README.md)
-5. [Authentication with Spring-Data](chapter05/README.md)
-6. LDAP Directory Services
-7. Remember-me Services
 
 
 # Building and Running the code examples
@@ -38,6 +33,11 @@ Code Software Requirements
 * Maven 3.x
 * IntelliJ 2019+
 * Eclipse Neon+
+* Lombok Plugin
+
+Good reference to setup Lombok for Intellij and Eclipse IDE:
+-
+[https://www.baeldung.com/lombok-ide](https://www.baeldung.com/lombok-ide)
 
 
 
@@ -49,7 +49,7 @@ Running Individual projects:
 
 
 # TODO's
-* From Chapter15, add favicon's images to all projects.
+
 * Get project to build in Circle-CI
 * Get WebDriver tests to work.
 * Need to enable SonarQube for all modules

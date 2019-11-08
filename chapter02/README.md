@@ -1,4 +1,4 @@
-# BLiNC Event Planner Reference Project #
+# BLiNC Event Planner README #
 
 This is the Course Reference Project. 
 

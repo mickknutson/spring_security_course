@@ -4,8 +4,8 @@
     <packaging>pom</packaging>
 
     <groupId>io.baselogic.springsecurity</groupId>
-    <artifactId>chapter01</artifactId>
-    <version>5.1.0-SNAPSHOT</version>
+    <artifactId>chapter02</artifactId>
+    <version>5.2.0-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>Event Planner: ${project.artifactId}</description>
@@ -17,7 +17,7 @@
     </parent>
 
     <modules>
-        <module>chapter01.00</module>
+        <module>chapter02.00</module>
     </modules>
 
 
@@ -37,14 +37,8 @@
         <webjarsLocator.version>0.37</webjarsLocator.version>
     </properties>
 
+
     <dependencies>
-
-
-        <!-- SECURITY: -->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
 
 
         <!-- WEB: -->
@@ -144,6 +138,17 @@
     </dependencies>
 
     <build>
-    </build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
 
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+
+    </build>
 </project>
