@@ -6,7 +6,7 @@ to get your application up and running.
 ## BLiNC Event Manager Application
 
 * BLiNC Event Manager Application
-* 4.00.00-SNAPSHOT
+* 5.00.00-SNAPSHOT
 * [BASE Logic Home](https://baselogic.io)
 * [Udemy Course Home](https://udemy.com)
 * [BitBucket](https://bitbucket.org/mickknutson/jbcpcalendar/)
@@ -29,7 +29,7 @@ has been used as the view templating engine throughout the book
 
 Code Software Requirements
 =
-* JDK 8
+* JDK 8+
 * Maven 3.x
 * IntelliJ 2019+
 * Eclipse Neon+
@@ -41,11 +41,26 @@ Good reference to setup Lombok for Intellij and Eclipse IDE:
 
 
 
-Running Individual projects:
--
-* Running the Spring Boot Application: (from chapter root) ./mvn
-  spring-boot:run
-* Running Tests: (from chapter root) ./mvn verify -e
+## Running Individual projects
+
+To run each project in this chapter, run the following command from the
+milestone directory:
+
+    *~ ./mvn spring-boot:run*
+
+then open a browser to:
+
+    [http://localhost:8080](http://localhost:8080)
+
+
+## Using the H2 DB Web Admin Console
+
+After the application is running, the H2 admin Servlet will be running
+and the console can be accessed via the following URL:
+
+    [http://localhost:8080/admin/h2](http://localhost:8080/admin/h2)
+
+
 
 
 # TODO's

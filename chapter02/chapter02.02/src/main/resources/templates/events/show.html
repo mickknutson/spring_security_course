@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title id="pageTitle" th:text="'Event - ' + ${event.summary}"></title>
+
+    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+</head>
+<body>
+
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+    <h2 id="heading">Event Details</h2>
+
+    <dl>
+        <dt>Summary</dt>
+        <dd id="summary" th:text="${event.summary}">Generic Event</dd>
+        <dt>Owner</dt>
+        <dd id="owner" th:text="${event.owner.name}">Chuck Norris</dd>
+        <dt>Attendee</dt>
+        <dd id="attendee" th:text="${event.attendee.name}"></dd>
+        <dt>When</dt>
+        <dd id="when" th:text="${#calendars.format(event.when, 'yyyy-MM-dd HH:mm')}">today</dd>
+        <dt>Message Details</dt>
+        <dd id="description" th:text="${event.description}"></dd>
+    </dl>
+    <div id="myEvents"><a id="navMyEMLink" th:href="@{/events/my}">My Events</a></div>
+
+</div>
+
+<!--/*/ <th:block th:include="fragments/footer :: foot"></th:block> /*/-->
+
+</body>
+</html>

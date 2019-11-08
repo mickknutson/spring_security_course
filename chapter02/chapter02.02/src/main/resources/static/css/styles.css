@@ -1,0 +1,24 @@
+body {
+    padding-top: 10px; /* 60px to make the container go to the bottom of the top bar */
+}
+
+dl {
+    display: flex;
+    flex-flow: row wrap;
+    border: solid #999;
+    border-width: 1px 1px 0 0;
+}
+dt {
+    flex-basis: 20%;
+    padding: 2px 4px;
+    background: #999;
+    text-align: right;
+    color: #fff;
+}
+dd {
+    flex-basis: 70%;
+    flex-grow: 1;
+    margin: 0;
+    padding: 2px 4px;
+    border-bottom: 1px solid #999;
+}
