@@ -1,7 +1,6 @@
-# README
+# Spring Security Course (Module 1)
 
-This README would normally document whatever steps are necessary 
-to get your application up and running.
+This project is the example code for the Spring security course on Udemy.com
 
 ## BLiNC Event Manager Application
 
@@ -14,11 +13,12 @@ to get your application up and running.
 
 This code has been developed in [Maven](http://maven.apache.org) and has
 a sub-project for each chapter milestone.
+
 [Thymeleaf](http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
 has been used as the view templating engine throughout the book
 
 
-### Chapters
+### Section Overview
 ***
 
 1. [Course Reference Project](chapter01/README.md)
@@ -72,4 +72,5 @@ and the console can be accessed via the following URL:
 
 
 
-# the end...
+## License
+Code is under the [BSD 2-clause "Simplified" License](LICENSE.txt).

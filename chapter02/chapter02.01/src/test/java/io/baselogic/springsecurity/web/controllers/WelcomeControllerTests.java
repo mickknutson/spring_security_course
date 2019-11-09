@@ -114,7 +114,7 @@ public class WelcomeControllerTests {
         assertThat(id).isEqualTo("Welcome to the blincEventManager!");
 
         String summary = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
-        assertThat(summary).contains("Chapter 01.00: ");
+        assertThat(summary).contains("Chapter 02.01: ");
     }
 
 //    @Test

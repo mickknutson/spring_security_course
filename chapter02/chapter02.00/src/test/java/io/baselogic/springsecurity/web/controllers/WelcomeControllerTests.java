@@ -76,20 +76,6 @@ public class WelcomeControllerTests {
         webClient.getOptions().setCssEnabled(false);
     }
 
-//    @BeforeEach
-//    void setup(WebApplicationContext context) {
-//        webClient = MockMvcWebClientBuilder
-//                // demonstrates applying a MockMvcConfigurer (Spring Security)
-//                .webAppContextSetup(context, springSecurity())
-//                // for illustration only - defaults to ""
-//                .contextPath("")
-//                // By default MockMvc is used for localhost only;
-//                // the following will use MockMvc for example.com and example.org as well
-//                // .useMockMvcForHosts("baselogic.io","baselogic.com")
-//                .build();
-//    }
-
-
     //-------------------------------------------------------------------------
 
     @Test
@@ -97,8 +83,7 @@ public class WelcomeControllerTests {
     public void testHomePage() throws Exception {
 
         mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
+                .andExpect(status().isUnauthorized())
                 .andReturn();
     }
 
@@ -114,7 +99,7 @@ public class WelcomeControllerTests {
         assertThat(id).isEqualTo("Welcome to the blincEventManager!");
 
         String summary = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
-        assertThat(summary).contains("Chapter 01.00: ");
+        assertThat(summary).contains("Chapter 02.00: ");
     }
 
 //    @Test

@@ -73,7 +73,6 @@ public class EventsControllerTests {
         webClient.getOptions().setCssEnabled(false);
     }
 
-
     //-------------------------------------------------------------------------
 
     @Test
@@ -123,6 +122,9 @@ public class EventsControllerTests {
         assertThat(description).contains("Time to have my yearly party!");
     }
 
+    //-------------------------------------------------------------------------
+
+
     @Test
     @DisplayName("Show Event Form")
     public void showEventForm() throws Exception {
@@ -142,6 +144,7 @@ public class EventsControllerTests {
 
         HtmlSubmitInput button =  page.getHtmlElementById("auto");
         HtmlForm form =  page.getHtmlElementById("newEventForm");
+//        log.info("***: {}", form.asXml());
 
         HtmlPage pageAfterClick = button.click();
 
@@ -155,6 +158,7 @@ public class EventsControllerTests {
         assertThat(description).contains("This was auto-populated to save time creating a valid event.");
     }
 
+    //-------------------------------------------------------------------------
 
 
     @Test
@@ -215,6 +219,150 @@ public class EventsControllerTests {
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
         assertThat(errors).contains("Attendee Email is required");
+
+    }
+
+    @Test
+    @DisplayName("Submit Event Form - not found email")
+    public void createEvent_not_found_email() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+        email.setValueAttribute("notfound@example.com");
+
+        HtmlInput when = page.getHtmlElementById("when");
+        when.setValueAttribute("2020-07-03 00:00:01");
+
+        HtmlInput summary = page.getHtmlElementById("summary");
+        summary.setValueAttribute("Test Summary");
+
+        HtmlTextArea description = page.getHtmlElementById("description");
+        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Create Event");
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Could not find a user for the provided Attendee Email");
+
+    }
+
+
+    //-------------------------------------------------------------------------
+
+    @Test
+    @DisplayName("Submit Event Form - null when")
+    public void createEvent_null_when() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+        email.setValueAttribute("user2@example.com");
+
+//        HtmlInput when = page.getHtmlElementById("when");
+//        when.setValueAttribute("2020-07-03 00:00:01");
+
+        HtmlInput summary = page.getHtmlElementById("summary");
+        summary.setValueAttribute("Test Summary");
+
+        HtmlTextArea description = page.getHtmlElementById("description");
+        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Create Event");
+
+        log.info("***: {}", pageAfterClick.asXml());
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Event Date/Time is required");
+
+    }
+
+
+    //-------------------------------------------------------------------------
+
+    @Test
+    @DisplayName("Submit Event Form - null summary")
+    public void createEvent_null_summary() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+        email.setValueAttribute("user2@example.com");
+
+        HtmlInput when = page.getHtmlElementById("when");
+        when.setValueAttribute("2020-07-03 00:00:01");
+
+//        HtmlInput summary = page.getHtmlElementById("summary");
+//        summary.setValueAttribute("Test Summary");
+
+        HtmlTextArea description = page.getHtmlElementById("description");
+        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Create Event");
+
+        log.info("***: {}", pageAfterClick.asXml());
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Summary is required");
+
+    }
+
+
+    //-------------------------------------------------------------------------
+
+    @Test
+    @DisplayName("Submit Event Form - null description")
+    public void createEvent_null_description() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+        email.setValueAttribute("user2@example.com");
+
+        HtmlInput when = page.getHtmlElementById("when");
+        when.setValueAttribute("2020-07-03 00:00:01");
+
+        HtmlInput summary = page.getHtmlElementById("summary");
+        summary.setValueAttribute("Test Summary");
+
+//        HtmlTextArea description = page.getHtmlElementById("description");
+//        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Create Event");
+
+        log.info("***: {}", pageAfterClick.asXml());
+
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Description is required");
 
     }
 

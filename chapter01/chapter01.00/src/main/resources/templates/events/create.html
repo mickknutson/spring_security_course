@@ -20,29 +20,33 @@
           th:object="${eventDto}" method="post" cssClass="form-horizontal">
 
         <p id="globalErrors" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" cssClass="alert alert-error" />
-        <p id="fieldsErrors" th:if="${#fields.hasErrors('attendeeEmail')}" th:errors="*{attendeeEmail}" cssClass="alert alert-error" />
 
         <fieldset>
             <legend id="legend">Event Details</legend>
             <div class="control-group">
+                <span id="fieldsErrors" th:if="${#fields.hasErrors('attendeeEmail')}" th:errors="*{attendeeEmail}" cssClass="alert alert-error" />
                 <label class="control-label" for="attendeeEmail">Attendee Email</label>
                 <div class="controls">
                     <input class="input-xlarge" th:field="*{attendeeEmail}" id="attendeeEmail"/>
                 </div>
             </div>
             <div class="control-group">
+                <p id="fieldsErrors" th:if="${#fields.hasErrors('when')}" th:errors="*{when}" cssClass="alert alert-error" />
                 <label class="control-label" for="when">Event Date/Time (yyyy-MM-dd HH:mm)</label>
                 <div class="controls">
                     <input class="input-xlarge" th:field="*{when}" id="when" />
                 </div>
             </div>
             <div class="control-group">
+                <p id="fieldsErrors" th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}" cssClass="alert alert-error" />
                 <label class="control-label" for="summary">Summary</label>
                 <div class="controls">
                     <input class="input-xlarge" th:field="*{summary}" id="summary"/>
                 </div>
             </div>
             <div class="control-group">
+                <span id="fieldsErrors" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" cssClass="alert alert-error" />
+
                 <label class="control-label" for="description">Description</label>
                 <div class="controls">
                     <textarea class="input-xlarge" th:field="*{description}" id="description" rows="5" cols="25"/>
