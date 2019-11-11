@@ -14,8 +14,10 @@
     <!--/*--><!--@thymesVar id="eventDto" type="io.baselogic.springsecurity.web.model.EventDto"-->
     <!--*/-->
 
+    <h2 id="heading">Create New Event</h2>
+
     <form id="newEventForm"
-          action="#"
+            action="#"
           th:action="@{/events/new}"
           th:object="${eventDto}" method="post" cssClass="form-horizontal">
 

@@ -11,6 +11,10 @@
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
+    <h2 id="heading">Current User Events</h2>
+
+    <p>This shows all events for the current user.</p>
+
     <div th:if="${message != null}" class="alert alert-success">
         <span th:text="${message}"></span>
     </div>

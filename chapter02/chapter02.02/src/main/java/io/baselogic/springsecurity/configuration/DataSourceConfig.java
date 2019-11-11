@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.configuration;
 import io.baselogic.springsecurity.dao.EventRowMapper;
 import io.baselogic.springsecurity.dao.UserRowMapper;
 import io.baselogic.springsecurity.domain.User;
+import lombok.extern.slf4j.Slf4j;
 import org.h2.server.web.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,51 +23,40 @@ import javax.annotation.PreDestroy;
 import java.sql.SQLException;
 
 /**
- *
+ * Database Configuration
  */
 @Configuration
 @EnableTransactionManagement
+@Slf4j
 public class DataSourceConfig {
-
-    private static final Logger logger = LoggerFactory
-            .getLogger(DataSourceConfig.class);
-
-
-    @Autowired
-    private ApplicationContext applicationContext;
-
 
 
     //-------------------------------------------------------------------------
 
     @Bean
     public UserRowMapper userRowMapper(){
-        UserRowMapper userRowMapper = new UserRowMapper("users.");
-        return userRowMapper;
+        return new UserRowMapper("users.");
     }
 
     @Bean
     public UserRowMapper ownerRowMapper(){
-        UserRowMapper ownerRowMapper = new UserRowMapper("owner_");
-        return ownerRowMapper;
+        return new UserRowMapper("owner_");
     }
 
     @Bean
     public UserRowMapper attendeeRowMapper(){
-        UserRowMapper attendeeRowMapper = new UserRowMapper("attendee_");
-        return attendeeRowMapper;
+        return new UserRowMapper("attendee_");
     }
 
     @Bean
     public EventRowMapper eventRowMapper(){
-        EventRowMapper eventRowMapper = new EventRowMapper(ownerRowMapper(),
-                                                           attendeeRowMapper());
-        return eventRowMapper;
+        return new EventRowMapper(ownerRowMapper(),
+                attendeeRowMapper());
     }
 
     @Bean
     public String EVENT_QUERY(){
-         return "select e.id, e.summary, e.description, e.event_date, " +
+        return "select e.id, e.summary, e.description, e.event_date, " +
                 "owner.id as owner_id, owner.email as owner_email, owner.password as owner_password, owner.first_name as owner_first_name, owner.last_name as owner_last_name, " +
                 "attendee.id as attendee_id, attendee.email as attendee_email, attendee.password as attendee_password, attendee.first_name as attendee_first_name, attendee.last_name as attendee_last_name " +
                 "from events as e, users as owner, users as attendee " +

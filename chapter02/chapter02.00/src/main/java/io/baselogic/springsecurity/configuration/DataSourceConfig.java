@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.configuration;
 import io.baselogic.springsecurity.dao.EventRowMapper;
 import io.baselogic.springsecurity.dao.UserRowMapper;
 import io.baselogic.springsecurity.domain.User;
+import lombok.extern.slf4j.Slf4j;
 import org.h2.server.web.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,46 +23,35 @@ import javax.annotation.PreDestroy;
 import java.sql.SQLException;
 
 /**
- *
+ * Database Configuration
  */
 @Configuration
 @EnableTransactionManagement
+@Slf4j
 public class DataSourceConfig {
-
-    private static final Logger logger = LoggerFactory
-            .getLogger(DataSourceConfig.class);
-
-
-    @Autowired
-    private ApplicationContext applicationContext;
-
 
 
     //-------------------------------------------------------------------------
 
     @Bean
     public UserRowMapper userRowMapper(){
-        UserRowMapper userRowMapper = new UserRowMapper("users.");
-        return userRowMapper;
+        return new UserRowMapper("users.");
     }
 
     @Bean
     public UserRowMapper ownerRowMapper(){
-        UserRowMapper ownerRowMapper = new UserRowMapper("owner_");
-        return ownerRowMapper;
+        return new UserRowMapper("owner_");
     }
 
     @Bean
     public UserRowMapper attendeeRowMapper(){
-        UserRowMapper attendeeRowMapper = new UserRowMapper("attendee_");
-        return attendeeRowMapper;
+        return new UserRowMapper("attendee_");
     }
 
     @Bean
     public EventRowMapper eventRowMapper(){
-        EventRowMapper eventRowMapper = new EventRowMapper(ownerRowMapper(),
+        return new EventRowMapper(ownerRowMapper(),
                                                            attendeeRowMapper());
-        return eventRowMapper;
     }
 
     @Bean

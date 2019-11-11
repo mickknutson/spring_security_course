@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
@@ -50,58 +52,17 @@ public class LoginTests {
         webClient.getOptions().setCssEnabled(false);
     }
 
-//    @BeforeEach
-//    void setup(WebApplicationContext context) {
-//        webClient = MockMvcWebClientBuilder
-//                // demonstrates applying a MockMvcConfigurer (Spring Security)
-//                .webAppContextSetup(context, springSecurity())
-//                // for illustration only - defaults to ""
-//                .contextPath("")
-//                // By default MockMvc is used for localhost only;
-//                // the following will use MockMvc for example.com and example.org as well
-//                // .useMockMvcForHosts("baselogic.io","baselogic.com")
-//                .build();
-//    }
-
-
     //-------------------------------------------------------------------------
 
     @Test
-    @DisplayName("Mock Mvc Welcome Home Page")
+    @DisplayName("Custom Login Page")
+    @WithAnonymousUser
     public void testHomePage() throws Exception {
 
         mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
+                .andExpect(status().isFound())
+//                .andExpect(view().name("index"))
                 .andReturn();
-    }
-
-    @Test
-    @DisplayName("HTML Unit Welcome Home Page")
-    public void testHomePage_htmlUnit() throws Exception {
-
-        HtmlPage welcomePage = webClient.getPage("http://localhost/");
-
-//        assertThat(welcomePage.getUrl().toString()).endsWith("/messages/123");
-
-        String id = welcomePage.getTitleText();
-        assertThat(id).isEqualTo("Welcome to the blincEventManager!");
-
-        String summary = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
-        assertThat(summary).contains("Chapter 01.00: ");
-    }
-
-//    @Test
-//    @DisplayName("MockMvc Welcome Home Page")
-    public void testMessagePage() throws Exception {
-
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
-                .andExpect(xpath("//title[@id='pageTitle']").exists()
-//                .andExpect(xpath("//p[@id='pageTitle']").exists())
-//                .andExpect(content().string("Chapter 01.00")
-                );
     }
 
 

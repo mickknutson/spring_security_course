@@ -59,9 +59,6 @@ import static org.assertj.core.api.Assertions.*;
 @Slf4j
 public class EventsControllerTests {
 
-//    @LocalServerPort
-//    private Integer port;
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -81,6 +78,10 @@ public class EventsControllerTests {
     // All Events
     //-----------------------------------------------------------------------//
 
+
+    /**
+     * Test the URI for All Events.
+     */
     @Test
     @DisplayName("MockMvc All Events")
     public void allEventsPage() throws Exception {
@@ -94,6 +95,9 @@ public class EventsControllerTests {
     // All User Events
     //-----------------------------------------------------------------------//
 
+    /**
+     * Test the URI for Current User Events with MockMvc.
+     */
     @Test
     @DisplayName("All Events: UnAuthorized - MockMvc-RequestPostProcessor")
     public void testCurrentUsersEventsPage() throws Exception {
@@ -105,6 +109,9 @@ public class EventsControllerTests {
     }
 
 
+    /**
+     * Test the URI for Current User Events with HtmlUnit.
+     */
     @Test
     @DisplayName("Current Users Events - HtmlUnit")
     public void testCurrentUsersEventsPage_htmlUnit() throws Exception {
@@ -122,6 +129,9 @@ public class EventsControllerTests {
     // Events Details
     //-----------------------------------------------------------------------//
 
+    /**
+     * Test the URI for showing Event details with MockMvc.
+     */
     @Test
     @DisplayName("Show Event Details")
     public void testShowEvent_htmlUnit() throws Exception {
@@ -137,6 +147,14 @@ public class EventsControllerTests {
         assertThat(description).contains("Time to have my yearly party!");
     }
 
+
+    //-----------------------------------------------------------------------//
+    // Event Form
+    //-----------------------------------------------------------------------//
+
+    /**
+     * Test the URI for creating a new Event with MockMvc.
+     */
     @Test
     @DisplayName("Show Event Form")
     public void showEventForm() throws Exception {
@@ -169,10 +187,6 @@ public class EventsControllerTests {
         String description = pageAfterClick.getHtmlElementById("description").getTextContent();
         assertThat(description).contains("This was auto-populated to save time creating a valid event.");
     }
-
-    //-----------------------------------------------------------------------//
-    // Event Form
-    //-----------------------------------------------------------------------//
 
     @Test
     @DisplayName("Submit Event Form")

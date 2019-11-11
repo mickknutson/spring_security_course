@@ -4,13 +4,12 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.gargoylesoftware.htmlunit.util.NameValuePair;
-import io.baselogic.springsecurity.service.DefaultEventServiceTests;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -59,7 +58,9 @@ import static org.mockito.Mockito.*;
 // http://joel-costigliola.github.io/assertj/index.html
 import static org.assertj.core.api.Assertions.*;
 
-
+/**
+ * Functional and Mock tests for the EventController.
+ */
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -70,6 +71,8 @@ public class EventsControllerTests {
     private MockMvc mockMvc;
 
     private WebClient webClient;
+
+    private static final String USER = "user";
 
     @BeforeEach
     void setup(WebApplicationContext context) {
@@ -92,6 +95,11 @@ public class EventsControllerTests {
     // All Events
     //-----------------------------------------------------------------------//
 
+    /**
+     * Test the URI for All Events.
+     * In this test, BASIC Authentication is activated through
+     * auto configuration so there is now a 401 Unauthorized redirect.
+     */
     @Test
     @DisplayName("All Events: UnAuthorized - MockMvc-RequestPostProcessor")
     public void allEvents_not_authenticated__rpp() throws Exception {
@@ -104,18 +112,26 @@ public class EventsControllerTests {
                 .andReturn();
     }
 
+    /**
+     * Test the URI for All Events.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the All Events page.
+     */
     @Test
     @DisplayName("All Events: UnAuthorized - MockMvc-RequestPostProcessor")
     public void allEventsPage_not_authenticated() throws Exception {
 
-        mockMvc.perform(get("/events/")
-                .with(user("user")))
+        MvcResult result = mockMvc.perform(get("/events/")
+                // Simulate a valid security User:
+                .with(user(USER))
+        )
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(view().name("events/list"))
+                .andReturn();
 
-                .andExpect(header().string("WWW-Authenticate", "Basic realm=\"Realm\"")
-        );
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("All Event");
+        result.getModelAndView();
     }
 
 
@@ -123,24 +139,52 @@ public class EventsControllerTests {
     // All User Events
     //-----------------------------------------------------------------------//
 
+    /**
+     * Test the URI for Current User Events with MockMvc.
+     * In this test, BASIC Authentication is activated through
+     * auto configuration so there is now a 401 Unauthorized redirect.
+     */
     @Test
-    @DisplayName("MockMvc Current Users Events")
-    public void testCurrentUsersEventsPage() throws Exception {
-
-        mockMvc.perform(get("/events/my"))
+    @DisplayName("Current Users Events - UnAuthorized")
+    public void testCurrentUsersEventsPage_UnAuthorized() throws Exception {
+        MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
     }
 
+    /**
+     * Test the URI for Current User Events with MockMvc.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the Current User Events page.
+     */
+    @Test
+    @DisplayName("Current Users Events")
+    public void testCurrentUsersEventsPage() throws Exception {
+        MvcResult result = mockMvc.perform(get("/events/my")
+                // Simulate a valid security User:
+                .with(user(USER))
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("events/my"))
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("Current User Event");
+        result.getModelAndView();
+    }
+
+    /**
+     * Test the URI for Current User Events with HtmlUnit.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the page.
+     */
     @Test
     @DisplayName("HTML Unit Current Users Events")
+    @WithMockUser
     public void testCurrentUsersEventsPage_htmlUnit() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/my");
 
         WebResponse webResponse = page.getWebResponse();
-//        log.info("***** {}", webResponse.getContentAsString());
-
-//        log.info("***: {}", page.asXml());
 
         List<NameValuePair> headers = page.getWebResponse().getResponseHeaders();
         log.info("*****");
@@ -161,44 +205,286 @@ public class EventsControllerTests {
     // Events Details
     //-----------------------------------------------------------------------//
 
+    /**
+     * Test the URI for showing Event details with MockMvc.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the page.
+     */
     @Test
     @DisplayName("Show Event Details")
+    @WithMockUser
     public void testShowEvent_htmlUnit() throws Exception {
-        mockMvc.perform(get("/events/100"))
-                .andExpect(status().isUnauthorized())
+        MvcResult result = mockMvc.perform(get("/events/100")
+                // Simulate a valid security User:
+                .with(user(USER))
+        )
+                .andExpect(status().isOk())
+//                .andDo(print())
+                .andExpect(view().name("events/show"))
                 .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("Event Details");
+        result.getModelAndView();
     }
 
     //-----------------------------------------------------------------------//
     // Event Form
     //-----------------------------------------------------------------------//
 
+    /**
+     * Test the URI for creating a new Event with MockMvc.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the page.
+     */
     @Test
     @DisplayName("Show Event Form")
     public void showEventForm() throws Exception {
-        mockMvc.perform(get("/events/form"))
-                .andExpect(status().isUnauthorized())
+        MvcResult result = mockMvc.perform(get("/events/form")
+                // Simulate a valid security User:
+                .with(user(USER))
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("events/create"))
                 .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("Create New Event");
+        result.getModelAndView();
     }
 
     @Test
     @DisplayName("Show Event Form Auto Populate")
+    @WithMockUser
     public void showEventFormAutoPopulate() throws Exception {
-        // noop
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("auto");
+        HtmlForm form =  page.getHtmlElementById("newEventForm");
+//        log.info("***: {}", form.asXml());
+
+        HtmlPage pageAfterClick = button.click();
+
+        String titleText = pageAfterClick.getTitleText();
+        assertThat(titleText).contains("Create Event");
+
+        String summary = pageAfterClick.getHtmlElementById("summary").asXml();
+        assertThat(summary).contains("A new event....");
+
+        String description = pageAfterClick.getHtmlElementById("description").getTextContent();
+        assertThat(description).contains("This was auto-populated to save time creating a valid event.");
     }
 
 
 
     @Test
     @DisplayName("Submit Event Form")
+    @WithMockUser
     public void createEvent() throws Exception {
-        //noop
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+        email.setValueAttribute("user2@example.com");
+
+        HtmlInput when = page.getHtmlElementById("when");
+        when.setValueAttribute("2020-07-03 00:00:01");
+
+        HtmlInput summary = page.getHtmlElementById("summary");
+        summary.setValueAttribute("Test Summary");
+
+        HtmlTextArea description = page.getHtmlElementById("description");
+        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Current Users Events");
     }
 
     @Test
     @DisplayName("Submit Event Form - null email")
+    @WithMockUser
     public void createEvent_null_email() throws Exception {
-        // noop
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+//        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+//        email.setValueAttribute("user2@example.com");
+
+        HtmlInput when = page.getHtmlElementById("when");
+        when.setValueAttribute("2020-07-03 00:00:01");
+
+        HtmlInput summary = page.getHtmlElementById("summary");
+        summary.setValueAttribute("Test Summary");
+
+        HtmlTextArea description = page.getHtmlElementById("description");
+        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Create Event");
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Attendee Email is required");
+    }
+
+
+    @Test
+    @DisplayName("Submit Event Form - not found email")
+    @WithMockUser
+    public void createEvent_not_found_email() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+        email.setValueAttribute("notfound@example.com");
+
+        HtmlInput when = page.getHtmlElementById("when");
+        when.setValueAttribute("2020-07-03 00:00:01");
+
+        HtmlInput summary = page.getHtmlElementById("summary");
+        summary.setValueAttribute("Test Summary");
+
+        HtmlTextArea description = page.getHtmlElementById("description");
+        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Create Event");
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Could not find a user for the provided Attendee Email");
+
+    }
+
+
+    //-------------------------------------------------------------------------
+
+    @Test
+    @DisplayName("Submit Event Form - null when")
+    @WithMockUser
+    public void createEvent_null_when() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+        email.setValueAttribute("user2@example.com");
+
+//        HtmlInput when = page.getHtmlElementById("when");
+//        when.setValueAttribute("2020-07-03 00:00:01");
+
+        HtmlInput summary = page.getHtmlElementById("summary");
+        summary.setValueAttribute("Test Summary");
+
+        HtmlTextArea description = page.getHtmlElementById("description");
+        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Create Event");
+
+        log.info("***: {}", pageAfterClick.asXml());
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Event Date/Time is required");
+
+    }
+
+
+    //-------------------------------------------------------------------------
+
+    @Test
+    @DisplayName("Submit Event Form - null summary")
+    @WithMockUser
+    public void createEvent_null_summary() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+        email.setValueAttribute("user2@example.com");
+
+        HtmlInput when = page.getHtmlElementById("when");
+        when.setValueAttribute("2020-07-03 00:00:01");
+
+//        HtmlInput summary = page.getHtmlElementById("summary");
+//        summary.setValueAttribute("Test Summary");
+
+        HtmlTextArea description = page.getHtmlElementById("description");
+        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Create Event");
+
+        log.info("***: {}", pageAfterClick.asXml());
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Summary is required");
+
+    }
+
+
+    //-------------------------------------------------------------------------
+
+    @Test
+    @DisplayName("Submit Event Form - null description")
+    @WithMockUser
+    public void createEvent_null_description() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        assertThat(page.getTitleText())
+                .contains("Create Event");
+
+        HtmlInput email = page.getHtmlElementById("attendeeEmail");
+        email.setValueAttribute("user2@example.com");
+
+        HtmlInput when = page.getHtmlElementById("when");
+        when.setValueAttribute("2020-07-03 00:00:01");
+
+        HtmlInput summary = page.getHtmlElementById("summary");
+        summary.setValueAttribute("Test Summary");
+
+//        HtmlTextArea description = page.getHtmlElementById("description");
+//        description.setText("Test Description");
+
+        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Create Event");
+
+        log.info("***: {}", pageAfterClick.asXml());
+
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Description is required");
 
     }
 

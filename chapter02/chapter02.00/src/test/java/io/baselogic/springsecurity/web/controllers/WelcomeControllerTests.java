@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -82,7 +83,7 @@ public class WelcomeControllerTests {
     @DisplayName("Mock Mvc Welcome Home Page")
     public void testHomePage() throws Exception {
 
-        mockMvc.perform(get("/"))
+        MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
     }
@@ -100,19 +101,6 @@ public class WelcomeControllerTests {
 
         String summary = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
         assertThat(summary).contains("Chapter 02.00: ");
-    }
-
-//    @Test
-//    @DisplayName("MockMvc Welcome Home Page")
-    public void testMessagePage() throws Exception {
-
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
-                .andExpect(xpath("//title[@id='pageTitle']").exists()
-//                .andExpect(xpath("//p[@id='pageTitle']").exists())
-//                .andExpect(content().string("Chapter 01.00")
-                );
     }
 
 

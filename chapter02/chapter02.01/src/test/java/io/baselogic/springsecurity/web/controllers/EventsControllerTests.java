@@ -1,13 +1,16 @@
 package io.baselogic.springsecurity.web.controllers;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.*;
-import io.baselogic.springsecurity.service.DefaultEventServiceTests;
+import com.gargoylesoftware.htmlunit.util.NameValuePair;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -24,6 +27,8 @@ import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -39,6 +44,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,7 +58,9 @@ import static org.mockito.Mockito.*;
 // http://joel-costigliola.github.io/assertj/index.html
 import static org.assertj.core.api.Assertions.*;
 
-
+/**
+ * Functional and Mock tests for the EventController.
+ */
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -64,8 +72,16 @@ public class EventsControllerTests {
 
     private WebClient webClient;
 
+    private static final String USER = "user";
+
     @BeforeEach
     void setup(WebApplicationContext context) {
+
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity())
+                .build();
+
         webClient = MockMvcWebClientBuilder
                 .webAppContextSetup(context)
                 .build();
@@ -73,31 +89,108 @@ public class EventsControllerTests {
         webClient.getOptions().setCssEnabled(false);
     }
 
-    //-------------------------------------------------------------------------
 
+
+    //-----------------------------------------------------------------------//
+    // All Events
+    //-----------------------------------------------------------------------//
+
+    /**
+     * Test the URI for All Events.
+     * In this test, BASIC Authentication is activated through
+     * auto configuration so there is now a 401 Unauthorized redirect.
+     */
     @Test
-    @DisplayName("MockMvc All Events")
-    public void allEventsPage() throws Exception {
+    @DisplayName("All Events: UnAuthorized - MockMvc-RequestPostProcessor")
+    public void allEvents_not_authenticated__rpp() throws Exception {
+
         mockMvc.perform(get("/events/"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(header().string("WWW-Authenticate", "Basic realm=\"Realm\""))
+
+                // The login page should be displayed
+                .andReturn();
+    }
+
+    /**
+     * Test the URI for All Events.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the All Events page.
+     */
+    @Test
+    @DisplayName("All Events: UnAuthorized - MockMvc-RequestPostProcessor")
+    public void allEventsPage_not_authenticated() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/events/")
+                // Simulate a valid security User:
+                .with(user(USER))
+        )
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/list"))
                 .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("All Event");
+        result.getModelAndView();
     }
 
-    @Test
-    @DisplayName("MockMvc Current Users Events")
-    public void testCurrentUsersEventsPage() throws Exception {
 
+    //-----------------------------------------------------------------------//
+    // All User Events
+    //-----------------------------------------------------------------------//
+
+    /**
+     * Test the URI for Current User Events with MockMvc.
+     * In this test, BASIC Authentication is activated through
+     * auto configuration so there is now a 401 Unauthorized redirect.
+     */
+    @Test
+    @DisplayName("Current Users Events - UnAuthorized")
+    public void testCurrentUsersEventsPage_UnAuthorized() throws Exception {
         mockMvc.perform(get("/events/my"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("events/my"))
+                .andExpect(status().isUnauthorized())
                 .andReturn();
     }
 
+    /**
+     * Test the URI for Current User Events with MockMvc.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the Current User Events page.
+     */
+    @Test
+    @DisplayName("Current Users Events")
+    public void testCurrentUsersEventsPage() throws Exception {
+        MvcResult result = mockMvc.perform(get("/events/my")
+                // Simulate a valid security User:
+                .with(user(USER))
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("events/my"))
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("Current User Event");
+        result.getModelAndView();
+    }
+
+    /**
+     * Test the URI for Current User Events with HtmlUnit.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the page.
+     */
     @Test
     @DisplayName("HTML Unit Current Users Events")
+    @WithMockUser
     public void testCurrentUsersEventsPage_htmlUnit() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/my");
+
+        WebResponse webResponse = page.getWebResponse();
+
+        List<NameValuePair> headers = page.getWebResponse().getResponseHeaders();
+        log.info("*****");
+        for(NameValuePair nvp: headers){
+            log.info("--> {}, {}", nvp.getName(), nvp.getValue());
+        }
 
         String id = page.getTitleText();
         assertThat(id).isEqualTo("Current Users Events");
@@ -105,40 +198,64 @@ public class EventsControllerTests {
         String summary = page.getHtmlElementById("description").getTextContent();
         assertThat(summary).contains("Below you can find the events for");
         assertThat(summary).contains("user1@example.com");
+
     }
 
+    //-----------------------------------------------------------------------//
+    // Events Details
+    //-----------------------------------------------------------------------//
+
+    /**
+     * Test the URI for showing Event details with MockMvc.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the page.
+     */
     @Test
     @DisplayName("Show Event Details")
+    @WithMockUser
     public void testShowEvent_htmlUnit() throws Exception {
-        HtmlPage page = webClient.getPage("http://localhost/events/100");
+        MvcResult result = mockMvc.perform(get("/events/100")
+                // Simulate a valid security User:
+                .with(user(USER))
+        )
+                .andExpect(status().isOk())
+//                .andDo(print())
+                .andExpect(view().name("events/show"))
+                .andReturn();
 
-        String id = page.getTitleText();
-        assertThat(id).contains("Birthday Party");
-
-        String summary = page.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("Birthday Party");
-
-        String description = page.getHtmlElementById("description").getTextContent();
-        assertThat(description).contains("Time to have my yearly party!");
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("Event Details");
+        result.getModelAndView();
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
+    // Event Form
+    //-----------------------------------------------------------------------//
 
-
+    /**
+     * Test the URI for creating a new Event with MockMvc.
+     * Using the MockMvc RequestPostProcessor, we set a valid {@link User} accessing
+     * the URI and returning the page.
+     */
     @Test
     @DisplayName("Show Event Form")
     public void showEventForm() throws Exception {
-        HtmlPage page = webClient.getPage("http://localhost/events/form");
+        MvcResult result = mockMvc.perform(get("/events/form")
+                // Simulate a valid security User:
+                .with(user(USER))
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("events/create"))
+                .andReturn();
 
-        String titleText = page.getTitleText();
-        assertThat(titleText).contains("Create Event");
-
-        String summary = page.getHtmlElementById("legend").getTextContent();
-        assertThat(summary).contains("Event Details");
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("Create New Event");
+        result.getModelAndView();
     }
 
     @Test
     @DisplayName("Show Event Form Auto Populate")
+    @WithMockUser
     public void showEventFormAutoPopulate() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
@@ -158,11 +275,11 @@ public class EventsControllerTests {
         assertThat(description).contains("This was auto-populated to save time creating a valid event.");
     }
 
-    //-------------------------------------------------------------------------
 
 
     @Test
     @DisplayName("Submit Event Form")
+    @WithMockUser
     public void createEvent() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
@@ -192,6 +309,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null email")
+    @WithMockUser
     public void createEvent_null_email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
@@ -219,11 +337,12 @@ public class EventsControllerTests {
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
         assertThat(errors).contains("Attendee Email is required");
-
     }
+
 
     @Test
     @DisplayName("Submit Event Form - not found email")
+    @WithMockUser
     public void createEvent_not_found_email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
@@ -259,6 +378,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null when")
+    @WithMockUser
     public void createEvent_null_when() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
@@ -296,6 +416,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null summary")
+    @WithMockUser
     public void createEvent_null_summary() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
@@ -333,6 +454,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null description")
+    @WithMockUser
     public void createEvent_null_description() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 

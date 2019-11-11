@@ -1,3 +1,3 @@
-# Chapter 02:01 #
+# Chapter 02.01 #
 
 >TBD
