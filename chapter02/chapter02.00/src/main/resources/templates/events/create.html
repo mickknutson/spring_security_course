@@ -1,6 +1,5 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title id="pageTitle">Create Event</title>
 
@@ -21,7 +20,7 @@
           th:action="@{/events/new}"
           th:object="${eventDto}" method="post" cssClass="form-horizontal">
 
-        <p id="globalErrors" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" cssClass="alert alert-error" />
+<!--        <p id="globalErrors" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" cssClass="alert alert-error" />-->
 
         <fieldset>
             <legend id="legend">Event Details</legend>

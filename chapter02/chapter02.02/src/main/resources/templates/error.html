@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>Error page</title>
     <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
@@ -14,7 +13,7 @@
 
         <!--<h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>-->
             <!--<p th:utext="${error}">Error java.lang.NullPointerException</p>-->
-        <h2 id="global" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" cssClass="alert alert-error" />
+<!--        <h2 id="global" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" cssClass="alert alert-error" />-->
 
         <a href="index.html" th:href="@{/index}">Back to Home Page</a>
     </div>

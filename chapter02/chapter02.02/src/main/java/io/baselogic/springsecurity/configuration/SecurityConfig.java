@@ -32,7 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
         am.inMemoryAuthentication()
-                .withUser("user1@example.com").password("{noop}user1").roles("USER");
+                .withUser("user").password("user").roles("USER")
+                .and().withUser("admin").password("admin").roles("ADMIN")
+                .and().withUser("user1@example.com").password("user1").roles("USER")
+                .and().withUser("admin1@example.com").password("admin1").roles("USER", "ADMIN")
+        ;
 
         log.info("***** Password for user 'user1@example.com' is 'user1'");
     }
@@ -65,27 +69,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                .antMatchers("/**").hasRole("USER")
 
-                // Matchers
-                .antMatchers("/**").access("hasRole('USER')")
+                .and().formLogin()
+                    .loginPage("/login/form")
+                    .loginProcessingUrl("/login")
+                    .failureUrl("/login/form?error")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
 
-                // Authentication type
+                .and().logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
+
                 .and().httpBasic()
 
-                // Form configuration
-                .and().formLogin()
-                .loginPage("/login/form")
-                .loginProcessingUrl("/login")
-                .failureUrl("/login/form?error")
-                .usernameParameter("username")
-                .passwordParameter("password")
-
-                // Logout configuration
-                .and().logout()
-
                 // CSRF is enabled by default, with Java Config
-                // Disable for now
-                .and().csrf().disable();
+                .and().csrf().disable()
+        ;
     }
 
 

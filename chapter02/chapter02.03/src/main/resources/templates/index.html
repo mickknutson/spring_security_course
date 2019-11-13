@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title id="pageTitle">Welcome to the blincEventManager!</title>
 
@@ -9,10 +8,19 @@
 <body>
 
 <div class="container">
+
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
-    <p id="chapterTitle"><b>Chapter 02.02:</b> Each chapter will have a slightly different summary depending on what has been done.</p>
-    <p id="summary">Below you can find some highlights about <strong>blincEventManager</strong>. Each chapter will have a slightly different summary depending on what will be done.</p>
+    <h1 id="chapterHeading">Chapter 02.03</h1>
+    <p id="chapterTitle">Each chapter will have a slightly different summary depending on what has been done.</p>
+    <h4 id="summary">Basic role based authorization.</h4>
+    <ul>
+        <li>Select a link that requires authentication and observe the new login page.</li>
+        <li>Try typing an invalid username/password and viewing the error message</li>
+        <li>Try logging in as an admin and viewing all events. Notice we are able to view all the events</li>
+        <li>Try logging in as a regular user and viewing all events (notice we get an access denied)</li>
+    </ul>
+    <hr />
     <ul>
         <li><a id="eventsLink" th:href="@{/events/}">All Events</a> - shows all events for all users. Once secured, this will only be viewable by administrators.</li>
         <li><a id="myEMLink" th:href="@{events/my}">My Events</a> - shows all events that <i>user1@example.com</i> is the owner or attendee. Once we apply security only a logged in user
@@ -34,7 +42,6 @@
     </ul>
 
 </div>
-
 
 <!--/*/ <th:block th:include="fragments/footer :: foot"></th:block> /*/-->
 

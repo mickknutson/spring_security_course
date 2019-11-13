@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -96,7 +97,7 @@ public class WelcomeControllerTests {
     @DisplayName("Mock Mvc Welcome Home Page")
     public void testHomePage() throws Exception {
 
-        mockMvc.perform(get("/"))
+        MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andReturn();
@@ -111,23 +112,15 @@ public class WelcomeControllerTests {
         String id = welcomePage.getTitleText();
         assertThat(id).isEqualTo("Welcome to the blincEventManager!");
 
-        String summary = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
-        assertThat(summary).contains("Chapter 01.00: ");
+        String chapterHeading = welcomePage.getHtmlElementById("chapterHeading").getTextContent();
+        assertThat(chapterHeading).contains("Chapter 01.01");
+
+        String chapterTitle = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
+        assertThat(chapterTitle).contains("Each chapter will have a slightly different summary depending on what has been done.");
+
+        String summary = welcomePage.getHtmlElementById("summary").getTextContent();
+        assertThat(summary).contains("Below you can find some highlights about <strong>blincEventManager</strong>.");
     }
-
-//    @Test
-//    @DisplayName("MockMvc Welcome Home Page")
-    public void testMessagePage() throws Exception {
-
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
-                .andExpect(xpath("//title[@id='pageTitle']").exists()
-//                .andExpect(xpath("//p[@id='pageTitle']").exists())
-//                .andExpect(content().string("Chapter 01.00")
-                );
-    }
-
 
     //-------------------------------------------------------------------------
 

@@ -8,7 +8,7 @@ This project is the example code for the Spring security course on Udemy.com
 * 5.00.00-SNAPSHOT
 * [BASE Logic Home](https://baselogic.io)
 * [Udemy Course Home](https://udemy.com)
-* [BitBucket](https://bitbucket.org/mickknutson/jbcpcalendar/)
+* [GitHub](https://github.com/mickknutson/spring_security_course)
 * [codecov](https://codecov.io/gh/mickknutson)
 
 This code has been developed in [Maven](http://maven.apache.org) and has
@@ -18,25 +18,23 @@ a sub-project for each chapter milestone.
 has been used as the view templating engine throughout the book
 
 
-### Section Overview
-***
+# Section Overview
 
 1. [Course Reference Project](chapter01/README.md)
 2. [Getting Started with Spring Security](chapter02/README.md)
 
 
-# Building and Running the code examples
+## Building and Running the code examples
 
-Code Software Requirements
-=
+##Code Software Requirements
+
 * JDK 8+
 * Maven 3.x
 * IntelliJ 2019+
 * Eclipse Neon+
 * Lombok Plugin
 
-Good reference to setup Lombok for Intellij and Eclipse IDE:
--
+## Good reference to setup Lombok for Intellij and Eclipse IDE:
 [https://www.baeldung.com/lombok-ide](https://www.baeldung.com/lombok-ide)
 
 
@@ -71,8 +69,9 @@ and the console can be accessed via the following URL:
 * Integrate CircleCI to [FOSSA](https://fossa.io/docs/integrating-tools/circleci/)
 * fix favicon.ico not rendering
 * Refactor WebMvcConfig to remove WebMvcConfigurerAdapter
+* Create new banners at [http://patorjk.com/software/taag/#p=display&h=0&f=Big&t=Event%20Manager%20%0AChapter02]
 
 
 
-## License
+# License
 Code is under the [BSD 2-clause "Simplified" License](LICENSE.txt).

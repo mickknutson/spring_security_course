@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -85,7 +86,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events")
     public void allEventsPage() throws Exception {
-        mockMvc.perform(get("/events/"))
+        MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/list"))
                 .andReturn();
@@ -99,10 +100,10 @@ public class EventsControllerTests {
      * Test the URI for Current User Events with MockMvc.
      */
     @Test
-    @DisplayName("All Events: UnAuthorized - MockMvc-RequestPostProcessor")
+    @DisplayName("All Events: UnAuthorized - WithNoUser - RequestPostProcessor")
     public void testCurrentUsersEventsPage() throws Exception {
 
-        mockMvc.perform(get("/events/my"))
+        MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/my"))
                 .andReturn();
@@ -133,8 +134,8 @@ public class EventsControllerTests {
      * Test the URI for showing Event details with MockMvc.
      */
     @Test
-    @DisplayName("Show Event Details")
-    public void testShowEvent_htmlUnit() throws Exception {
+    @DisplayName("Show Event Details - user1")
+    public void testShowEvent_user1() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/100");
 
         String id = page.getTitleText();
@@ -311,7 +312,7 @@ public class EventsControllerTests {
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-        log.info("***: {}", pageAfterClick.asXml());
+//        log.info("***: {}", pageAfterClick.asXml());
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
         assertThat(errors).contains("Event Date/Time is required");
@@ -348,7 +349,7 @@ public class EventsControllerTests {
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-        log.info("***: {}", pageAfterClick.asXml());
+//        log.info("***: {}", pageAfterClick.asXml());
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
         assertThat(errors).contains("Summary is required");
@@ -385,7 +386,7 @@ public class EventsControllerTests {
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-        log.info("***: {}", pageAfterClick.asXml());
+//        log.info("***: {}", pageAfterClick.asXml());
 
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();

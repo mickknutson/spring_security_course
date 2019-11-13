@@ -100,7 +100,7 @@ public class EventsController {
 
         User attendee = eventService.findUserByEmail(eventDto.getAttendeeEmail());
         if (attendee == null) {
-            result.rejectValue("attendeeEmail", "attendeeEmail.missing");
+            result.rejectValue("attendeeEmail", "event.new.attendeeEmail.missing");
         }
 
         if (result.hasErrors()) {

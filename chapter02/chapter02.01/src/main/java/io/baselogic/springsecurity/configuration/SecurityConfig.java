@@ -33,8 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         am.inMemoryAuthentication()
                 .withUser("user1@example.com").password("{noop}user1").roles("USER");
-
-        log.info("***** Password for user 'user1@example.com' is 'user1'");
     }
 
     /**

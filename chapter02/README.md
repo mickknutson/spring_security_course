@@ -1,9 +1,7 @@
-# Chapter 02 #
-
-Getting Started with Spring Security
+# Chapter 02: Getting Started with Spring Security
 
 
-# Section Details
+## Section Details
 
 In this chapter, we'll apply a minimal Spring Security configuration to start addressing our
 first finding—inadvertent privilege escalation due to a lack of URL protection, and general
@@ -21,17 +19,65 @@ authentication from the security audit discussed in Chapter 1.
 
 * Determining the user's default location after login, based on their role
 
-# Section Chapters
+## Section Chapters
 
-#### Chapter 02.00:
->Base line Starting from chapter01.00
+### Chapter 02.00:
+> * Base line Starting from chapter01.00
 
 ---
-#### Chapter 02.01:
+
+### Chapter 02.01:
+> * Add Security and testing dependencies.
+> * BASIC Authentication enabled by default
+
+  **Logging username:** *user*
+  
+  **Password:** *\[dynamically generated\]*
+
+---
+
+### Chapter 02.02:
 > * Add Security and testing dependencies.
 
-  Logging username: *user1@example.com*
+  **Logging username:** *user*
   
-  Password: *user1*
+  **Password:** *\[dynamically generated\]*
+
+
+---
+
+### Chapter 02.03:
+> * Add Security and testing dependencies.
+
+  **Logging username:** *user1@example.com*
+  
+  **Password:** *user1*
+
+---
+
+### Chapter 02.04:
+> * Add Security and testing dependencies.
+
+  **Logging username:** *user1@example.com*
+  
+  **Password:** *user1*
+
+---
+
+### Chapter 02.05:
+> * Add Security and testing dependencies.
+
+  **Logging username:** *user1@example.com*
+  
+  **Password:** *user1*
+
+---
+
+### Chapter 02.06:
+> * Add Security and testing dependencies.
+
+  **Logging username:** *user1@example.com*
+  
+  **Password:** *user1*
 
 ---

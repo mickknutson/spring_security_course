@@ -9,5 +9,5 @@
     <root level="info">
         <appender-ref ref="STDOUT"/>
     </root>
-    <logger name="com.packtpub.testloglevel" level="info"/>
+    <logger name="io.baselogic.testloglevel" level="info"/>
 </configuration>

@@ -104,8 +104,14 @@ public class WelcomeControllerTests {
         String id = welcomePage.getTitleText();
         assertThat(id).isEqualTo("Welcome to the blincEventManager!");
 
-        String summary = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
-        assertThat(summary).contains("Chapter 02.02: ");
+        String chapterHeading = welcomePage.getHtmlElementById("chapterHeading").getTextContent();
+        assertThat(chapterHeading).contains("Chapter 02.02");
+
+        String chapterTitle = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
+        assertThat(chapterTitle).contains("The page isn't redirecting properly!");
+
+        String summary = welcomePage.getHtmlElementById("summary").getTextContent();
+        assertThat(summary).contains("Below you can find some highlights about blincEventManager.");
     }
 
     //-------------------------------------------------------------------------

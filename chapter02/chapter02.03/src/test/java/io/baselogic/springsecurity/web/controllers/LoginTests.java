@@ -16,6 +16,7 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -59,8 +60,8 @@ public class LoginTests {
     @WithAnonymousUser
     public void testHomePage() throws Exception {
 
-        mockMvc.perform(get("/"))
-                .andExpect(status().isFound())
+        MvcResult result = mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
 //                .andExpect(view().name("index"))
                 .andReturn();
     }
