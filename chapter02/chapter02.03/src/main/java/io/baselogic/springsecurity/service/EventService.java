@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.service;
 
-import io.baselogic.springsecurity.domain.User;
 import io.baselogic.springsecurity.domain.Event;
+import io.baselogic.springsecurity.domain.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.dao;
 
-import io.baselogic.springsecurity.domain.User;
 import io.baselogic.springsecurity.domain.Event;
+import io.baselogic.springsecurity.domain.User;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

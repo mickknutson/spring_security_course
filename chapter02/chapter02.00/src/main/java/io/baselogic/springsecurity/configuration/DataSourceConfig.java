@@ -2,25 +2,12 @@ package io.baselogic.springsecurity.configuration;
 
 import io.baselogic.springsecurity.dao.EventRowMapper;
 import io.baselogic.springsecurity.dao.UserRowMapper;
-import io.baselogic.springsecurity.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.h2.server.web.WebServlet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.sql.SQLException;
 
 /**
  * Database Configuration

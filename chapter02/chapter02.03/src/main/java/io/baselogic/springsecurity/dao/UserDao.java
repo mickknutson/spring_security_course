@@ -3,7 +3,6 @@ package io.baselogic.springsecurity.dao;
 import io.baselogic.springsecurity.domain.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;

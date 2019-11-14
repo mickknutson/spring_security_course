@@ -1,31 +1,24 @@
 package io.baselogic.springsecurity.dao;
 
-import io.baselogic.springsecurity.domain.User;
 import io.baselogic.springsecurity.domain.Event;
-
+import io.baselogic.springsecurity.domain.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
-
-
-// Junit 5: -----------------------------------------------------------------//
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ConstraintViolationException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.*;
+// Junit 5: -----------------------------------------------------------------//
 
 // Assert-J
 // --> assertThat(result.size()).isGreaterThan(0);

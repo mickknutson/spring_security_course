@@ -1,10 +1,9 @@
 package io.baselogic.springsecurity.web.controllers;
 
-import java.util.Calendar;
-
-import javax.validation.Valid;
-
 import io.baselogic.springsecurity.domain.Event;
+import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.service.EventService;
+import io.baselogic.springsecurity.service.UserContext;
 import io.baselogic.springsecurity.web.model.EventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import io.baselogic.springsecurity.domain.User;
-import io.baselogic.springsecurity.service.EventService;
-import io.baselogic.springsecurity.service.UserContext;
+import javax.validation.Valid;
+import java.util.Calendar;
 
 @Controller
 @RequestMapping("/events")

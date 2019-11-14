@@ -3,8 +3,6 @@ package io.baselogic.springsecurity.service;
 import io.baselogic.springsecurity.domain.User;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  * Manages the current {@link User}. This demonstrates how in larger applications it is good to abstract out
