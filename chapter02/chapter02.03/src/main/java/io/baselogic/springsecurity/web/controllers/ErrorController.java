@@ -16,10 +16,14 @@ public class ErrorController {
 
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ModelAndView exception_INTERNAL_SERVER_ERROR(final Throwable throwable, final Model model) {
+    public ModelAndView exception_INTERNAL_SERVER_ERROR(final Throwable throwable) {
 
-        log.error("Exception during execution of SpringSecurity application: {}", throwable.getMessage(), throwable);
-        String errorMessage = (throwable != null ? throwable.getMessage() : "Unknown error");
+        String errorMessage = "Unknown error";
+
+        if(throwable != null){
+            log.error("Exception during execution of SpringSecurity application: {}", throwable.getMessage(), throwable);
+            errorMessage = throwable.getMessage();
+        }
 
         return new ModelAndView("error", "error", errorMessage);
     }

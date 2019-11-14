@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -78,28 +77,36 @@ public class WelcomeControllerTests {
         webClient.getOptions().setCssEnabled(false);
     }
 
+//    @BeforeEach
+//    void setup(WebApplicationContext context) {
+//        webClient = MockMvcWebClientBuilder
+//                // demonstrates applying a MockMvcConfigurer (Spring Security)
+//                .webAppContextSetup(context, springSecurity())
+//                // for illustration only - defaults to ""
+//                .contextPath("")
+//                // By default MockMvc is used for localhost only;
+//                // the following will use MockMvc for example.com and example.org as well
+//                // .useMockMvcForHosts("baselogic.io","baselogic.com")
+//                .build();
+//    }
+
 
     //-------------------------------------------------------------------------
 
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
-    @WithMockUser
     public void testHomePage() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
+                .andExpect(status().isUnauthorized())
                 .andReturn();
     }
 
     @Test
     @DisplayName("HTML Unit Welcome Home Page")
-    @WithMockUser
     public void testHomePage_htmlUnit() throws Exception {
 
         HtmlPage welcomePage = webClient.getPage("http://localhost/");
-
-//        assertThat(welcomePage.getUrl().toString()).endsWith("/messages/123");
 
         String id = welcomePage.getTitleText();
         assertThat(id).isEqualTo("Welcome to the blincEventManager!");

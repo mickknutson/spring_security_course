@@ -2,11 +2,8 @@ package io.baselogic.springsecurity.web.controllers;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
-import io.baselogic.springsecurity.service.DefaultEventServiceTests;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
@@ -163,9 +160,6 @@ public class EventsControllerTests {
 
         String titleText = page.getTitleText();
         assertThat(titleText).contains("Create Event");
-
-        String summary = page.getHtmlElementById("legend").getTextContent();
-        assertThat(summary).contains("Event Details");
     }
 
     @Test
@@ -173,7 +167,7 @@ public class EventsControllerTests {
     public void showEventFormAutoPopulate() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("auto");
+        HtmlButton button =  page.getHtmlElementById("auto");
         HtmlForm form =  page.getHtmlElementById("newEventForm");
 //        log.info("***: {}", form.asXml());
 
@@ -185,7 +179,7 @@ public class EventsControllerTests {
         String summary = pageAfterClick.getHtmlElementById("summary").asXml();
         assertThat(summary).contains("A new event....");
 
-        String description = pageAfterClick.getHtmlElementById("description").getTextContent();
+        String description = pageAfterClick.getHtmlElementById("description").asXml();
         assertThat(description).contains("This was auto-populated to save time creating a valid event.");
     }
 
@@ -206,10 +200,10 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
 
         HtmlPage pageAfterClick = button.click();
@@ -235,10 +229,10 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 
@@ -267,10 +261,10 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 
@@ -302,10 +296,10 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 
@@ -339,10 +333,10 @@ public class EventsControllerTests {
 //        HtmlInput summary = page.getHtmlElementById("summary");
 //        summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 
@@ -376,10 +370,10 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-//        HtmlTextArea description = page.getHtmlElementById("description");
-//        description.setText("Test Description");
+//        HtmlInput description = page.getHtmlElementById("description");
+//        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 

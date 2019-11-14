@@ -77,6 +77,20 @@ public class WelcomeControllerTests {
         webClient.getOptions().setCssEnabled(false);
     }
 
+//    @BeforeEach
+//    void setup(WebApplicationContext context) {
+//        webClient = MockMvcWebClientBuilder
+//                // demonstrates applying a MockMvcConfigurer (Spring Security)
+//                .webAppContextSetup(context, springSecurity())
+//                // for illustration only - defaults to ""
+//                .contextPath("")
+//                // By default MockMvc is used for localhost only;
+//                // the following will use MockMvc for example.com and example.org as well
+//                // .useMockMvcForHosts("baselogic.io","baselogic.com")
+//                .build();
+//    }
+
+
     //-------------------------------------------------------------------------
 
     @Test
@@ -94,8 +108,6 @@ public class WelcomeControllerTests {
 
         HtmlPage welcomePage = webClient.getPage("http://localhost/");
 
-//        assertThat(welcomePage.getUrl().toString()).endsWith("/messages/123");
-
         String id = welcomePage.getTitleText();
         assertThat(id).isEqualTo("Welcome to the blincEventManager!");
 
@@ -108,7 +120,6 @@ public class WelcomeControllerTests {
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
         assertThat(summary).contains("Below you can find some highlights about blincEventManager.");
     }
-
 
     //-------------------------------------------------------------------------
 

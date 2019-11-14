@@ -74,14 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
 
-//                .antMatchers("/resources/**").permitAll()
-//                .antMatchers("/css/**").permitAll() //Adding this line solved it
-//                .antMatchers("/static/**").permitAll() //Adding this line solved it
-//                .antMatchers("/webjars/**").permitAll() //Adding this line solved it
-
                 .antMatchers("/").hasAnyRole("ANON", "USER")
-//                .antMatchers("/login/*").hasAnyRole("ANON", "USER")
-//                .antMatchers("/logout/*").hasAnyRole("ANON", "USER")
+                .antMatchers("/login/*").hasAnyRole("ANON", "USER")
+                .antMatchers("/logout/*").hasAnyRole("ANON", "USER")
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .antMatchers("/events/").hasRole("ADMIN")
                 .antMatchers("/**").hasRole("USER")
@@ -89,17 +84,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin()
                     .loginPage("/login/form")
                     .loginProcessingUrl("/login")
-                    .failureUrl("/login/form?error")
+                    .failureUrl("/login/form?error=login_error")
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .permitAll()
 
                 .and().logout()
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login/form?logout")
+                    .logoutSuccessUrl("/login/form?logout=logout")
                     .permitAll()
 
+                // BASIC Authentication Configuration
 //                .and().httpBasic()
+
+                // Anonymous Configuration
                 .and().anonymous().authorities("ANON")
 
                 // CSRF is enabled by default, with Java Config

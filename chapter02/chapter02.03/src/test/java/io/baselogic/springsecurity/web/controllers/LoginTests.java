@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.web.controllers;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import io.baselogic.springsecurity.service.DefaultEventServiceTests;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,9 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
+@Slf4j
 public class LoginTests {
-
-    private static final Logger log = LoggerFactory.getLogger(DefaultEventServiceTests.class);
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,16 +53,127 @@ public class LoginTests {
         webClient.getOptions().setCssEnabled(false);
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
+    // User Login
+    //-----------------------------------------------------------------------//
 
     @Test
     @DisplayName("Custom Login Page")
-    @WithAnonymousUser
-    public void testHomePage() throws Exception {
+    public void login() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/"))
+        MvcResult result = mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
-//                .andExpect(view().name("index"))
+                .andExpect(view().name("login"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Custom Login Page - AnonymousUser")
+    @WithAnonymousUser
+    public void login_With_AnonymousUser() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/login"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Custom Login Page - user1")
+    @WithMockUser("user1@example.com")
+    public void login_with_user1() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/login"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Custom Login Page - user1")
+    @WithMockUser(username="user1@example.com", roles={"USER"})
+    public void login_with_user1_and_roles() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/login"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Custom Login Page - admin1")
+    @WithMockUser("admin1@example.com")
+    public void login_admin1() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/login"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Custom Login Page - admin1")
+    @WithMockUser(username="admin1@example.com", roles={"USER","ADMIN"})
+    public void login_admin1_and_roles() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/login"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"))
+                .andReturn();
+    }
+
+    //-----------------------------------------------------------------------//
+    // Login Variation
+    //-----------------------------------------------------------------------//
+
+    @Test
+    @DisplayName("Custom Login Page - with error param")
+    public void login_with_error_param() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/login")
+                .param("error", "testError")
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Custom Login Page - with error param")
+    public void login_with_null_error_param() throws Exception {
+        String value = null;
+
+        MvcResult result = mockMvc.perform(get("/login")
+                .param("error", value)
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"))
+                .andReturn();
+    }
+
+
+    @Test
+    @DisplayName("Custom Login Page - with logout param")
+    public void login_with_logout_param() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/login")
+                .param("logout", "logout")
+        )
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+
+    @Test
+    @DisplayName("Custom Login Page - with logout param")
+    public void login_with_null_logout_param() throws Exception {
+
+        String value = null;
+
+        MvcResult result = mockMvc.perform(get("/login")
+                .param("logout", value)
+        )
+                .andExpect(status().isOk())
                 .andReturn();
     }
 

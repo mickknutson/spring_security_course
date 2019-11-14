@@ -64,8 +64,8 @@ and the console can be accessed via the following URL:
 # TODO's
 
 * Get project to build in Circle-CI
-* Get WebDriver tests to work.
-* Need to enable SonarQube for all modules
+* Get Selenium / WebDriver tests to work.
+* Need to enable SonarCloud for all modules
 * Integrate CircleCI to [FOSSA](https://fossa.io/docs/integrating-tools/circleci/)
 * fix favicon.ico not rendering
 * Refactor WebMvcConfig to remove WebMvcConfigurerAdapter

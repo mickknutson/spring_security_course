@@ -100,6 +100,20 @@ public class EventsControllerTests {
 
     /**
      * Test the URI for All Events.
+     */
+    @Test
+    @DisplayName("MockMvc All Events")
+    @WithMockUser
+    public void allEventsPage() throws Exception {
+        MvcResult result = mockMvc.perform(get("/events/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("events/list"))
+                .andReturn();
+    }
+
+
+    /**
+     * Test the URI for All Events.
      * In this test, BASIC Authentication is activated through
      * auto configuration so there is now a 401 Unauthorized redirect.
      */
@@ -122,7 +136,7 @@ public class EventsControllerTests {
      * the URI and returning the All Events page.
      */
     @Test
-    @DisplayName("All Events: UnAuthorized - WithUser - RequestPostProcessor")
+    @DisplayName("All Events: Authorized - WithUser - RequestPostProcessor")
     public void allEventsPage_not_authenticated__WithUser_rpp() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/")
@@ -267,7 +281,7 @@ public class EventsControllerTests {
     public void showEventFormAutoPopulate() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("auto");
+        HtmlButton button =  page.getHtmlElementById("auto");
         HtmlForm form =  page.getHtmlElementById("newEventForm");
 //        log.info("***: {}", form.asXml());
 
@@ -279,7 +293,7 @@ public class EventsControllerTests {
         String summary = pageAfterClick.getHtmlElementById("summary").asXml();
         assertThat(summary).contains("A new event....");
 
-        String description = pageAfterClick.getHtmlElementById("description").getTextContent();
+        String description = pageAfterClick.getHtmlElementById("description").asXml();
         assertThat(description).contains("This was auto-populated to save time creating a valid event.");
     }
 
@@ -303,10 +317,10 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
 
         HtmlPage pageAfterClick = button.click();
@@ -333,17 +347,17 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").asXml();
         assertThat(errors).contains("Attendee Email is required");
     }
 
@@ -366,17 +380,17 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").asXml();
         assertThat(errors).contains("Could not find a user for the provided Attendee Email");
 
     }
@@ -402,19 +416,19 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-//        log.info("***: {}", pageAfterClick.asXml());
+        log.info("***: {}", pageAfterClick.asXml());
 
-        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").asXml();
         assertThat(errors).contains("Event Date/Time is required");
 
     }
@@ -440,19 +454,19 @@ public class EventsControllerTests {
 //        HtmlInput summary = page.getHtmlElementById("summary");
 //        summary.setValueAttribute("Test Summary");
 
-        HtmlTextArea description = page.getHtmlElementById("description");
-        description.setText("Test Description");
+        HtmlInput description = page.getHtmlElementById("description");
+        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-//        log.info("***: {}", pageAfterClick.asXml());
+        log.info("***: {}", pageAfterClick.asXml());
 
-        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").asXml();
         assertThat(errors).contains("Summary is required");
 
     }
@@ -478,20 +492,20 @@ public class EventsControllerTests {
         HtmlInput summary = page.getHtmlElementById("summary");
         summary.setValueAttribute("Test Summary");
 
-//        HtmlTextArea description = page.getHtmlElementById("description");
-//        description.setText("Test Description");
+//        HtmlInput description = page.getHtmlElementById("description");
+//        description.setValueAttribute("Test Description");
 
-        HtmlSubmitInput button =  page.getHtmlElementById("submit");
+        HtmlButton button =  page.getHtmlElementById("submit");
 
         HtmlPage pageAfterClick = button.click();
 
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-//        log.info("***: {}", pageAfterClick.asXml());
+        log.info("***: {}", pageAfterClick.asXml());
 
 
-        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").asXml();
         assertThat(errors).contains("Description is required");
 
     }

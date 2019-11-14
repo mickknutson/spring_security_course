@@ -12,11 +12,11 @@
 
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
-    <h1 id="chapterHeading">Login with Username and Password</h1>
-    <p id="chapterTitle">Login to the Event Manager.</p>
+    <h1 id="chapterHeading">Login to the Event Manager</h1>
+    <p id="chapterTitle">Login with Username and Password.</p>
     <h4 id="summary">Enter credentials below:</h4>
 
-    <form th:action="@{/login}" method="POST" class="form-horizontal">
+    <form th:action="@{/login}" method="POST" class="form-horizontal"  cssClass="error">
 
         <div th:if="${param.error != null}" class="alert alert-danger">
             <strong>Failed to login.</strong>
@@ -29,12 +29,27 @@
             You have been logged out.
         </div>
 
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" autofocus="autofocus"/>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password"/>
-        <div class="form-actions">
-            <input id="submit" class="btn btn-outline-dark" name="submit" type="submit" value="Login"/>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="username">Username</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="username" name="username" autofocus="autofocus"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="password">Password</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="password" id="password" name="password"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <button type="submit" class="btn btn-primary" name="submit" >Login</button>
+            </div>
         </div>
     </form>
 

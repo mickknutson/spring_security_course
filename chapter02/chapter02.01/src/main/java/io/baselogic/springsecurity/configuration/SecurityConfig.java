@@ -67,11 +67,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Matchers
                 .antMatchers("/**").access("hasRole('USER')")
 
-                // Authentication type
+                // BASIC Authentication Configuration
                 .and().httpBasic()
 
                 // Form configuration
-
                 .and().formLogin()
 
                 // Logout configuration
