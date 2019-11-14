@@ -37,12 +37,13 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      # run tests!
-      - run: mvn integration-test
+      - run:
+          name: Run Maven Build and Install
+          command: mvn install
 
       - run:
           name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar
+          command: mvn sonar:sonar -e
 
 
 workflows:

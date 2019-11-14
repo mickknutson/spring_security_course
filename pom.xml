@@ -40,7 +40,8 @@
 
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
 
-        <sonar.projectKey>mickknutson_spring_boot_course</sonar.projectKey>
+        <sonar.projectKey>mickknutson_spring_security_course</sonar.projectKey>
+        <sonar.moduleKey>${artifactId}</sonar.moduleKey>
         <sonar.organization>mickknutson-github</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
