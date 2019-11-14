@@ -55,13 +55,6 @@ public class DataSourceConfig {
         return "SELECT id, email, password, first_name, last_name FROM users WHERE ";
     }
 
-
-
-//    @Bean
-//    public MethodValidationPostProcessor methodValidationPostProcessor() {
-//        return new MethodValidationPostProcessor();
-//    }
-
     //-------------------------------------------------------------------------
 
 

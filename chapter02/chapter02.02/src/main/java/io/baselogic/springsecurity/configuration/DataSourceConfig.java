@@ -56,12 +56,6 @@ public class DataSourceConfig {
     }
 
 
-
-//    @Bean
-//    public MethodValidationPostProcessor methodValidationPostProcessor() {
-//        return new MethodValidationPostProcessor();
-//    }
-
     //-------------------------------------------------------------------------
 
 

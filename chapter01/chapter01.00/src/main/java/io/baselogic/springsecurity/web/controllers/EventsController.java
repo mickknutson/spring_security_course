@@ -92,7 +92,7 @@ public class EventsController {
         log.info("****** createEvent: {} *****", eventDto);
 
         if (result.hasErrors()) {
-            result.getAllErrors().forEach( (e) ->{
+            result.getAllErrors().forEach( e ->{
                 log.info("error: {}", e);
             });
             return "events/create";

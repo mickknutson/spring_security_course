@@ -13,7 +13,7 @@ public class ErrorController {
 
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ModelAndView exception_INTERNAL_SERVER_ERROR(final Throwable throwable) {
+    public ModelAndView handleInternalServerError(final Throwable throwable) {
 
         String errorMessage = "Unknown error";
 

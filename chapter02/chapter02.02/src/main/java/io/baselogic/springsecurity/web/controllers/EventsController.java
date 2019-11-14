@@ -90,7 +90,7 @@ public class EventsController {
                               RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
-            result.getAllErrors().forEach( (e) ->{
+            result.getAllErrors().forEach( e ->{
                 log.info("error: {}", e);
             });
             return "events/create";

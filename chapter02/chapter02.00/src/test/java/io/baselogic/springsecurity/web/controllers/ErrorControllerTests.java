@@ -53,11 +53,11 @@ public class ErrorControllerTests {
      */
     @Test
     @DisplayName("exception_INTERNAL_SERVER_ERROR")
-    public void exception_INTERNAL_SERVER_ERROR() throws Exception {
+    public void handleInternalServerError() throws Exception {
 
         Throwable throwable = new RuntimeException("Foo Bar Exception");
 
-        ModelAndView response = controller.exception_INTERNAL_SERVER_ERROR(throwable);
+        ModelAndView response = controller.handleInternalServerError(throwable);
 
         assertThat(response.getViewName()).isEqualTo("error");
         assertThat(response.getModel().get("error")).isEqualTo("Foo Bar Exception");
@@ -67,7 +67,7 @@ public class ErrorControllerTests {
     @DisplayName("exception_INTERNAL_SERVER_ERROR with null exception")
     public void exception_INTERNAL_SERVER_ERROR__null_exception() throws Exception {
 
-        ModelAndView response = controller.exception_INTERNAL_SERVER_ERROR(null);
+        ModelAndView response = controller.handleInternalServerError(null);
 
         assertThat(response.getViewName()).isEqualTo("error");
         assertThat(response.getModel().get("error")).isEqualTo("Unknown error");
