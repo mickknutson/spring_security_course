@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<div class="container">
+
+    <div th:fragment="messages">
+        <!-- Standard messages -->
+        <!--<div th:class="${#vars['error'] != null} ? 'alert alert-danger' : 'alert alert-success'">-->
+        <div th:if="${#vars['message'] != null}" th:unless="${#vars['error'] != null}" class="alert alert-success">
+            <span th:text="${#vars['message']}"></span>
+        </div>
+        <div th:if="${#vars['error'] != null}" class="alert alert-danger">
+            <span th:text="${#vars['error']}"></span>
+        </div>
+
+        <span th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}">
+<span th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">
+Invalid credentials</span>
+</span>
+
+    </div>
+</div>
+
+</body>
+</html>

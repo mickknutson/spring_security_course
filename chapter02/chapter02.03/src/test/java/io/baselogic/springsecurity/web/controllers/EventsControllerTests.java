@@ -31,13 +31,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-// Spring Test: -------------------------------------------------------------//
-// Junit 5: -----------------------------------------------------------------//
-// Assert-J: ----------------------------------------------------------------//
-// --> assertThat(result.size()).isGreaterThan(0);
-// http://joel-costigliola.github.io/assertj/index.html
-
-
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -88,12 +81,13 @@ public class EventsControllerTests {
      * Test the URI for All Events.
      */
     @Test
-    @DisplayName("MockMvc All Events")
+    @DisplayName("MockMvc All Events - user1")
     @WithMockUser("user1@example.com")
     public void allEvents_not_authenticated__WithUser1() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
+
     }
 
 
@@ -107,6 +101,7 @@ public class EventsControllerTests {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
+
     }
 
 
@@ -120,6 +115,7 @@ public class EventsControllerTests {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
+
     }
 
 
@@ -133,7 +129,6 @@ public class EventsControllerTests {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isOk())
                 .andReturn();
-
 
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("All Event");

@@ -77,24 +77,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/events/").hasRole("ADMIN")
                 .antMatchers("/**").hasRole("USER")
 
+                // The default AccessDeniedException
+                .and().exceptionHandling().accessDeniedPage("/errors/403")
+
                 .and().formLogin()
                     .loginPage("/login/form")
                     .loginProcessingUrl("/login")
-                    .failureUrl("/login/form?error=login_error")
+                    .failureUrl("/login/form?error")
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .permitAll()
 
                 .and().logout()
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login/form?logout=logout")
+                    .logoutSuccessUrl("/login/form?logout")
                     .permitAll()
 
-                // BASIC Authentication Configuration
-//                .and().httpBasic()
-
-                // Anonymous Configuration
-                .and().anonymous().authorities("ANON")
+                .and().anonymous()
 
                 // CSRF is enabled by default, with Java Config
                 .and().csrf().disable()
@@ -125,5 +124,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**")
         ;
     }
+
 
 } // The End...
