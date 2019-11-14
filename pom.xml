@@ -39,6 +39,10 @@
 <!--        <webjarsLocator.version>0.32-1</webjarsLocator.version>-->
 
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+
+        <sonar.projectKey>mickknutson_spring_boot_course</sonar.projectKey>
+        <sonar.organization>mickknutson-github</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
 

@@ -39,3 +39,16 @@ jobs:
 
       # run tests!
       - run: mvn integration-test
+
+      - run:
+          name: Analyze on SonarCloud
+          command: mvn verify sonar:sonar
+
+
+workflows:
+  main:
+    jobs:
+      - build:
+          context: SonarCloud
+
+# The End...
