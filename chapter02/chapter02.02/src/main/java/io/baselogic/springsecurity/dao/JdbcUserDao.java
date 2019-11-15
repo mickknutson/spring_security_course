@@ -36,7 +36,7 @@ public class JdbcUserDao implements UserDao {
     @Autowired
     public JdbcUserDao(final @NotNull NamedParameterJdbcTemplate jdbcTemplate,
                        final UserRowMapper userRowMapper,
-                       final @Qualifier("UserQuery") String userQuery) {
+                       final @Qualifier("userQuery") String userQuery) {
         this.jdbcTemplate = jdbcTemplate;
         this.userRowMapper = userRowMapper;
         this.USER_QUERY = userQuery;

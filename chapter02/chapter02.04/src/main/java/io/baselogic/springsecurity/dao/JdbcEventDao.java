@@ -37,7 +37,7 @@ public class JdbcEventDao implements EventDao {
 
     public JdbcEventDao(final @NotNull NamedParameterJdbcTemplate jdbcTemplate,
                         final EventRowMapper eventRowMapper,
-                        final @Qualifier("EventQuery") String eventQuery) {
+                        final @Qualifier("eventQuery") String eventQuery) {
         this.jdbcTemplate = jdbcTemplate;
         this.eventRowMapper = eventRowMapper;
         this.EVENT_QUERY = eventQuery;

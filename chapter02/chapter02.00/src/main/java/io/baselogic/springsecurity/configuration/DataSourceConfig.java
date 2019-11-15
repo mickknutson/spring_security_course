@@ -42,7 +42,7 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public String EventQuery(){
+    public String eventQuery(){
          return "select e.id, e.summary, e.description, e.event_date, " +
                 "owner.id as owner_id, owner.email as owner_email, owner.password as owner_password, owner.first_name as owner_first_name, owner.last_name as owner_last_name, " +
                 "attendee.id as attendee_id, attendee.email as attendee_email, attendee.password as attendee_password, attendee.first_name as attendee_first_name, attendee.last_name as attendee_last_name " +
@@ -51,7 +51,7 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public String UserQuery(){
+    public String userQuery(){
         return "SELECT id, email, password, first_name, last_name FROM users WHERE ";
     }
 
