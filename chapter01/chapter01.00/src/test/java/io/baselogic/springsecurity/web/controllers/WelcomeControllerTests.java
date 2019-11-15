@@ -71,11 +71,15 @@ public class WelcomeControllerTests {
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
     public void testHomePage() throws Exception {
-
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"))
                 .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("Welcome to the blincEventManager!");
+        assertThat(content).contains("Chapter 01.00");
+
+
     }
 
     @Test

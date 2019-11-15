@@ -70,9 +70,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
 
-                .antMatchers("/").hasAnyRole("ANON", "USER")
-                .antMatchers("/login/*").hasAnyRole("ANON", "USER")
-                .antMatchers("/logout/*").hasAnyRole("ANON", "USER")
+                .antMatchers("/").hasAnyRole("ANONYMOUS", "USER")
+                .antMatchers("/login/*").hasAnyRole("ANONYMOUS", "USER")
+                .antMatchers("/logout/*").hasAnyRole("ANONYMOUS", "USER")
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .antMatchers("/events/").hasRole("ADMIN")
                 .antMatchers("/**").hasRole("USER")
@@ -98,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // CSRF is enabled by default, with Java Config
                 .and().csrf().disable()
                     .cors().disable()
-                    .headers().disable()
+//                    .headers().disable()
         ;
     }
 

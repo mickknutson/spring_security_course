@@ -20,13 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// Spring Test: -------------------------------------------------------------//
-// Junit 5: -----------------------------------------------------------------//
-// Assert-J: ----------------------------------------------------------------//
-// --> assertThat(result.size()).isGreaterThan(0);
-// http://joel-costigliola.github.io/assertj/index.html
-
-
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -48,29 +41,16 @@ public class WelcomeControllerTests {
         webClient.getOptions().setCssEnabled(false);
     }
 
-//    @BeforeEach
-//    void setup(WebApplicationContext context) {
-//        webClient = MockMvcWebClientBuilder
-//                // demonstrates applying a MockMvcConfigurer (Spring Security)
-//                .webAppContextSetup(context, springSecurity())
-//                // for illustration only - defaults to ""
-//                .contextPath("")
-//                // By default MockMvc is used for localhost only;
-//                // the following will use MockMvc for example.com and example.org as well
-//                // .useMockMvcForHosts("baselogic.io","baselogic.com")
-//                .build();
-//    }
-
 
     //-------------------------------------------------------------------------
 
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
     public void testHomePage() throws Exception {
-
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
+
     }
 
     @Test

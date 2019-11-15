@@ -54,7 +54,7 @@ public class WelcomeControllerTests {
 
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the blincEventManager!");
-        assertThat(content).contains("Chapter 02.04");
+        assertThat(content).contains("Chapter 02.05");
 
 
     }
@@ -69,13 +69,13 @@ public class WelcomeControllerTests {
         assertThat(id).isEqualTo("Welcome to the blincEventManager!");
 
         String chapterHeading = welcomePage.getHtmlElementById("chapterHeading").getTextContent();
-        assertThat(chapterHeading).contains("Chapter 02.04");
+        assertThat(chapterHeading).contains("Chapter 02.05");
 
         String chapterTitle = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
         assertThat(chapterTitle).contains("Each chapter will have a slightly different summary depending on what has been done.");
 
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("Expression based authorization");
+        assertThat(summary).contains("Conditionally displaying authentication information");
     }
 
     //-------------------------------------------------------------------------

@@ -30,10 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
         am.inMemoryAuthentication()
-                .withUser("user").password("user").roles("USER")
-                .and().withUser("admin").password("admin").roles("ADMIN")
-                .and().withUser("user1@example.com").password("user1").roles("USER")
-                .and().withUser("admin1@example.com").password("admin1").roles("USER", "ADMIN")
+                .withUser("user").password("{noop}user").roles("USER")
+                .and().withUser("admin").password("{noop}admin").roles("ADMIN")
+                .and().withUser("user1@example.com").password("{noop}user1").roles("USER")
+                .and().withUser("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN")
         ;
 
         log.info("***** Password for user 'user1@example.com' is 'user1'");

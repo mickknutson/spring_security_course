@@ -22,6 +22,7 @@
         <module>chapter02.02</module>
         <module>chapter02.03</module>
         <module>chapter02.04</module>
+        <module>chapter02.05</module>
     </modules>
 
     <properties>

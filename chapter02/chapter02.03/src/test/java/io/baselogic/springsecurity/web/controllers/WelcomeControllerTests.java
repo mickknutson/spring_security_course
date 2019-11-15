@@ -2,6 +2,7 @@ package io.baselogic.springsecurity.web.controllers;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import io.baselogic.springsecurity.domain.Event;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,20 +46,6 @@ public class WelcomeControllerTests {
         webClient.getOptions().setCssEnabled(false);
     }
 
-//    @BeforeEach
-//    void setup(WebApplicationContext context) {
-//        webClient = MockMvcWebClientBuilder
-//                // demonstrates applying a MockMvcConfigurer (Spring Security)
-//                .webAppContextSetup(context, springSecurity())
-//                // for illustration only - defaults to ""
-//                .contextPath("")
-//                // By default MockMvc is used for localhost only;
-//                // the following will use MockMvc for example.com and example.org as well
-//                // .useMockMvcForHosts("baselogic.io","baselogic.com")
-//                .build();
-//    }
-
-
     //-------------------------------------------------------------------------
 
     @Test
@@ -63,8 +53,13 @@ public class WelcomeControllerTests {
     public void testHomePage() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/"))
-                .andExpect(status().isFound())
+                .andExpect(status().isOk())
                 .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("Welcome to the blincEventManager!");
+        assertThat(content).contains("Chapter 02.03");
+
     }
 
     @Test
