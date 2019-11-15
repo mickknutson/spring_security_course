@@ -6,29 +6,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
  * <p>
  * Here we leverage Spring's {@link EnableWebMvc} support. This allows more powerful configuration but still be
- * concise about it. Specifically it allows overriding {@link WebMvcConfigurerAdapter#requestMappingHandlerMapping()}.
- * Note that this class is loaded via the WebAppInitializer
+ * concise about it.
  * </p>
  *
  * @author Mick Knutson
- *
  */
 @Configuration
 @EnableWebMvc
-@Import({ThymeleafConfig.class})
 @ComponentScan(basePackages = {
         "io.baselogic.springsecurity.web.controllers",
         "io.baselogic.springsecurity.web.model"
 })
-public class WebMvcConfig extends WebMvcConfigurerAdapter
+public class WebMvcConfig implements WebMvcConfigurer
 {
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
@@ -62,8 +56,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter
 
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
-        super.addViewControllers(registry);
-
         registry.addViewController("/login/form")
                 .setViewName("login");
         registry.addViewController("/error")
@@ -84,9 +76,4 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter
         return resource;
     }
 
-    /*@Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
-        configurer.enable();
-    }
-*/
 } // The End...

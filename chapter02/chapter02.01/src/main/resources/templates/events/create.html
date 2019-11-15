@@ -9,11 +9,12 @@
 
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/messages :: messages"></th:block> /*/-->
 
     <!--/*--><!--@thymesVar id="eventDto" type="io.baselogic.springsecurity.web.model.EventDto"-->
     <!--*/-->
 
-    <h2 id="heading">Create New Event</h2>
+    <h1 id="chapterHeading">Create New Event</h1>
 
     <form id="newEventForm"
           action="#"
@@ -21,54 +22,56 @@
           th:object="${eventDto}" method="post" cssClass="error">
 
         <fieldset>
+            <table class="table table-bordered table-striped table-condensed">
+                <tr>
+                    <th class="col-sm-1">
+                        <label class=" col-form-label" for="attendeeEmail">Attendee Email</label>
+                        <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('attendeeEmail')}"
+                              th:errors="*{attendeeEmail}"></span>
+                    </th>
+                    <td class="col-sm-4">
+                        <input class="form-control input-xlarge" th:field="*{attendeeEmail}" id="attendeeEmail"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label class=" col-form-label" for="when">Date/Time (yyyy-MM-dd HH:mm)</label>
+                        <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('when')}"
+                              th:errors="*{when}"></span>
+                    </th>
+                    <td>
+                        <input class="form-control input-xlarge" th:field="*{when}" id="when"/>
+                    </td>
+                </tr>
 
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    <label class=" col-form-label" for="attendeeEmail">Attendee Email</label>
-                    <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('attendeeEmail')}"
-                          th:errors="*{attendeeEmail}"></span>
-                </div>
-                <div class="col-sm-4">
-                    <input class="form-control input-xlarge" th:field="*{attendeeEmail}" id="attendeeEmail"/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    <label class=" col-form-label" for="when">Event Date/Time (yyyy-MM-dd HH:mm)</label>
-                    <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('when')}"
-                          th:errors="*{when}"></span>
-                </div>
-                <div class="col-sm-4">
-                    <input class="form-control input-xlarge" th:field="*{when}" id="when" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    <label class=" col-form-label" for="summary">Summary</label>
-                    <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('summary')}"
-                          th:errors="*{summary}"></span>
-                </div>
-                <div class="col-sm-4">
-                    <input class="form-control input-xlarge" th:field="*{summary}" id="summary"/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    <label class=" col-form-label" for="description" cssClass="error">Description</label>
-                    <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" cssClass="error" th:if="${#fields.hasErrors('description')}"
-                          th:errors="*{description}"></span>
-                </div>
-                <div class="col-sm-4">
-                    <input class="form-control input-xlarge" th:field="*{description}" id="description"/>
-                </div>
-            </div>
+                <tr>
+                    <th>
+                        <label class=" col-form-label" for="summary">Summary</label>
+                        <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('summary')}"
+                              th:errors="*{summary}"></span>
+                    </th>
+                    <td>
+                        <input class="form-control input-xlarge" th:field="*{summary}" id="summary"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label class=" col-form-label" for="when">Description</label>
+                        <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('description')}"
+                              th:errors="*{description}"></span>
+                    </th>
+                    <td>
+                        <input class="form-control input-xlarge" th:field="*{description}" id="description"/>
+                    </td>
+                </tr>
 
-            <div class="form-group row">
-                <div class="col-sm-5">
-                    <button type="submit" class="btn btn-primary" id="submit" name="create" >Create</button>
-                    <button type="submit" class="btn btn-primary" id="auto" name="auto" >Auto Populate Form</button>
-                </div>
-            </div>
+                <tr>
+                    <th colspan="2">
+                        <button type="submit" class="btn btn-primary" id="submit" name="create" >Create</button>
+                        <button type="submit" class="btn btn-primary" id="auto" name="auto" >Auto Populate Form</button>
+                    </th>
+                </tr>
+            </table>
 
         </fieldset>
     </form>

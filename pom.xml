@@ -8,7 +8,7 @@
 
     <version>5.0.0-SNAPSHOT</version>
 
-    <name>${project.artifactId}</name>
+    <name>${project.artifactId} __________</name>
     <description>Event Planner: ${project.artifactId}</description>
 
     <parent>

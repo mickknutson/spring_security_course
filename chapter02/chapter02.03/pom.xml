@@ -5,7 +5,7 @@
 
     <groupId>io.baselogic.springsecurity.chapter02</groupId>
     <artifactId>chapter02.03</artifactId>
-    <version>5.2.2-SNAPSHOT</version>
+    <version>5.2.3-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>Event Planner: ${project.artifactId}</description>

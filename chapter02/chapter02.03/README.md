@@ -1,3 +1,6 @@
 # Chapter 02.03 #
 
->TBD
+# Overview
+
+In this chapter we...?
+
