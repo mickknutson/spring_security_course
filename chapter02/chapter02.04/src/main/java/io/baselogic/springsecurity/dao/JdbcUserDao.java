@@ -2,6 +2,7 @@ package io.baselogic.springsecurity.dao;
 
 import io.baselogic.springsecurity.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -28,23 +29,24 @@ public class JdbcUserDao implements UserDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    @Autowired
     private UserRowMapper userRowMapper;
 
-    @Autowired
     private String USER_QUERY;
 
-
     @Autowired
-    public JdbcUserDao(@NotNull NamedParameterJdbcTemplate jdbcTemplate) {
+    public JdbcUserDao(final @NotNull NamedParameterJdbcTemplate jdbcTemplate,
+                       final UserRowMapper userRowMapper,
+                       final @Qualifier("UserQuery") String userQuery) {
         this.jdbcTemplate = jdbcTemplate;
+        this.userRowMapper = userRowMapper;
+        this.USER_QUERY = userQuery;
     }
 
     //-------------------------------------------------------------------------
 
     @Override
     @Transactional(readOnly = true)
-    public User findById(@NotNull Integer id) {
+    public User findById(final @NotNull Integer id) {
         final String sql = USER_QUERY + " id = :id";
 
         SqlParameterSource parameter = new MapSqlParameterSource().addValue("id", id);
@@ -54,7 +56,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     @Transactional(readOnly = true)
-    public User findByEmail(@NotEmpty String email) {
+    public User findByEmail(final @NotEmpty String email) {
         try {
 
             final String sql = USER_QUERY + " email = :email";
@@ -69,7 +71,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> findAllByEmail(@NotEmpty String email) {
+    public List<User> findAllByEmail(final @NotEmpty String email) {
         final String sql = USER_QUERY + " email LIKE '%"+ email +"%' ORDER BY id";
 
         return jdbcTemplate.query(sql, userRowMapper);
@@ -78,7 +80,7 @@ public class JdbcUserDao implements UserDao {
 
 
     @Override
-    public Integer save(@NotNull final User newUser) {
+    public Integer save(final @NotNull User newUser) {
         if (newUser.getId() != null) {
             throw new IllegalArgumentException("newUser.getId() must be null when creating a "+ User.class.getName());
         }

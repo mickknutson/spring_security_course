@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.dao;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -21,7 +22,6 @@ import java.util.List;
  * A jdbc implementation of {@link EventDao}.
  *
  * @author mickknutson
- *
  */
 @Repository
 @Validated
@@ -29,23 +29,25 @@ public class JdbcEventDao implements EventDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    @Autowired
     private EventRowMapper eventRowMapper;
 
-    @Autowired
-    private String EVENT_QUERY;
+    private final String EVENT_QUERY;
 
     //-------------------------------------------------------------------------
 
-    public JdbcEventDao(@NotNull NamedParameterJdbcTemplate jdbcTemplate) {
+    public JdbcEventDao(final @NotNull NamedParameterJdbcTemplate jdbcTemplate,
+                        final EventRowMapper eventRowMapper,
+                        final @Qualifier("EventQuery") String eventQuery) {
         this.jdbcTemplate = jdbcTemplate;
+        this.eventRowMapper = eventRowMapper;
+        this.EVENT_QUERY = eventQuery;
     }
 
     //-------------------------------------------------------------------------
 
     @Override
     @Transactional(readOnly = true)
-    public Event findById(@NotNull Integer eventId) {
+    public Event findById(final @NotNull Integer eventId) {
         final String sql = EVENT_QUERY + " AND e.id = :id";
 
         SqlParameterSource parameter = new MapSqlParameterSource().addValue("id", eventId);
@@ -55,7 +57,7 @@ public class JdbcEventDao implements EventDao {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Event> findByUser(@NotNull Integer userId) {
+    public List<Event> findByUser(final @NotNull Integer userId) {
         final String sql = EVENT_QUERY + " and (e.owner = :id OR e.attendee = :id) order by e.id";
 
         SqlParameterSource parameter = new MapSqlParameterSource().addValue("id", userId);
@@ -71,7 +73,7 @@ public class JdbcEventDao implements EventDao {
 
 
     @Override
-    public Integer save(@NotNull @Valid final Event event) {
+    public Integer save(final @NotNull @Valid Event event) {
         if (event.getId() != null) {
             throw new IllegalArgumentException("event.getId() must be null when creating a new Message");
         }

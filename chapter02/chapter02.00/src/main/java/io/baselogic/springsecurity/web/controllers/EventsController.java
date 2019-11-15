@@ -23,28 +23,35 @@ import java.util.Calendar;
 @Slf4j
 public class EventsController {
 
-    @Autowired
     private MessageSource messageSource;
 
     private final EventService eventService;
     private final UserContext userContext;
 
+    private static final String EVENT_CREATE_VIEW = "events/create";
+    private static final String EVENT_LIST_VIEW = "events/list";
+    private static final String EVENT_MY_VIEW = "events/my";
+    private static final String EVENT_SHOW_VIEW = "events/show";
+
     @Autowired
-    public EventsController(EventService eventService, UserContext userContext) {
+    public EventsController(final EventService eventService,
+                            final UserContext userContext,
+                            final MessageSource messageSource) {
         this.eventService = eventService;
         this.userContext = userContext;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("/")
     public ModelAndView allEvents() {
-        return new ModelAndView("events/list", "events", eventService.findAllEvents());
+        return new ModelAndView(EVENT_LIST_VIEW, "events", eventService.findAllEvents());
     }
 
     @GetMapping("/my")
     public ModelAndView userEvents() {
         User currentUser = userContext.getCurrentUser();
         Integer currentUserId = currentUser.getId();
-        ModelAndView result = new ModelAndView("events/my", "events", eventService.findEventByUser(currentUserId));
+        ModelAndView result = new ModelAndView(EVENT_MY_VIEW, "events", eventService.findEventByUser(currentUserId));
         result.addObject("currentUser", currentUser);
         return result;
     }
@@ -52,12 +59,12 @@ public class EventsController {
     @GetMapping("/{eventId}")
     public ModelAndView showEvent(@PathVariable Integer eventId) {
         Event event = eventService.findEventById(eventId);
-        return new ModelAndView("events/show", "event", event);
+        return new ModelAndView(EVENT_SHOW_VIEW, "event", event);
     }
 
     @GetMapping("/form")
     public String showEventForm(@ModelAttribute EventDto eventDto) {
-        return "events/create";
+        return EVENT_CREATE_VIEW;
     }
 
     /**
@@ -82,20 +89,16 @@ public class EventsController {
         User attendee = eventService.findUserById(attendeeId);
         eventDto.setAttendeeEmail(attendee.getEmail());
 
-        return "events/create";
+        return EVENT_CREATE_VIEW;
     }
 
     @PostMapping(value = "/new")
     public String createEvent(@Valid EventDto eventDto, BindingResult result,
                               RedirectAttributes redirectAttributes) {
 
-        log.info("****** createEvent: {} *****", eventDto);
-
         if (result.hasErrors()) {
-            result.getAllErrors().forEach( e ->{
-                log.info("error: {}", e);
-            });
-            return "events/create";
+            result.getAllErrors().forEach( e -> log.info("error: {}", e) );
+            return EVENT_CREATE_VIEW;
         }
 
         User attendee = eventService.findUserByEmail(eventDto.getAttendeeEmail());
@@ -104,7 +107,7 @@ public class EventsController {
         }
 
         if (result.hasErrors()) {
-            return "events/create";
+            return EVENT_CREATE_VIEW;
         }
 
         Event event = new Event();
