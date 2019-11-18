@@ -97,14 +97,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // CSRF is enabled by default, with Java Config
                 .and().csrf().disable()
-                    .cors().disable()
-//                    .headers().disable()
+
+                // Cross Origin Resource Sharing
+                .cors().disable()
+
+                // HTTP Security Headers
+                .headers().disable()
         ;
     }
 
     /**
      * This is the equivalent to:
-     * <pre><http pattern="/resources/**" security="none"/></pre>
+     * <pre><http pattern="/css/**" security="none"/></pre>
      *
      *
      * @param web {@link WebSecurity} is created by {@link WebSecurityConfiguration}
@@ -119,11 +123,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final WebSecurity web) {
         web.ignoring()
                 .antMatchers("/css/**")
-                .antMatchers("/resources/**")
-                .antMatchers("/static/**")
+                .antMatchers("/img/**")
                 .antMatchers("/webjars/**")
         ;
     }
-
 
 } // The End...

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -75,9 +76,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().logout()
 
                 // CSRF is enabled by default, with Java Config
-                // Disable for now
-                .and().csrf().disable();
+                .and().csrf().disable()
+
+                // Cross Origin Resource Sharing
+                .cors().disable()
+
+                // HTTP Security Headers
+                .headers().disable()
+                ;
     }
 
+    /**
+     * This is the equivalent to:
+     * <pre><http pattern="/css/**" security="none"/></pre>
+     *
+     *
+     * @param web {@link WebSecurity} is created by {@link WebSecurityConfiguration}
+     * <p>
+     * The {@link WebSecurity} is created by {@link WebSecurityConfiguration} to create the
+     * {@link FilterChainProxy} known as the Spring Security Filter Chain
+     * (springSecurityFilterChain). The springSecurityFilterChain is the {@link Filter} that
+     * the {@link DelegatingFilterProxy} delegates to.
+     * </p>
+     */
+    @Override
+    public void configure(final WebSecurity web) {
+        web.ignoring()
+                .antMatchers("/css/**")
+                .antMatchers("/img/**")
+                .antMatchers("/webjars/**")
+        ;
+    }
 
 } // The End...

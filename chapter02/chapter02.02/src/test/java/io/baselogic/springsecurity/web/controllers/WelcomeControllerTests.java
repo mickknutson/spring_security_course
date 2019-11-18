@@ -60,7 +60,7 @@ public class WelcomeControllerTests {
         HtmlPage welcomePage = webClient.getPage("http://localhost/");
 
         String id = welcomePage.getTitleText();
-        assertThat(id).isEqualTo("Welcome to the blincEventManager!");
+        assertThat(id).isEqualTo("Welcome to the EventManager!");
 
         String chapterHeading = welcomePage.getHtmlElementById("chapterHeading").getTextContent();
         assertThat(chapterHeading).contains("Chapter 02.02");
@@ -69,7 +69,7 @@ public class WelcomeControllerTests {
         assertThat(chapterTitle).contains("The page isn't redirecting properly!");
 
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("Below you can find some highlights about blincEventManager.");
+        assertThat(summary).contains("Below you can find some highlights about EventManager.");
     }
 
     //-------------------------------------------------------------------------

@@ -28,8 +28,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
@@ -71,6 +70,7 @@ public class EventsControllerTests {
 
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isFound())
+                .andExpect(header().string("Location", "http://localhost/login/form"))
 
                 // The login page should be displayed
                 .andReturn();
@@ -152,6 +152,7 @@ public class EventsControllerTests {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isFound())
+                .andExpect(header().string("Location", "http://localhost/login/form"))
                 .andReturn();
 
     }
