@@ -2,7 +2,6 @@ package io.baselogic.springsecurity.dao;
 
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

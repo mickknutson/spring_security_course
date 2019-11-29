@@ -3,7 +3,6 @@ package io.baselogic.springsecurity.service;
 import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 

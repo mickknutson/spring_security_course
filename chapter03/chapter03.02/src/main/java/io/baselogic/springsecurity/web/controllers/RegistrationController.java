@@ -1,8 +1,5 @@
 package io.baselogic.springsecurity.web.controllers;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import io.baselogic.springsecurity.domain.User;
 import io.baselogic.springsecurity.service.EventService;
 import io.baselogic.springsecurity.service.UserContext;
@@ -16,6 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * User Registration Controller

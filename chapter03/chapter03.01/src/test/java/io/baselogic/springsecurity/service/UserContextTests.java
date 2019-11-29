@@ -1,8 +1,6 @@
 package io.baselogic.springsecurity.service;
 
-import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.TestUtils;
-import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.ConstraintViolationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

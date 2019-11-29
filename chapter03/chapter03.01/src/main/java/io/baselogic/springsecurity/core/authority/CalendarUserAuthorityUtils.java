@@ -1,11 +1,11 @@
 package io.baselogic.springsecurity.core.authority;
 
-import java.util.Collection;
-import java.util.List;
-
+import io.baselogic.springsecurity.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import io.baselogic.springsecurity.domain.User;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A utility class used for creating the {@link GrantedAuthority}'s given a {@link User}. In a real solution
