@@ -22,13 +22,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.when;
 
-// Junit 5: -----------------------------------------------------------------//
-
-// Assert-J
-// --> assertThat(result.size()).isGreaterThan(0);
-// http://joel-costigliola.github.io/assertj/index.html
-
-
+/**
+ * DefaultEventServiceTests
+ *
+ * @since chapter01.00
+ */
 @ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -99,7 +97,7 @@ public class DefaultEventServiceTests {
         given(eventDao.save(any(Event.class)))
                 .willReturn(42);
 
-        int id = eventService.createEvent(new Event());
+        int id = eventService.createEvent(Event.builder().build());
 
         assertThat(id).isEqualTo(42);
     }

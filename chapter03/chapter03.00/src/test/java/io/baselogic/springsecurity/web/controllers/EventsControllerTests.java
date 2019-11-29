@@ -163,6 +163,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("Current Users Events - HtmlUnit")
+    @WithMockUser("user1@example.com")
     public void testCurrentUsersEventsPage_htmlUnit() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/my");
 

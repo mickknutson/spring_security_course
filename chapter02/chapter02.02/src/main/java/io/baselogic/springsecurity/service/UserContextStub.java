@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
  * @author mickknutson
  */
 @Service
+//@Validated
 public class UserContextStub implements UserContext {
 
     private final UserDao userService;

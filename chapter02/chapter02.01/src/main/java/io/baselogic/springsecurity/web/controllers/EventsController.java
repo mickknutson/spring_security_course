@@ -18,6 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.Calendar;
 
+/**
+ * Event Controller
+ *
+ * @since chapter01.00
+ */
 @Controller
 @RequestMapping("/events")
 @Slf4j
@@ -50,20 +55,23 @@ public class EventsController {
     @GetMapping("/my")
     public ModelAndView userEvents() {
         User currentUser = userContext.getCurrentUser();
-        Integer currentUserId = currentUser.getId();
+        Integer currentUserId = 0;
+        if(currentUser != null) {
+            currentUserId = currentUser.getId();
+        }
         ModelAndView result = new ModelAndView(EVENT_MY_VIEW, "events", eventService.findEventByUser(currentUserId));
         result.addObject("currentUser", currentUser);
         return result;
     }
 
     @GetMapping("/{eventId}")
-    public ModelAndView showEvent(@PathVariable Integer eventId) {
+    public ModelAndView showEvent(final @PathVariable Integer eventId) {
         Event event = eventService.findEventById(eventId);
         return new ModelAndView(EVENT_SHOW_VIEW, "event", event);
     }
 
     @GetMapping("/form")
-    public String showEventForm(@ModelAttribute EventDto eventDto) {
+    public String showEventForm(final @ModelAttribute EventDto eventDto) {
         return EVENT_CREATE_VIEW;
     }
 
@@ -75,7 +83,7 @@ public class EventsController {
      * @param eventDto
      */
     @PostMapping(value = "/new", params = "auto")
-    public String showEventFormAutoPopulate(@ModelAttribute EventDto eventDto) {
+    public String showEventFormAutoPopulate(final @ModelAttribute EventDto eventDto) {
         // provide default values to make user submission easier
         eventDto.setSummary("A new event....");
         eventDto.setDescription("This was auto-populated to save time creating a valid event.");
@@ -93,8 +101,9 @@ public class EventsController {
     }
 
     @PostMapping(value = "/new")
-    public String createEvent(@Valid EventDto eventDto, BindingResult result,
-                              RedirectAttributes redirectAttributes) {
+    public String createEvent(final @Valid EventDto eventDto,
+                              final BindingResult result,
+                              final RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             result.getAllErrors().forEach( e -> log.info("error: {}", e) );
@@ -110,12 +119,14 @@ public class EventsController {
             return EVENT_CREATE_VIEW;
         }
 
-        Event event = new Event();
-        event.setAttendee(attendee);
-        event.setDescription(eventDto.getDescription());
-        event.setOwner(userContext.getCurrentUser());
-        event.setSummary(eventDto.getSummary());
-        event.setWhen(eventDto.getWhen());
+        Event event = Event.builder()
+                .summary(eventDto.getSummary())
+                .description(eventDto.getDescription())
+                .when(eventDto.getWhen())
+                .attendee(attendee)
+                .owner(userContext.getCurrentUser())
+                .build();
+
         eventService.createEvent(event);
 
         String success = messageSource.getMessage("event.new.success",

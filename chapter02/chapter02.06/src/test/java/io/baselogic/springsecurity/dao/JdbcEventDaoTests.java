@@ -18,13 +18,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-// Junit 5: -----------------------------------------------------------------//
-
-// Assert-J
-// --> assertThat(result.size()).isGreaterThan(0);
-// http://joel-costigliola.github.io/assertj/index.html
-
-
+/**
+ * JdbcEventDaoTests
+ *
+ * @since chapter1.00
+ */
 @ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -58,7 +56,7 @@ public class JdbcEventDaoTests {
         assertThat(event).isNotNull();
         assertThat(event.equals(event)).isTrue();
         assertThat(event.equals(new Object())).isFalse();
-        assertThat(event.equals(new Event())).isFalse();
+        assertThat(event.equals(Event.builder().build())).isFalse();
         assertThat(event.hashCode()).isNotEqualTo(0);
 
         assertThat(event.getSummary()).isEqualTo("Birthday Party");

@@ -2,22 +2,26 @@ package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.domain.User;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ConstraintViolationException;
+
 import static org.assertj.core.api.Assertions.assertThat;
-
-// Assert-J
-// --> assertThat(result.size()).isGreaterThan(0);
-// http://joel-costigliola.github.io/assertj/index.html
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-@RunWith(SpringRunner.class)
+/**
+ * UserContextTests
+ *
+ * @since chapter1.00
+ */
+@ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
@@ -29,7 +33,7 @@ public class UserContextTests {
     private User owner = new User();
 
 
-    @Before
+    @BeforeEach
     public void beforeEachTest() {
         owner.setId(1);
     }
@@ -43,22 +47,24 @@ public class UserContextTests {
 
     @Test
     public void setCurrentUser() {
-        userContext.setCurrentUser(owner);
-
-        User user = userContext.getCurrentUser();
-
-        assertThat(user).isNotNull();
-        assertThat(user.getId()).isEqualTo(1);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            userContext.setCurrentUser(owner);
+        });
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void setCurrentUser_null_User() {
-        userContext.setCurrentUser(null);
+        assertThrows(UnsupportedOperationException.class, () -> {
+            userContext.setCurrentUser(null);
+        });
+
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void setCurrentUser_invalid_User() {
-        userContext.setCurrentUser(new User());
+        assertThrows(UnsupportedOperationException.class, () -> {
+            userContext.setCurrentUser(new User());
+        });
     }
 
 } // The End...

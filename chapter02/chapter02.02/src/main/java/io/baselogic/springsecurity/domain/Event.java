@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.domain;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -15,6 +16,7 @@ import java.util.Calendar;
  *
  */
 @Data
+@Builder
 public class Event {
 
     private Integer id;

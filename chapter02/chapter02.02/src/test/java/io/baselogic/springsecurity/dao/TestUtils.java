@@ -28,17 +28,18 @@ public interface TestUtils {
     }};
 
 
-    public static final Event testEvent = new Event(){{
-        setId(42);
-        setOwner(owner);
-        setAttendee(attendee);
-    }};
+    public static final Event testEvent = Event.builder()
+            .id(42)
+            .attendee(attendee)
+            .owner(owner)
+            .build();
 
-    public static final Event testEvent2 = new Event(){{
-        setId(24);
-        setOwner(owner);
-        setAttendee(attendee);
-    }};
+
+    public static final Event testEvent2 = Event.builder()
+            .id(24)
+            .attendee(attendee)
+            .owner(owner)
+            .build();
 
     List<Event> TEST_EVENTS = Arrays.asList(testEvent, testEvent2);
 
@@ -49,18 +50,19 @@ public interface TestUtils {
                                  User attendee,
                                  String summary
     ) {
-        Event event = new Event();
-        event.setOwner(owner);
-        event.setAttendee(attendee);
-        event.setSummary(summary);
-        event.setDescription("testing + " + summary);
-        event.setWhen(Calendar.getInstance());
-        return event;
+        return Event.builder()
+                .summary(summary)
+                .description("testing + " + summary)
+                .when(Calendar.getInstance())
+                .attendee(attendee)
+                .owner(owner)
+                .build();
+
     }
 
     static User createMockUser(String email,
-                                       String firstName,
-                                       String lastName
+                               String firstName,
+                               String lastName
     ) {
         User user = new User();
         user.setEmail(email);

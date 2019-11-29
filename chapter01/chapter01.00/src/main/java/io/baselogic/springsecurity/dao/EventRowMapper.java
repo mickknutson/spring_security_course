@@ -11,6 +11,8 @@ import java.util.Calendar;
 /**
  * An Event implementation of {@link RowMapper}.
  *
+ * @since chapter01.00
+ *
  * @author mickknutson
  */
 public class EventRowMapper implements RowMapper<Event> {
@@ -26,29 +28,29 @@ public class EventRowMapper implements RowMapper<Event> {
      * @param ownerRowMapper
      * @param attendeeRowMapper
      */
-    public EventRowMapper(UserRowMapper ownerRowMapper, UserRowMapper attendeeRowMapper) {
+    public EventRowMapper(final UserRowMapper ownerRowMapper, final UserRowMapper attendeeRowMapper) {
         this.ownerRowMapper = ownerRowMapper;
         this.attendeeRowMapper = attendeeRowMapper;
     }
 
 
     @Override
-    public Event mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Event mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 
         User owner = ownerRowMapper.mapRow(rs, rowNum);
         User attendee = attendeeRowMapper.mapRow(rs, rowNum);
 
-        Event event = new Event();
-        event.setId(rs.getInt("events.id"));
-        event.setSummary(rs.getString("events.summary"));
-        event.setDescription(rs.getString("events.description"));
-
         Calendar when = Calendar.getInstance();
         when.setTime(rs.getDate("events.event_date"));
-        event.setWhen(when);
-        event.setAttendee(attendee);
-        event.setOwner(owner);
-        return event;
+
+        return Event.builder()
+                .id(rs.getInt("events.id"))
+                .summary(rs.getString("events.summary"))
+                .description(rs.getString("events.description"))
+                .when(when)
+                .attendee(attendee)
+                .owner(owner)
+                .build();
     }
 
 } // The End...

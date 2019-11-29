@@ -15,7 +15,7 @@ import java.security.Principal;
  * An implementation of {@link UserContext} that looks up the {@link io.baselogic.springsecurity.domain.User} using the Spring Security's
  * {@link Authentication} by principal name.
  *
- * @author Rob Winch
+ * @author Mick Knutson
  *
  */
 @Component
