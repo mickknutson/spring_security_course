@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * ErrorController
+ *
+ * @since chapter01.00
+ * @author mickknutson
+ */
 @ControllerAdvice
 @Slf4j
 public class ErrorController {
@@ -21,6 +27,9 @@ public class ErrorController {
 
         if(e != null){
             sb.append(e.getMessage()).append("<br />");
+            sb.append("\n__________________________________________________\n");
+            sb.append("root cause: ").append(e.getCause());
+            sb.append("\n__________________________________________________\n");
         }
 
         log.error("***** {}", sb.toString(), e);

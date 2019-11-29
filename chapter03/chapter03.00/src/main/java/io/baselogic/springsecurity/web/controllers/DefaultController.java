@@ -25,39 +25,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * </p>
  *
  * <pre>
- * &lt;http use-expressions="true" auto-config="true">
- *     &lt;intercept-url pattern="/login/form"
+ * <http use-expressions="true" auto-config="true">
+ *     <intercept-url pattern="/login/form"
  *             access="permitAll"/>
- *     &lt;form-login login-page="/login/form"
+ *     <form-login login-page="/login/form"
  *             login-processing-url="/login"
  *             username-parameter="username"
  *             password-parameter="password"
  *             authentication-failure-url="/login/form?error"
  *             default-target-url="/default"/>
- * &lt;/http>
+ * </http>
  * </pre>
  * <p>
  * By setting <a href=
- * "http://static.springsource.org/spring-security/site/docs/3.1.x/reference/appendix-namespace.html#nsa-form-login-always-use-default-target"
+ * "http://static.springsource.org/spring-security/site/docs/current/reference/appendix-namespace.html#nsa-form-login-always-use-default-target"
  * >always-use-default-target</a> to true, Spring Security will always send the user to this page and thus the first page
  * after login will always differ by role.
  * </p>
  *
  * <pre>
- * &lt;http use-expressions="true" auto-config="true">
- *     &lt;intercept-url pattern="/login*"
+ * <http use-expressions="true" auto-config="true">
+ *     <intercept-url pattern="/login*"
  *             access="permitAll"/>
- *     &lt;form-login login-page="/login/form"
+ *     <form-login login-page="/login/form"
  *             login-processing-url="/login"
  *             username-parameter="username"
  *             password-parameter="password"
  *             authentication-failure-url="/login/form?error"
  *             default-target-url="/default"
  *             always-use-default-target="true"/>
- * &lt;/http>
+ * </http>
  * </pre>
  *
- * @author Rob Winch
+ * @since chapter02.06
+ * @author mickknutson
  *
  */
 @Controller

@@ -100,7 +100,7 @@ public class EventsController {
         return EVENT_CREATE_VIEW;
     }
 
-    @PostMapping(value = "/new")
+    @PostMapping("/new")
     public String createEvent(final @Valid EventDto eventDto,
                               final BindingResult result,
                               final RedirectAttributes redirectAttributes) {

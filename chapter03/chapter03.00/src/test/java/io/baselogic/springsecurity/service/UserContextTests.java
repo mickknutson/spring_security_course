@@ -47,14 +47,17 @@ public class UserContextTests {
 
     @Test
     public void setCurrentUser() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            userContext.setCurrentUser(owner);
-        });
+        userContext.setCurrentUser(owner);
+
+        User user = userContext.getCurrentUser();
+
+        assertThat(user).isNotNull();
+        assertThat(user.getId()).isEqualTo(1);
     }
 
     @Test
     public void setCurrentUser_null_User() {
-        assertThrows(UnsupportedOperationException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             userContext.setCurrentUser(null);
         });
 
@@ -62,7 +65,7 @@ public class UserContextTests {
 
     @Test
     public void setCurrentUser_invalid_User() {
-        assertThrows(UnsupportedOperationException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             userContext.setCurrentUser(new User());
         });
     }

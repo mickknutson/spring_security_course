@@ -7,10 +7,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * ErrorController
+ *
+ * @since chapter01.00
+ * @author mickknutson
+ */
 @ControllerAdvice
 @Slf4j
 public class ErrorController {
-    
+
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView handleInternalServerError(final Throwable e) {
@@ -21,12 +27,10 @@ public class ErrorController {
 
         if(e != null){
             sb.append(e.getMessage()).append("<br />");
+            sb.append("\n__________________________________________________\n");
+            sb.append("root cause: ").append(e.getCause());
+            sb.append("\n__________________________________________________\n");
         }
-
-        if (e != null && e.getCause() != null) {
-            sb.append("\n\nroot cause: ").append(e.getCause());
-        }
-
 
         log.error("***** {}", sb.toString(), e);
 

@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * A default implementation of {@link EventService} that delegates to {@link EventDao} and {@link UserDao}.
  *
+ * @since chapter01.00
  * @author mickknutson
  *
  */

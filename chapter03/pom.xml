@@ -18,6 +18,8 @@
 
     <modules>
         <module>chapter03.00</module>
+        <module>chapter03.01</module>
+        <module>chapter03.02</module>
     </modules>
 
     <properties>

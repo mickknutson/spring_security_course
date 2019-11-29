@@ -60,7 +60,8 @@ public class ErrorControllerTests {
         ModelAndView response = controller.handleInternalServerError(throwable);
 
         assertThat(response.getViewName()).isEqualTo("error");
-        assertThat(response.getModel().get("error")).isEqualTo("Foo Bar Exception");
+        assertThat((String)response.getModel().get("error"))
+                .contains("<h2>Unknown error</h2><br />Exception during execution of SpringSecurity application:<br />Foo Bar Exception<br />");
     }
 
     @Test
@@ -70,7 +71,8 @@ public class ErrorControllerTests {
         ModelAndView response = controller.handleInternalServerError(null);
 
         assertThat(response.getViewName()).isEqualTo("error");
-        assertThat(response.getModel().get("error")).isEqualTo("Unknown error");
+        assertThat((String)response.getModel().get("error"))
+                .contains("<h2>Unknown error</h2><br />Exception during execution of SpringSecurity application:<br />");
     }
 
 

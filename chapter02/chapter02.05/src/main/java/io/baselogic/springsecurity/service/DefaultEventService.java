@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * A default implementation of {@link EventService} that delegates to {@link EventDao} and {@link UserDao}.
  *
+ * @since chapter01.00
  * @author mickknutson
  *
  */
@@ -23,7 +24,8 @@ public class DefaultEventService implements EventService {
     private final UserDao userDao;
 
     @Autowired
-    public DefaultEventService(@NotNull EventDao eventDao, @NotNull UserDao userDao) {
+    public DefaultEventService(final @NotNull EventDao eventDao,
+                               final @NotNull UserDao userDao) {
         this.eventDao = eventDao;
         this.userDao = userDao;
     }

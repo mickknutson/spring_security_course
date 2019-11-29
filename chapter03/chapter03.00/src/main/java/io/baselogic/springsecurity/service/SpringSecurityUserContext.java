@@ -15,10 +15,11 @@ import java.security.Principal;
  * An implementation of {@link UserContext} that looks up the {@link io.baselogic.springsecurity.domain.User} using the Spring Security's
  * {@link Authentication} by principal name.
  *
+ * @since chapter03.00
  * @author Mick Knutson
  *
  */
-@Component
+//@Component
 public class SpringSecurityUserContext implements UserContext {
 
     private final EventService eventService;
@@ -62,7 +63,7 @@ public class SpringSecurityUserContext implements UserContext {
     }
 
     @Override
-    public void setCurrentUser(io.baselogic.springsecurity.domain.User user) {
+    public void setCurrentUser(@NotNull(message="user.notNull.key") io.baselogic.springsecurity.domain.User user) {
         throw new UnsupportedOperationException();
     }
 

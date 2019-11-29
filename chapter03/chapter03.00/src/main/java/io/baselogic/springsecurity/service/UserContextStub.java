@@ -10,12 +10,13 @@ import javax.validation.constraints.NotNull;
 /**
  * Returns the same user for every call to {@link #getCurrentUser()}.
  * This is used prior to adding security, so that the rest of the application can be used.
- * @since chapter03.00
- * @see {@link SpringSecurityUserContext} for new UserContext moving forward.
  *
+ * @see UserContext {@link SpringSecurityUserContext} for new UserContext moving forward.
+ *
+ * @since chapter01.00
  * @author mickknutson
  */
-//@Service
+@Service
 public class UserContextStub implements UserContext {
 
     private final UserDao userService;

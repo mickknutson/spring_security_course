@@ -5,6 +5,7 @@ import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -30,9 +31,8 @@ import static org.mockito.BDDMockito.when;
 @ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Slf4j
 public class DefaultEventServiceTests {
-
-    private static final Logger log = LoggerFactory.getLogger(DefaultEventServiceTests.class);
 
     // Mockito:
     @MockBean
