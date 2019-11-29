@@ -21,12 +21,14 @@ public class ErrorController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView handleInternalServerError(final Throwable e) {
 
+        final String BREAK = "<br />";
+
         StringBuilder sb = new StringBuilder();
-        sb.append("<h2>Unknown error</h2>").append("<br />");
-        sb.append("Exception during execution of SpringSecurity application:").append("<br />");
+        sb.append("<h2>Unknown error</h2>").append(BREAK);
+        sb.append("Exception during execution of SpringSecurity application:").append(BREAK);
 
         if(e != null){
-            sb.append(e.getMessage()).append("<br />");
+            sb.append(e.getMessage()).append(BREAK);
             sb.append("\n__________________________________________________\n");
             sb.append("root cause: ").append(e.getCause());
             sb.append("\n__________________________________________________\n");

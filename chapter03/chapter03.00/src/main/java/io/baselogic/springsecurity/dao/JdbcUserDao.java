@@ -21,6 +21,7 @@ import java.util.List;
  * A jdbc implementation of {@link UserDao}.
  *
  * @author mickknutson
+ * @since chapter01.00
  *
  */
 @Repository
@@ -29,9 +30,9 @@ public class JdbcUserDao implements UserDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    private UserRowMapper userRowMapper;
+    private final UserRowMapper userRowMapper;
 
-    private String USER_QUERY;
+    private final String userQuery;
 
     @Autowired
     public JdbcUserDao(final @NotNull NamedParameterJdbcTemplate jdbcTemplate,
@@ -39,7 +40,7 @@ public class JdbcUserDao implements UserDao {
                        final @Qualifier("userQuery") String userQuery) {
         this.jdbcTemplate = jdbcTemplate;
         this.userRowMapper = userRowMapper;
-        this.USER_QUERY = userQuery;
+        this.userQuery = userQuery;
     }
 
     //-------------------------------------------------------------------------
@@ -47,7 +48,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     @Transactional(readOnly = true)
     public User findById(final @NotNull Integer id) {
-        final String sql = USER_QUERY + " id = :id";
+        final String sql = userQuery + " id = :id";
 
         SqlParameterSource parameter = new MapSqlParameterSource().addValue("id", id);
 
@@ -59,7 +60,7 @@ public class JdbcUserDao implements UserDao {
     public User findByEmail(final @NotEmpty String email) {
         try {
 
-            final String sql = USER_QUERY + " email = :email";
+            final String sql = userQuery + " email = :email";
 
             SqlParameterSource parameter = new MapSqlParameterSource().addValue("email", email);
 
@@ -72,11 +73,12 @@ public class JdbcUserDao implements UserDao {
     @Override
     @Transactional(readOnly = true)
     public List<User> findAllByEmail(final @NotEmpty String email) {
-        final String sql = USER_QUERY + " email LIKE '%"+ email +"%' ORDER BY id";
+        final String sql = userQuery + " email LIKE '%"+ email +"%' ORDER BY id";
 
         return jdbcTemplate.query(sql, userRowMapper);
     }
 
+    private static final String USER_INSERT_QUERY = "insert into users (email, password, first_name, last_name) values(:email, :psswd, :first_name, :last_name)";
 
 
     @Override
@@ -84,8 +86,6 @@ public class JdbcUserDao implements UserDao {
         if (newUser.getId() != null) {
             throw new IllegalArgumentException("newUser.getId() must be null when creating a "+ User.class.getName());
         }
-
-        final String sql = "insert into users (email, password, first_name, last_name) values(:email, :psswd, :first_name, :last_name)";
 
         KeyHolder holder = new GeneratedKeyHolder();
 
@@ -95,7 +95,7 @@ public class JdbcUserDao implements UserDao {
                 .addValue("first_name", newUser.getFirstName())
                 .addValue("last_name", newUser.getLastName());
 
-        jdbcTemplate.update(sql, parameter, holder);
+        jdbcTemplate.update(USER_INSERT_QUERY, parameter, holder);
 
         return holder.getKey().intValue();
     }

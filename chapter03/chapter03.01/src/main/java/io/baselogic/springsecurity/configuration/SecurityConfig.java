@@ -1,12 +1,16 @@
 package io.baselogic.springsecurity.configuration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 
 /**
  * Spring Security Configuration  Class
@@ -40,6 +44,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         log.debug("***** Password for user 'user1@example.com' is 'user1'");
         log.debug("***** Password for admin 'admin1@example.com' is 'admin1'");
     }
+
+    /**
+     * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
+     * originally returns a {@link UserDetailsService}, but this needs to be a {@link UserDetailsManager}
+     * UserDetailsManager vs UserDetailsService
+     */
+    @Bean
+    @Override
+    public UserDetailsManager userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("user").password("{noop}password").roles("USER").build());
+        manager.createUser(User.withUsername("admin").password("{noop}admin").roles("USER", "ADMIN").build());
+        manager.createUser(User.withUsername("user1@example.com").password("{noop}user1").roles("USER").build());
+        manager.createUser(User.withUsername("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN").build());
+        return manager;
+    }
+
 
     /**
      * HTTP Security configuration

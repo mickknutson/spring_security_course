@@ -28,9 +28,9 @@ public class JdbcEventDao implements EventDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    private EventRowMapper eventRowMapper;
+    private final EventRowMapper eventRowMapper;
 
-    private final String EVENT_QUERY;
+    private final String eventQuery;
 
     //-------------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ public class JdbcEventDao implements EventDao {
                         final @Qualifier("eventQuery") String eventQuery) {
         this.jdbcTemplate = jdbcTemplate;
         this.eventRowMapper = eventRowMapper;
-        this.EVENT_QUERY = eventQuery;
+        this.eventQuery = eventQuery;
     }
 
     //-------------------------------------------------------------------------
@@ -47,7 +47,7 @@ public class JdbcEventDao implements EventDao {
     @Override
     @Transactional(readOnly = true)
     public Event findById(final @NotNull Integer eventId) {
-        final String sql = EVENT_QUERY + " AND e.id = :id";
+        final String sql = eventQuery + " AND e.id = :id";
 
         SqlParameterSource parameter = new MapSqlParameterSource().addValue("id", eventId);
 
@@ -57,7 +57,7 @@ public class JdbcEventDao implements EventDao {
     @Override
     @Transactional(readOnly = true)
     public List<Event> findByUser(final @NotNull Integer userId) {
-        final String sql = EVENT_QUERY + " and (e.owner = :id OR e.attendee = :id) order by e.id";
+        final String sql = eventQuery + " and (e.owner = :id OR e.attendee = :id) order by e.id";
 
         SqlParameterSource parameter = new MapSqlParameterSource().addValue("id", userId);
 
@@ -67,9 +67,10 @@ public class JdbcEventDao implements EventDao {
     @Override
     @Transactional(readOnly = true)
     public List<Event> findAll() {
-        return jdbcTemplate.query(EVENT_QUERY + " order by e.id", eventRowMapper);
+        return jdbcTemplate.query(eventQuery + " order by e.id", eventRowMapper);
     }
 
+    private static final String EVENT_INSERT_QUERY = "insert into events (event_date, summary, description, owner, attendee) values(:event_date, :summary, :description, :owner, :attendee)";
 
     @Override
     public Integer save(final @NotNull @Valid Event event) {
@@ -81,8 +82,6 @@ public class JdbcEventDao implements EventDao {
         final Calendar when = event.getWhen();
 
 
-        final String sql = "insert into events (event_date, summary, description, owner, attendee) values(:event_date, :summary, :description, :owner, :attendee)";
-
         KeyHolder holder = new GeneratedKeyHolder();
 
         SqlParameterSource parameter = new MapSqlParameterSource()
@@ -92,7 +91,7 @@ public class JdbcEventDao implements EventDao {
                 .addValue("owner", owner.getId())
                 .addValue("attendee", attendee.getId());
 
-        jdbcTemplate.update(sql, parameter, holder);
+        jdbcTemplate.update(EVENT_INSERT_QUERY, parameter, holder);
 
         return holder.getKey().intValue();
     }
