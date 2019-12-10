@@ -1,6 +1,4 @@
-# Chapter 02.06 #
+# Chapter 03.01 #
 
-# Overview
-
-In this chapter we...?
-
+# Creating a custom UserContext
+In this section we create a custom User Context with the SpringSecurityUserContext

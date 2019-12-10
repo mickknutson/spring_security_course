@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * A service for managing {@link Event}'s.
  *
- * @since chapter01.00
  * @author mickknutson
  *
  */

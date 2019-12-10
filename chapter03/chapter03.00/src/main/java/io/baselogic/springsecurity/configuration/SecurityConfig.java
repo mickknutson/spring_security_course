@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
+ * @since chapter02.01
  */
 @Configuration
 @EnableWebSecurity//(debug = true)
@@ -69,11 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                // FIXME: TODO: Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
-                .antMatchers("/admin/h2/**").permitAll()
 
                 .antMatchers("/").access("hasAnyRole('ANONYMOUS', 'USER')")
-                .antMatchers("/registration/*").permitAll()
                 .antMatchers("/login/*").access("hasAnyRole('ANONYMOUS', 'USER')")
                 .antMatchers("/logout/*").access("hasAnyRole('ANONYMOUS', 'USER')")
                 .antMatchers("/admin/*").access("hasRole('ADMIN')")
@@ -115,12 +113,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <pre><http pattern="/css/**" security="none"/></pre>
      *
      *
-     * @param web {@link WebSecurity} is created by {@link WebSecurityConfiguration}
+     * @param web {@link WebSecurity} is created by {@link org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration}
      * <p>
-     * The {@link WebSecurity} is created by {@link WebSecurityConfiguration} to create the
-     * {@link FilterChainProxy} known as the Spring Security Filter Chain
-     * (springSecurityFilterChain). The springSecurityFilterChain is the {@link Filter} that
-     * the {@link DelegatingFilterProxy} delegates to.
+     * The {@link WebSecurity} is created by {@link org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration} to create the
+     * {@link org.springframework.security.web.FilterChainProxy} known as the Spring Security Filter Chain
+     * (springSecurityFilterChain). The springSecurityFilterChain is the {@link javax.servlet.Filter} that
+     * the {@link org.springframework.web.filter.DelegatingFilterProxy} delegates to.
      * </p>
      */
     @Override

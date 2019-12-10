@@ -15,6 +15,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
+ * @since chapter02.01
  */
 @Configuration
 @EnableWebSecurity//(debug = true)
@@ -43,22 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         log.debug("***** Password for user 'user1@example.com' is 'user1'");
         log.debug("***** Password for admin 'admin1@example.com' is 'admin1'");
-    }
-
-    /**
-     * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
-     * originally returns a {@link UserDetailsService}, but this needs to be a {@link UserDetailsManager}
-     * UserDetailsManager vs UserDetailsService
-     */
-    @Bean
-    @Override
-    public UserDetailsManager userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user").password("{noop}password").roles("USER").build());
-        manager.createUser(User.withUsername("admin").password("{noop}admin").roles("USER", "ADMIN").build());
-        manager.createUser(User.withUsername("user1@example.com").password("{noop}user1").roles("USER").build());
-        manager.createUser(User.withUsername("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN").build());
-        return manager;
     }
 
 
@@ -136,12 +121,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <pre><http pattern="/css/**" security="none"/></pre>
      *
      *
-     * @param web {@link WebSecurity} is created by {@link WebSecurityConfiguration}
+     * @param web {@link WebSecurity} is created by {@link org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration}
      * <p>
-     * The {@link WebSecurity} is created by {@link WebSecurityConfiguration} to create the
-     * {@link FilterChainProxy} known as the Spring Security Filter Chain
-     * (springSecurityFilterChain). The springSecurityFilterChain is the {@link Filter} that
-     * the {@link DelegatingFilterProxy} delegates to.
+     * The {@link WebSecurity} is created by {@link org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration} to create the
+     * {@link org.springframework.security.web.FilterChainProxy} known as the Spring Security Filter Chain
+     * (springSecurityFilterChain). The springSecurityFilterChain is the {@link javax.servlet.Filter} that
+     * the {@link org.springframework.web.filter.DelegatingFilterProxy} delegates to.
      * </p>
      */
     @Override

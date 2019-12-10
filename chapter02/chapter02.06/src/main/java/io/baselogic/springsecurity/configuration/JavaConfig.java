@@ -10,9 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackages =
         {
-                "io.baselogic.springsecurity.dao",
-                "io.baselogic.springsecurity.domain",
-                "io.baselogic.springsecurity.service"
+                "io.baselogic.springsecurity"
         }
 )
 public class JavaConfig {

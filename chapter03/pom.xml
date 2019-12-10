@@ -20,6 +20,9 @@
         <module>chapter03.00</module>
         <module>chapter03.01</module>
         <module>chapter03.02</module>
+        <module>chapter03.03</module>
+        <module>chapter03.04</module>
+        <module>chapter03.05</module>
     </modules>
 
     <properties>

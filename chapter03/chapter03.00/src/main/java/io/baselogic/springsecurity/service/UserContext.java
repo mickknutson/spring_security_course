@@ -9,7 +9,6 @@ import javax.validation.ConstraintViolationException;
  * accessing the current user to return the application specific user rather than interacting with Spring Security
  * classes directly.
  *
- * @since chapter01.00
  * @author mickknutson
  *
  */

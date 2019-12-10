@@ -49,8 +49,8 @@ public class RegistrationController {
 
     @PostMapping("/new")
     public String registration(final @Valid RegistrationDto registrationDto,
-                         final BindingResult result,
-                         final RedirectAttributes redirectAttributes) {
+                               final BindingResult result,
+                               final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             result.getAllErrors().forEach( e -> log.info("error: {}", e) );
             return REG_FORM_VIEW;
@@ -69,8 +69,17 @@ public class RegistrationController {
         user.setLastName(registrationDto.getLastName());
         user.setPassword(registrationDto.getPassword());
 
+        // To implement in chapter03.02
+//        int id = eventService.createUser(user);
+//        log.info("Created user ID {}.", id);
+//        user.setId(id);
+//        userContext.setCurrentUser(user);
+
+        StringBuilder sb = new StringBuilder("Registration Successful.");
+        sb.append(" Account created for '").append(email).append("' and automatically logged-in.");
+
         redirectAttributes.addFlashAttribute("message",
-                "TODO we will implement registration later in the chapter");
+                sb.toString());
         return "redirect:/";
     }
 

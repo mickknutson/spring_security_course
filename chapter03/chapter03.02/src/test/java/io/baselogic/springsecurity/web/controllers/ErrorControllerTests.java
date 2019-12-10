@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.web.controllers;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import io.baselogic.springsecurity.dao.TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +34,7 @@ public class ErrorControllerTests {
 
     private WebClient webClient;
 
-    private static final String USER = "user";
+    private static final String USER = TestUtils.user1.getEmail();
 
     @Autowired
     private ErrorController controller;

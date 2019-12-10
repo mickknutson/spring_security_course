@@ -6,6 +6,7 @@ import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.User;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.when;
@@ -150,14 +152,12 @@ public class DefaultEventServiceTests {
     }
 
     @Test
-    public void createUser() {
+    @DisplayName("Create User - invalid credentials")
+    public void createUser__null_credentials() {
 
-        given(userDao.save(any(User.class)))
-                .willReturn(42);
-
-        int id = eventService.createUser(new User());
-
-        assertThat(id).isEqualTo(42);
+        assertThrows(IllegalArgumentException.class, () -> {
+            eventService.createUser(new User());
+        });
     }
 
     /*@Test//(expected = IllegalArgumentException.class)

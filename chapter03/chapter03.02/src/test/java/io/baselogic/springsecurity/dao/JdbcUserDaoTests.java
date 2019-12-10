@@ -16,13 +16,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-// Junit 5: -----------------------------------------------------------------//
-
-// Assert-J
-// --> assertThat(result.size()).isGreaterThan(0);
-// http://joel-costigliola.github.io/assertj/index.html
-
-
 @ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -79,7 +72,7 @@ public class JdbcUserDaoTests {
     @Test
     public void findAllByEmail() {
         List<User> users = userDao.findAllByEmail("@example");
-        assertThat(users.size()).isEqualTo(3);
+        assertThat(users.size()).isEqualTo(4);
     }
 
     @Test
@@ -92,14 +85,14 @@ public class JdbcUserDaoTests {
     @Test
     public void createUser() {
         List<User> users = userDao.findAllByEmail("@example.com");
-        assertThat(users.size()).isEqualTo(3);
+        assertThat(users.size()).isGreaterThanOrEqualTo(3);
 
         User user = TestUtils.createMockUser("test@example.com", "test", "example");
         int userId = userDao.save(user);
         assertThat(userId).isGreaterThanOrEqualTo(3);
 
         users = userDao.findAllByEmail("example.com");
-        assertThat(users.size()).isEqualTo(4);
+        assertThat(users.size()).isGreaterThanOrEqualTo(3);
     }
 
     @Test

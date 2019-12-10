@@ -87,7 +87,7 @@ public class DefaultControllerTests {
 
 
     @Test
-    public void chapter03_01__user1_Login() throws Exception {
+    public void user1_Login() throws Exception {
         mockMvc.perform(post("/login")
                 .accept(MediaType.TEXT_HTML)
                 .contentType(

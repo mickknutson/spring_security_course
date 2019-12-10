@@ -22,7 +22,6 @@ import java.util.Calendar;
  * Event Controller
  *
  * @since chapter01.00
- * @author mickknutson
  */
 @Controller
 @RequestMapping("/events")
@@ -56,7 +55,6 @@ public class EventsController {
     @GetMapping("/my")
     public ModelAndView userEvents() {
         User currentUser = userContext.getCurrentUser();
-
         Integer currentUserId = 0;
         if(currentUser != null) {
             currentUserId = currentUser.getId();
@@ -82,7 +80,7 @@ public class EventsController {
      * Useful so that users do not have to think when
      * filling out the form for testing.
      *
-     * @param eventDto Event data transfer object
+     * @param eventDto
      */
     @PostMapping(value = "/new", params = "auto")
     public String showEventFormAutoPopulate(final @ModelAttribute EventDto eventDto) {

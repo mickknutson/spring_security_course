@@ -1,16 +1,21 @@
 package io.baselogic.springsecurity.configuration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
+ * @since chapter02.01
  */
 @Configuration
 @EnableWebSecurity//(debug = true)
@@ -30,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
+        am.userDetailsService(userDetailsService());
+
         am.inMemoryAuthentication()
                 .withUser("user").password("{noop}user").roles("USER")
                 .and().withUser("admin").password("{noop}admin").roles("ADMIN")
@@ -40,6 +47,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         log.debug("***** Password for user 'user1@example.com' is 'user1'");
         log.debug("***** Password for admin 'admin1@example.com' is 'admin1'");
     }
+
+    /**
+     * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
+     * originally returns a {@link org.springframework.security.core.userdetails.UserDetailsService}, but this needs to be a {@link UserDetailsManager}
+     * see: UserDetailsManager vs UserDetailsService
+     * @since chapter03.02
+     */
+    @Bean
+    @Override
+    public UserDetailsManager userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("user").password("{noop}password").roles("USER").build());
+        manager.createUser(User.withUsername("admin").password("{noop}admin").roles("USER", "ADMIN").build());
+        manager.createUser(User.withUsername("user1@example.com").password("{noop}user1").roles("USER").build());
+        manager.createUser(User.withUsername("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN").build());
+        return manager;
+    }
+
 
     /**
      * HTTP Security configuration
@@ -84,18 +109,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().accessDeniedPage("/errors/403")
 
                 .and().formLogin()
-                    .loginPage("/login/form")
-                    .loginProcessingUrl("/login")
-                    .failureUrl("/login/form?error")
-                    .usernameParameter("username") // redundant
-                    .passwordParameter("password") // redundant
-                    .defaultSuccessUrl("/default", true)
-                    .permitAll()
+                .loginPage("/login/form")
+                .loginProcessingUrl("/login")
+                .failureUrl("/login/form?error")
+                .usernameParameter("username") // redundant
+                .passwordParameter("password") // redundant
+                .defaultSuccessUrl("/default", true)
+                .permitAll()
 
                 .and().logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login/form?logout")
-                    .permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login/form?logout")
+                .permitAll()
 
                 .and().anonymous()
 
@@ -115,12 +140,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <pre><http pattern="/css/**" security="none"/></pre>
      *
      *
-     * @param web {@link WebSecurity} is created by {@link WebSecurityConfiguration}
+     * @param web {@link WebSecurity} is created by {@link org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration}
      * <p>
-     * The {@link WebSecurity} is created by {@link WebSecurityConfiguration} to create the
-     * {@link FilterChainProxy} known as the Spring Security Filter Chain
-     * (springSecurityFilterChain). The springSecurityFilterChain is the {@link Filter} that
-     * the {@link DelegatingFilterProxy} delegates to.
+     * The {@link WebSecurity} is created by {@link org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration} to create the
+     * {@link org.springframework.security.web.FilterChainProxy} known as the Spring Security Filter Chain
+     * (springSecurityFilterChain). The springSecurityFilterChain is the {@link javax.servlet.Filter} that
+     * the {@link org.springframework.web.filter.DelegatingFilterProxy} delegates to.
      * </p>
      */
     @Override

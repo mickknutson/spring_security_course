@@ -1,6 +1,4 @@
-# Chapter 02.06 #
+# Chapter 03.00 #
 
-# Overview
-
-In this chapter we...?
+# Custom Authentication BASE
 

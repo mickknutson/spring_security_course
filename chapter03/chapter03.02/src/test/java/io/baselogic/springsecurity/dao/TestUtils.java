@@ -12,19 +12,28 @@ public interface TestUtils {
     public static final User testUser1 = new User(){{
         setId(42);
         setEmail("test@example.com");
+        setPassword("test");
     }};
 
     public static final User attendee = new User(){{
         setId(0);
         setEmail("user1@example.com");
+        setPassword("user1");
     }};
     public static final User owner = new User(){{
         setId(1);
         setEmail("admin1@example.com");
+        setPassword("admin1");
+    }};
+    public static final User user1 = new User(){{
+        setId(1);
+        setEmail("user1@example.com");
+        setPassword("user1");
     }};
     public static final User admin1 = new User(){{
         setId(1);
         setEmail("admin1@example.com");
+        setPassword("admin1");
     }};
 
 

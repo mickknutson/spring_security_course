@@ -1,20 +1,23 @@
 package io.baselogic.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
  * An implementation of {@link UserContext} that looks up the {@link io.baselogic.springsecurity.domain.User} using the Spring Security's
  * {@link Authentication} by principal name.
  *
- * @since chapter03.00
+ * @since chapter03.01
  * @author Mick Knutson
  *
  */
@@ -62,8 +65,14 @@ public class SpringSecurityUserContext implements UserContext {
     }
 
     @Override
-    public void setCurrentUser(@NotNull(message="user.notNull.key") io.baselogic.springsecurity.domain.User user) {
-        throw new UnsupportedOperationException();
+    public void setCurrentUser(final @Valid @NotNull(message="user.notNull.key") io.baselogic.springsecurity.domain.User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("user cannot be null");
+        }
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
+                user.getPassword(),userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
 } // The End...

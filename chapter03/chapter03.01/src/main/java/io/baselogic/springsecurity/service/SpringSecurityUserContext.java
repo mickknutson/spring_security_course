@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * An implementation of {@link UserContext} that looks up the {@link io.baselogic.springsecurity.domain.User} using the Spring Security's
  * {@link Authentication} by principal name.
  *
- * @since chapter03.00
+ * @since chapter03.01
  * @author Mick Knutson
  *
  */

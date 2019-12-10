@@ -4,6 +4,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import io.baselogic.springsecurity.dao.TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,9 +18,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -72,6 +75,7 @@ public class RegistrationControllerTests {
         assertThat(content).contains("User Registration");
     }
 
+    //-----------------------------------------------------------------------//
 
     @Test
     @DisplayName("Submit Registration Form")
@@ -89,10 +93,10 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute("test@example.com");
+        email.setValueAttribute("chuck@example.com");
 
         HtmlInput password = page.getHtmlElementById("password");
-        password.setValueAttribute("user2@example.com");
+        password.setValueAttribute("some password");
 
         HtmlButton button =  page.getHtmlElementById("submit");
 
@@ -104,6 +108,202 @@ public class RegistrationControllerTests {
 
 //        assertThat(pageAfterClick.getTitleText())
 //                .contains("TODO we will implement registration later in the chapter");
+    }
+
+    //-----------------------------------------------------------------------//
+
+    @Test
+    @DisplayName("Submit Registration Form - null first name")
+    @WithAnonymousUser
+    public void createEvent__null__first_name() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/registration/form");
+
+        assertThat(page.getTitleText())
+                .contains("User Registration");
+
+//        HtmlInput firstName = page.getHtmlElementById("firstName");
+//        firstName.setValueAttribute("Chuck");
+
+        HtmlInput lastName = page.getHtmlElementById("lastName");
+        lastName.setValueAttribute("Norris");
+
+        HtmlInput email = page.getHtmlElementById("email");
+        email.setValueAttribute("chuck@example.com");
+
+        HtmlInput password = page.getHtmlElementById("password");
+        password.setValueAttribute("some password");
+
+        HtmlButton button =  page.getHtmlElementById("submit");
+
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("User Registration");
+
+        if(log.isTraceEnabled()){
+            log.info("***: {}", pageAfterClick.asXml());
+        }
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("First Name is required");
+
+    }
+
+
+    @Test
+    @DisplayName("Submit Registration Form - null last name")
+    @WithAnonymousUser
+    public void createEvent__null__last_name() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/registration/form");
+
+        assertThat(page.getTitleText())
+                .contains("User Registration");
+
+        HtmlInput firstName = page.getHtmlElementById("firstName");
+        firstName.setValueAttribute("Chuck");
+
+//        HtmlInput lastName = page.getHtmlElementById("lastName");
+//        lastName.setValueAttribute("Norris");
+
+        HtmlInput email = page.getHtmlElementById("email");
+        email.setValueAttribute(TestUtils.testUser1.getEmail());
+
+        HtmlInput password = page.getHtmlElementById("password");
+        password.setValueAttribute("some password");
+
+        HtmlButton button =  page.getHtmlElementById("submit");
+
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("User Registration");
+
+        if(log.isTraceEnabled()){
+            log.info("***: {}", pageAfterClick.asXml());
+        }
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Last Name is required");
+
+    }
+
+
+    @Test
+    @DisplayName("Submit Registration Form - null email")
+    @WithAnonymousUser
+    public void createEvent__null__email() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/registration/form");
+
+        assertThat(page.getTitleText())
+                .contains("User Registration");
+
+        HtmlInput firstName = page.getHtmlElementById("firstName");
+        firstName.setValueAttribute("Chuck");
+
+        HtmlInput lastName = page.getHtmlElementById("lastName");
+        lastName.setValueAttribute("Norris");
+
+//        HtmlInput email = page.getHtmlElementById("email");
+//        email.setValueAttribute(TestUtils.testTest1.getEmail());
+
+        HtmlInput password = page.getHtmlElementById("password");
+        password.setValueAttribute("some password");
+
+        HtmlButton button =  page.getHtmlElementById("submit");
+
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("User Registration");
+
+        if(log.isTraceEnabled()){
+            log.info("***: {}", pageAfterClick.asXml());
+        }
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Email is required");
+
+    }
+
+
+    @Test
+    @DisplayName("Submit Registration Form - duplicate email")
+    @WithAnonymousUser
+    public void createEvent__duplicate__email() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/registration/form");
+
+        assertThat(page.getTitleText())
+                .contains("User Registration");
+
+        HtmlInput firstName = page.getHtmlElementById("firstName");
+        firstName.setValueAttribute("Chuck");
+
+        HtmlInput lastName = page.getHtmlElementById("lastName");
+        lastName.setValueAttribute("Norris");
+
+        HtmlInput email = page.getHtmlElementById("email");
+        email.setValueAttribute(TestUtils.user1.getEmail());
+
+        HtmlInput password = page.getHtmlElementById("password");
+        password.setValueAttribute("some password");
+
+        HtmlButton button =  page.getHtmlElementById("submit");
+
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("User Registration");
+
+        if(log.isTraceEnabled()){
+            log.info("***: {}", pageAfterClick.asXml());
+        }
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Email address is already in use.");
+
+    }
+
+
+    @Test
+    @DisplayName("Submit Registration Form - null password")
+    @WithAnonymousUser
+    public void createEvent__null__password() throws Exception {
+        HtmlPage page = webClient.getPage("http://localhost/registration/form");
+
+        assertThat(page.getTitleText())
+                .contains("User Registration");
+
+        HtmlInput firstName = page.getHtmlElementById("firstName");
+        firstName.setValueAttribute("Chuck");
+
+        HtmlInput lastName = page.getHtmlElementById("lastName");
+        lastName.setValueAttribute("Norris");
+
+        HtmlInput email = page.getHtmlElementById("email");
+        email.setValueAttribute("chuck@example.com");
+
+//        HtmlInput password = page.getHtmlElementById("password");
+//        password.setValueAttribute("user2@example.com");
+
+        HtmlButton button =  page.getHtmlElementById("submit");
+
+
+        HtmlPage pageAfterClick = button.click();
+
+        assertThat(pageAfterClick.getTitleText())
+                .contains("User Registration");
+
+        if(log.isTraceEnabled()){
+            log.info("***: {}", pageAfterClick.asXml());
+        }
+
+        String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
+        assertThat(errors).contains("Password is required");
+
     }
 
 
