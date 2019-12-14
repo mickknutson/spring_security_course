@@ -23,6 +23,7 @@
         <module>chapter03.03</module>
         <module>chapter03.04</module>
         <module>chapter03.05</module>
+        <module>chapter03.06</module>
     </modules>
 
     <properties>

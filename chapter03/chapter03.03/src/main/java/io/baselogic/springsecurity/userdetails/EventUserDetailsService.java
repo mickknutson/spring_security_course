@@ -1,7 +1,5 @@
 package io.baselogic.springsecurity.userdetails;
 
-import java.util.Collection;
-
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.service.DefaultEventService;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 /**
  * Integrates with Spring Security using our existing {@link UserDao} by looking up

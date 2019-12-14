@@ -1,19 +1,11 @@
 package io.baselogic.springsecurity.configuration;
 
-import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 
 /**
  * Spring Security Configuration  Class
@@ -81,19 +73,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
-
-                .and().anonymous()
-
-                // CSRF is enabled by default, with Java Config
-                .and().csrf().disable()
-
-                // Cross Origin Resource Sharing
-                .cors().disable()
-
-                // HTTP Security Headers
-                .headers().disable()
         ;
-    }
+
+
+        // Allow anonymous users
+        http.anonymous();
+
+        // CSRF is enabled by default, with Java Config
+        http.csrf().disable();
+
+        // Cross Origin Resource Sharing
+        http.cors().disable();
+
+        // HTTP Security Headers
+        http.headers().disable();
+
+        // Enable <frameset> in order to use H2 web console
+        http.headers().frameOptions().disable();
+
+    } // end configure
 
     /**
      * This is the equivalent to:

@@ -18,8 +18,8 @@ During the course of this chapter, we will cover the following topics:
 
 ## Section Chapters
 
-### Chapter 02.00:
-> * Base line Starting from chapter01.00
+### Chapter 03.00:
+> * Base line Starting from chapter02.06
 
 ---
 

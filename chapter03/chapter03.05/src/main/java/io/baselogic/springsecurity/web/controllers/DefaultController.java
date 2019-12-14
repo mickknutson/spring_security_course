@@ -2,7 +2,7 @@ package io.baselogic.springsecurity.web.controllers;
 
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -64,7 +64,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class DefaultController {
 
-    @RequestMapping("/default")
+    @GetMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
 
         if (request.isUserInRole("ADMIN")) {

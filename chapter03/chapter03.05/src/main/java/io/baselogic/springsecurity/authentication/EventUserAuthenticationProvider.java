@@ -1,7 +1,5 @@
 package io.baselogic.springsecurity.authentication;
 
-import java.util.Collection;
-
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.domain.User;
 import io.baselogic.springsecurity.service.EventService;
@@ -19,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 /**
  * A Spring Security {@link AuthenticationProvider} that uses our {@link EventService} for authentication. Compare
@@ -53,6 +52,7 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
             throw new UsernameNotFoundException("Invalid username/password");
         }
 
+        // FIXME: Need to configure password encoder support to account for {noop} prefix in passwords
         String password = user.getPassword();
         log.info("Password: {}", password);
         log.info("Credentials: {}", token.getCredentials());

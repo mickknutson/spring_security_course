@@ -2,7 +2,9 @@ package io.baselogic.springsecurity.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,17 +21,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
-     * Configure AuthenticationManager with inMemory credentials.
+     * Configure {@link AuthenticationManager} with {@link InMemoryUserDetailsManagerConfigurer} credentials.
      *
      * Note: Prior to Spring Security 5.0
      * the default PasswordEncoder was NoOpPasswordEncoder which required plain text passwords.
      * In Spring Security 5, the default is DelegatingPasswordEncoder, which required Password Storage Format.
+     *
+     * See for more details:
+     * https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
      *
      * @param am       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
      */
     @Override
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
+
+        // Legacy insecure password encoding:
+        /*am.inMemoryAuthentication()
+                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .withUser("user1@example.com").password("user1").roles("USER");*/
 
         am.inMemoryAuthentication()
                 .withUser("user").password("{noop}user").roles("USER")
@@ -93,19 +103,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/login/form?logout")
                     .permitAll()
-
-                .and().anonymous()
-
-                // CSRF is enabled by default, with Java Config
-                .and().csrf().disable()
-
-                // Cross Origin Resource Sharing
-                .cors().disable()
-
-                // HTTP Security Headers
-                .headers().disable()
         ;
-    }
+
+
+        // Allow anonymous users
+        http.anonymous();
+
+        // CSRF is enabled by default, with Java Config
+        http.csrf().disable();
+
+        // Cross Origin Resource Sharing
+        http.cors().disable();
+
+        // HTTP Security Headers
+        http.headers().disable();
+
+        // Enable <frameset> in order to use H2 web console
+        http.headers().frameOptions().disable();
+
+    } // end configure
 
     /**
      * This is the equivalent to:

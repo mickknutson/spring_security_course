@@ -3,7 +3,9 @@ package io.baselogic.springsecurity.configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,11 +25,14 @@ import org.springframework.security.provisioning.UserDetailsManager;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
-     * Configure AuthenticationManager with inMemory credentials.
+     * Configure {@link AuthenticationManager} with {@link InMemoryUserDetailsManagerConfigurer} credentials.
      *
      * Note: Prior to Spring Security 5.0
      * the default PasswordEncoder was NoOpPasswordEncoder which required plain text passwords.
      * In Spring Security 5, the default is DelegatingPasswordEncoder, which required Password Storage Format.
+     *
+     * See for more details:
+     * https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
      *
      * @param am       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
@@ -35,14 +40,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
+        // Legacy insecure password encoding:
+        /*am.inMemoryAuthentication()
+                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .withUser("user1@example.com").password("user1").roles("USER");*/
+
         am.userDetailsService(userDetailsService());
 
-        am.inMemoryAuthentication()
-                .withUser("user").password("{noop}user").roles("USER")
-                .and().withUser("admin").password("{noop}admin").roles("ADMIN")
-                .and().withUser("user1@example.com").password("{noop}user1").roles("USER")
-                .and().withUser("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN")
-        ;
+//        am.inMemoryAuthentication()
+//                .withUser("user").password("{noop}user").roles("USER")
+//                .and().withUser("admin").password("{noop}admin").roles("ADMIN")
+//                .and().withUser("user1@example.com").password("{noop}user1").roles("USER")
+//                .and().withUser("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN")
+//        ;
 
         log.debug("***** Password for user 'user1@example.com' is 'user1'");
         log.debug("***** Password for admin 'admin1@example.com' is 'admin1'");
@@ -57,6 +67,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsManager userDetailsService() {
+
+        // Use the following Password Encoder instead of prefixing passwords with {noop}
+//        User.UserBuilder users = User.withDefaultPasswordEncoder();
+
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("user").password("{noop}password").roles("USER").build());
         manager.createUser(User.withUsername("admin").password("{noop}admin").roles("USER", "ADMIN").build());
@@ -121,19 +135,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
-
-                .and().anonymous()
-
-                // CSRF is enabled by default, with Java Config
-                .and().csrf().disable()
-
-                // Cross Origin Resource Sharing
-                .cors().disable()
-
-                // HTTP Security Headers
-                .headers().disable()
         ;
-    }
+
+
+        // Allow anonymous users
+        http.anonymous();
+
+        // CSRF is enabled by default, with Java Config
+        http.csrf().disable();
+
+        // Cross Origin Resource Sharing
+        http.cors().disable();
+
+        // HTTP Security Headers
+        http.headers().disable();
+
+        // Enable <frameset> in order to use H2 web console
+        http.headers().frameOptions().disable();
+
+    } // end configure
 
     /**
      * This is the equivalent to:

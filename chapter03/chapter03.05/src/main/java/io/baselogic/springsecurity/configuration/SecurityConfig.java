@@ -105,19 +105,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
-
-                .and().anonymous()
-
-                // CSRF is enabled by default, with Java Config
-                .and().csrf().disable()
-
-                // Cross Origin Resource Sharing
-                .cors().disable()
-
-                // HTTP Security Headers
-                .headers().disable()
         ;
-    }
+
+
+        // Allow anonymous users
+        http.anonymous();
+
+        // CSRF is enabled by default, with Java Config
+        http.csrf().disable();
+
+        // Cross Origin Resource Sharing
+        http.cors().disable();
+
+        // HTTP Security Headers
+        http.headers().disable();
+
+        // Enable <frameset> in order to use H2 web console
+        http.headers().frameOptions().disable();
+
+    } // end configure
 
     /**
      * This is the equivalent to:
