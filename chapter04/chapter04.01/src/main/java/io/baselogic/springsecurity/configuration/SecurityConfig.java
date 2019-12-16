@@ -1,56 +1,67 @@
 package io.baselogic.springsecurity.configuration;
 
+import io.baselogic.springsecurity.authentication.EventUserAuthenticationProvider;
+import io.baselogic.springsecurity.web.authentication.DomainUsernamePasswordAuthenticationFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
  * @since chapter02.01
+ * @since chapter03.05 Added
  */
 @Configuration
 @EnableWebSecurity//(debug = true)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private EventUserAuthenticationProvider euap;
+
+
     /**
-     * Configure {@link AuthenticationManager} with {@link InMemoryUserDetailsManagerConfigurer} credentials.
+     * Configure AuthenticationManager with inMemory credentials.
      *
-     * Note: Prior to Spring Security 5.0
-     * the default PasswordEncoder was NoOpPasswordEncoder which required plain text passwords.
-     * In Spring Security 5, the default is DelegatingPasswordEncoder, which required Password Storage Format.
+     * NOTE:
+     * Due to a known limitation with JavaConfig:
+     * <a href="https://jira.spring.io/browse/SPR-13779">
+     *     https://jira.spring.io/browse/SPR-13779</a>
      *
-     * See for more details:
-     * https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
+     * We cannot use the following to expose a {@link UserDetailsManager}
+     * <pre>
+     *     http.authorizeRequests()
+     * </pre>
      *
-     * @param am       AuthenticationManagerBuilder
+     * In order to expose {@link UserDetailsManager} as a bean, we must create  @Bean
+     *
+     * @param auth       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
      */
     @Override
-    public void configure(final AuthenticationManagerBuilder am) throws Exception {
-
-        // Legacy insecure password encoding:
-        /*am.inMemoryAuthentication()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("user1@example.com").password("user1").roles("USER");*/
-
-        am.inMemoryAuthentication()
-                .withUser("user").password("{noop}user").roles("USER")
-                .and().withUser("admin").password("{noop}admin").roles("ADMIN")
-                .and().withUser("user1@example.com").password("{noop}user1").roles("USER")
-                .and().withUser("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN")
-        ;
-
-        log.debug("***** Password for user 'user1@example.com' is 'user1'");
-        log.debug("***** Password for admin 'admin1@example.com' is 'admin1'");
+    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(euap);
     }
+
 
     /**
      * HTTP Security configuration
@@ -80,8 +91,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                // FIXME: TODO: Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
+                .antMatchers("/admin/h2/**").permitAll()
 
                 .antMatchers("/").access("hasAnyRole('ANONYMOUS', 'USER')")
+                .antMatchers("/registration/*").permitAll()
                 .antMatchers("/login/*").access("hasAnyRole('ANONYMOUS', 'USER')")
                 .antMatchers("/logout/*").access("hasAnyRole('ANONYMOUS', 'USER')")
                 .antMatchers("/admin/*").access("hasRole('ADMIN')")
@@ -89,21 +103,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").access("hasRole('USER')")
 
                 // The default AccessDeniedException
-                .and().exceptionHandling().accessDeniedPage("/errors/403")
+                .and().exceptionHandling()
+                .accessDeniedPage("/errors/403")
 
-                .and().formLogin()
-                    .loginPage("/login/form")
-                    .loginProcessingUrl("/login")
-                    .failureUrl("/login/form?error")
-                    .usernameParameter("username") // redundant
-                    .passwordParameter("password") // redundant
-                    .defaultSuccessUrl("/default", true)
-                    .permitAll()
+                // We overrode defaultAuthenticationEntryPoint and added a reference to
+                // o.s.s.web.authentication.LoginUrlAuthenticationEntryPoint, which
+                // determines what happens when a request for a protected resource occurs and the
+                // user is not authenticated. In our case, we are redirected to a login page.
+                .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
 
+                // Login Configuration
+                //NOTE: We remove this in favor of the {@link LoginUrlAuthenticationEntryPoint}
+                /*.and().formLogin()
+                .loginPage("/login/form")
+                .loginProcessingUrl("/login")
+                .failureUrl("/login/form?error")
+                .usernameParameter("username") // redundant
+                .passwordParameter("password") // redundant
+                .defaultSuccessUrl("/default", true)
+                .permitAll()*/
+
+                // Logout Configuration
                 .and().logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login/form?logout")
-                    .permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login/form?logout")
+                .permitAll()
+
+
+                // Add custom DomainUsernamePasswordAuthenticationFilter
+                .and().addFilterAt(domainUsernamePasswordAuthenticationFilter(),
+                        UsernamePasswordAuthenticationFilter.class)
         ;
 
 
@@ -144,6 +173,82 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/img/**")
                 .antMatchers("/webjars/**")
         ;
+    }
+
+    /**
+     * Expose AuthenticationManager
+     * @return AuthenticationManager for use in other Bean's
+     * @throws Exception on Bean creation
+     * @since chapter03.06
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean()
+            throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+
+    /**
+     * DomainUsernamePasswordAuthenticationFilter
+     * @return DomainUsernamePasswordAuthenticationFilter for Login
+     * @throws Exception registering Bean
+     *
+     * @since chapter03.06
+     */
+    @Bean
+    public DomainUsernamePasswordAuthenticationFilter domainUsernamePasswordAuthenticationFilter()
+            throws Exception {
+
+        DomainUsernamePasswordAuthenticationFilter dupaf
+                = new DomainUsernamePasswordAuthenticationFilter(super.authenticationManagerBean());
+        dupaf.setFilterProcessesUrl("/login");
+        dupaf.setUsernameParameter("username");
+        dupaf.setPasswordParameter("password");
+
+        dupaf.setAuthenticationSuccessHandler(
+                new SavedRequestAwareAuthenticationSuccessHandler(){{
+                    setDefaultTargetUrl("/default");
+                }}
+        );
+
+        dupaf.setAuthenticationFailureHandler(
+                new SimpleUrlAuthenticationFailureHandler(){{
+                    setDefaultFailureUrl("/login/form?error");
+                }}
+        );
+
+        dupaf.afterPropertiesSet();
+
+        return dupaf;
+    }
+
+    /**
+     * LoginUrlAuthenticationEntryPoint
+     * @return LoginUrlAuthenticationEntryPoint
+     * @since chapter03.06
+     */
+    @Bean
+    public LoginUrlAuthenticationEntryPoint loginUrlAuthenticationEntryPoint(){
+        return new LoginUrlAuthenticationEntryPoint("/login/form");
+    }
+
+
+    /**
+     * Create a DelegatingPasswordEncoder
+     *  see https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
+     *
+     * @return DelegatingPasswordEncoder
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+
+        String idForEncode = "noop";
+        Map encoders = new HashMap<>();
+        encoders.put("noop", NoOpPasswordEncoder.getInstance());
+
+        return new DelegatingPasswordEncoder(idForEncode, encoders);
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 

@@ -6,6 +6,8 @@ import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.User;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,18 @@ public class DefaultEventServiceTests {
     @Autowired
     private EventService eventService;
 
+
+    //-----------------------------------------------------------------------//
+
+    private User user1 = new User();
+    private User testUser1 = new User();
+
+
+    @BeforeEach
+    public void beforeEachTest() {
+        user1 = TestUtils.user1;
+        testUser1 = TestUtils.testUser1;
+    }
 
     //-------------------------------------------------------------------------
 
@@ -149,26 +163,15 @@ public class DefaultEventServiceTests {
         assertThat(users.size()).isGreaterThanOrEqualTo(3);
     }
 
+    //-------------------------------------------------------------------------
+
     @Test
+    @DisplayName("Create User")
     public void createUser() {
 
-        given(userDao.save(any(User.class)))
-                .willReturn(42);
-
-        int id = eventService.createUser(new User());
-
-        assertThat(id).isEqualTo(42);
+        Integer result = eventService.createUser(testUser1);
+        assertThat(result).isGreaterThanOrEqualTo(0);
     }
-
-    /*@Test//(expected = IllegalArgumentException.class)
-    public void createUser_with_id() {
-
-        assertThrows(ConstraintViolationException.class, () -> {
-            User user = TestUtils.createMockUser("test@example.com", "test", "example");
-            user.setId(12345);
-            int userId = eventService.createUser(user);
-        });
-    }*/
 
 
 } // The End...

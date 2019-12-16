@@ -1,12 +1,20 @@
 package io.baselogic.springsecurity.dao;
 
 import io.baselogic.springsecurity.domain.Event;
+import io.baselogic.springsecurity.domain.EventUserDetails;
 import io.baselogic.springsecurity.domain.User;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Test Utilities
+ * @author mickknutson
+ *
+ * @since chapter01.00
+ * @since chapter03.04 added EventUserDetails
+ */
 public interface TestUtils {
 
     public static final User testUser1 = new User(){{
@@ -35,6 +43,9 @@ public interface TestUtils {
         setEmail("admin1@example.com");
         setPassword("admin1");
     }};
+
+    public static final EventUserDetails user1UserDetails = new EventUserDetails(user1);
+    public static final EventUserDetails admin1UserDetails = new EventUserDetails(admin1);
 
 
     public static final Event testEvent = Event.builder()

@@ -5,6 +5,7 @@ import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -13,8 +14,11 @@ import java.util.List;
 /**
  * A default implementation of {@link EventService} that delegates to {@link EventDao} and {@link UserDao}.
  *
- * @since chapter01.00
  * @author mickknutson
+ *
+ * @since chapter01.00
+ * @since chapter03.02 adding {@link UserDetailsManager} userDetailsManager
+ * @since chapter03.03 removed {@link UserDetailsManager} userDetailsManager
  *
  */
 @Service
@@ -60,7 +64,7 @@ public class DefaultEventService implements EventService {
         return userDao.findAllByEmail(partialEmail);
     }
 
-    public Integer createUser(User user) {
+    public Integer createUser(final User user) {
         return userDao.save(user);
     }
 

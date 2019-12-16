@@ -104,6 +104,7 @@ public class RegistrationControllerTests {
 //        assertThat(pageAfterClick.getTitleText())
 //                .contains("Welcome to the EventManager!");
 
+        // FIXME: Need to login after registration!
     }
 
     //-----------------------------------------------------------------------//

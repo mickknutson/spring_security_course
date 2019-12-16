@@ -39,14 +39,10 @@ public class WebMvcConfig implements WebMvcConfigurer
                 .setCachePeriod(1)
         ;
 
-        // Add WebJars for Bootstrap & jQuery
         if (!registry.hasMappingForPattern("/webjars/**")) {
-            registry.addResourceHandler("/webjars/**")
-                    .addResourceLocations("classpath:webjars/")
-                    .resourceChain(false)
-            ;
+            registry.addResourceHandler("/webjars/**").addResourceLocations(
+                    "classpath:/META-INF/resources/webjars/").resourceChain(true);
         }
-
 
         if (!registry.hasMappingForPattern("/**")) {
             registry.addResourceHandler("/**")

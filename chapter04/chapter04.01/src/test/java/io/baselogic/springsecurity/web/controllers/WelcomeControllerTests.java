@@ -54,8 +54,8 @@ public class WelcomeControllerTests {
 
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!");
-        assertThat(content).contains("Chapter 04.01");
-        assertThat(content).contains("JDBC-Based Authentication");
+        assertThat(content).contains("Chapter 03.06");
+        assertThat(content).contains("Expression based authorization");
 
     }
 
@@ -69,13 +69,13 @@ public class WelcomeControllerTests {
         assertThat(id).isEqualTo("Welcome to the EventManager!");
 
         String chapterHeading = welcomePage.getHtmlElementById("chapterHeading").getTextContent();
-        assertThat(chapterHeading).contains("Chapter 04.01");
+        assertThat(chapterHeading).contains("Chapter 03.06");
 
         String chapterTitle = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
         assertThat(chapterTitle).contains("Each chapter will have a slightly different summary depending on what has been done.");
 
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("JDBC-Based Authentication");
+        assertThat(summary).contains("Expression based authorization");
     }
 
     //-------------------------------------------------------------------------

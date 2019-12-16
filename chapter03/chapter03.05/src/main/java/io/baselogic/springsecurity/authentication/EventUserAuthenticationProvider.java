@@ -52,7 +52,6 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
             throw new UsernameNotFoundException("Invalid username/password");
         }
 
-        // FIXME: Need to configure password encoder support to account for {noop} prefix in passwords
         String password = user.getPassword();
         log.info("Password: {}", password);
         log.info("Credentials: {}", token.getCredentials());

@@ -12,11 +12,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Spring Security Configuration  Class
@@ -227,5 +234,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new LoginUrlAuthenticationEntryPoint("/login/form");
     }
 
+
+    /**
+     * Create a DelegatingPasswordEncoder
+     *  see https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
+     *
+     * @return DelegatingPasswordEncoder
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+
+        String idForEncode = "noop";
+        Map encoders = new HashMap<>();
+        encoders.put("noop", NoOpPasswordEncoder.getInstance());
+
+        return new DelegatingPasswordEncoder(idForEncode, encoders);
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
 } // The End...

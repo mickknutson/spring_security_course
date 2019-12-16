@@ -22,17 +22,20 @@
                     </ul>
                     <ul class="nav navbar-nav pull-right" sec:authorize="isAuthenticated()">
                         <li>
-                            <p class="navbar-text">Welcome: <div class="navbar-text" th:text="${#authentication.name}">User</div></p>
+                            <p class="navbar-text">Welcome <div class="navbar-text" th:text="${#authentication.getPrincipal().getName()}">User</div></p>
                         </li>
                         <li>
                             <a id="navLogoutLink" class="btn btn-primary" role="button"  th:href="@{/logout}">Logout</a>
                         </li>
                         <li>&nbsp;|&nbsp;</li>
                     </ul>
+
                     <ul class="nav navbar-nav pull-right" sec:authorize=" ! isAuthenticated()">
-                        <li><a id="navLoginLink" class="btn btn-primary" role="button" th:href="@{/login/form}">Login</a></li>
+                        <li><a id="navSignupLink" class="btn btn-default" role="button" th:href="@{/registration/form}">Register</a></li>
+                        <li><a id="navLoginLink" class="btn btn-default" role="button" th:href="@{/login/form}">Login</a></li>
                         <li>&nbsp;|&nbsp;</li>
                     </ul>
+
                 </div>
             </div>
         </nav>

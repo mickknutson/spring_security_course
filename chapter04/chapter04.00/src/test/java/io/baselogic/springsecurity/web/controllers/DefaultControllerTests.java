@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,8 +18,15 @@ import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * DefaultControllerTests
+ *
+ * @since chapter01.00
+ */
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -75,6 +83,23 @@ public class DefaultControllerTests {
                 .andExpect(header().string("Location", "/events/"))
                 .andReturn();
 
+    }
+
+
+    @Test
+    public void user1_Login() throws Exception {
+        mockMvc.perform(post("/login")
+                .accept(MediaType.TEXT_HTML)
+                .contentType(
+                        MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username", "user1")
+                .param("password", "{noop}user1")
+                .param("domain", "example.com")
+        )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/default"))
+                .andDo(print())
+        ;
     }
 
     //-------------------------------------------------------------------------

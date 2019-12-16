@@ -6,6 +6,7 @@ import io.baselogic.springsecurity.service.UserContext;
 import io.baselogic.springsecurity.web.model.RegistrationDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +20,10 @@ import javax.validation.constraints.NotNull;
 
 /**
  * User Registration Controller
- * TODO: If we dont use this controller, remove it from chapters that dont need it.
  *
- * @since chapter03.00
  * @author mickknutson
+ *
+ * @since chapter03.01 Does not create a User in the database.
  */
 @Controller
 @RequestMapping("registration")
@@ -34,6 +35,8 @@ public class RegistrationController {
 
     private static final String REG_FORM_VIEW = "registration/register";
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public RegistrationController(final @NotNull UserContext userContext,
@@ -67,9 +70,11 @@ public class RegistrationController {
         user.setEmail(email);
         user.setFirstName(registrationDto.getFirstName());
         user.setLastName(registrationDto.getLastName());
-        user.setPassword(registrationDto.getPassword());
+        user.setPassword(
+                passwordEncoder.encode(registrationDto.getPassword())
+        );
 
-        // To implement in chapter03.02
+        // TODO: To implement in chapter03.02
 //        int id = eventService.createUser(user);
 //        log.info("Created user ID {}.", id);
 //        user.setId(id);
