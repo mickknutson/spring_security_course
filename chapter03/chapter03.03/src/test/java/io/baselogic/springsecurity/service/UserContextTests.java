@@ -144,10 +144,9 @@ public class UserContextTests {
     public void setCurrentUser() {
         userContext.setCurrentUser(user1);
 
-        User user = userContext.getCurrentUser();
-
-        assertThat(user).isNotNull();
-        assertThat(user.getId()).isEqualTo(1);
+        assertThrows(IllegalStateException.class, () -> {
+            userContext.getCurrentUser();
+        });
     }
 
     @Test
