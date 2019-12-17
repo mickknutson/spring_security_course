@@ -142,7 +142,12 @@ public class UserContextTests {
 
     @Test
     public void setCurrentUser() {
-        userContext.setCurrentUser(user1);
+        userContext.setCurrentUser(owner);
+
+        User user = userContext.getCurrentUser();
+
+        assertThat(user).isNotNull();
+        assertThat(user.getId()).isEqualTo(1);
     }
 
     @Test
