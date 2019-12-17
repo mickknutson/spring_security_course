@@ -61,7 +61,7 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Invalid username/password");
         }
 
-        Collection<? extends GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(user);
+        Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(user);
         log.info("return valid UsernamePasswordAuthenticationToken");
 
         return new UsernamePasswordAuthenticationToken(user, password, authorities);

@@ -38,7 +38,7 @@ public final class DomainUsernamePasswordAuthenticationToken extends UsernamePas
     public DomainUsernamePasswordAuthenticationToken(final User principal,
                                                      final String credentials,
                                                      final String domain,
-                                                     final Collection<? extends GrantedAuthority> authorities) {
+                                                     final Collection<GrantedAuthority> authorities) {
         super(principal, credentials, authorities);
         this.domain = domain;
     }

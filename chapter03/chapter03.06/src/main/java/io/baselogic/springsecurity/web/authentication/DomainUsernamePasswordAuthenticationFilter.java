@@ -29,6 +29,7 @@ public final class DomainUsernamePasswordAuthenticationFilter extends UsernamePa
         super.setAuthenticationManager(authenticationManager);
     }
 
+    @Override
     public Authentication attemptAuthentication(final HttpServletRequest request,
                                                 final HttpServletResponse response)
             throws AuthenticationException {

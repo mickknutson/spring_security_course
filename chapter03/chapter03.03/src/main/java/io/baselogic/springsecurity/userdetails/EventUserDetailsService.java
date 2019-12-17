@@ -52,7 +52,7 @@ public class EventUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username/password.");
         }
-        Collection<? extends GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(user);
+        Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(user);
         return new User(user.getEmail(), user.getPassword(), authorities);
     }
 

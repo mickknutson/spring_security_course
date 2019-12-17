@@ -50,7 +50,7 @@ public class SpringSecurityUserContext implements UserContext {
         if (user.getEmail() == null) {
             throw new IllegalArgumentException("email cannot be null");
         }
-        Collection<? extends GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(user);
+        Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(user);
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user,
                 user.getPassword(), authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);

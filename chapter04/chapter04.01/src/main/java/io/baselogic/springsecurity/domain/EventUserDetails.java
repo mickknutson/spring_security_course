@@ -36,7 +36,7 @@ public class EventUserDetails
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         return UserAuthorityUtils.createAuthorities(this);
     }
 
