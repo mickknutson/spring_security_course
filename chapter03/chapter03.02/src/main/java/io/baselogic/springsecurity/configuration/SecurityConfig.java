@@ -31,9 +31,9 @@ import java.util.Map;
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final String ROLE_ANONYMOUS = "ANONYMOUS";
-    private final String ROLE_USER = "USER";
-    private final String ROLE_ADMIN = "ADMIN";
+    private static final String ROLE_ANONYMOUS = "ANONYMOUS";
+    private static final String ROLE_USER = "USER";
+    private static final String ROLE_ADMIN = "ADMIN";
 
     /**
      * Configure {@link AuthenticationManager} with {@link InMemoryUserDetailsManagerConfigurer} credentials.
