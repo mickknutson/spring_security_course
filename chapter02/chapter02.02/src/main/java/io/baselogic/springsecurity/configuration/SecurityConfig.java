@@ -20,6 +20,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final String ROLE_ANONYMOUS = "ANONYMOUS";
+    private final String ROLE_USER = "USER";
+    private final String ROLE_ADMIN = "ADMIN";
     /**
      * Configure {@link AuthenticationManager} with {@link InMemoryUserDetailsManagerConfigurer} credentials.
      *
@@ -34,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <code>
      *     am.inMemoryAuthentication()
      *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
-     *          .withUser("user1@example.com").password("user1").roles("USER");
+     *          .withUser("user1@example.com").password("user1").roles(ROLE_USER);
      * </code>
      *
      * @param am       AuthenticationManagerBuilder
@@ -44,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
         am.inMemoryAuthentication()
-                .withUser("user1@example.com").password("{noop}user1").roles("USER");
+                .withUser("user1@example.com").password("{noop}user1").roles(ROLE_USER);
     }
 
 
@@ -76,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/**").hasRole("USER")
+                .antMatchers("/**").hasRole(ROLE_USER)
 
                 .and().formLogin()
                     .loginPage("/login/form")

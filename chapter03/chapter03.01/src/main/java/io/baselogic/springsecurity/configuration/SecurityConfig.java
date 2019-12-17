@@ -28,6 +28,10 @@ import java.util.Map;
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final String ROLE_ANONYMOUS = "ANONYMOUS";
+    private final String ROLE_USER = "USER";
+    private final String ROLE_ADMIN = "ADMIN";
+
     /**
      * Configure {@link AuthenticationManager} with {@link InMemoryUserDetailsManagerConfigurer} credentials.
      *
@@ -42,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <code>
      *     am.inMemoryAuthentication()
      *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
-     *          .withUser("user1@example.com").password("user1").roles("USER");
+     *          .withUser("user1@example.com").password("user1").roles(ROLE_USER);
      * </code>
      *
      * @param am       AuthenticationManagerBuilder
@@ -52,10 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
         am.inMemoryAuthentication()
-                .withUser("user").password("{noop}user").roles("USER")
-                .and().withUser("admin").password("{noop}admin").roles("ADMIN")
-                .and().withUser("user1@example.com").password("{noop}user1").roles("USER")
-                .and().withUser("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN")
+                .withUser("user").password("{noop}user").roles(ROLE_USER)
+                .and().withUser("admin").password("{noop}admin").roles(ROLE_ADMIN)
+                .and().withUser("user1@example.com").password("{noop}user1").roles(ROLE_USER)
+                .and().withUser("admin1@example.com").password("{noop}admin1").roles(ROLE_USER, ROLE_ADMIN)
         ;
 
         log.debug("***** Password for user 'user1@example.com' is 'user1'");

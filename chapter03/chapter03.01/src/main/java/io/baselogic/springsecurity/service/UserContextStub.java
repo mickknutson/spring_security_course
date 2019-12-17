@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  *
  * @deprecated To be removed after chapter03.01
  */
+@Deprecated
 //@Service
 public class UserContextStub implements UserContext {
 

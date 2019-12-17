@@ -20,6 +20,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final String ROLE_ANONYMOUS = "ANONYMOUS";
+    private final String ROLE_USER = "USER";
+    private final String ROLE_ADMIN = "ADMIN";
+
     /**
      * Configure {@link AuthenticationManager} with {@link InMemoryUserDetailsManagerConfigurer} credentials.
      *
@@ -34,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <code>
      *     am.inMemoryAuthentication()
      *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
-     *          .withUser("user1@example.com").password("user1").roles("USER");
+     *          .withUser("user1@example.com").password("user1").roles(ROLE_USER);
      * </code>
      *
      * @param am       AuthenticationManagerBuilder
@@ -44,10 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
         am.inMemoryAuthentication()
-                .withUser("user").password("{noop}user").roles("USER")
-                .and().withUser("admin").password("{noop}admin").roles("ADMIN")
-                .and().withUser("user1@example.com").password("{noop}user1").roles("USER")
-                .and().withUser("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN")
+                .withUser("user").password("{noop}user").roles(ROLE_USER)
+                .and().withUser("admin").password("{noop}admin").roles(ROLE_ADMIN)
+                .and().withUser("user1@example.com").password("{noop}user1").roles(ROLE_USER)
+                .and().withUser("admin1@example.com").password("{noop}admin1").roles(ROLE_USER, ROLE_ADMIN)
         ;
 
         log.info("***** Password for user 'user1@example.com' is 'user1'");
@@ -83,12 +87,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
 
-                .antMatchers("/").hasAnyRole("ANONYMOUS", "USER")
-                .antMatchers("/login/*").hasAnyRole("ANONYMOUS", "USER")
-                .antMatchers("/logout/*").hasAnyRole("ANONYMOUS", "USER")
-                .antMatchers("/admin/*").hasRole("ADMIN")
-                .antMatchers("/events/").hasRole("ADMIN")
-                .antMatchers("/**").hasRole("USER")
+                .antMatchers("/").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
+                .antMatchers("/login/*").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
+                .antMatchers("/logout/*").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
+                .antMatchers("/admin/*").hasRole(ROLE_ADMIN)
+                .antMatchers("/events/").hasRole(ROLE_ADMIN)
+                .antMatchers("/**").hasRole(ROLE_USER)
 
                 // The default AccessDeniedException
                 .and().exceptionHandling().accessDeniedPage("/errors/403")

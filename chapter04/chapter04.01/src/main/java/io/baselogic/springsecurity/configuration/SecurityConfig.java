@@ -27,6 +27,9 @@ import java.util.Map;
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final String ROLE_ANONYMOUS = "ANONYMOUS";
+    private final String ROLE_USER = "USER";
+    private final String ROLE_ADMIN = "ADMIN";
 
     /**
      * HTTP Security configuration
@@ -59,13 +62,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
 
-                .antMatchers("/").hasAnyRole("ANONYMOUS", "USER")
+                .antMatchers("/").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
                 .antMatchers("/registration/*").permitAll()
-                .antMatchers("/login/*").hasAnyRole("ANONYMOUS", "USER")
-                .antMatchers("/logout/*").hasAnyRole("ANONYMOUS", "USER")
-                .antMatchers("/admin/*").hasRole("ADMIN")
-                .antMatchers("/events/").hasRole("ADMIN")
-                .antMatchers("/**").hasRole("USER")
+                .antMatchers("/login/*").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
+                .antMatchers("/logout/*").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
+                .antMatchers("/admin/*").hasRole(ROLE_ADMIN)
+                .antMatchers("/events/").hasRole(ROLE_ADMIN)
+                .antMatchers("/**").hasRole(ROLE_USER)
 
                 // The default AccessDeniedException
                 .and().exceptionHandling()
