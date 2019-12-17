@@ -45,7 +45,7 @@ jobs:
 
       - run:
           name: Run Maven Build and Install
-          command: mvn verify
+          command: mvn verify -e
 
       - run:
           name: Analyze on SonarCloud
