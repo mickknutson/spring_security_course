@@ -140,7 +140,7 @@ public class UserContextTests {
 
     @Test
     public void setCurrentUser() {
-        userContext.setCurrentUser(owner);
+        userContext.setCurrentUser(user1);
 
         User user = userContext.getCurrentUser();
 
