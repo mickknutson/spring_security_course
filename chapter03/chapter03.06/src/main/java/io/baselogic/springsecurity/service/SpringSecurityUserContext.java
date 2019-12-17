@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
@@ -45,10 +46,8 @@ public class SpringSecurityUserContext implements UserContext {
      * principal.
      */
     @Override
-    public void setCurrentUser(final @NotNull(message = "user.notNull.key") io.baselogic.springsecurity.domain.User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("user cannot be null");
-        }
+    public void setCurrentUser(final @Valid @NotNull(message = "user.notNull.key") io.baselogic.springsecurity.domain.User user) {
+
         if (user.getEmail() == null) {
             throw new IllegalArgumentException("email cannot be null");
         }

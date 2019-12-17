@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,25 +41,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * See for more details:
      * https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
      *
+     * Legacy insecure password encoding:
+     * <code>
+     *     am.inMemoryAuthentication()
+     *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
+     *          .withUser("user1@example.com").password("user1").roles("USER");
+     * </code>
+     *
      * @param am       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
      */
     @Override
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
-        // Legacy insecure password encoding:
-        /*am.inMemoryAuthentication()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("user1@example.com").password("user1").roles("USER");*/
-
         am.userDetailsService(userDetailsService());
-
-//        am.inMemoryAuthentication()
-//                .withUser("user").password("{noop}user").roles("USER")
-//                .and().withUser("admin").password("{noop}admin").roles("ADMIN")
-//                .and().withUser("user1@example.com").password("{noop}user1").roles("USER")
-//                .and().withUser("admin1@example.com").password("{noop}admin1").roles("USER", "ADMIN")
-//        ;
 
         log.debug("***** Password for user 'user1@example.com' is 'user1'");
         log.debug("***** Password for admin 'admin1@example.com' is 'admin1'");
@@ -68,14 +64,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
      * originally returns a {@link org.springframework.security.core.userdetails.UserDetailsService}, but this needs to be a {@link UserDetailsManager}
      * see: UserDetailsManager vs UserDetailsService
+     *
+     * Use the following Password Encoder instead of prefixing passwords with {noop}
+     * <code>User.UserBuilder users = User.withDefaultPasswordEncoder();</code>
+     *
      * @since chapter03.02
      */
     @Bean
     @Override
     public UserDetailsManager userDetailsService() {
-
-        // Use the following Password Encoder instead of prefixing passwords with {noop}
-//        User.UserBuilder users = User.withDefaultPasswordEncoder();
 
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("user").password("{noop}password").roles("USER").build());
@@ -188,17 +185,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Create a DelegatingPasswordEncoder
      *  see https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
      *
+     *  Standard use, see {@link PasswordEncoderFactories}:
+     *  <code>return PasswordEncoderFactories.createDelegatingPasswordEncoder();</code>
+     *
      * @return DelegatingPasswordEncoder
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
 
         String idForEncode = "noop";
-        Map encoders = new HashMap<>();
+        Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put("noop", NoOpPasswordEncoder.getInstance());
 
         return new DelegatingPasswordEncoder(idForEncode, encoders);
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 } // The End...

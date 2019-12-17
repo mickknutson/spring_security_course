@@ -29,7 +29,7 @@ import java.util.Map;
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
  * @since chapter02.01
- * @since chapter03.05 Added
+ * @since chapter03.05 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  */
 @Configuration
 @EnableWebSecurity//(debug = true)
@@ -207,17 +207,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         dupaf.setUsernameParameter("username");
         dupaf.setPasswordParameter("password");
 
-        dupaf.setAuthenticationSuccessHandler(
-                new SavedRequestAwareAuthenticationSuccessHandler(){{
-                    setDefaultTargetUrl("/default");
-                }}
-        );
+        SavedRequestAwareAuthenticationSuccessHandler sraash
+                = new SavedRequestAwareAuthenticationSuccessHandler();
+        sraash.setDefaultTargetUrl("/default");
+        dupaf.setAuthenticationSuccessHandler(sraash);
 
-        dupaf.setAuthenticationFailureHandler(
-                new SimpleUrlAuthenticationFailureHandler(){{
-                    setDefaultFailureUrl("/login/form?error");
-                }}
-        );
+        SimpleUrlAuthenticationFailureHandler safh
+                = new SimpleUrlAuthenticationFailureHandler();
+        safh.setDefaultFailureUrl("/login/form?error");
+        dupaf.setAuthenticationFailureHandler(safh);
 
         dupaf.afterPropertiesSet();
 
@@ -239,17 +237,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Create a DelegatingPasswordEncoder
      *  see https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
      *
+     *  Standard use, see {@link PasswordEncoderFactories}:
+     *  <code>return PasswordEncoderFactories.createDelegatingPasswordEncoder();</code>
+     *
      * @return DelegatingPasswordEncoder
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
 
         String idForEncode = "noop";
-        Map encoders = new HashMap<>();
+        Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put("noop", NoOpPasswordEncoder.getInstance());
 
         return new DelegatingPasswordEncoder(idForEncode, encoders);
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 } // The End...

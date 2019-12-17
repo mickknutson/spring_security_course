@@ -30,16 +30,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * See for more details:
      * https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
      *
+     * Legacy insecure password encoding:
+     * <code>
+     *     am.inMemoryAuthentication()
+     *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
+     *          .withUser("user1@example.com").password("user1").roles("USER");
+     * </code>
+     *
      * @param am       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
      */
     @Override
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
-
-        // Legacy insecure password encoding:
-        /*am.inMemoryAuthentication()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("user1@example.com").password("user1").roles("USER");*/
 
         am.inMemoryAuthentication()
                 .withUser("user").password("{noop}user").roles("USER")

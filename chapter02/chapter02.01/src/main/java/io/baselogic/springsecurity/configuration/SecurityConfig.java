@@ -1,7 +1,6 @@
 package io.baselogic.springsecurity.configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,10 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Spring Security Configuration  Class
@@ -36,16 +31,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * See for more details:
      * https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
      *
+     * Legacy insecure password encoding:
+     * <code>
+     *     am.inMemoryAuthentication()
+     *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
+     *          .withUser("user1@example.com").password("user1").roles("USER");
+     * </code>
+     *
      * @param am       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
      */
     @Override
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
-
-        // Legacy insecure password encoding:
-        /*am.inMemoryAuthentication()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("user1@example.com").password("user1").roles("USER");*/
 
         am.inMemoryAuthentication()
                 .withUser("user1@example.com").password("{noop}user1").roles("USER");

@@ -19,7 +19,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -92,13 +91,11 @@ public class DefaultControllerTests {
                 .accept(MediaType.TEXT_HTML)
                 .contentType(
                         MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username", "user1")
-                .param("password", "{noop}user1")
-                .param("domain", "example.com")
+                .param("username", "user1@example.com")
+                .param("password", "user1")
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/default"))
-                .andDo(print())
         ;
     }
 

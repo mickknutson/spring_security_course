@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -65,10 +66,7 @@ public class SpringSecurityUserContext implements UserContext {
     }
 
     @Override
-    public void setCurrentUser(final @NotNull(message="user.notNull.key") io.baselogic.springsecurity.domain.User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("user cannot be null");
-        }
+    public void setCurrentUser(final @Valid @NotNull(message="user.notNull.key") io.baselogic.springsecurity.domain.User user) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
                 user.getPassword(),userDetails.getAuthorities());

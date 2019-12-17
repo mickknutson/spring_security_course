@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,16 +38,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * See for more details:
      * https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
      *
+     * Legacy insecure password encoding:
+     * <code>
+     *     am.inMemoryAuthentication()
+     *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
+     *          .withUser("user1@example.com").password("user1").roles("USER");
+     * </code>
+     *
      * @param am       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
      */
     @Override
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
-
-        // Legacy insecure password encoding:
-        /*am.inMemoryAuthentication()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser("user1@example.com").password("user1").roles("USER");*/
 
         am.inMemoryAuthentication()
                 .withUser("user").password("{noop}user").roles("USER")
@@ -157,17 +160,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Create a DelegatingPasswordEncoder
      *  see https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
      *
+     *  Standard use, see {@link PasswordEncoderFactories}:
+     *  <code>return PasswordEncoderFactories.createDelegatingPasswordEncoder();</code>
+     *
      * @return DelegatingPasswordEncoder
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
 
         String idForEncode = "noop";
-        Map encoders = new HashMap<>();
+        Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put("noop", NoOpPasswordEncoder.getInstance());
 
         return new DelegatingPasswordEncoder(idForEncode, encoders);
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 } // The End...

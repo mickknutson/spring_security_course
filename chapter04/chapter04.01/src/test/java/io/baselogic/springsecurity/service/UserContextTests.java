@@ -4,22 +4,15 @@ import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 
 
 /**
@@ -36,27 +29,12 @@ public class UserContextTests {
     @Autowired
     private UserContext userContext;
 
-    // Mockito:
-    @MockBean
-    private SecurityContext securityContext;
-
-    @MockBean
-    private Authentication authentication;
-
-    @MockBean
-    private EventService eventService;
-
-
-    //-----------------------------------------------------------------------//
-
-    private User user1 = new User();
-    private User testUser1 = new User();
+    private User owner = new User();
 
 
     @BeforeEach
     public void beforeEachTest() {
-        user1 = TestUtils.user1;
-        testUser1 = TestUtils.testUser1;
+        owner.setId(1);
     }
 
 
@@ -65,100 +43,23 @@ public class UserContextTests {
         assertThat(userContext).isNotNull();
     }
 
-    //-----------------------------------------------------------------------//
-
-
-    @Test
-    @DisplayName("getCurrentUser - null Authentication returns null")
-    public void getCurrentUser__null_authentication() {
-
-        // Expectation
-        // SecurityContext:
-        given(this.securityContext.getAuthentication())
-                .willReturn(authentication);
-
-        // Authentication:
-        given(this.authentication.getPrincipal())
-                .willReturn(new User());
-
-        User user = userContext.getCurrentUser();
-
-        assertThat(user).isNull();
-//        verify(this.securityContext).getAuthentication();
-//        verify(this.authentication).getPrincipal();
-    }
-
-    //    @Test
-    @DisplayName("getCurrentUser - null User email - returns null")
-    @WithMockUser("user1@example.com")
-    public void getCurrentUser__null_user_email() {
-
-        // Expectation
-        // SecurityContext:
-        given(this.securityContext.getAuthentication())
-                .willReturn(authentication);
-
-        // Authentication:
-        given(this.authentication.getPrincipal())
-                .willReturn(new User());
-
-        User user = userContext.getCurrentUser();
-
-        assertThat(user).isNull();
-    }
-
-    @Test
-    @DisplayName("getCurrentUser - throws IllegalStateException")
-    @WithMockUser("test@example.com")
-    public void getCurrentUser__throws_IllegalStateException() {
-
-        User user = new User();
-        user.setEmail("test@example.com");
-
-
-        // Expectation
-        // SecurityContext:
-        given(this.securityContext.getAuthentication())
-                .willReturn(authentication);
-
-        // Authentication:
-        given(this.authentication.getPrincipal())
-                .willReturn(TestUtils.testUser1);
-
-        // Authentication:
-        given(this.eventService.findUserByEmail(any(String.class)))
-                .willReturn(null);
-
-//        org.springframework.security.core.userdetails.User;
-
-//        assertThrows(IllegalStateException.class, () -> {
-//            userContext.getCurrentUser();
-//        });
-    }
-
-
-    //-----------------------------------------------------------------------//
 
     @Test
     public void setCurrentUser() {
-        userContext.setCurrentUser(user1);
-        User result = userContext.getCurrentUser();
-        assertThat(result.getEmail()).isEqualTo(user1.getEmail());
-    }
+        userContext.setCurrentUser(TestUtils.testUser1);
 
-    @Test
-    public void setCurrentUser__UsernameNotFoundException() {
-        userContext.setCurrentUser(testUser1);
+        User user = userContext.getCurrentUser();
 
-        User result = userContext.getCurrentUser();
-        assertThat(result.getEmail()).isEqualTo(testUser1.getEmail());
+        assertThat(user).isNotNull();
+        assertThat(user.getId()).isEqualTo(42);
     }
 
     @Test
     public void setCurrentUser_null_User() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             userContext.setCurrentUser(null);
         });
+
     }
 
     @Test
@@ -167,7 +68,5 @@ public class UserContextTests {
             userContext.setCurrentUser(new User());
         });
     }
-
-    //-----------------------------------------------------------------------//
 
 } // The End...

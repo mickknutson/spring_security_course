@@ -218,7 +218,6 @@ public class EventsControllerTests {
         MvcResult result = mockMvc.perform(get("/events/100")
         )
                 .andExpect(status().isOk())
-//                .andDo(print())
                 .andExpect(view().name("events/show"))
                 .andReturn();
 

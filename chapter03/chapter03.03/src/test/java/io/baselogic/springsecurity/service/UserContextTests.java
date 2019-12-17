@@ -156,7 +156,7 @@ public class UserContextTests {
 
     @Test
     public void setCurrentUser_null_User() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             userContext.setCurrentUser(null);
         });
     }

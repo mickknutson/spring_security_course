@@ -6,7 +6,6 @@ import io.baselogic.springsecurity.service.UserContext;
 import io.baselogic.springsecurity.web.model.RegistrationDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -62,7 +63,7 @@ public class SpringSecurityUserContext implements UserContext {
     }
 
     @Override
-    public void setCurrentUser(@NotNull(message="user.notNull.key") io.baselogic.springsecurity.domain.User user) {
+    public void setCurrentUser(final @Valid @NotNull(message="user.notNull.key") io.baselogic.springsecurity.domain.User user) {
         throw new UnsupportedOperationException();
     }
 
