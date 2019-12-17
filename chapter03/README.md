@@ -27,9 +27,9 @@ During the course of this chapter, we will cover the following topics:
 > * Add Security and testing dependencies.
 > * BASIC Authentication enabled by default
 
-  **Logging username:** *user*
+  **Logging username:** *user1@example.com*
   
-  **Password:** *\[dynamically generated\]*
+  **Password:** *user1*
 
 ---
 

@@ -1,15 +1,16 @@
-create table calendar_user_authorities (
-    id bigint identity,
-    calendar_user bigint not null,
-    authority varchar(256) not null,
+-- User Authorities
+CREATE TABLE user_authorities (
+    id BIGINT IDENTITY,
+    user BIGINT NOT NULL,
+    authority VARCHAR(256) NOT NULL,
 );
 
 -- user1@example.com
-insert into calendar_user_authorities(calendar_user, authority) select id,'ROLE_USER' from calendar_users where email='user1@example.com';
+INSERT INTO user_authorities(user, authority) SELECT id,'ROLE_USER' FROM users WHERE email='user1@example.com';
 
 -- admin1@example.com
-insert into calendar_user_authorities(calendar_user, authority) select id,'ROLE_ADMIN' from calendar_users where email='admin1@example.com';
-insert into calendar_user_authorities(calendar_user, authority) select id,'ROLE_USER' from calendar_users where email='admin1@example.com';
+INSERT INTO user_authorities(user, authority) SELECT id,'ROLE_ADMIN' FROM users WHERE email='admin1@example.com';
+INSERT INTO user_authorities(user, authority) SELECT id,'ROLE_USER' FROM users WHERE email='admin1@example.com';
 
 -- user2@example.com
-insert into calendar_user_authorities(calendar_user, authority) select id,'ROLE_USER' from calendar_users where email='user2@example.com';
+INSERT INTO user_authorities(user, authority) SELECT id,'ROLE_USER' FROM users WHERE email='user2@example.com';
