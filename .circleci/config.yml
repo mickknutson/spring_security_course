@@ -14,11 +14,17 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
 
-    working_directory: ~/repo
+#    working_directory: ~/repo
 
     environment:
       # Customize the JVM maximum heap limit
-      MAVEN_OPTS: -Xmx3200m
+      _JAVA_OPTIONS: "-Xms1024m -Xmx3200m"
+
+    parallelism: 3
+
+    #resource_class: large
+    working_directory: ~/tmp/workspace
+
 
     steps:
       - checkout
@@ -39,7 +45,7 @@ jobs:
 
       - run:
           name: Run Maven Build and Install
-          command: mvn install
+          command: mvn verify
 
       - run:
           name: Analyze on SonarCloud
@@ -52,4 +58,5 @@ workflows:
       - build:
           context: SonarCloud
 
-# The End...
+## The End... ##
+##---------------------------------------------------------------------------##
