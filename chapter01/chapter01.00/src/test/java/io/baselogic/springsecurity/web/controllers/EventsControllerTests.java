@@ -5,6 +5,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import io.baselogic.springsecurity.dao.EventDao;
+import io.baselogic.springsecurity.dao.TestUtils;
+import io.baselogic.springsecurity.service.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -32,6 +36,9 @@ public class EventsControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private UserContext userContext;
 
     private WebClient webClient;
 
@@ -142,7 +149,28 @@ public class EventsControllerTests {
 
         HtmlButton button =  page.getHtmlElementById("auto");
         HtmlForm form =  page.getHtmlElementById("newEventForm");
-//        log.info("***: {}", form.asXml());
+
+        HtmlPage pageAfterClick = button.click();
+
+        String titleText = pageAfterClick.getTitleText();
+        assertThat(titleText).contains("Create Event");
+
+        String summary = pageAfterClick.getHtmlElementById("summary").asXml();
+        assertThat(summary).contains("A new event....");
+
+        String description = pageAfterClick.getHtmlElementById("description").asXml();
+        assertThat(description).contains("This was auto-populated to save time creating a valid event.");
+    }
+
+    @Test
+    @DisplayName("Show Event Form Auto Populate - admin1")
+    public void showEventFormAutoPopulate_admin1() throws Exception {
+        userContext.setCurrentUser(TestUtils.admin1);
+
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        HtmlButton button =  page.getHtmlElementById("auto");
+        HtmlForm form =  page.getHtmlElementById("newEventForm");
 
         HtmlPage pageAfterClick = button.click();
 
@@ -245,7 +273,7 @@ public class EventsControllerTests {
                 .contains("Create Event");
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
-        assertThat(errors).contains("Could not find a user for the provided Attendee Email");
+        assertThat(errors).contains("Could not find a appUser for the provided Attendee Email");
 
     }
 

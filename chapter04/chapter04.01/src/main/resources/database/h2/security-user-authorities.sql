@@ -1,3 +1,4 @@
+
 INSERT INTO authorities(username,authority) VALUES ('user1@example.com','ROLE_USER');
 INSERT INTO authorities(username,authority) VALUES ('admin1@example.com','ROLE_ADMIN');
 INSERT INTO authorities(username,authority) VALUES ('admin1@example.com','ROLE_USER');

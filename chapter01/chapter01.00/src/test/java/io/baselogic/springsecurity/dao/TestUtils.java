@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.dao;
 
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -9,20 +9,20 @@ import java.util.List;
 
 public interface TestUtils {
 
-    public static final User testUser1 = new User(){{
+    public static final AppUser TEST_APP_USER_1 = new AppUser(){{
         setId(42);
         setEmail("test@example.com");
     }};
 
-    public static final User attendee = new User(){{
+    public static final AppUser attendee = new AppUser(){{
         setId(0);
         setEmail("user1@example.com");
     }};
-    public static final User owner = new User(){{
+    public static final AppUser owner = new AppUser(){{
         setId(1);
         setEmail("admin1@example.com");
     }};
-    public static final User admin1 = new User(){{
+    public static final AppUser admin1 = new AppUser(){{
         setId(1);
         setEmail("admin1@example.com");
     }};
@@ -43,11 +43,11 @@ public interface TestUtils {
 
     List<Event> TEST_EVENTS = Arrays.asList(testEvent, testEvent2);
 
-    List<User> TEST_USERS = Arrays.asList(testUser1, attendee, owner);
+    List<AppUser> TEST_APP_USERS = Arrays.asList(TEST_APP_USER_1, attendee, owner);
 
 
-    static Event createMockEvent(User owner,
-                                 User attendee,
+    static Event createMockEvent(AppUser owner,
+                                 AppUser attendee,
                                  String summary
     ) {
         return Event.builder()
@@ -60,16 +60,16 @@ public interface TestUtils {
 
     }
 
-    static User createMockUser(String email,
-                                       String firstName,
-                                       String lastName
+    static AppUser createMockUser(String email,
+                                  String firstName,
+                                  String lastName
     ) {
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword("*****");
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        return user;
+        AppUser appUser = new AppUser();
+        appUser.setEmail(email);
+        appUser.setPassword("*****");
+        appUser.setFirstName(firstName);
+        appUser.setLastName(lastName);
+        return appUser;
     }
 
 } // The End...

@@ -11,7 +11,7 @@ INSERT INTO group_authorities(group_id, authority) SELECT id,'ROLE_USER' FROM gr
 INSERT INTO group_authorities(group_id, authority) SELECT id,'ROLE_ADMIN' FROM groups WHERE group_name='Administrators';
 
 -----
--- Map the users to Groups
+-- Map the appUsers to Groups
 INSERT INTO group_members(group_id, username) SELECT id,'user1@example.com' FROM groups WHERE group_name='Users';
 INSERT INTO group_members(group_id, username) SELECT id,'admin1@example.com' FROM groups WHERE group_name='Administrators';
 INSERT INTO group_members(group_id, username) SELECT id,'user2@example.com' FROM groups WHERE group_name='Users';

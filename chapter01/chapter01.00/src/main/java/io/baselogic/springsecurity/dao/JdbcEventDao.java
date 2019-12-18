@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.dao;
 
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -77,8 +77,8 @@ public class JdbcEventDao implements EventDao {
         if (event.getId() != null) {
             throw new IllegalArgumentException("event.getId() must be null when creating a new Message");
         }
-        final User owner = event.getOwner();
-        final User attendee = event.getAttendee();
+        final AppUser owner = event.getOwner();
+        final AppUser attendee = event.getAttendee();
         final Calendar when = event.getWhen();
 
 

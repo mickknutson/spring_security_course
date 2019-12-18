@@ -1,6 +1,6 @@
 package io.baselogic.springsecurity.dao;
 
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,21 +33,24 @@ public class JdbcUserDao implements UserDao {
     private final UserRowMapper userRowMapper;
 
     private final String userQuery;
+    private final String userInsertQuery;
 
     @Autowired
     public JdbcUserDao(final @NotNull NamedParameterJdbcTemplate jdbcTemplate,
                        final UserRowMapper userRowMapper,
-                       final @Qualifier("userQuery") String userQuery) {
+                       final @Qualifier("userQuery") String userQuery,
+                       final @Qualifier("userInsertQuery") String userInsertQuery) {
         this.jdbcTemplate = jdbcTemplate;
         this.userRowMapper = userRowMapper;
         this.userQuery = userQuery;
+        this.userInsertQuery = userInsertQuery;
     }
 
     //-------------------------------------------------------------------------
 
     @Override
     @Transactional(readOnly = true)
-    public User findById(final @NotNull Integer id) {
+    public AppUser findById(final @NotNull Integer id) {
         final String sql = userQuery + " id = :id";
 
         SqlParameterSource parameter = new MapSqlParameterSource().addValue("id", id);
@@ -57,7 +60,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     @Transactional(readOnly = true)
-    public User findByEmail(final @NotEmpty String email) {
+    public AppUser findByEmail(final @NotEmpty String email) {
         try {
 
             final String sql = userQuery + " email = :email";
@@ -72,30 +75,27 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> findAllByEmail(final @NotEmpty String email) {
+    public List<AppUser> findAllByEmail(final @NotEmpty String email) {
         final String sql = userQuery + " email LIKE '%"+ email +"%' ORDER BY id";
 
         return jdbcTemplate.query(sql, userRowMapper);
     }
 
-    private static final String USER_INSERT_QUERY = "insert into users (email, password, first_name, last_name) values(:email, :psswd, :first_name, :last_name)";
-
-
     @Override
-    public Integer save(final @NotNull User newUser) {
-        if (newUser.getId() != null) {
-            throw new IllegalArgumentException("newUser.getId() must be null when creating a "+ User.class.getName());
+    public Integer save(final @NotNull AppUser newAppUser) {
+        if (newAppUser.getId() != null) {
+            throw new IllegalArgumentException("newUser.getId() must be null when creating a "+ AppUser.class.getName());
         }
 
         KeyHolder holder = new GeneratedKeyHolder();
 
         SqlParameterSource parameter = new MapSqlParameterSource()
-                .addValue("email", newUser.getEmail())
-                .addValue("psswd", newUser.getPassword())
-                .addValue("first_name", newUser.getFirstName())
-                .addValue("last_name", newUser.getLastName());
+                .addValue("email", newAppUser.getEmail())
+                .addValue("psswd", newAppUser.getPassword())
+                .addValue("first_name", newAppUser.getFirstName())
+                .addValue("last_name", newAppUser.getLastName());
 
-        jdbcTemplate.update(USER_INSERT_QUERY, parameter, holder);
+        jdbcTemplate.update(userInsertQuery, parameter, holder);
 
         return holder.getKey().intValue();
     }

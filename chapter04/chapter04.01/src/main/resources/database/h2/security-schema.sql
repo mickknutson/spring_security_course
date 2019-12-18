@@ -1,14 +1,14 @@
--- ref. Appendix A of Spring Sec 3.1 manual
+-- ref. Appendix A of Spring Security manual
 
-create table users(
+CREATE TABLE appUsers(
     username varchar(256) not null primary key,
     password varchar(256) not null,
     enabled boolean not null
 );
 
-create table authorities (
+CREATE TABLE authorities (
     username varchar(256) not null,
     authority varchar(256) not null,
-    constraint fk_authorities_users foreign key(username) references users(username)
+    constraint fk_authorities_users foreign key(username) references appUsers(username)
 );
-create unique index ix_auth_username on authorities (username,authority);
+CREATE UNIQUE INDEX ix_auth_username on authorities (username,authority);

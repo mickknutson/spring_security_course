@@ -11,11 +11,11 @@
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
     <h1 id="chapterHeading">Current User Events</h1>
-    <h4 id="summary">This shows all events for the current user.</h4>
+    <h4 id="summary">This shows all events for the current appUser.</h4>
     <p id="chapterTitle">
         Below you can find the events for
-        <strong th:text="${currentUser.email}"></strong>.
-        Once security is applied this will be the events for the currently logged in user.
+        <strong th:text="${currentAppUser.email}"></strong>.
+        Once security is applied this will be the events for the currently logged in appUser.
     </p>
 
     <div id="create" class="pull-right"><a th:href="@{/events/form}">Create Event</a></div>

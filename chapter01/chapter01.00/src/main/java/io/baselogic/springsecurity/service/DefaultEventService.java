@@ -2,8 +2,8 @@ package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.UserDao;
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,20 +48,20 @@ public class DefaultEventService implements EventService {
 
 
 
-    public User findUserById(Integer id) {
+    public AppUser findUserById(Integer id) {
         return userDao.findById(id);
     }
 
-    public User findUserByEmail(String email) {
+    public AppUser findUserByEmail(String email) {
         return userDao.findByEmail(email);
     }
 
-    public List<User> findUsersByEmail(String partialEmail) {
+    public List<AppUser> findUsersByEmail(String partialEmail) {
         return userDao.findAllByEmail(partialEmail);
     }
 
-    public Integer createUser(User user) {
-        return userDao.save(user);
+    public Integer createUser(AppUser appUser) {
+        return userDao.save(appUser);
     }
 
 } // The End...

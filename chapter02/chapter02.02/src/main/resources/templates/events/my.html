@@ -12,7 +12,7 @@
 
     <h2 id="heading">Current User Events</h2>
 
-    <p>This shows all events for the current user.</p>
+    <p>This shows all events for the current appUser.</p>
 
     <div th:if="${message != null}" class="alert alert-success">
         <span th:text="${message}"></span>
@@ -20,8 +20,8 @@
 
     <p id="description">
         Below you can find the events for
-        <strong th:text="${currentUser.email}"></strong>.
-        Once security is applied this will be the events for the currently logged in user.
+        <strong th:text="${currentAppUser.email}"></strong>.
+        Once security is applied this will be the events for the currently logged in appUser.
     </p>
     <div id="create" class="pull-right"><a th:href="@{/events/form}">Create Event</a></div>
     <table class="table table-bordered table-striped table-condensed">

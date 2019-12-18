@@ -3,8 +3,8 @@ package io.baselogic.springsecurity.service;
 import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.dao.UserDao;
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -119,43 +119,43 @@ public class DefaultEventServiceTests {
     public void findUserById() {
 
         when(userDao.findById(any(Integer.class)))
-                .thenReturn(TestUtils.testUser1);
+                .thenReturn(TestUtils.TEST_APP_USER_1);
 
-        User user = eventService.findUserById(1);
+        AppUser appUser = eventService.findUserById(1);
 
-        assertThat(user.getEmail()).isEqualTo("test@example.com");
+        assertThat(appUser.getEmail()).isEqualTo("test@example.com");
     }
 
     @Test
     public void findUserByEmail() {
 
         when(userDao.findByEmail(any(String.class)))
-                .thenReturn(TestUtils.testUser1);
+                .thenReturn(TestUtils.TEST_APP_USER_1);
 
-        User user = eventService.findUserByEmail("test@example.com");
+        AppUser appUser = eventService.findUserByEmail("test@example.com");
 
-        assertThat(user.getEmail()).isEqualTo("test@example.com");
+        assertThat(appUser.getEmail()).isEqualTo("test@example.com");
     }
 
     @Test
     public void findUsersByEmail() {
 
         when(userDao.findAllByEmail(any(String.class)))
-                .thenReturn(TestUtils.TEST_USERS);
+                .thenReturn(TestUtils.TEST_APP_USERS);
 
-        List<User> users = eventService.findUsersByEmail("@example.com");
+        List<AppUser> appUsers = eventService.findUsersByEmail("@example.com");
 
-        assertThat(users).isNotEmpty();
-        assertThat(users.size()).isGreaterThanOrEqualTo(3);
+        assertThat(appUsers).isNotEmpty();
+        assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
 
     @Test
     public void createUser() {
 
-        given(userDao.save(any(User.class)))
+        given(userDao.save(any(AppUser.class)))
                 .willReturn(42);
 
-        int id = eventService.createUser(new User());
+        int id = eventService.createUser(new AppUser());
 
         assertThat(id).isEqualTo(42);
     }

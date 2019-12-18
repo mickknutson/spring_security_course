@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.dao;
 
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -37,8 +37,8 @@ public class EventRowMapper implements RowMapper<Event> {
     @Override
     public Event mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 
-        User owner = ownerRowMapper.mapRow(rs, rowNum);
-        User attendee = attendeeRowMapper.mapRow(rs, rowNum);
+        AppUser owner = ownerRowMapper.mapRow(rs, rowNum);
+        AppUser attendee = attendeeRowMapper.mapRow(rs, rowNum);
 
         Calendar when = Calendar.getInstance();
         when.setTime(rs.getDate("events.event_date"));

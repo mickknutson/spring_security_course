@@ -75,7 +75,7 @@ RUN adduser -H -D ${USERNAME} -u ${USER_ID} && \
     chown ${USERNAME}:${USERNAME} -R ${APPLICATION_PATH}/
 
 ##---------------------------------------------------------------------------##
-# NOTE: Switch the running user. We should not run the application as root !
+# NOTE: Switch the running appUser. We should not run the application as root !
 #USER spring
 USER ${USERNAME}
 
