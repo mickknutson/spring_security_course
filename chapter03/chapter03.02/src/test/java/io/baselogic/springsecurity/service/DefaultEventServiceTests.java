@@ -4,7 +4,7 @@ import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -121,34 +121,34 @@ public class DefaultEventServiceTests {
     public void findUserById() {
 
         when(userDao.findById(any(Integer.class)))
-                .thenReturn(TestUtils.testUser1);
+                .thenReturn(TestUtils.TEST_APP_USER_1);
 
-        User user = eventService.findUserById(1);
+        AppUser appUser = eventService.findUserById(1);
 
-        assertThat(user.getEmail()).isEqualTo("test@example.com");
+        assertThat(appUser.getEmail()).isEqualTo("test@example.com");
     }
 
     @Test
     public void findUserByEmail() {
 
         when(userDao.findByEmail(any(String.class)))
-                .thenReturn(TestUtils.testUser1);
+                .thenReturn(TestUtils.TEST_APP_USER_1);
 
-        User user = eventService.findUserByEmail("test@example.com");
+        AppUser appUser = eventService.findUserByEmail("test@example.com");
 
-        assertThat(user.getEmail()).isEqualTo("test@example.com");
+        assertThat(appUser.getEmail()).isEqualTo("test@example.com");
     }
 
     @Test
     public void findUsersByEmail() {
 
         when(userDao.findAllByEmail(any(String.class)))
-                .thenReturn(TestUtils.TEST_USERS);
+                .thenReturn(TestUtils.TEST_APP_USERS);
 
-        List<User> users = eventService.findUsersByEmail("@example.com");
+        List<AppUser> appUsers = eventService.findUsersByEmail("@example.com");
 
-        assertThat(users).isNotEmpty();
-        assertThat(users.size()).isGreaterThanOrEqualTo(3);
+        assertThat(appUsers).isNotEmpty();
+        assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class DefaultEventServiceTests {
     public void createUser__null_credentials() {
 
         assertThrows(IllegalArgumentException.class, () -> {
-            eventService.createUser(new User());
+            eventService.createUser(new AppUser());
         });
     }
 

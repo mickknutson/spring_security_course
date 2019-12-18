@@ -7,7 +7,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.NameValuePair;
+import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.domain.Event;
+import io.baselogic.springsecurity.service.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,12 +37,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-// Spring Test: -------------------------------------------------------------//
-// Junit 5: -----------------------------------------------------------------//
-// Assert-J: ----------------------------------------------------------------//
-// --> assertThat(result.size()).isGreaterThan(0);
-// http://joel-costigliola.github.io/assertj/index.html
-
 /**
  * Functional and Mock tests for the EventController.
  */
@@ -52,6 +48,9 @@ public class EventsControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private UserContext userContext;
 
     private WebClient webClient;
 
@@ -171,7 +170,7 @@ public class EventsControllerTests {
         assertThat(content).contains("Current User Event");
         ModelAndView mav = result.getModelAndView();
         List<Event> events = (List<Event>)mav.getModel().get("events");
-        assertThat(events.size()).isEqualTo(3);
+        assertThat(events.size()).isEqualTo(2);
     }
 
     /**
@@ -262,7 +261,6 @@ public class EventsControllerTests {
 
         HtmlButton button =  page.getHtmlElementById("auto");
         HtmlForm form =  page.getHtmlElementById("newEventForm");
-//        log.info("***: {}", form.asXml());
 
         HtmlPage pageAfterClick = button.click();
 
@@ -276,7 +274,28 @@ public class EventsControllerTests {
         assertThat(description).contains("This was auto-populated to save time creating a valid event.");
     }
 
+    @Test
+    @DisplayName("Show Event Form Auto Populate - admin1")
+    @WithMockUser
+    public void showEventFormAutoPopulate_admin1() throws Exception {
+        userContext.setCurrentUser(TestUtils.admin1);
 
+        HtmlPage page = webClient.getPage("http://localhost/events/form");
+
+        HtmlButton button =  page.getHtmlElementById("auto");
+        HtmlForm form =  page.getHtmlElementById("newEventForm");
+
+        HtmlPage pageAfterClick = button.click();
+
+        String titleText = pageAfterClick.getTitleText();
+        assertThat(titleText).contains("Create Event");
+
+        String summary = pageAfterClick.getHtmlElementById("summary").asXml();
+        assertThat(summary).contains("A new event....");
+
+        String description = pageAfterClick.getHtmlElementById("description").asXml();
+        assertThat(description).contains("This was auto-populated to save time creating a valid event.");
+    }
 
     @Test
     @DisplayName("Submit Event Form - WithUser")
@@ -370,7 +389,7 @@ public class EventsControllerTests {
                 .contains("Create Event");
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").asXml();
-        assertThat(errors).contains("Could not find a user for the provided Attendee Email");
+        assertThat(errors).contains("Could not find a appUser for the provided Attendee Email");
 
     }
 

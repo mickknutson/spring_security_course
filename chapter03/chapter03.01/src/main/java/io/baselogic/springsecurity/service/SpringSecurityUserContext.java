@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.service;
 
+import io.baselogic.springsecurity.domain.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -12,7 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * An implementation of {@link UserContext} that looks up the {@link io.baselogic.springsecurity.domain.User} using the Spring Security's
+ * An implementation of {@link UserContext} that looks up the {@link AppUser} using the Spring Security's
  * {@link Authentication} by principal name.
  *
  * @since chapter03.01
@@ -33,12 +34,12 @@ public class SpringSecurityUserContext implements UserContext {
     }
 
     /**
-     * Get the {@link io.baselogic.springsecurity.domain.User} by obtaining the currently logged in Spring Security user's
-     * {@link Authentication#getName()} and using that to find the {@link io.baselogic.springsecurity.domain.User} by email address (since for our
+     * Get the {@link AppUser} by obtaining the currently logged in Spring Security user's
+     * {@link Authentication#getName()} and using that to find the {@link AppUser} by email address (since for our
      * application Spring Security username's are email addresses).
      */
     @Override
-    public io.baselogic.springsecurity.domain.User getCurrentUser() {
+    public AppUser getCurrentUser() {
 
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
@@ -54,7 +55,7 @@ public class SpringSecurityUserContext implements UserContext {
             return null;
         }
 
-        io.baselogic.springsecurity.domain.User result = eventService.findUserByEmail(email);
+        AppUser result = eventService.findUserByEmail(email);
         if (result == null) {
             throw new IllegalStateException(
                     "Spring Security is not in synch with Users. Could not find user with email " + email);
@@ -63,7 +64,7 @@ public class SpringSecurityUserContext implements UserContext {
     }
 
     @Override
-    public void setCurrentUser(final @Valid @NotNull(message="user.notNull.key") io.baselogic.springsecurity.domain.User user) {
+    public void setCurrentUser(final @Valid @NotNull(message="user.notNull.key") AppUser appUser) {
         throw new UnsupportedOperationException();
     }
 

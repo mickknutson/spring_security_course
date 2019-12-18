@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.web.controllers;
 import com.gargoylesoftware.htmlunit.WebClient;
 import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.domain.Event;
+import io.baselogic.springsecurity.service.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +41,7 @@ public class EventsControllerTests {
 
     private WebClient webClient;
 
-    private static final String USER = TestUtils.user1.getEmail();
+    private static final String USER = TestUtils.APP_USER_1.getEmail();
 
     @BeforeEach
     void setup(WebApplicationContext context) {
@@ -175,7 +176,7 @@ public class EventsControllerTests {
                 .andExpect(status().isOk())
 
                 .andExpect(content().string(containsString("Current User Events")))
-                .andExpect(content().string(containsString("This shows all events for the current user.")))
+                .andExpect(content().string(containsString("This shows all events for the current appUser.")))
 // FIXME:                .andExpect(model().attribute("events", is()))
                 .andReturn();
 
@@ -240,6 +241,25 @@ public class EventsControllerTests {
         MvcResult result = mockMvc.perform(post("/events/new")
                 // Simulate a valid security User:
                 .with(user(USER))
+                .param("auto", "auto")
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("events/create"))
+
+                .andExpect(content().string(containsString("Create New Event")))
+                .andExpect(content().string(containsString("A new event....")))
+                .andExpect(content().string(containsString("This was auto-populated to save time creating a valid event.")))
+
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Show Event Form Auto Populate - admin1")
+    @WithMockUser("admin1@example.com")
+    public void showEventFormAutoPopulate_admin1() throws Exception {
+        MvcResult result = mockMvc.perform(post("/events/new")
+                // Simulate a valid security User:
+                .with(user(TestUtils.admin1.getEmail()))
                 .param("auto", "auto")
         )
                 .andExpect(status().isOk())

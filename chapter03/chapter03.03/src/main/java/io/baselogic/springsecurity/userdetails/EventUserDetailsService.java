@@ -2,6 +2,7 @@ package io.baselogic.springsecurity.userdetails;
 
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.dao.UserDao;
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.service.DefaultEventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import java.util.Collection;
  * username/password comparison for us.
  *
  *  This replaces the manual UserDetailsService code in
- *  {@link DefaultEventService#createUser(io.baselogic.springsecurity.domain.User)}
+ *  {@link DefaultEventService#createUser(AppUser)}
  *
  * @author mickknutson
  *
@@ -48,12 +49,12 @@ public class EventUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(final @NotEmpty String username) throws UsernameNotFoundException {
-        io.baselogic.springsecurity.domain.User user = userDao.findByEmail(username);
-        if (user == null) {
+        AppUser appUser = userDao.findByEmail(username);
+        if (appUser == null) {
             throw new UsernameNotFoundException("Invalid username/password.");
         }
-        Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(user);
-        return new User(user.getEmail(), user.getPassword(), authorities);
+        Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(appUser);
+        return new User(appUser.getEmail(), appUser.getPassword(), authorities);
     }
 
 } // The End...

@@ -1,12 +1,12 @@
 package io.baselogic.springsecurity.service;
 
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 
 /**
- * Manages the current {@link User}. This demonstrates how in larger applications it is good to abstract out
+ * Manages the current {@link AppUser}. This demonstrates how in larger applications it is good to abstract out
  * accessing the current user to return the application specific user rather than interacting with Spring Security
  * classes directly.
  *
@@ -16,18 +16,18 @@ import javax.validation.constraints.NotNull;
 public interface UserContext {
 
     /**
-     * Gets the currently logged in {@link User} or null if there is no authenticated user.
+     * Gets the currently logged in {@link AppUser} or null if there is no authenticated user.
      *
-     * @return the current authenticated {@link User}.
+     * @return the current authenticated {@link AppUser}.
      */
-    User getCurrentUser();
+    AppUser getCurrentUser();
 
     /**
-     * Sets the currently logged in {@link User}.
+     * Sets the currently logged in {@link AppUser}.
      *
-     * @param user the logged in {@link User}. Cannot be null.
-     * @throws {@link ConstraintViolationException} if the {@link User} is null.
+     * @param appUser the logged in {@link AppUser}. Cannot be null.
+     * @throws {@link ConstraintViolationException} if the {@link AppUser} is null.
      */
-    void setCurrentUser(@NotNull(message="user.notNull.key") User user);
+    void setCurrentUser(@NotNull(message="user.notNull.key") AppUser appUser);
 
 } // The End...

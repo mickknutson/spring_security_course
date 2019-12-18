@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.dao;
 
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -27,12 +27,12 @@ public interface EventDao {
     Event findById(@NotNull Integer eventId);
 
     /**
-     * Finds the {@link Event}'s that are intended for the {@link User}.
+     * Finds the {@link Event}'s that are intended for the {@link AppUser}.
      *
      * @param userId
-     *            the {@link User#getId()} to obtain {@link Event}'s for.
-     * @return a non-null {@link List} of {@link Event}'s intended for the specified {@link User}. If the
-     *         {@link User} does not exist an empty List will be returned.
+     *            the {@link AppUser#getId()} to obtain {@link Event}'s for.
+     * @return a non-null {@link List} of {@link Event}'s intended for the specified {@link AppUser}. If the
+     *         {@link AppUser} does not exist an empty List will be returned.
      */
     List<Event> findByUser(@NotNull Integer userId);
 

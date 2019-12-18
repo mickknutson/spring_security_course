@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.userdetails;
 
 import io.baselogic.springsecurity.dao.UserDao;
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.EventUserDetails;
 import io.baselogic.springsecurity.service.DefaultEventService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ import javax.validation.constraints.NotNull;
  * username/password comparison for us.
  *
  *  This replaces the manual UserDetailsService code in
- *  {@link DefaultEventService#createUser(io.baselogic.springsecurity.domain.User)}
+ *  {@link DefaultEventService#createUser(AppUser)}
  *
  * @author mickknutson
  *
@@ -41,17 +42,17 @@ public class EventUserDetailsService implements UserDetailsService {
 
 
     /**
-     * Lookup a {@link io.baselogic.springsecurity.domain.User} by the username representing
-     * the email address. Then, convert the {@link io.baselogic.springsecurity.domain.User}
+     * Lookup a {@link AppUser} by the username representing
+     * the email address. Then, convert the {@link AppUser}
      * into a {@link UserDetails} to conform to the {@link UserDetails} interface.
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        io.baselogic.springsecurity.domain.User user = userDao.findByEmail(username);
-        if (user == null) {
+        AppUser appUser = userDao.findByEmail(username);
+        if (appUser == null) {
             throw new UsernameNotFoundException("Invalid username/password.");
         }
-        return new EventUserDetails(user);
+        return new EventUserDetails(appUser);
     }
 
 } // The End...

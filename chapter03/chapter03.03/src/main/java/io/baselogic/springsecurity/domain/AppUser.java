@@ -6,12 +6,12 @@ import java.io.Serializable;
 import java.security.Principal;
 
 /**
- * {@link User} is this applications notion of a user. It is good to use your own objects to interact with a
+ * {@link AppUser} is this applications notion of a user. It is good to use your own objects to interact with a
  * user especially in large applications. This ensures that as you evolve your security requirements (update Spring
  * Security, leverage new Spring Security modules, or even swap out security implementations) you can do so easily.
  */
 @Data
-public class User implements Principal, Serializable {
+public class AppUser implements Principal, Serializable {
 
     private Integer id;
     private String firstName;

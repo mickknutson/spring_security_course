@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.dao.TestUtils;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ public class UserContextTests {
     @Autowired
     private UserContext userContext;
 
-    private User owner = new User();
+    private AppUser owner = new AppUser();
 
 
     @BeforeEach
@@ -46,12 +46,12 @@ public class UserContextTests {
 
     @Test
     public void setCurrentUser() {
-        userContext.setCurrentUser(TestUtils.testUser1);
+        userContext.setCurrentUser(TestUtils.TEST_APP_USER_1);
 
-        User user = userContext.getCurrentUser();
+        AppUser appUser = userContext.getCurrentUser();
 
-        assertThat(user).isNotNull();
-        assertThat(user.getId()).isEqualTo(42);
+        assertThat(appUser).isNotNull();
+        assertThat(appUser.getId()).isEqualTo(42);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class UserContextTests {
     @Test
     public void setCurrentUser_invalid_User() {
         assertThrows(IllegalArgumentException.class, () -> {
-            userContext.setCurrentUser(new User());
+            userContext.setCurrentUser(new AppUser());
         });
     }
 

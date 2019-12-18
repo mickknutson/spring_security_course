@@ -4,7 +4,7 @@ import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -123,7 +123,7 @@ public class DefaultEventServiceTests {
         when(userDao.findById(any(Integer.class)))
                 .thenReturn(TestUtils.testUser1);
 
-        User user = eventService.findUserById(1);
+        AppUser user = eventService.findUserById(1);
 
         assertThat(user.getEmail()).isEqualTo("test@example.com");
     }
@@ -134,7 +134,7 @@ public class DefaultEventServiceTests {
         when(userDao.findByEmail(any(String.class)))
                 .thenReturn(TestUtils.testUser1);
 
-        User user = eventService.findUserByEmail("test@example.com");
+        AppUser user = eventService.findUserByEmail("test@example.com");
 
         assertThat(user.getEmail()).isEqualTo("test@example.com");
     }
@@ -145,7 +145,7 @@ public class DefaultEventServiceTests {
         when(userDao.findAllByEmail(any(String.class)))
                 .thenReturn(TestUtils.TEST_USERS);
 
-        List<User> users = eventService.findUsersByEmail("@example.com");
+        List<AppUser> users = eventService.findUsersByEmail("@example.com");
 
         assertThat(users).isNotEmpty();
         assertThat(users.size()).isGreaterThanOrEqualTo(3);
@@ -154,10 +154,10 @@ public class DefaultEventServiceTests {
     @Test
     public void createUser() {
 
-        given(userDao.save(any(User.class)))
+        given(userDao.save(any(AppUser.class)))
                 .willReturn(42);
 
-        int id = eventService.createUser(new User());
+        int id = eventService.createUser(new AppUser());
 
         assertThat(id).isEqualTo(42);
     }

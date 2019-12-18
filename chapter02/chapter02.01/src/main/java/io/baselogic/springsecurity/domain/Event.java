@@ -31,9 +31,9 @@ public class Event {
     private Calendar when;
 
     @NotNull(message = "Owner is required")
-    private User owner;
+    private AppUser owner;
 
     @NotNull(message = "Attendee is required")
-    private User attendee;
+    private AppUser attendee;
 
 } // The End...

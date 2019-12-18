@@ -2,7 +2,7 @@ package io.baselogic.springsecurity.userdetails;
 
 import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.dao.UserDao;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,14 +42,14 @@ public class EventUserDetailsServiceTests {
 
     //-----------------------------------------------------------------------//
 
-    private User user1 = new User();
-    private User testUser1 = new User();
+    private AppUser appUser1 = new AppUser();
+    private AppUser testAppUser1 = new AppUser();
 
 
     @BeforeEach
     public void beforeEachTest() {
-        user1 = TestUtils.user1;
-        testUser1 = TestUtils.testUser1;
+        appUser1 = TestUtils.APP_USER_1;
+        testAppUser1 = TestUtils.TEST_APP_USER_1;
     }
 
     //-------------------------------------------------------------------------
@@ -61,9 +61,9 @@ public class EventUserDetailsServiceTests {
 
         // Expectation
         given(userDao.findByEmail(any(String.class)))
-                .willReturn(TestUtils.user1);
+                .willReturn(TestUtils.APP_USER_1);
 
-        UserDetails result = eventUserDetailsService.loadUserByUsername(TestUtils.user1.getEmail());
+        UserDetails result = eventUserDetailsService.loadUserByUsername(TestUtils.APP_USER_1.getEmail());
 
         assertThat(result).isNotNull();
     }

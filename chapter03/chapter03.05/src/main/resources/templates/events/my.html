@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-    <title id="pageTitle">Current User Events</title>
+    <title id="pageTitle">Current Users Events</title>
 
     <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
 </head>
@@ -10,16 +10,20 @@
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
-    <h1 id="chapterHeading">Current User Events</h1>
-    <h4 id="summary">This shows all events for the current appUser.</h4>
-    <p id="chapterTitle">
+    <h2 id="heading">Current User Events</h2>
+
+    <p>This shows all events for the current appUser.</p>
+
+    <div th:if="${message != null}" class="alert alert-success">
+        <span th:text="${message}"></span>
+    </div>
+
+    <p id="description">
         Below you can find the events for
         <strong th:text="${currentAppUser.email}"></strong>.
         Once security is applied this will be the events for the currently logged in appUser.
     </p>
-
     <div id="create" class="pull-right"><a th:href="@{/events/form}">Create Event</a></div>
-
     <table class="table table-bordered table-striped table-condensed">
         <thead>
         <tr>

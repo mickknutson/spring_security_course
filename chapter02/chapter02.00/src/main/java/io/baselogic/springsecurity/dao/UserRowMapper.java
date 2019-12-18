@@ -1,6 +1,6 @@
 package io.baselogic.springsecurity.dao;
 
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author mickknutson
  *
  */
-public class UserRowMapper implements RowMapper<User> {
+public class UserRowMapper implements RowMapper<AppUser> {
 
     private final String columnLabelPrefix;
 
@@ -27,9 +27,9 @@ public class UserRowMapper implements RowMapper<User> {
 
 
     @Override
-    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public AppUser mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-        User user = new User();
+        AppUser user = new AppUser();
         user.setId(rs.getInt(columnLabelPrefix + "id"));
         user.setEmail(rs.getString(columnLabelPrefix + "email"));
         user.setPassword(rs.getString(columnLabelPrefix + "password"));

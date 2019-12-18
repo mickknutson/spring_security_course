@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.dao.UserDao;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +20,8 @@ public class UserContextStub implements UserContext {
     private final UserDao userService;
 
     /**
-     * The {@link User#getId()} for the user that is representing the currently logged in user. This can be
-     * modified using {@link #setCurrentUser(User)}
+     * The {@link AppUser#getId()} for the user that is representing the currently logged in user. This can be
+     * modified using {@link #setCurrentUser(AppUser)}
      */
     private int currentUserId = 0;
 
@@ -31,12 +31,12 @@ public class UserContextStub implements UserContext {
     }
 
     @Override
-    public User getCurrentUser() {
+    public AppUser getCurrentUser() {
         return userService.findById(currentUserId);
     }
 
     @Override
-    public final void setCurrentUser(@NotNull(message="user.notNull.key") User user) {
+    public final void setCurrentUser(@NotNull(message="user.notNull.key") AppUser user) {
 
         Integer currentId = user.getId();
 

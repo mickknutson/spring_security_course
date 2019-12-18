@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.dao.TestUtils;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -49,14 +49,14 @@ public class UserContextTests {
 
     //-----------------------------------------------------------------------//
 
-    private User user1 = new User();
-    private User testUser1 = new User();
+    private AppUser appUser1 = new AppUser();
+    private AppUser testAppUser1 = new AppUser();
 
 
     @BeforeEach
     public void beforeEachTest() {
-        user1 = TestUtils.user1;
-        testUser1 = TestUtils.testUser1;
+        appUser1 = TestUtils.APP_USER_1;
+        testAppUser1 = TestUtils.TEST_APP_USER_1;
     }
 
 
@@ -79,11 +79,11 @@ public class UserContextTests {
 
         // Authentication:
         given(this.authentication.getPrincipal())
-                .willReturn(new User());
+                .willReturn(new AppUser());
 
-        User user = userContext.getCurrentUser();
+        AppUser appUser = userContext.getCurrentUser();
 
-        assertThat(user).isNull();
+        assertThat(appUser).isNull();
 //        verify(this.securityContext).getAuthentication();
 //        verify(this.authentication).getPrincipal();
     }
@@ -100,11 +100,11 @@ public class UserContextTests {
 
         // Authentication:
         given(this.authentication.getPrincipal())
-                .willReturn(new User());
+                .willReturn(new AppUser());
 
-        User user = userContext.getCurrentUser();
+        AppUser appUser = userContext.getCurrentUser();
 
-        assertThat(user).isNull();
+        assertThat(appUser).isNull();
     }
 
     @Test
@@ -112,8 +112,8 @@ public class UserContextTests {
     @WithMockUser("user1@example.com")
     public void getCurrentUser__throws_IllegalStateException() {
 
-        User user = new User();
-        user.setEmail("test@foobar.com");
+        AppUser appUser = new AppUser();
+        appUser.setEmail("test@foobar.com");
 
 
         // Expectation
@@ -123,7 +123,7 @@ public class UserContextTests {
 
         // Authentication:
         given(this.authentication.getPrincipal())
-                .willReturn(new User());
+                .willReturn(new AppUser());
 
         // Authentication:
         given(this.eventService.findUserByEmail(any(String.class)))
@@ -140,7 +140,7 @@ public class UserContextTests {
     @Test
     public void setCurrentUser__UsernameNotFoundException() {
         assertThrows(UnsupportedOperationException.class, () -> {
-            userContext.setCurrentUser(testUser1);
+            userContext.setCurrentUser(testAppUser1);
         });
     }
 
@@ -154,7 +154,7 @@ public class UserContextTests {
     @Test
     public void setCurrentUser_invalid_User() {
         assertThrows(UnsupportedOperationException.class, () -> {
-            userContext.setCurrentUser(new User());
+            userContext.setCurrentUser(new AppUser());
         });
     }
 

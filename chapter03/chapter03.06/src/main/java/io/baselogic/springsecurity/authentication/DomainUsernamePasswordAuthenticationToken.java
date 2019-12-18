@@ -1,6 +1,6 @@
 package io.baselogic.springsecurity.authentication;
 
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -35,7 +35,7 @@ public final class DomainUsernamePasswordAuthenticationToken extends UsernamePas
      * @param domain
      * @param authorities
      */
-    public DomainUsernamePasswordAuthenticationToken(final User principal,
+    public DomainUsernamePasswordAuthenticationToken(final AppUser principal,
                                                      final String credentials,
                                                      final String domain,
                                                      final Collection<GrantedAuthority> authorities) {

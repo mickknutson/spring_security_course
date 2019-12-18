@@ -17,6 +17,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * </p>
  *
  * @author Mick Knutson
+ *
+ * @since chapter01.00
  */
 @Configuration
 @EnableWebMvc
@@ -24,12 +26,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "io.baselogic.springsecurity.web.controllers",
         "io.baselogic.springsecurity.web.model"
 })
-public class WebMvcConfig implements WebMvcConfigurer
-{
+public class WebMvcConfig implements WebMvcConfigurer {
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
             "classpath:/META-INF/resources/", "classpath:/resources/",
-            "classpath:/static/", "classpath:/public/" };
+            "classpath:/static/", "classpath:/public/"};
 
 
     @Override
@@ -39,17 +40,17 @@ public class WebMvcConfig implements WebMvcConfigurer
                 .setCachePeriod(1)
         ;
 
-        if (!registry.hasMappingForPattern("/webjars/**")) {
-            registry.addResourceHandler("/webjars/**").addResourceLocations(
-                    "classpath:/META-INF/resources/webjars/").resourceChain(true);
-        }
+        // Add WebJars for Bootstrap & jQuery
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:webjars/")
+                .setCachePeriod(1)
+        ;
 
-        if (!registry.hasMappingForPattern("/**")) {
-            registry.addResourceHandler("/**")
-                    .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS)
-            ;
 
-        }
+        registry.addResourceHandler("/**")
+                .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS)
+                .setCachePeriod(1)
+        ;
     }
 
     @Override
@@ -63,7 +64,6 @@ public class WebMvcConfig implements WebMvcConfigurer
 
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
-
 
     // i18N support
     @Bean

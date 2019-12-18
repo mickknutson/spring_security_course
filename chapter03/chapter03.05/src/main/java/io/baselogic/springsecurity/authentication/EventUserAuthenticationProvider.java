@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.authentication;
 
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.service.EventService;
 import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
@@ -46,13 +46,13 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
         String email = token.getName();
         log.info("authenticate: {}", email);
 
-        User user = email == null ? null : eventService.findUserByEmail(email);
+        AppUser appUser = email == null ? null : eventService.findUserByEmail(email);
 
-        if(user == null) {
+        if(appUser == null) {
             throw new UsernameNotFoundException("Invalid username/password");
         }
 
-        String password = user.getPassword();
+        String password = appUser.getPassword();
         log.info("Password: {}", password);
         log.info("Credentials: {}", token.getCredentials());
 
@@ -61,10 +61,10 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Invalid username/password");
         }
 
-        Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(user);
+        Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(appUser);
         log.info("return valid UsernamePasswordAuthenticationToken");
 
-        return new UsernamePasswordAuthenticationToken(user, password, authorities);
+        return new UsernamePasswordAuthenticationToken(appUser, password, authorities);
     }
 
     @Override

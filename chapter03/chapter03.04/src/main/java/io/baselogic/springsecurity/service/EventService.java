@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
@@ -38,12 +38,12 @@ public interface EventService {
     Integer createEvent(Event event);
 
     /**
-     * Finds the {@link Event}'s that are intended for the {@link User}.
+     * Finds the {@link Event}'s that are intended for the {@link AppUser}.
      *
      * @param userId
-     *            the {@link User#getId()} to obtain {@link Event}'s for.
-     * @return a non-null {@link List} of {@link Event}'s intended for the specified {@link User}. If the
-     *         {@link User} does not exist an empty List will be returned.
+     *            the {@link AppUser#getId()} to obtain {@link Event}'s for.
+     * @return a non-null {@link List} of {@link Event}'s intended for the specified {@link AppUser}. If the
+     *         {@link AppUser} does not exist an empty List will be returned.
      */
     List<Event> findEventByUser(Integer userId);
 
@@ -59,48 +59,48 @@ public interface EventService {
 
 
     /**
-     * Gets a {@link User} for a specific {@link User#getId()}.
+     * Gets a {@link AppUser} for a specific {@link AppUser#getId()}.
      *
      * @param id
-     *            the {@link User#getId()} of the {@link User} to find.
-     * @return a {@link User} for the given id. Cannot be null.
+     *            the {@link AppUser#getId()} of the {@link AppUser} to find.
+     * @return a {@link AppUser} for the given id. Cannot be null.
      * @throws EmptyResultDataAccessException
-     *             if the {@link User} cannot be found
+     *             if the {@link AppUser} cannot be found
      */
-    User findUserById(Integer id);
+    AppUser findUserById(Integer id);
 
     /**
-     * Finds a given {@link User} by email address.
+     * Finds a given {@link AppUser} by email address.
      *
      * @param email
-     *            the email address to use to find a {@link User}. Cannot be null.
-     * @return a {@link User} for the given email or null if one could not be found.
+     *            the email address to use to find a {@link AppUser}. Cannot be null.
+     * @return a {@link AppUser} for the given email or null if one could not be found.
      * @throws IllegalArgumentException
      *             if email is null.
      */
-    User findUserByEmail(String email);
+    AppUser findUserByEmail(String email);
 
     /**
-     * Finds any {@link User} that has an email that starts with {@code partialEmail}.
+     * Finds any {@link AppUser} that has an email that starts with {@code partialEmail}.
      *
      * @param partialEmail
-     *            the email address to use to find {@link User}s. Cannot be null or empty String.
-     * @return a List of {@link User}s that have an email that starts with given partialEmail. The returned
+     *            the email address to use to find {@link AppUser}s. Cannot be null or empty String.
+     * @return a List of {@link AppUser}s that have an email that starts with given partialEmail. The returned
      *         value will never be null. If no results are found an empty List will be returned.
      * @throws IllegalArgumentException
      *             if email is null or empty String.
      */
-    List<User> findUsersByEmail(String partialEmail);
+    List<AppUser> findUsersByEmail(String partialEmail);
 
     /**
-     * Creates a new {@link User}.
+     * Creates a new {@link AppUser}.
      *
-     * @param user
-     *            the new {@link User} to create. The {@link User#getId()} must be null.
-     * @return the new {@link User#getId()}.
+     * @param appUser
+     *            the new {@link AppUser} to create. The {@link AppUser#getId()} must be null.
+     * @return the new {@link AppUser#getId()}.
      * @throws IllegalArgumentException
-     *             if {@link User#getId()} is non-null.
+     *             if {@link AppUser#getId()} is non-null.
      */
-    Integer createUser(User user);
+    Integer createUser(AppUser appUser);
 
 } // The End...

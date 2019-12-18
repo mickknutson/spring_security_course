@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.web.controllers;
 
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
 import io.baselogic.springsecurity.service.EventService;
 import io.baselogic.springsecurity.service.UserContext;
 import io.baselogic.springsecurity.web.model.EventDto;
@@ -54,13 +54,14 @@ public class EventsController {
 
     @GetMapping("/my")
     public ModelAndView userEvents() {
-        User currentUser = userContext.getCurrentUser();
-        Integer currentUserId = 0;
-        if(currentUser != null) {
-            currentUserId = currentUser.getId();
-        }
+        AppUser currentAppUser = userContext.getCurrentUser();
+        Integer currentUserId = currentAppUser.getId();
+        /*Integer currentUserId = 0;
+        if(currentAppUser != null) {
+            currentUserId = currentAppUser.getId();
+        }*/
         ModelAndView result = new ModelAndView(EVENT_MY_VIEW, "events", eventService.findEventByUser(currentUserId));
-        result.addObject("currentUser", currentUser);
+        result.addObject("currentAppUser", currentAppUser);
         return result;
     }
 
@@ -90,11 +91,11 @@ public class EventsController {
         eventDto.setWhen(Calendar.getInstance());
 
         // make the attendee not the current user
-        User currentUser = userContext.getCurrentUser();
+        AppUser currentAppUser = userContext.getCurrentUser();
 
-        Integer attendeeId = currentUser.getId() == 0 ? 1 : 0;
+        Integer attendeeId = currentAppUser.getId() == 0 ? 1 : 0;
 
-        User attendee = eventService.findUserById(attendeeId);
+        AppUser attendee = eventService.findUserById(attendeeId);
         eventDto.setAttendeeEmail(attendee.getEmail());
 
         return EVENT_CREATE_VIEW;
@@ -110,7 +111,7 @@ public class EventsController {
             return EVENT_CREATE_VIEW;
         }
 
-        User attendee = eventService.findUserByEmail(eventDto.getAttendeeEmail());
+        AppUser attendee = eventService.findUserByEmail(eventDto.getAttendeeEmail());
         if (attendee == null) {
             result.rejectValue("attendeeEmail", "event.new.attendeeEmail.missing");
         }

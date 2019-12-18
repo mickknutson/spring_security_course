@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.dao;
 
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,8 +33,8 @@ public class JdbcEventDaoTests {
     @Autowired
     private EventDao eventDao;
 
-    private User owner = new User();
-    private User attendee = new User();
+    private AppUser owner = new AppUser();
+    private AppUser attendee = new AppUser();
 
     @BeforeEach
     public void beforeEachTest() {

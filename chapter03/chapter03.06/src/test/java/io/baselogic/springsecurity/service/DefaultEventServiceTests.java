@@ -4,7 +4,7 @@ import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -46,14 +46,14 @@ public class DefaultEventServiceTests {
 
     //-----------------------------------------------------------------------//
 
-    private User user1 = new User();
-    private User testUser1 = new User();
+    private AppUser appUser1 = new AppUser();
+    private AppUser testAppUser1 = new AppUser();
 
 
     @BeforeEach
     public void beforeEachTest() {
-        user1 = TestUtils.user1;
-        testUser1 = TestUtils.testUser1;
+        appUser1 = TestUtils.APP_USER_1;
+        testAppUser1 = TestUtils.TEST_APP_USER_1;
     }
 
     //-------------------------------------------------------------------------
@@ -133,34 +133,34 @@ public class DefaultEventServiceTests {
     public void findUserById() {
 
         when(userDao.findById(any(Integer.class)))
-                .thenReturn(TestUtils.testUser1);
+                .thenReturn(TestUtils.TEST_APP_USER_1);
 
-        User user = eventService.findUserById(1);
+        AppUser appUser = eventService.findUserById(1);
 
-        assertThat(user.getEmail()).isEqualTo("test@example.com");
+        assertThat(appUser.getEmail()).isEqualTo("test@example.com");
     }
 
     @Test
     public void findUserByEmail() {
 
         when(userDao.findByEmail(any(String.class)))
-                .thenReturn(TestUtils.testUser1);
+                .thenReturn(TestUtils.TEST_APP_USER_1);
 
-        User user = eventService.findUserByEmail("test@example.com");
+        AppUser appUser = eventService.findUserByEmail("test@example.com");
 
-        assertThat(user.getEmail()).isEqualTo("test@example.com");
+        assertThat(appUser.getEmail()).isEqualTo("test@example.com");
     }
 
     @Test
     public void findUsersByEmail() {
 
         when(userDao.findAllByEmail(any(String.class)))
-                .thenReturn(TestUtils.TEST_USERS);
+                .thenReturn(TestUtils.TEST_APP_USERS);
 
-        List<User> users = eventService.findUsersByEmail("@example.com");
+        List<AppUser> appUsers = eventService.findUsersByEmail("@example.com");
 
-        assertThat(users).isNotEmpty();
-        assertThat(users.size()).isGreaterThanOrEqualTo(3);
+        assertThat(appUsers).isNotEmpty();
+        assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
 
     //-------------------------------------------------------------------------
@@ -169,7 +169,7 @@ public class DefaultEventServiceTests {
     @DisplayName("Create User")
     public void createUser() {
 
-        Integer result = eventService.createUser(testUser1);
+        Integer result = eventService.createUser(testAppUser1);
         assertThat(result).isGreaterThanOrEqualTo(0);
     }
 

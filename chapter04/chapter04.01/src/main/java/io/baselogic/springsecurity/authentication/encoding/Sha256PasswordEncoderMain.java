@@ -1,6 +1,5 @@
 package io.baselogic.springsecurity.authentication.encoding;
 
-import io.baselogic.springsecurity.crypto.password.CryptoSha256PasswordEncoderMain;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -8,12 +7,10 @@ import java.util.Arrays;
 
 /**
  * A utility class that can be used to convert passwords to use Sha256 without any salt. This uses Spring Security's old
- * {@link PasswordEncoder} interface. Typically applications should prefer the new crypto module's PasswordEncoder as
- * demonstrated in {@link CryptoSha256PasswordEncoderMain}.
+ * {@link PasswordEncoder} interface.
  *
  * @author mickknutson
- * @see CryptoSha256PasswordEncoderMain
- *
+
  * @since chapter04.01
  */
 @Slf4j

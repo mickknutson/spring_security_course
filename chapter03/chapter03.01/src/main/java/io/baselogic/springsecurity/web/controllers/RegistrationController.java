@@ -1,6 +1,6 @@
 package io.baselogic.springsecurity.web.controllers;
 
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.service.EventService;
 import io.baselogic.springsecurity.service.UserContext;
 import io.baselogic.springsecurity.web.model.RegistrationDto;
@@ -66,11 +66,11 @@ public class RegistrationController {
             return REG_FORM_VIEW;
         }
 
-        User user = new User();
-        user.setEmail(email);
-        user.setFirstName(registrationDto.getFirstName());
-        user.setLastName(registrationDto.getLastName());
-        user.setPassword(
+        AppUser appUser = new AppUser();
+        appUser.setEmail(email);
+        appUser.setFirstName(registrationDto.getFirstName());
+        appUser.setLastName(registrationDto.getLastName());
+        appUser.setPassword(
                 passwordEncoder.encode(registrationDto.getPassword())
         );
 

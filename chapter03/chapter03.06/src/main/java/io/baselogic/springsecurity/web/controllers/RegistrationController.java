@@ -1,6 +1,6 @@
 package io.baselogic.springsecurity.web.controllers;
 
-import io.baselogic.springsecurity.domain.User;
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.service.EventService;
 import io.baselogic.springsecurity.service.UserContext;
 import io.baselogic.springsecurity.web.model.RegistrationDto;
@@ -70,12 +70,12 @@ public class RegistrationController {
             return REG_FORM_VIEW;
         }
 
-        User user = new User();
-        user.setEmail(email);
-        user.setFirstName(registrationDto.getFirstName());
-        user.setLastName(registrationDto.getLastName());
+        AppUser appUser = new AppUser();
+        appUser.setEmail(email);
+        appUser.setFirstName(registrationDto.getFirstName());
+        appUser.setLastName(registrationDto.getLastName());
 
-        user.setPassword(
+        appUser.setPassword(
                 registrationDto.getPassword()
         );
 
@@ -83,10 +83,10 @@ public class RegistrationController {
 //                passwordEncoder.encode(registrationDto.getPassword())
 //        );
 
-        int id = eventService.createUser(user);
+        int id = eventService.createUser(appUser);
         log.info("Created user ID {}.", id);
-        user.setId(id);
-        userContext.setCurrentUser(user);
+        appUser.setId(id);
+        userContext.setCurrentUser(appUser);
 
         StringBuilder sb = new StringBuilder("Registration Successful.");
         sb.append(" Account created for '").append(email).append("' and automatically logged-in.");

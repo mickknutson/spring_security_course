@@ -8,7 +8,6 @@ CREATE TABLE appUsers (
     last_name VARCHAR(50) NOT NULL
 );
 
--- EVENTS Schema
 CREATE TABLE events (
     id BIGINT IDENTITY,
     event_date TIMESTAMP NOT NULL,

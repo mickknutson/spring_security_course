@@ -34,7 +34,7 @@ public class ErrorControllerTests {
 
     private WebClient webClient;
 
-    private static final String USER = TestUtils.user1.getEmail();
+    private static final String USER = TestUtils.APP_USER_1.getEmail();
 
     @Autowired
     private ErrorController controller;

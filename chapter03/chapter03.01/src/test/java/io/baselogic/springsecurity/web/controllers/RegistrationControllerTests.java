@@ -164,7 +164,7 @@ public class RegistrationControllerTests {
 //        lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute(TestUtils.testUser1.getEmail());
+        email.setValueAttribute(TestUtils.TEST_APP_USER_1.getEmail());
 
         HtmlInput password = page.getHtmlElementById("password");
         password.setValueAttribute("some password");
@@ -242,7 +242,7 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute(TestUtils.user1.getEmail());
+        email.setValueAttribute(TestUtils.APP_USER_1.getEmail());
 
         HtmlInput password = page.getHtmlElementById("password");
         password.setValueAttribute("some password");
