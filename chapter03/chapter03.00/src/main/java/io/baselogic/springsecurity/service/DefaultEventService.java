@@ -2,8 +2,8 @@ package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.UserDao;
-import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.AppUser;
+import io.baselogic.springsecurity.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,37 +30,45 @@ public class DefaultEventService implements EventService {
         this.userDao = userDao;
     }
 
-    public Event findEventById(Integer eventId) {
+    @Override
+    public Event findEventById(final Integer eventId) {
         return eventDao.findById(eventId);
     }
 
-    public List<Event> findEventByUser(Integer userId) {
+    @Override
+    public List<Event> findEventByUser(final Integer userId) {
         return eventDao.findByUser(userId);
     }
 
+    @Override
     public List<Event> findAllEvents() {
         return eventDao.findAll();
     }
 
-    public Integer createEvent(Event event) {
+    @Override
+    public Integer createEvent(final Event event) {
         return eventDao.save(event);
     }
 
 
 
-    public AppUser findUserById(Integer id) {
+    @Override
+    public AppUser findUserById(final Integer id) {
         return userDao.findById(id);
     }
 
-    public AppUser findUserByEmail(String email) {
+    @Override
+    public AppUser findUserByEmail(final String email) {
         return userDao.findByEmail(email);
     }
 
-    public List<AppUser> findUsersByEmail(String partialEmail) {
+    @Override
+    public List<AppUser> findUsersByEmail(final String partialEmail) {
         return userDao.findAllByEmail(partialEmail);
     }
 
-    public Integer createUser(AppUser appUser) {
+    @Override
+    public Integer createUser(final AppUser appUser) {
         return userDao.save(appUser);
     }
 

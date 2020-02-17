@@ -11,12 +11,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Database Configuration
+ *
+ * @author mickknutson
+ *
+ * @since chapter01.00
  */
 @Configuration
 @EnableTransactionManagement
 @Slf4j
 public class DataSourceConfig {
-
 
     //-------------------------------------------------------------------------
 

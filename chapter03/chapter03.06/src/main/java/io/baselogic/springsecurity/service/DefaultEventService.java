@@ -34,36 +34,44 @@ public class DefaultEventService implements EventService {
         this.userDao = userDao;
     }
 
-    public Event findEventById(Integer eventId) {
+    @Override
+    public Event findEventById(final Integer eventId) {
         return eventDao.findById(eventId);
     }
 
-    public List<Event> findEventByUser(Integer userId) {
+    @Override
+    public List<Event> findEventByUser(final Integer userId) {
         return eventDao.findByUser(userId);
     }
 
+    @Override
     public List<Event> findAllEvents() {
         return eventDao.findAll();
     }
 
-    public Integer createEvent(Event event) {
+    @Override
+    public Integer createEvent(final Event event) {
         return eventDao.save(event);
     }
 
 
 
-    public AppUser findUserById(Integer id) {
+    @Override
+    public AppUser findUserById(final Integer id) {
         return userDao.findById(id);
     }
 
-    public AppUser findUserByEmail(String email) {
+    @Override
+    public AppUser findUserByEmail(final String email) {
         return userDao.findByEmail(email);
     }
 
-    public List<AppUser> findUsersByEmail(String partialEmail) {
+    @Override
+    public List<AppUser> findUsersByEmail(final String partialEmail) {
         return userDao.findAllByEmail(partialEmail);
     }
 
+    @Override
     public Integer createUser(final AppUser appUser) {
         return userDao.save(appUser);
     }

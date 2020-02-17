@@ -77,6 +77,7 @@ public class DefaultEventServiceTests {
         Event event = eventService.findEventById(100);
 
         assertThat(event).isNotNull();
+        assertThat(event.getId()).isEqualTo(42);
     }
 
     @Test

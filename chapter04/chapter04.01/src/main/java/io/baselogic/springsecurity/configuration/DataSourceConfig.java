@@ -7,16 +7,52 @@ import org.h2.server.web.WebServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
 
 /**
  * Database Configuration
+ *
+ * @author mickknutson
+ *
+ * @since chapter01.00
+ * @since chapter04.01 added DataSource config to manually add additional SQL files to the init.
  */
 @Configuration
 @EnableTransactionManagement
 @Slf4j
 public class DataSourceConfig {
 
+
+    //-------------------------------------------------------------------------
+
+    /**
+     * Custom H2 implementation for our {@link EmbeddedDatabase}
+     * @return DataSource for our embedded database.
+     */
+    @Bean
+    public DataSource dataSource() {
+
+        // no need shutdown, EmbeddedDatabaseFactoryBean will take care of this
+        return new EmbeddedDatabaseBuilder()
+                //Starting embedded database: url='jdbc:h2:mem:dataSource;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+                .setName("dataSource")
+                // Lets not get upset as we are only debugging ;-)
+                .ignoreFailedDrops(true)
+                .continueOnError(true)
+                // DB Details:
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("/schema.sql")
+                .addScript("/data.sql")
+                .addScript("/database/h2/security-schema.sql")
+                .addScript("/database/h2/security-users.sql")
+                .addScript("/database/h2/security-user-authorities.sql")
+                .build();
+    }
 
     //-------------------------------------------------------------------------
 
