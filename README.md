@@ -38,6 +38,15 @@ has been used as the view templating engine throughout the book
 [https://www.baeldung.com/lombok-ide](https://www.baeldung.com/lombok-ide)
 
 
+## Preparing Maven to run offline
+    mvn dependency:sources
+    mvn dependency:resolve -Dclassifier=javadoc
+    mvn dependency:go-offline
+
+or :
+
+    mvn dependency:sources dependency:resolve -Dclassifier=javadoc dependency:go-offline
+
 
 ## Running Individual projects
 
@@ -47,16 +56,14 @@ milestone directory:
     *~ ./mvn spring-boot:run*
 
 then open a browser to:
-
-    [http://localhost:8080](http://localhost:8080)
+[http://localhost:8080](http://localhost:8080)
 
 
 ## Using the H2 DB Web Admin Console
 
 After the application is running, the H2 admin Servlet will be running
 and the console can be accessed via the following URL:
-
-    [http://localhost:8080/admin/h2](http://localhost:8080/admin/h2)
+[http://localhost:8080/admin/h2](http://localhost:8080/admin/h2)
 
 
 

@@ -7,6 +7,7 @@ import org.h2.server.web.WebServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -22,31 +23,35 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Slf4j
 public class DataSourceConfig {
 
-
     //-------------------------------------------------------------------------
 
     @Bean
+    @Description("Jdbc ResultSet RowMapper for 'appUsers'")
     public UserRowMapper userRowMapper(){
         return new UserRowMapper("appUsers.");
     }
 
     @Bean
+    @Description("Jdbc ResultSet RowMapper for 'owner_'")
     public UserRowMapper ownerRowMapper(){
         return new UserRowMapper("owner_");
     }
 
     @Bean
+    @Description("Jdbc ResultSet RowMapper for 'attendee_'")
     public UserRowMapper attendeeRowMapper(){
         return new UserRowMapper("attendee_");
     }
 
     @Bean
+    @Description("Event RowMapper")
     public EventRowMapper eventRowMapper(){
         return new EventRowMapper(ownerRowMapper(),
                 attendeeRowMapper());
     }
 
     @Bean
+    @Description("Jdbc SQL Query for 'EVENT'")
     public String eventQuery(){
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT e.id, e.summary, e.description, e.event_date, ");
@@ -61,6 +66,7 @@ public class DataSourceConfig {
     }
 
     @Bean
+    @Description("Jdbc SQL Query for 'appUsers'")
     public String userQuery(){
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT id, email, password, first_name, last_name ");
@@ -72,6 +78,7 @@ public class DataSourceConfig {
 
 
     @Bean
+    @Description("Jdbc SQL Insert for 'appUsers'")
     public String userInsertQuery(){
         StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO appUsers (email, password, first_name, last_name) ");
@@ -91,6 +98,7 @@ public class DataSourceConfig {
      * @return {@link ServletRegistrationBean} for the H2 admin Servlet
      */
     @Bean
+    @Description("H2 Database admin Servlet")
     public ServletRegistrationBean h2servletRegistration(){
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
         registrationBean.addUrlMappings("/admin/h2/*");

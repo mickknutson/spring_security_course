@@ -1,0 +1,53 @@
+#------------------------------------------------------------------------------#
+# Application YAML #
+# inside ./src/main/resources/application.yml
+#------------------------------------------------------------------------------#
+
+# Turn on debug logging to show ConditionEvaluationReport :
+#debug: true
+
+##---------------------------------------------------------------------------##
+spring:
+
+
+  ##---------------------------------------------------------------------------##
+  ## Thymeleaf configuration:
+  thymeleaf:
+    cache: false
+    mode: HTML
+
+
+  ##---------------------------------------------------------------------------##
+  ## H2 Admin Servlet Configuration:
+  ## Note: See SecurityConfig.java for configuration:
+
+  # http://localhost:8080/admin/h2
+  h2.console.enabled: false
+
+  ##---------------------------------------------------------------------------##
+  ## Datasource Configuration:
+  datasource:
+    url: jdbc:h2:mem:dataSource;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+    # These items are needed for testing:
+    continue-on-error: true
+    generate-unique-name: true
+
+
+  ##---------------------------------------------------------------------------##
+  ## JPA
+  jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+
+##---------------------------------------------------------------------------##
+## Logging Configuration:
+logging:
+  level:
+    com:
+      packtpub:
+        testloglevel: DEBUG
+
+##---------------------------------------------------------------------------##

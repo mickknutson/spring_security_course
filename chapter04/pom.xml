@@ -90,6 +90,7 @@
         </dependency>
 
 
+        <!-- chapter04.01: Required dependencies -->
         <!-- DATABASE: -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

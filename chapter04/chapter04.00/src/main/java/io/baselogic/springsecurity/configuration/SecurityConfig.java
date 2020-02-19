@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,6 +32,55 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ROLE_USER = "USER";
     private static final String ROLE_ADMIN = "ADMIN";
 
+
+    @Autowired
+    private DataSource dataSource;
+
+    /**
+     * Configure AuthenticationManager with inMemory credentials.
+     *
+     * NOTE:
+     * Due to a known limitation with JavaConfig:
+     * <a href="https://jira.spring.io/browse/SPR-13779">
+     *     https://jira.spring.io/browse/SPR-13779</a>
+     *
+     * We cannot use the following to expose a {@link UserDetailsManager}
+     * <pre>
+     *     http.authorizeRequests()
+     * </pre>
+     *
+     * In order to expose {@link UserDetailsManager} as a bean, we must create  @Bean
+     *
+     * @see {userDetailsService()}
+     * @see {@link com.packtpub.springsecurity.service.DefaultCalendarService}
+     *
+     * @param auth       AuthenticationManagerBuilder
+     * @throws Exception Authentication exception
+     */
+    @Description("Configure AuthenticationManager with inMemory credentials")
+    @Override
+    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .jdbcAuthentication()
+                .dataSource(dataSource)
+        ;
+    }
+
+    /**
+     * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
+     * originally returns a {@link UserDetailsService}, but this needs to be a {@link UserDetailsManager}
+     * UserDetailsManager vs UserDetailsService
+     */
+    @Bean
+    @Description("Expose 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'")
+    @Override
+    public UserDetailsManager userDetailsService() {
+        return new JdbcUserDetailsManager() {{
+            setDataSource(dataSource);
+        }};
+    }
+
+
     /**
      * HTTP Security configuration
      *
@@ -55,6 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @throws Exception Authentication configuration exception
      *
      */
+    @Description("Configure HTTP Security")
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
@@ -122,6 +173,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * the {@link org.springframework.web.filter.DelegatingFilterProxy} delegates to.
      * </p>
      */
+    @Description("Configure Web Security")
     @Override
     public void configure(final WebSecurity web) {
         web.ignoring()
@@ -142,11 +194,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @return DelegatingPasswordEncoder
      */
     @Bean
+    @Description("Configure Password Encoder")
     public PasswordEncoder passwordEncoder() {
 
         String idForEncode = "noop";
         Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put("noop", NoOpPasswordEncoder.getInstance());
+        encoders.put(idForEncode, NoOpPasswordEncoder.getInstance());
 
         return new DelegatingPasswordEncoder(idForEncode, encoders);
     }
