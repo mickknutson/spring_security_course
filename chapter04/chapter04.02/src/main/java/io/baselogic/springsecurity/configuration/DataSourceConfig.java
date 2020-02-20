@@ -34,8 +34,11 @@ public class DataSourceConfig {
     /**
      * Custom H2 implementation for our {@link EmbeddedDatabase}
      * @return DataSource for our embedded database.
+     *
+     * Default URL for embedded is 'jdbc:h2:mem:testdb'
+     * But this can be overridden in the application.yml configuration.
      */
-    @Bean
+//    @Bean
     @Description("Embedded DataSource")
     public DataSource dataSource() {
 
@@ -43,16 +46,31 @@ public class DataSourceConfig {
         return new EmbeddedDatabaseBuilder()
                 //Starting embedded database: url='jdbc:h2:mem:dataSource;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
                 .setName("dataSource")
-                // Lets not get upset as we are only debugging ;-)
-                .ignoreFailedDrops(true)
-                .continueOnError(true)
+
                 // DB Details:
                 .setType(EmbeddedDatabaseType.H2)
-                .addScript("/schema.sql")
-                .addScript("/data.sql")
+
+                // Lets not get upset as we are only debugging ;-)
+                .ignoreFailedDrops(true)
+
+                // These items are needed for testing:
+                .continueOnError(true)
+                .generateUniqueName(false)
+
+                // These are the default files used by Spring Boot.
+                // But we are going to override these
+                //.addScript("/schema.sql")
+                //.addScript("/data.sql")
+
+                // Create Schema:
+                .addScript("/database/h2/calendar-schema.sql")
                 .addScript("/database/h2/security-schema.sql")
-                .addScript("/database/h2/security-users.sql")
-                .addScript("/database/h2/security-user-authorities.sql")
+
+                // Populate data:
+                .addScript("/database/h2/calendar-data.sql")
+                .addScript("/database/h2/security-users-data.sql")
+                .addScript("/database/h2/security-user-authorities-data.sql")
+
                 .build();
     }
 

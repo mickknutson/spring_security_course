@@ -1,4 +1,4 @@
-# Chapter 04.02 #
+# Chapter 04.02
 
 # JDBC-Based Authentication
 
