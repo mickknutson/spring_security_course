@@ -24,17 +24,17 @@ public class Application {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
 
-            log.info("\n------------------------------------------------");
-            log.info("Let's inspect the beans provided by Spring Boot:");
-            log.info("------------------------------------------------");
+            log.debug("\n------------------------------------------------");
+            log.debug("Let's inspect the beans provided by Spring Boot:");
+            log.debug("\n------------------------------------------------");
 
             String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
             for (String beanName : beanNames) {
-                log.info("{}", beanName);
+                log.debug("{}", beanName);
             }
 
-            log.info("------------------------------------------------\n");
+            log.debug("\n------------------------------------------------\n");
         };
     }
-}
+} // The End...

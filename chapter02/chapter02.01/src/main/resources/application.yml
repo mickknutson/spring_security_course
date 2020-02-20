@@ -40,8 +40,8 @@ spring:
 
 logging:
   level:
-    com:
-      packtpub:
-        testloglevel: DEBUG
+    io:
+      baselogic:
+        testloglevel: INFO
 
 ##---------------------------------------------------------------------------##

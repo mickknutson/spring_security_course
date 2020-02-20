@@ -24,62 +24,13 @@ import java.util.Map;
  * @since chapter04.00 removed .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  */
 @Configuration
-@EnableWebSecurity//(debug = true)
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String ROLE_ANONYMOUS = "ANONYMOUS";
     private static final String ROLE_USER = "USER";
     private static final String ROLE_ADMIN = "ADMIN";
-
-
-    @Autowired
-    private DataSource dataSource;
-
-    /**
-     * Configure AuthenticationManager with inMemory credentials.
-     *
-     * NOTE:
-     * Due to a known limitation with JavaConfig:
-     * <a href="https://jira.spring.io/browse/SPR-13779">
-     *     https://jira.spring.io/browse/SPR-13779</a>
-     *
-     * We cannot use the following to expose a {@link UserDetailsManager}
-     * <pre>
-     *     http.authorizeRequests()
-     * </pre>
-     *
-     * In order to expose {@link UserDetailsManager} as a bean, we must create  @Bean
-     *
-     * @see {userDetailsService()}
-     * @see {@link com.packtpub.springsecurity.service.DefaultCalendarService}
-     *
-     * @param auth       AuthenticationManagerBuilder
-     * @throws Exception Authentication exception
-     */
-    @Description("Configure AuthenticationManager with inMemory credentials")
-    @Override
-    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .jdbcAuthentication()
-                .dataSource(dataSource)
-        ;
-    }
-
-    /**
-     * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
-     * originally returns a {@link UserDetailsService}, but this needs to be a {@link UserDetailsManager}
-     * UserDetailsManager vs UserDetailsService
-     */
-    @Bean
-    @Description("Expose 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'")
-    @Override
-    public UserDetailsManager userDetailsService() {
-        return new JdbcUserDetailsManager() {{
-            setDataSource(dataSource);
-        }};
-    }
-
 
     /**
      * HTTP Security configuration
