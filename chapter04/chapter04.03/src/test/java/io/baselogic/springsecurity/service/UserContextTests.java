@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * UserContextTests
  *
  * @since chapter1.00
+ * @since chapter4.02 Can only setCurrentUser() with a user that exist in the db.
  */
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -46,12 +47,14 @@ public class UserContextTests {
 
     @Test
     public void setCurrentUser() {
-        userContext.setCurrentUser(TestUtils.TEST_APP_USER_1);
+        // Not in the database:
+//        userContext.setCurrentUser(TestUtils.TEST_APP_USER_1);
+        userContext.setCurrentUser(TestUtils.APP_USER_1);
 
         AppUser appUser = userContext.getCurrentUser();
 
         assertThat(appUser).isNotNull();
-        assertThat(appUser.getId()).isEqualTo(42);
+        assertThat(appUser.getId()).isEqualTo(0);
     }
 
     @Test

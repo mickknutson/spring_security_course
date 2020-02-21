@@ -65,11 +65,11 @@ public class DataSourceConfig {
                 //.addScript("/data.sql")
 
                 // Create Schema:
-                .addScript("/database/h2/calendar-schema.sql")
+                .addScript("/database/h2/events-schema.sql")
                 .addScript("/database/h2/security-schema.sql")
 
                 // Populate data:
-                .addScript("/database/h2/calendar-data.sql")
+                .addScript("/database/h2/events-data.sql")
                 .addScript("/database/h2/security-users-data.sql")
                 .addScript("/database/h2/security-user-authorities-data.sql")
 

@@ -18,16 +18,12 @@ import java.util.List;
  */
 public interface UserAuthorityUtils {
 
-    static final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN",
-            "ROLE_USER");
-    static final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
-
     public static Collection<GrantedAuthority> createAuthorities(final @NotNull AppUser appUser) {
         String username = appUser.getEmail();
         if (username.startsWith("admin")) {
-            return ADMIN_ROLES;
+            return AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER");
         }
-        return USER_ROLES;
+        return AuthorityUtils.createAuthorityList("ROLE_USER");
     }
 
 } // The End...

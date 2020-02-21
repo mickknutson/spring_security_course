@@ -60,8 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * In order to expose {@link UserDetailsManager} as a bean, we must create  @Bean
      *
-     * @see {userDetailsService()}
-     * @see {@link io.baselogic.springsecurity.service.DefaultEventService}
+     * @see UserDetailsManager {this.userDetailsService()}
+     * @see io.baselogic.springsecurity.service.EventService  {@link io.baselogic.springsecurity.service.DefaultEventService}
      *
      * @param auth       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
@@ -86,9 +86,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Description("Expose 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'")
     @Override
     public UserDetailsManager userDetailsService() {
-        return new JdbcUserDetailsManager() {{
-            setDataSource(dataSource);
-        }};
+        JdbcUserDetailsManager judm = new JdbcUserDetailsManager();
+        judm.setDataSource(dataSource);
+        return judm;
     }
 
 

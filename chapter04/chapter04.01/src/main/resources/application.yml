@@ -36,11 +36,11 @@ spring:
     password:
 
     schema:
+      - classpath:/database/h2/events-schema.sql
       - classpath:/database/h2/security-schema.sql
-      - classpath:/database/h2/calendar-schema.sql
 
     data:
-      - classpath:/database/h2/calendar-data.sql
+      - classpath:/database/h2/events-data.sql
       - classpath:/database/h2/security-users-data.sql
       - classpath:/database/h2/security-user-authorities-data.sql
 

@@ -21,6 +21,7 @@
         <module>chapter04.01</module>
         <module>chapter04.02</module>
         <module>chapter04.03</module>
+        <module>chapter04.04</module>
     </modules>
 
     <properties>

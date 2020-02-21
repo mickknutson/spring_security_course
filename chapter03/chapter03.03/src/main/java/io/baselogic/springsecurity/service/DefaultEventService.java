@@ -54,8 +54,6 @@ public class DefaultEventService implements EventService {
         return eventDao.save(event);
     }
 
-
-
     @Override
     public AppUser findUserById(final Integer id) {
         return userDao.findById(id);

@@ -54,11 +54,8 @@ public class SpringSecurityUserContext implements UserContext {
         User user = (User)authentication.getPrincipal();
         String email = user.getUsername();
 
-        if (email == null) {
-            return null;
-        }
-
         AppUser result = eventService.findUserByEmail(email);
+
         if (result == null) {
             throw new IllegalStateException(
                     "Spring Security is not in synch with Users. Could not find user with email " + email);

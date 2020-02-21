@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
 
-    public static String CUSTOM_CREATE_USER_SQL = "insert into users (username, password, enabled) values (?,?,?)";
-    private static String CUSTOM_GROUP_AUTHORITIES_BY_USERNAME_QUERY = "select g.id, g.group_name, ga.authority " +
+    public static final String CUSTOM_CREATE_USER_SQL = "insert into users (username, password, enabled) values (?,?,?)";
+    private static final String CUSTOM_GROUP_AUTHORITIES_BY_USERNAME_QUERY = "select g.id, g.group_name, ga.authority " +
             "from groups g, group_members gm, " +
             "group_authorities ga where gm.username = ? " +
             "and g.id = ga.group_id and g.id = gm.group_id";
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * In order to expose {@link UserDetailsManager} as a bean, we must create  @Bean
      *
      * @see {@link this.userDetailsService()}
-     * @see {@link io.baselogic.springsecurity.service.DefaultEventService}
+     * @see io.baselogic.springsecurity.service.EventService  {@link io.baselogic.springsecurity.service.DefaultEventService}
      *
      * @param auth       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
@@ -93,9 +93,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Description("Expose 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'")
     @Override
     public UserDetailsManager userDetailsService() {
-        return new JdbcUserDetailsManager() {{
-            setDataSource(dataSource);
-        }};
+        JdbcUserDetailsManager judm = new JdbcUserDetailsManager();
+        judm.setDataSource(dataSource);
+        return judm;
     }
 
 
