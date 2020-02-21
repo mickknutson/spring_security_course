@@ -22,7 +22,14 @@
                     </ul>
                     <ul class="nav navbar-nav pull-right" sec:authorize="isAuthenticated()">
                         <li>
-                            <p class="navbar-text">Welcome <div class="navbar-text" th:text="${#authentication.getPrincipal().getName()}">User</div></p>
+                            <p class="navbar-text">Welcome
+                            <div th:if="${#authentication.getPrincipal().class.name == 'org.springframework.security.core.userdetails.User'}">
+                                <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+                            </div>
+                            <div th:unless="${#authentication.getPrincipal().class.name == 'org.springframework.security.core.userdetails.User'}">
+                                <span th:text="${#authentication.getPrincipal().getName()}"></span>
+                            </div>
+                            </p>
                         </li>
                         <li>
                             <a id="navLogoutLink" class="btn btn-primary" role="button"  th:href="@{/logout}">Logout</a>

@@ -41,9 +41,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ROLE_ADMIN = "ADMIN";
 
 
-
     @Autowired
     private DataSource dataSource;
+
+
+    public static String CUSTOM_CREATE_USER_SQL = "insert into users (username, password, enabled) values (?,?,?)";
+    private static String CUSTOM_GROUP_AUTHORITIES_BY_USERNAME_QUERY = "select g.id, g.group_name, ga.authority " +
+            "from groups g, group_members gm, " +
+            "group_authorities ga where gm.username = ? " +
+            "and g.id = ga.group_id and g.id = gm.group_id";
+
 
     /**
      * Configure AuthenticationManager with inMemory credentials.
@@ -60,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * In order to expose {@link UserDetailsManager} as a bean, we must create  @Bean
      *
-     * @see {userDetailsService()}
+     * @see {@link this.userDetailsService()}
      * @see {@link io.baselogic.springsecurity.service.DefaultEventService}
      *
      * @param auth       AuthenticationManagerBuilder
@@ -72,13 +79,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource)
-//                .passwordEncoder(passwordEncoder())
+                .groupAuthoritiesByUsername(CUSTOM_GROUP_AUTHORITIES_BY_USERNAME_QUERY)
         ;
     }
 
     /**
      * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
-     * originally returns a {@link UserDetailsService}, but this needs to be a {@link UserDetailsManager}
+     * originally returns a {@link org.springframework.security.core.userdetails.UserDetailsService},
+     * but this needs to be a {@link UserDetailsManager}
      * UserDetailsManager vs UserDetailsService
      */
     @Bean

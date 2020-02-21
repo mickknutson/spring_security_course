@@ -53,38 +53,35 @@ public class DataSourceConfig {
     @Bean
     @Description("Jdbc SQL Query for 'EVENT'")
     public String eventQuery(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("SELECT e.id, e.summary, e.description, e.event_date, ");
+        return new StringBuilder()
+                .append("SELECT e.id, e.summary, e.description, e.event_date, ")
 
-        sb.append("owner.id as owner_id, owner.email as owner_email, owner.password as owner_password, owner.first_name as owner_first_name, owner.last_name as owner_last_name, ");
-        sb.append("attendee.id as attendee_id, attendee.email as attendee_email, attendee.password as attendee_password, attendee.first_name as attendee_first_name, attendee.last_name as attendee_last_name ");
+                .append("owner.id as owner_id, owner.email as owner_email, owner.password as owner_password, owner.first_name as owner_first_name, owner.last_name as owner_last_name, ")
+                .append("attendee.id as attendee_id, attendee.email as attendee_email, attendee.password as attendee_password, attendee.first_name as attendee_first_name, attendee.last_name as attendee_last_name ")
+                .append("FROM events as e, appUsers as owner, appUsers as attendee ")
+                .append("WHERE e.owner = owner.id and e.attendee = attendee.id")
 
-        sb.append("FROM events as e, appUsers as owner, appUsers as attendee ");
-        sb.append("WHERE e.owner = owner.id and e.attendee = attendee.id");
-
-        return sb.toString();
+                .toString();
     }
 
     @Bean
     @Description("Jdbc SQL Query for 'appUsers'")
     public String userQuery(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("SELECT id, email, password, first_name, last_name ");
-        sb.append("FROM appUsers ");
-        sb.append("WHERE ");
-
-        return sb.toString();
+        return new StringBuilder()
+                .append("SELECT id, email, password, first_name, last_name ")
+                .append("FROM appUsers ")
+                .append("WHERE ")
+                .toString();
     }
 
 
     @Bean
     @Description("Jdbc SQL Insert for 'appUsers'")
     public String userInsertQuery(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("INSERT INTO appUsers (email, password, first_name, last_name) ");
-        sb.append("VALUES(:email, :psswd, :first_name, :last_name)");
-
-        return sb.toString();
+        return new StringBuilder()
+                .append("INSERT INTO appUsers (email, password, first_name, last_name) ")
+                .append("VALUES(:email, :psswd, :first_name, :last_name)")
+                .toString();
     }
 
 

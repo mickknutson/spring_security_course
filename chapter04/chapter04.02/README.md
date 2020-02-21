@@ -2,29 +2,39 @@
 
 # JDBC-Based Authentication
 
-TODO: Need to revisit:
-* https://dzone.com/articles/password-encoder-migration-with-spring-security-5
+
+* The UserDetailsManager interface
+* Group-based access control
+* Configuring group-based access control
+* Configuring JdbcUserDetailsManager to use groups
+* Utilizing GBAC JDBC scripts
+* The group-based schema
+* Group authority mappings
 
 
 
 
-* Required dependencies
+## Notes:
 
-* Using the H2 database
+By using the standard AuthenticationManagerBuilder to use
 
-* Provided JDBC scripts
+    auth.jdbcAuthentication()
+        .dataSource(dataSource)
+        .groupAuthoritiesByUsername(CUSTOM_GROUP_AUTHORITIES_BY_USERNAME_QUERY)
 
-* Configuring the H2 embedded database
+returns a 'org.springframework.security.core.userdetails.User' which does not have
+a .getName() method, thus for now, I put the instanceof check in the 'header.html' template:
 
-* Configuring a JDBC UserDetailsManager
-implementation
+    <ul class="nav navbar-nav pull-right" sec:authorize="isAuthenticated()">
+    <li>
+        <p class="navbar-text">Welcome
+        <div th:if="${#authentication.getPrincipal().class.name == 'org.springframework.security.core.userdetails.User'}">
+            <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+        </div>
+        <div th:unless="${#authentication.getPrincipal().class.name == 'org.springframework.security.core.userdetails.User'}">
+            <span th:text="${#authentication.getPrincipal().getName()}"></span>
+        </div>
+        </p>
+    </li>
 
-* The default user schema of Spring Security
-
-* Defining users
-
-* Defining user authorities
-
-## Task Completed:
-* Remove schema.sql & data.sql
-* 
+This can be changed by creating a custom 'EventUserAuthenticationProvider' or 'EventUserDetailsService'

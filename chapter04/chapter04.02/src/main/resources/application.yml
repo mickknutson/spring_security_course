@@ -38,11 +38,13 @@ spring:
     schema:
       - classpath:/database/h2/security-schema.sql
       - classpath:/database/h2/calendar-schema.sql
+      - classpath:/database/h2/security-groups-schema.sql
 
     data:
       - classpath:/database/h2/calendar-data.sql
       - classpath:/database/h2/security-users-data.sql
       - classpath:/database/h2/security-user-authorities-data.sql
+      - classpath:/database/h2/security-groups-mappings.sql
 
     # These items are needed for testing:
     continue-on-error: true

@@ -66,7 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
-     * originally returns a {@link org.springframework.security.core.userdetails.UserDetailsService}, but this needs to be a {@link UserDetailsManager}
+     * originally returns a {@link org.springframework.security.core.userdetails.UserDetailsService},
+     * but this needs to be a {@link UserDetailsManager}
      * see: UserDetailsManager vs UserDetailsService
      *
      * Use the following Password Encoder instead of prefixing passwords with {noop}
