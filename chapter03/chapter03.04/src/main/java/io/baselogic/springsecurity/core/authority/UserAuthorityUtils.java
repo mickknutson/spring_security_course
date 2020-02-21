@@ -15,11 +15,11 @@ import java.util.List;
  * @author Mick Knutson
  *
  */
-public final class UserAuthorityUtils {
+public interface UserAuthorityUtils {
 
-    private static final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN",
+    static final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN",
             "ROLE_USER");
-    private static final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
+    static final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
 
     public static Collection<GrantedAuthority> createAuthorities(AppUser appUser) {
         String username = appUser.getEmail();
@@ -27,9 +27,6 @@ public final class UserAuthorityUtils {
             return ADMIN_ROLES;
         }
         return USER_ROLES;
-    }
-
-    private UserAuthorityUtils() {
     }
 
 } // The End...
