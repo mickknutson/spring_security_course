@@ -57,7 +57,6 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
         log.info("Credentials: {}", token.getCredentials());
 
         if(!password.equals(token.getCredentials())) {
-            log.info("BadCredentialsException(\"Invalid username/password\")");
             throw new BadCredentialsException("Invalid username/password");
         }
 

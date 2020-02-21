@@ -32,13 +32,15 @@ public class DataSourceConfig {
     //-------------------------------------------------------------------------
 
     /**
+     * NOTE: This is an example in JavaConfig verse applicaiton.yml
+     *
      * Custom H2 implementation for our {@link EmbeddedDatabase}
      * @return DataSource for our embedded database.
      *
      * Default URL for embedded is 'jdbc:h2:mem:testdb'
      * But this can be overridden in the application.yml configuration.
      */
-//    @Bean
+    /*@Bean
     @Description("Embedded DataSource")
     public DataSource dataSource() {
 
@@ -72,7 +74,7 @@ public class DataSourceConfig {
                 .addScript("/database/h2/security-user-authorities-data.sql")
 
                 .build();
-    }
+    }*/
 
     //-------------------------------------------------------------------------
 

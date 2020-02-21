@@ -4,6 +4,7 @@ import io.baselogic.springsecurity.domain.AppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,9 +22,9 @@ public interface UserAuthorityUtils {
             "ROLE_USER");
     static final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
 
-    public static Collection<GrantedAuthority> createAuthorities(AppUser appUser) {
+    public static Collection<GrantedAuthority> createAuthorities(final @NotNull AppUser appUser) {
         String username = appUser.getEmail();
-        if (username != null && username.startsWith("admin")) {
+        if (username.startsWith("admin")) {
             return ADMIN_ROLES;
         }
         return USER_ROLES;
