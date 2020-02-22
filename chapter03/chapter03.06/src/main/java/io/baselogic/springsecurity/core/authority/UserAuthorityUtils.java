@@ -6,7 +6,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * A utility class used for creating the {@link GrantedAuthority}'s given a {@link AppUser}. In a real solution

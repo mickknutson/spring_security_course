@@ -28,7 +28,7 @@ import java.util.Calendar;
 @Slf4j
 public class EventsController {
 
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
     private final EventService eventService;
     private final UserContext userContext;

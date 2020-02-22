@@ -1,7 +1,7 @@
 package io.baselogic.springsecurity.dao;
 
-import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.AppUser;
+import io.baselogic.springsecurity.domain.Event;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

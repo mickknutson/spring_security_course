@@ -28,6 +28,7 @@ import java.util.Map;
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String HASANYROLE_ANONYMOUS = "hasAnyRole('ANONYMOUS', 'USER')";
     private static final String ROLE_USER = "USER";
     private static final String ROLE_ADMIN = "ADMIN";
 
@@ -97,10 +98,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
 
-                .antMatchers("/").access("hasAnyRole('ANONYMOUS', 'USER')")
+                .antMatchers("/").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/registration/*").permitAll()
-                .antMatchers("/login/*").access("hasAnyRole('ANONYMOUS', 'USER')")
-                .antMatchers("/logout/*").access("hasAnyRole('ANONYMOUS', 'USER')")
+                .antMatchers("/login/*").access(HASANYROLE_ANONYMOUS)
+                .antMatchers("/logout/*").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/admin/*").access("hasRole('ADMIN')")
                 .antMatchers("/events/").access("hasRole('ADMIN')")
                 .antMatchers("/**").access("hasRole('USER')")

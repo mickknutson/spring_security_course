@@ -1,8 +1,8 @@
 package io.baselogic.springsecurity.dao;
 
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.EventUserDetails;
-import io.baselogic.springsecurity.domain.AppUser;
 
 import java.util.Arrays;
 import java.util.Calendar;

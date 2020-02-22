@@ -2,7 +2,6 @@ package io.baselogic.springsecurity.web.controllers;
 
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.service.EventService;
-import io.baselogic.springsecurity.service.UserContext;
 import io.baselogic.springsecurity.web.model.RegistrationDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,6 @@ import javax.validation.constraints.NotNull;
 @Slf4j
 public class RegistrationController {
 
-    private final UserContext userContext;
     private final EventService eventService;
 
     private static final String REG_FORM_VIEW = "registration/register";
@@ -39,9 +37,7 @@ public class RegistrationController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationController(final @NotNull UserContext userContext,
-                                  final @NotNull EventService eventService) {
-        this.userContext = userContext;
+    public RegistrationController(final @NotNull EventService eventService) {
         this.eventService = eventService;
     }
 

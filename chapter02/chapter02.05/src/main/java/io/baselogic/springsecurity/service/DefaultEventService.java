@@ -2,8 +2,8 @@ package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.UserDao;
-import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.AppUser;
+import io.baselogic.springsecurity.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

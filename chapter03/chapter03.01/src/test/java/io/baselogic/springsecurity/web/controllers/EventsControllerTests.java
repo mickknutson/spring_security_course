@@ -3,7 +3,6 @@ package io.baselogic.springsecurity.web.controllers;
 import com.gargoylesoftware.htmlunit.WebClient;
 import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.domain.Event;
-import io.baselogic.springsecurity.service.UserContext;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

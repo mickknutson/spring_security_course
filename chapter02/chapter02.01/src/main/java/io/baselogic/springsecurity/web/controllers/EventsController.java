@@ -28,7 +28,7 @@ import java.util.Calendar;
 @Slf4j
 public class EventsController {
 
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
     private final EventService eventService;
     private final UserContext userContext;
@@ -56,7 +56,7 @@ public class EventsController {
     public ModelAndView userEvents() {
         AppUser currentAppUser = userContext.getCurrentUser();
         Integer currentUserId = currentAppUser.getId();
-        
+
         ModelAndView result = new ModelAndView(EVENT_MY_VIEW, "events", eventService.findEventByUser(currentUserId));
         result.addObject("currentAppUser", currentAppUser);
         return result;

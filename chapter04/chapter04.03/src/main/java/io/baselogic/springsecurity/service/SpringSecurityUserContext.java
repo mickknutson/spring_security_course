@@ -1,23 +1,19 @@
 package io.baselogic.springsecurity.service;
 
-import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.EventUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
 
 /**
  * An implementation of {@link UserContext} that looks up the {@link AppUser} using the Spring Security's
