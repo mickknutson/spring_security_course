@@ -1,13 +1,19 @@
 package io.baselogic.springsecurity.service;
 
+import io.baselogic.springsecurity.configuration.SecurityConfig;
+import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.EventUserDetails;
+import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
@@ -43,9 +49,12 @@ public class SpringSecurityUserContext implements UserContext {
      * {@link Authentication#getName()} and using that to find the {@link AppUser} by email address (since for our
      * application Spring Security username's are email addresses).
      *
-     * @since chapter03.04:
-     * Get the {@link AppUser} by casting
-     * the {@link Authentication}'s principal to a {@link AppUser}.
+     * @since chapter04.01 We create {@link JdbcUserDetailsManagerConfigurer}
+     * in {@link SecurityConfig#configure(AuthenticationManagerBuilder)}.
+     * Additionally I added {@link UserAuthorityUtils#getUserEmail(Object)} call as
+     * with the default {@link JdbcUserDetailsManagerConfigurer}, we get a {@link User}
+     * not a {@link EventUserDetails}. We need to use a custom {@link EventUserDetailsService}
+     * in order to set a {@link EventUserDetails} in Context.
      */
     @Override
     public AppUser getCurrentUser() {
@@ -55,9 +64,13 @@ public class SpringSecurityUserContext implements UserContext {
             return null;
         }
 
-        EventUserDetails user = (EventUserDetails)authentication.getPrincipal();
-        String email = user.getUsername();
-//        String email = user.getEmail();
+        // NOTE: authentication.getPrincipal() returns {@link User} if we use the default
+        // {@link JdbcUserDetailsManagerConfigurer}, but {@link EventUserDetails} when we use a custom
+        // {@link EventUserDetailsService}
+        String email = UserAuthorityUtils.getUserEmail(
+                authentication.getPrincipal()
+        );
+
         if (email == null) {
             return null;
         }
@@ -80,8 +93,10 @@ public class SpringSecurityUserContext implements UserContext {
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(appUser.getEmail());
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
-                appUser.getPassword(),userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                appUser.getPassword(),
+                userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

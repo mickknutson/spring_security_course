@@ -66,8 +66,10 @@ public class SpringSecurityUserContext implements UserContext {
     @Override
     public void setCurrentUser(final @Valid @NotNull(message="user.notNull.key") AppUser appUser) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(appUser.getEmail());
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
-                appUser.getPassword(),userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                appUser.getPassword(),
+                userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

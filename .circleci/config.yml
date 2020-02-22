@@ -20,7 +20,7 @@ jobs:
       # Customize the JVM maximum heap limit
       _JAVA_OPTIONS: "-Xms1024m -Xmx3200m"
 
-#    parallelism: 4
+    parallelism: 4
 
     #resource_class: large
     working_directory: ~/tmp/workspace

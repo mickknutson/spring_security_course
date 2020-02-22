@@ -64,8 +64,6 @@ public class DefaultEventService implements EventService {
         return eventDao.save(event);
     }
 
-
-
     @Override
     public AppUser findUserById(Integer id) {
         return userDao.findById(id);
@@ -84,8 +82,7 @@ public class DefaultEventService implements EventService {
     @Override
     public Integer createUser(final AppUser appUser) {
         int userId = userDao.save(appUser);
-        jdbcOperations.update(customCreateUserAuthoritiesSql, userId,
-                "ROLE_USER");
+        jdbcOperations.update(customCreateUserAuthoritiesSql, userId, "ROLE_USER");
         return userId;
     }
 

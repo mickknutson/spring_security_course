@@ -1,5 +1,7 @@
 package io.baselogic.springsecurity.configuration;
 
+import io.baselogic.springsecurity.service.DefaultEventService;
+import io.baselogic.springsecurity.service.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -71,8 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * In order to expose {@link UserDetailsManager} as a bean, we must create  @Bean
      *
-     * @see UserDetailsManager {this.userDetailsService()}
-     * @see io.baselogic.springsecurity.service.EventService  {@link io.baselogic.springsecurity.service.DefaultEventService}
+     * @see UserDetailsManager {@link SecurityConfig#userDetailsService()}}
+     * @see EventService  {@link DefaultEventService}
      *
      * @param auth       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
@@ -87,6 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .usersByUsernameQuery(customUserByUsernameQuery)
                 .authoritiesByUsernameQuery(customUserByUsernameAuthoritiesQuery)
+                .passwordEncoder(passwordEncoder())
         ;
     }
 
@@ -227,15 +231,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *  Standard use, see {@link PasswordEncoderFactories}:
      *  <code>return PasswordEncoderFactories.createDelegatingPasswordEncoder();</code>
      *
+     * Older implementations, such as SHAPasswordEncoder,
+     * would require the client to pass in a salt value when encoding the password.
+     *
+     * BCrypt, however, will internally generate a random salt instead.
+     * This is important to understand because it means that each call will have a different result,
+     * and so we need to only encode the password once.
+     *
+     * Also be aware that the BCrypt algorithm generates a String of length 60,
+     * so we need to make sure that the password will be stored in a column that can accommodate it.
+     * A common mistake is to create a column of a different length and then get an Invalid Username
+     * or Password error at authentication time.
+     *
      * @return DelegatingPasswordEncoder
+     * @since chapter02.01
+     * @since chapter04.04 changed to BCrypt Password Encoder
      */
     @Bean
     @Description("Configure Password Encoder")
     public PasswordEncoder passwordEncoder() {
 
-        String idForEncode = "noop";
+        String idForEncode = "bcrypt";
         Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put(idForEncode, NoOpPasswordEncoder.getInstance());
+        encoders.put(idForEncode, new BCryptPasswordEncoder(4));
 
         return new DelegatingPasswordEncoder(idForEncode, encoders);
     }

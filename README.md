@@ -88,3 +88,6 @@ Code is under the [BSD 2-clause "Simplified" License](LICENSE.txt).
 We don't need stinky badges:
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mickknutson_spring_security_course&metric=alert_status)](https://sonarcloud.io/dashboard?id=mickknutson_spring_security_course)
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=mickknutson_spring_security_course&metric=coverage)](https://sonarcloud.io/dashboard?id=mickknutson_spring_security_course)
+

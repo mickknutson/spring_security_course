@@ -27,17 +27,20 @@ basic steps for setting up JDBC authentication with Spring Security.
 
 ## Section Chapters
 
-### Chapter 04.01:
-> * Base line Starting from chapter03.04
+### Chapter 04.00:
 
----
+* Base line Starting from chapter03.04
 
 ### Chapter 04.01:
+* TBD
+
+### Chapter 04.02:
+* TBD
+
+### Chapter 04.03:
+* TBD
+
+
+### Chapter 04.04:
 > * TBD
-
-  **Logging username:** *user1@example.com*
-  
-  **Password:** *user1*
-
----
 

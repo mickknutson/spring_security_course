@@ -1,5 +1,7 @@
 package io.baselogic.springsecurity.configuration;
 
+import io.baselogic.springsecurity.service.DefaultEventService;
+import io.baselogic.springsecurity.service.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -71,8 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * In order to expose {@link UserDetailsManager} as a bean, we must create  @Bean
      *
-     * @see UserDetailsManager {this.userDetailsService()}
-     * @see io.baselogic.springsecurity.service.EventService  {@link io.baselogic.springsecurity.service.DefaultEventService}
+     * @see UserDetailsManager {@link SecurityConfig#userDetailsService()}}
+     * @see EventService  {@link DefaultEventService}
      *
      * @param auth       AuthenticationManagerBuilder
      * @throws Exception Authentication exception

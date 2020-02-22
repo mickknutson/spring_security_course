@@ -7,6 +7,7 @@ import io.baselogic.springsecurity.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
@@ -33,15 +34,20 @@ public class DefaultEventService implements EventService {
 
     private final JdbcOperations jdbcOperations;
 
+    private final PasswordEncoder passwordEncoder;
+
+
     @Autowired
     public DefaultEventService(final @NotNull EventDao eventDao,
                                final @NotNull UserDao userDao,
                                final @NotNull @Qualifier("customCreateUserAuthoritiesSql") String customCreateUserAuthoritiesSql,
-                               final @NotNull JdbcOperations jdbcOperations) {
+                               final @NotNull JdbcOperations jdbcOperations,
+                               final PasswordEncoder passwordEncoder) {
         this.eventDao = eventDao;
         this.userDao = userDao;
         this.customCreateUserAuthoritiesSql = customCreateUserAuthoritiesSql;
         this.jdbcOperations = jdbcOperations;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -64,8 +70,6 @@ public class DefaultEventService implements EventService {
         return eventDao.save(event);
     }
 
-
-
     @Override
     public AppUser findUserById(Integer id) {
         return userDao.findById(id);
@@ -83,9 +87,11 @@ public class DefaultEventService implements EventService {
 
     @Override
     public Integer createUser(final AppUser appUser) {
+        String encodedPassword = passwordEncoder.encode(appUser.getPassword());
+        appUser.setPassword(encodedPassword);
+
         int userId = userDao.save(appUser);
-        jdbcOperations.update(customCreateUserAuthoritiesSql, userId,
-                "ROLE_USER");
+        jdbcOperations.update(customCreateUserAuthoritiesSql, userId, "ROLE_USER");
         return userId;
     }
 

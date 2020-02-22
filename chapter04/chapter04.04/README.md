@@ -3,15 +3,14 @@
 # JDBC-Based Authentication
 
 
-* Support for a custom schema
-* Determining the correct JDBC SQL queries
-* Updating the SQL scripts that are loaded
-* The CalendarUser authority SQL
-* Inserting custom authorities
-* Configuring JdbcUserDetailsManager to use
-  custom SQL queries
-
-
+* Configuring secure passwords
+* The PasswordEncoder method
+* Configuring password encoding
+* Configuring the PasswordEncoder method
+* Making Spring Security aware of the PasswordEncoder method
+* Hashing the stored passwords
+* Hashing the passwords of new users
+* Not quite secure
 
 
 ## Notes:
