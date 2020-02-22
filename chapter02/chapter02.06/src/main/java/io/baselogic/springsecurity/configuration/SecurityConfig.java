@@ -20,7 +20,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String ROLE_ANONYMOUS = "ANONYMOUS";
     private static final String ROLE_USER = "USER";
     private static final String ROLE_ADMIN = "ADMIN";
     /**

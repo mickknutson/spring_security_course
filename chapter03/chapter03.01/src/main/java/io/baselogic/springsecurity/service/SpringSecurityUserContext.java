@@ -24,13 +24,10 @@ import javax.validation.constraints.NotNull;
 public class SpringSecurityUserContext implements UserContext {
 
     private final EventService eventService;
-    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public SpringSecurityUserContext(final @NotNull EventService eventService,
-                                     final @NotNull UserDetailsService userDetailsService) {
+    public SpringSecurityUserContext(final @NotNull EventService eventService) {
         this.eventService = eventService;
-        this.userDetailsService = userDetailsService;
     }
 
     /**

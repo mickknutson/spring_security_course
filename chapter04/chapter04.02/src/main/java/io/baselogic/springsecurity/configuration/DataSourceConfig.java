@@ -90,6 +90,17 @@ public class DataSourceConfig {
                 .toString();
     }
 
+    @Bean
+    @Description("Custom Group Authorities By Username Query")
+    public String customGroupAuthoritiesByUsernameQuery(){
+        return new StringBuilder()
+                .append("SELECT g.id, g.group_name, ga.authority ")
+                .append("FROM groups g, group_members gm, ")
+                .append("group_authorities ga WHERE gm.username = ? ")
+                .append("AND g.id = ga.group_id AND g.id = gm.group_id")
+                .toString();
+    }
+
     //-------------------------------------------------------------------------
 
 

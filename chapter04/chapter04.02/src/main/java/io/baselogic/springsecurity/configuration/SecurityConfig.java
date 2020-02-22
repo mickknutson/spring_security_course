@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
@@ -44,12 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-
-    public static final String CUSTOM_CREATE_USER_SQL = "insert into users (username, password, enabled) values (?,?,?)";
-    private static final String CUSTOM_GROUP_AUTHORITIES_BY_USERNAME_QUERY = "select g.id, g.group_name, ga.authority " +
-            "from groups g, group_members gm, " +
-            "group_authorities ga where gm.username = ? " +
-            "and g.id = ga.group_id and g.id = gm.group_id";
+    @Autowired @Qualifier("customGroupAuthoritiesByUsernameQuery")
+    private String customGroupAuthoritiesByUsernameQuery;
 
 
     /**
@@ -79,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource)
-                .groupAuthoritiesByUsername(CUSTOM_GROUP_AUTHORITIES_BY_USERNAME_QUERY)
+                .groupAuthoritiesByUsername(customGroupAuthoritiesByUsernameQuery)
         ;
     }
 

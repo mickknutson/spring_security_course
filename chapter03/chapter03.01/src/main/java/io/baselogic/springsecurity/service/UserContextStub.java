@@ -21,17 +21,9 @@ import javax.validation.constraints.NotNull;
 //@Service
 public class UserContextStub implements UserContext {
 
-    private final UserDao userService;
-
-    /**
-     * The {@link AppUser#getId()} for the user that is representing the currently logged in user. This can be
-     * modified using {@link #setCurrentUser(AppUser)}
-     */
-    private int currentUserId = 0;
 
     @Autowired
-    public UserContextStub(@NotNull UserDao userService) {
-        this.userService = userService;
+    public UserContextStub() {
     }
 
     @Override

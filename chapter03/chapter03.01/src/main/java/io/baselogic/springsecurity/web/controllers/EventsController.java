@@ -56,10 +56,7 @@ public class EventsController {
     public ModelAndView userEvents() {
         AppUser currentAppUser = userContext.getCurrentUser();
         Integer currentUserId = currentAppUser.getId();
-        /*Integer currentUserId = 0;
-        if(currentAppUser != null) {
-            currentUserId = currentAppUser.getId();
-        }*/
+
         ModelAndView result = new ModelAndView(EVENT_MY_VIEW, "events", eventService.findEventByUser(currentUserId));
         result.addObject("currentAppUser", currentAppUser);
         return result;
