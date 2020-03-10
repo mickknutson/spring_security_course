@@ -42,7 +42,7 @@ and other related modules including JDBC Support and Apache Hadoop.
 
 ### Chapter 05.00:
 
-* Base line Starting from chapter03.04
+* Base line Starting from chapter04.06
 
 ### Chapter 05.01:
 * TBD

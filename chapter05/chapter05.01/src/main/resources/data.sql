@@ -1,12 +1,26 @@
--- ref. Appendix A of Spring Security manual
+-- In Spring Boot using Spring Data, we use ~/src/main/resources/data.sql to seed data.
+-- We no longer have to use ~/src/main/resources/database/h2/calendar-data.sql to seed data.
 
--- chapter04.01
--- The default USERS schema of Spring Security
+
 
 -- appUsers Data
+-- Password for user1 was 'user1'
 INSERT INTO appUsers(id,email,password,first_name,last_name) VALUES (0,'user1@example.com','{bcrypt}$2a$04$gBdMIzQ5P2Ffb4L/epcKSOiYRlwPcUKx1jlfENvOUMpSAm4PsRdK2','User','One');
 INSERT INTO appUsers(id,email,password,first_name,last_name) VALUES (1,'admin1@example.com','{bcrypt}$2a$04$bGt.Kbtc8OaqzzjFqAzLwu5tc90IpYD5P5hSB61ZmjpIyo4.nlub6','Admin','One');
 INSERT INTO appUsers(id,email,password,first_name,last_name) VALUES (2,'user2@example.com','{bcrypt}$2a$04$erLmf9XQ3hPLDBb0eTdpReVVwESHmeMUrCnR722EEgVUfC95NU3Ra','User','Two');
+
+-- ROLES --
+insert into role(id, name) values (0, 'ROLE_USER');
+insert into role(id, name) values (1, 'ROLE_ADMIN');
+
+
+-- user1 has one role
+insert into user_role(user_id,role_id) values (0, 0);
+
+-- admin1 has two roles
+insert into user_role(user_id,role_id) values (1, 0);
+insert into user_role(user_id,role_id) values (1, 1);
+
 
 -- Event Data
 INSERT INTO events (id,event_date,summary,description,owner,attendee) VALUES (100,'2020-07-03 00:00:01','Birthday Party','Time to have my yearly party!',0,1);
