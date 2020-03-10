@@ -19,7 +19,7 @@
     <modules>
         <module>chapter05.00</module>
         <module>chapter05.01</module>
-<!--        <module>chapter05.02</module>-->
+        <module>chapter05.02</module>
     </modules>
 
     <properties>

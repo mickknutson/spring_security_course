@@ -1,4 +1,4 @@
-# Chapter 05.01 Sections
+# Chapter 05.02 Sections
 
 ## Initializing the database
 
