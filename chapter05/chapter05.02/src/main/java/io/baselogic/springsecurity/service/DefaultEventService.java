@@ -23,6 +23,8 @@ import java.util.List;
  * @since chapter03.02 adding {@link UserDetailsManager} userDetailsManager
  * @since chapter03.03 removed {@link UserDetailsManager} userDetailsManager
  * @since chapter04.03 added jdbcOperations.update for appUsers_authorities
+ * @since chapter05.01 Removed Jdbc functions
+ * @since chapter05.01 Added JPA Support
  *
  */
 @Service
@@ -30,9 +32,6 @@ public class DefaultEventService implements EventService {
 
     private final EventDao eventDao;
     private final UserDao userDao;
-    private final String customCreateUserAuthoritiesSql;
-
-    private final JdbcOperations jdbcOperations;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -40,13 +39,9 @@ public class DefaultEventService implements EventService {
     @Autowired
     public DefaultEventService(final @NotNull EventDao eventDao,
                                final @NotNull UserDao userDao,
-                               final @NotNull @Qualifier("customCreateUserAuthoritiesSql") String customCreateUserAuthoritiesSql,
-                               final @NotNull JdbcOperations jdbcOperations,
                                final PasswordEncoder passwordEncoder) {
         this.eventDao = eventDao;
         this.userDao = userDao;
-        this.customCreateUserAuthoritiesSql = customCreateUserAuthoritiesSql;
-        this.jdbcOperations = jdbcOperations;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -90,9 +85,7 @@ public class DefaultEventService implements EventService {
         String encodedPassword = passwordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);
 
-        int userId = userDao.save(appUser);
-        jdbcOperations.update(customCreateUserAuthoritiesSql, userId, "ROLE_USER");
-        return userId;
+        return userDao.save(appUser);
     }
 
 } // The End...

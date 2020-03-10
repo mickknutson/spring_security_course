@@ -46,13 +46,28 @@ spring:
     generate-unique-name: false
 
 
+
   ##---------------------------------------------------------------------------##
   ## JPA
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
+
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
+
+    properties:
+      hibernate:
+        format_sql: true
+
+      # These properties are only needed to dump the JPA generated ddl to a file:
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: target/create.sql
 
 
 ##---------------------------------------------------------------------------##
@@ -62,5 +77,9 @@ logging:
     io:
       baselogic:
         testloglevel: INFO
+
+logging.level.org.hibernate.SQL: DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
 
 ##---------------------------------------------------------------------------##

@@ -1,7 +1,5 @@
 package io.baselogic.springsecurity.configuration;
 
-import io.baselogic.springsecurity.dao.EventRowMapper;
-import io.baselogic.springsecurity.dao.UserRowMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.h2.server.web.WebServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -17,112 +15,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  * @since chapter01.00
  * @since chapter04.01 added DataSource config to manually add additional SQL files to the init.
+ * @since chapter05.01 REMOVED DataSource config to manually add additional SQL files to the init.
  */
 @Configuration
 @EnableTransactionManagement
 @Slf4j
 public class DataSourceConfig {
-
-
-
-    //-------------------------------------------------------------------------
-
-    @Bean
-    @Description("Jdbc ResultSet RowMapper for 'appUsers'")
-    public UserRowMapper userRowMapper(){
-        return new UserRowMapper("appUsers.");
-    }
-
-    @Bean
-    @Description("Jdbc ResultSet RowMapper for 'owner_'")
-    public UserRowMapper ownerRowMapper(){
-        return new UserRowMapper("owner_");
-    }
-
-    @Bean
-    @Description("Jdbc ResultSet RowMapper for 'attendee_'")
-    public UserRowMapper attendeeRowMapper(){
-        return new UserRowMapper("attendee_");
-    }
-
-    @Bean
-    @Description("Event RowMapper")
-    public EventRowMapper eventRowMapper(){
-        return new EventRowMapper(ownerRowMapper(),
-                attendeeRowMapper());
-    }
-
-    @Bean
-    @Description("Jdbc SQL Query for 'EVENT'")
-    public String eventQuery(){
-        return new StringBuilder()
-                .append("SELECT e.id, e.summary, e.description, e.event_date, ")
-
-                .append("owner.id as owner_id, owner.email as owner_email, owner.password as owner_password, owner.first_name as owner_first_name, owner.last_name as owner_last_name, ")
-                .append("attendee.id as attendee_id, attendee.email as attendee_email, attendee.password as attendee_password, attendee.first_name as attendee_first_name, attendee.last_name as attendee_last_name ")
-                .append("FROM events as e, appUsers as owner, appUsers as attendee ")
-                .append("WHERE e.owner = owner.id and e.attendee = attendee.id")
-
-                .toString();
-    }
-
-    @Bean
-    @Description("Jdbc SQL Query for 'appUsers'")
-    public String userQuery(){
-        return new StringBuilder()
-                .append("SELECT id, email, password, first_name, last_name ")
-                .append("FROM appUsers ")
-                .append("WHERE ")
-                .toString();
-    }
-
-
-    @Bean
-    @Description("Jdbc SQL Insert for 'appUsers'")
-    public String userInsertQuery(){
-        return new StringBuilder()
-                .append("INSERT INTO appUsers (email, password, first_name, last_name) ")
-                .append("VALUES(:email, :psswd, :first_name, :last_name)")
-                .toString();
-    }
-
-    @Bean
-    @Description("Custom Jdbc SQL Insert for 'appUsers'")
-    public String customCreateUserSql(){
-        return new StringBuilder()
-                .append("INSERT INTO appUsers (username, password, enabled) ")
-                .append("VALUES(?,?,?)")
-                .toString();
-    }
-
-    @Bean
-    @Description("Custom Jdbc SQL Insert for 'appUsers_authorities'")
-    public String customCreateUserAuthoritiesSql(){
-        return new StringBuilder()
-                .append("INSERT INTO appUsers_authorities (appUsers, authority) ")
-                .append("VALUES(?,?)")
-                .toString();
-    }
-
-    @Bean
-    @Description("Custom Query for 'appUsers'")
-    public String customUserByUsernameQuery(){
-        return new StringBuilder()
-                .append("SELECT email, password, true ")
-                .append("FROM appUsers WHERE email = ? ")
-                .toString();
-    }
-
-    @Bean
-    @Description("Custom Query for 'appUsers_authorities'")
-    public String customUserByUsernameAuthoritiesQuery(){
-        return new StringBuilder()
-                .append("SELECT aua.id, aua.authority ")
-                .append("FROM appUsers au, appUsers_authorities aua ")
-                .append("WHERE au.email = ? ")
-                .append("AND au.id = aua.appUsers")
-                .toString();
-    }
 
 
     //-------------------------------------------------------------------------

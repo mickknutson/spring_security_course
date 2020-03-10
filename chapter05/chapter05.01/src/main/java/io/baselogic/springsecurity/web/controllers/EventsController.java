@@ -117,13 +117,12 @@ public class EventsController {
             return EVENT_CREATE_VIEW;
         }
 
-        Event event = Event.builder()
-                .summary(eventDto.getSummary())
-                .description(eventDto.getDescription())
-                .when(eventDto.getWhen())
-                .attendee(attendee)
-                .owner(userContext.getCurrentUser())
-                .build();
+        Event event = new Event();
+        event.setSummary(eventDto.getSummary());
+        event.setDescription(eventDto.getDescription());
+        event.setWhen(eventDto.getWhen());
+        event.setAttendee(attendee);
+        event.setOwner(userContext.getCurrentUser());
 
         eventService.createEvent(event);
 

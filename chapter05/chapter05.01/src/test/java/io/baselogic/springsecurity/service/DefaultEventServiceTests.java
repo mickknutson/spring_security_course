@@ -109,7 +109,7 @@ public class DefaultEventServiceTests {
         given(eventDao.save(any(Event.class)))
                 .willReturn(42);
 
-        int id = eventService.createEvent(Event.builder().build());
+        int id = eventService.createEvent(new Event());
 
         assertThat(id).isEqualTo(42);
     }

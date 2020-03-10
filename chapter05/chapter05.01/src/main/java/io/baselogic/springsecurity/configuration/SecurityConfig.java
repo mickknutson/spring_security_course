@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -33,6 +35,9 @@ import java.util.Map;
  * @since chapter04.00 removed .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  * @since chapter04.01 Exposed 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'
  * @since chapter04.03 Added custom SQL Queries
+ * @since chapter05.01 Removed 'UserDetailsManager'
+ * @since chapter05.01 Removed custom SQL Queries
+ * @since chapter05.01 Added auth.userDetailsService(userDetailsService)
  */
 @Configuration
 @EnableWebSecurity
@@ -43,20 +48,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ROLE_USER = "USER";
     private static final String ROLE_ADMIN = "ADMIN";
 
-    @Autowired
-    private DataSource dataSource;
+//    @Autowired
+//    private DataSource dataSource;
 
-    @Autowired @Qualifier("customCreateUserSql")
-    private String customCreateUserSql;
+//    @Autowired @Qualifier("customCreateUserSql")
+//    private String customCreateUserSql;
+//
+//    @Autowired @Qualifier("customCreateUserAuthoritiesSql")
+//    private String customCreateUserAuthoritiesSql;
+//
+//    @Autowired @Qualifier("customUserByUsernameQuery")
+//    private String customUserByUsernameQuery;
+//
+//    @Autowired @Qualifier("customUserByUsernameAuthoritiesQuery")
+//    private String customUserByUsernameAuthoritiesQuery;
 
-    @Autowired @Qualifier("customCreateUserAuthoritiesSql")
-    private String customCreateUserAuthoritiesSql;
+    @Autowired @Qualifier("userDetailsServiceImpl")
+    private UserDetailsService userDetailsService;
 
-    @Autowired @Qualifier("customUserByUsernameQuery")
-    private String customUserByUsernameQuery;
-
-    @Autowired @Qualifier("customUserByUsernameAuthoritiesQuery")
-    private String customUserByUsernameAuthoritiesQuery;
 
 
     /**
@@ -72,52 +81,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *     http.authorizeRequests()
      * </pre>
      *
-     * In order to expose {@link UserDetailsManager} as a bean, we must create  @Bean
-     *
-     * @see UserDetailsManager {@link SecurityConfig#userDetailsService()}}
      * @see EventService  {@link DefaultEventService}
      *
      * @param auth       AuthenticationManagerBuilder
      * @throws Exception Authentication exception
      *
-     * @since chapter04.03 Added custom SQL queries
      */
     @Description("Configure AuthenticationManager with inMemory credentials")
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(customUserByUsernameQuery)
-                .authoritiesByUsernameQuery(customUserByUsernameAuthoritiesQuery)
+                .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder())
         ;
-    }
-
-    /**
-     * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
-     * originally returns a {@link org.springframework.security.core.userdetails.UserDetailsService},
-     * but this needs to be a {@link UserDetailsManager}
-     * UserDetailsManager vs UserDetailsService
-     *
-     * @since chapter04.03 Added custom SQL queries
-     */
-    @Bean
-    @Description("Expose 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'")
-    @Override
-    public UserDetailsManager userDetailsService() {
-        JdbcUserDetailsManager judm = new JdbcUserDetailsManager();
-        judm.setDataSource(dataSource);
-
-        // Override default SQL for JdbcUserDetailsManager
-        judm.setUsersByUsernameQuery(customUserByUsernameQuery);
-        judm.setAuthoritiesByUsernameQuery(customUserByUsernameAuthoritiesQuery);
-
-        // NOTE: This is not available through AuthenticationManagerBuilder
-        judm.setCreateUserSql(customCreateUserSql);
-        judm.setCreateAuthoritySql(customCreateUserAuthoritiesSql);
-
-        return judm;
     }
 
 
@@ -215,12 +191,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Description("Configure Web Security")
     @Override
-    public void configure(final WebSecurity web) {
+    public void configure(final WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/css/**")
                 .antMatchers("/img/**")
                 .antMatchers("/webjars/**")
         ;
+
+        // Thymeleaf needs to use the Thymeleaf configured FilterSecurityInterceptor
+        // and not the default Filter from AutoConfiguration.
+        final HttpSecurity http = getHttp();
+        web.postBuildAction(() -> {
+            web.securityInterceptor(http.getSharedObject(FilterSecurityInterceptor.class));
+        });
+
     }
 
 

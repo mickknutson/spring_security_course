@@ -1,37 +1,35 @@
-package io.baselogic.springsecurity.dao;
+package io.baselogic.springsecurity.repository;
 
+import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-/**
- * JdbcEventDaoTests
- *
- * @since chapter1.00
- */
+
 @ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class JdbcEventDaoTests {
-
-    private static final Logger log = LoggerFactory.getLogger(JdbcEventDaoTests.class);
+//@Sql({"classpath:test-data.sql"})
+@Slf4j
+public class EventRepositoryTests {
 
     @Autowired
-    private EventDao eventDao;
+    private EventRepository repository;
 
     private AppUser owner = new AppUser();
     private AppUser attendee = new AppUser();
@@ -44,19 +42,30 @@ public class JdbcEventDaoTests {
 
 
     @Test
-    public void initJdbcOperations() {
-        assertThat(eventDao).isNotNull();
+    @DisplayName("EventRepository - Initialize Repository")
+    public void initRepositoryOperations() {
+        assertThat(repository).isNotNull();
     }
 
     @Test
+    @DisplayName("EventRepository - find all Event")
+    public void findAll() {
+        List<Event> events = repository.findAll();
+        log.info("***** Events: {}", events);
+        assertThat(events.size()).isGreaterThanOrEqualTo(3);
+    }
+
+
+    @Test
+    @DisplayName("EventRepository - find Event by id")
     public void find() {
-        Event event = eventDao.findById(100);
+        Event event = repository.findById(100).orElseThrow(RuntimeException::new);
         log.info(event.toString());
 
         assertThat(event).isNotNull();
         assertThat(event.equals(event)).isTrue();
         assertThat(event.equals(new Object())).isFalse();
-        assertThat(event.equals(Event.builder().build())).isFalse();
+        assertThat(event.equals(new Event())).isFalse();
         assertThat(event.hashCode()).isNotEqualTo(0);
 
         assertThat(event.getSummary()).isEqualTo("Birthday Party");
@@ -66,72 +75,78 @@ public class JdbcEventDaoTests {
 
 
     @Test
+    @DisplayName("EventRepository - create Event")
     public void createEvent() {
         log.debug("******************************");
-        List<Event> events = eventDao.findByUser(owner.getId());
-        assertThat(events.size()).isGreaterThanOrEqualTo(2);
+        List<Event> events = repository.findByOwner(owner);
+        assertThat(events.size()).isGreaterThanOrEqualTo(1);
 
         Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-        int eventId = eventDao.save(event);
+        int eventId = repository.save(event).getId();
 
-        List<Event> newEvents = eventDao.findByUser(owner.getId());
-        assertThat(newEvents.size()).isGreaterThanOrEqualTo(3);
+        List<Event> newEvents = repository.findByOwner(owner);
+        assertThat(newEvents.size()).isGreaterThanOrEqualTo(2);
         // find eventId in List...
 //        assertThat(newEvents.get(3)).isEqualTo(3);
     }
 
     @Test
+    @DisplayName("EventRepository - create Event - null event")
     public void createEvent_null_event() {
-        assertThrows(ConstraintViolationException.class, () -> {
-            eventDao.save(null);
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> {
+            repository.save(null);
         });
     }
 
     @Test
+    @DisplayName("EventRepository - create Event - IllegalArgumentException > ID")
     public void createEvent_with_event_id() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        List<Event> events = repository.findByOwner(owner);
+        assertThat(events.size()).isGreaterThanOrEqualTo(1);
+
+//        assertThrows(IllegalArgumentException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setId(12345);
-            eventDao.save(event);
-        });
+            repository.save(event);
+//        });
+        List<Event> events2 = repository.findByOwner(owner);
+        assertThat(events2.size()).isGreaterThanOrEqualTo(2);
+
 
     }
 
     @Test
+    @DisplayName("EventRepository - create Event - null Owner")
     public void createEvent_null_event_owner() {
         assertThrows(ConstraintViolationException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setOwner(null);
-            eventDao.save(event);
+            repository.save(event);
         });
 
     }
 
     @Test
+    @DisplayName("EventRepository - create Event - null Attendee")
     public void createEvent_null_event_attendee() {
         assertThrows(ConstraintViolationException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setAttendee(null);
-            eventDao.save(event);
+            repository.save(event);
         });
 
     }
 
     @Test
+    @DisplayName("EventRepository - create Event - null Event Date")
     public void createEvent_null_event_when() {
         assertThrows(ConstraintViolationException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setWhen(null);
-            eventDao.save(event);
+            repository.save(event);
         });
 
     }
 
-
-    @Test
-    public void findAll() {
-        List<Event> events = eventDao.findAll();
-        assertThat(events.size()).isGreaterThanOrEqualTo(3);
-    }
 
 } // The End...

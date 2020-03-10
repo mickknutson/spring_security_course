@@ -48,18 +48,17 @@ public interface TestUtils {
     public static final EventUserDetails admin1UserDetails = new EventUserDetails(admin1);
 
 
-    public static final Event testEvent = Event.builder()
-            .id(42)
-            .attendee(attendee)
-            .owner(owner)
-            .build();
+    public static final Event testEvent = new Event(){{
+        setId(42);
+        setAttendee(attendee);
+        setOwner(owner);
+    }};
 
-
-    public static final Event testEvent2 = Event.builder()
-            .id(24)
-            .attendee(attendee)
-            .owner(owner)
-            .build();
+    public static final Event testEvent2 = new Event(){{
+        setId(24);
+        setAttendee(attendee);
+        setOwner(owner);
+    }};
 
     List<Event> TEST_EVENTS = Arrays.asList(testEvent, testEvent2);
 
@@ -70,13 +69,14 @@ public interface TestUtils {
                                  AppUser attendee,
                                  String summary
     ) {
-        return Event.builder()
-                .summary(summary)
-                .description("testing + " + summary)
-                .when(Calendar.getInstance())
-                .attendee(attendee)
-                .owner(owner)
-                .build();
+        Event event = new Event();
+        event.setSummary(summary);
+        event.setDescription("testing + " + summary);
+        event.setWhen(Calendar.getInstance());
+        event.setAttendee(attendee);
+        event.setOwner(owner);
+
+        return event;
 
     }
 
