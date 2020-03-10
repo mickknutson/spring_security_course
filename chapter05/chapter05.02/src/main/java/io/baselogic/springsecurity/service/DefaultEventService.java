@@ -5,8 +5,6 @@ import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;

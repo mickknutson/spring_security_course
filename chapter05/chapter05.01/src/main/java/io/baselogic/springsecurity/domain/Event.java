@@ -1,12 +1,14 @@
 package io.baselogic.springsecurity.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Calendar;
-
-import javax.persistence.*;
 
 /**
  * An {@link Event} is an item on a calendar that contains an owner (the person who created it), an attendee

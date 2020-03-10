@@ -2,6 +2,7 @@ package io.baselogic.springsecurity.repository;
 
 import io.baselogic.springsecurity.domain.Role;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,15 @@ public class RoleRepositoryTests {
     private RoleRepository repository;
 
 	@Test
-	public void validateUser_User() {
+    @DisplayName("RoleRepository - validateUser_User")
+    public void validateUser_User() {
         Role user = repository.findById(0).orElseThrow(RuntimeException::new);
         assertThat(user.getId()).isEqualTo(0);
         assertThat(user.getName()).isEqualTo("ROLE_USER");
 	}
 
 	@Test
+    @DisplayName("RoleRepository - validateUser_Admin")
 	public void validateUser_Admin() {
         Role user = repository.findById(1).orElseThrow(RuntimeException::new);
         assertThat(user.getId()).isEqualTo(1);

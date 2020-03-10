@@ -8,7 +8,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 @SpringBootApplication

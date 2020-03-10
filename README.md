@@ -70,14 +70,12 @@ and the console can be accessed via the following URL:
 
 # TODO's
 
-* Get project to build in Circle-CI
 * Get Selenium / WebDriver tests to work.
-* Need to enable SonarCloud for all modules
 * Integrate CircleCI to [FOSSA](https://fossa.io/docs/integrating-tools/circleci/)
 * fix favicon.ico not rendering
 * Refactor WebMvcConfig to remove WebMvcConfigurerAdapter
-* Create new banners at [http://patorjk.com/software/taag/#p=display&h=0&f=Big&t=Event%20Manager%20%0AChapter02]
-
+* Create new banners at [Text Banner](http://patorjk.com/software/taag/#p=display&h=0&f=Big&t=Event%20Manager%20%0AChapter02)
+* My [Competition](https://www.udemy.com/course/learning-path-spring-secure-your-apps-with-spring-security/) as my competition.
 
 
 # License

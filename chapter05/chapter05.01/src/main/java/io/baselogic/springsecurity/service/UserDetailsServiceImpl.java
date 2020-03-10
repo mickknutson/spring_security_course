@@ -4,7 +4,6 @@ import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Role;
 import io.baselogic.springsecurity.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

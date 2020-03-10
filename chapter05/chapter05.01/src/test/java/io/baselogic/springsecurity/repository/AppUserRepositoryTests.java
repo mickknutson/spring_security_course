@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -38,6 +37,7 @@ public class AppUserRepositoryTests {
 
 
     @Test
+    @DisplayName("AppUserRepository - validateUser_User")
 	public void validateUser_User() {
         String username = "user1@example.com";
         AppUser user = repository.findByEmail(username);
@@ -47,6 +47,7 @@ public class AppUserRepositoryTests {
 	}
 
 	@Test
+    @DisplayName("AppUserRepository - validateUser_Admin")
 	public void validateUser_Admin() {
 	    String username = "admin1@example.com";
         AppUser user = repository.findByEmail(username);

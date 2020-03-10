@@ -1,8 +1,6 @@
 package io.baselogic.springsecurity.crypto.bcrypt;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Arrays;
@@ -22,6 +20,11 @@ public class BCryptPasswordEncoderMain {
         return encoder.encode(password);
     }
 
+    public static Boolean matches(String rawPassword, String encodedPassword) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
+        return encoder.matches(rawPassword, encodedPassword);
+    }
+
     /**
      * Encode a single password if supplied as args[0]
      * Otherwise, encode the standard passwords:
@@ -37,8 +40,10 @@ public class BCryptPasswordEncoderMain {
         }
         else {
             log.info("\n\nEncoding passwords: {}", Arrays.toString(passwords));
-            for(String psswd: passwords){
-                log.info("\n{}: [{bcrypt}{}]", psswd, encode(psswd));
+            for(String raw: passwords){
+                String encoded = encode(raw);
+                log.info("\n[{}] matches [{}]: {}", raw, encode(raw), matches(raw, encoded));
+                log.info("\n{}: [{bcrypt}{}]", raw, encoded);
             }
         }
     }
