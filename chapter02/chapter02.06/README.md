@@ -1,6 +1,15 @@
 # Chapter 02.06 #
 
-# Overview
+## Getting Started with Spring Security
+In this chapter we ...
 
-In this chapter we...?
+## Tasks
 
+### Tasks TBD
+Task details
+>* Item TBD
+
+
+---
+
+# [../](../)

@@ -1,4 +1,23 @@
-# Chapter 03.02 #
+# Chapter 03.02
+
+## Custom Authentication
+TBD
+
+## Tasks
+
+### No Tasks
+This section does not have any tasks.
+
+>* TBD
+
+
+---
+
+# [../](../)
+
+
+
+
 
 # Logging in new users using SecurityContextHolder
 

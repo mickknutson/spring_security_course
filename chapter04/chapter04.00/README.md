@@ -1,5 +1,17 @@
-# Chapter 04.00 #
+# Chapter 04.00
 
-# JDBC-Based Authentication BASE
+## JDBC-Based Authentication
+This chapter is the chapter BASE and continues from the previous  
+chapter section, from here, we build on top of this base.
 
-This modultre is the base from chapter03.06
+## Tasks
+
+### No Tasks
+This section does not have any tasks.
+This section is a baseline from:
+>* [chapter03.06](../../chapter03/chapter03.06/)
+
+
+---
+
+# [../](../)
