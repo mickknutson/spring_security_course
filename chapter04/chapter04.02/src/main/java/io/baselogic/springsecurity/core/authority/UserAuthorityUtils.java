@@ -15,7 +15,7 @@ import java.util.Collection;
  *
  * @author Mick Knutson
 
- * @since chapter03.00
+ * @since chapter03.03
  * @since chapter04.01 added {@link UserAuthorityUtils#getUserEmail(Object)} method
  *
  */

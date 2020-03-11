@@ -1,16 +1,13 @@
 # Chapter 05.01
-## Authentication with Spring Data
+## JPA-based Authentication
 
 ## Tasks
 
 ### Initializing the database
 
->* Remove all files in *~/resources/database/***
->* Add empty file *[~/resources/data.sql](./src/main/resources/data.sql)*
+>* Remove directory and all files in *[~/resources/database/**](./src/main/resources/)
+>* Add empty file *[data.sql](./src/main/resources/data.sql)*
 >* Update *[data.sql](./src/main/resources/data.sql)*
-
-### Update application.yml
-
 >* Add JPA configuration to *[./src/main/resources/application.yml](./src/main/resources/application.yml)*
 
 ### Refactoring from SQL to ORM

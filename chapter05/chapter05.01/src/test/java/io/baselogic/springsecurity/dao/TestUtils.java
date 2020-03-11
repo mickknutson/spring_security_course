@@ -3,9 +3,12 @@ package io.baselogic.springsecurity.dao;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.EventUserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -13,7 +16,7 @@ import java.util.List;
  * @author mickknutson
  *
  * @since chapter01.00
- * @since chapter03.04 added EventUserDetails
+ * @since chapter03.04 added User and EventUserDetails
  */
 public interface TestUtils {
 
@@ -46,6 +49,13 @@ public interface TestUtils {
 
     public static final EventUserDetails user1UserDetails = new EventUserDetails(APP_USER_1);
     public static final EventUserDetails admin1UserDetails = new EventUserDetails(admin1);
+    public static final User springUserUser = new User("username",
+            "password",
+            true,
+            true,
+            true,
+            true,
+            new HashSet<GrantedAuthority>());
 
 
     public static final Event testEvent = new Event(){{

@@ -1,4 +1,4 @@
-# Chapter 05: Authentication with Spring Data
+# Chapter 05: JPA-based Authentication
 
 
 ## Section Details

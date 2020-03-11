@@ -92,4 +92,18 @@ public class EventUserDetailsServiceTests {
     }
 
 
+    @Test
+    @DisplayName("loadUserByUsername - null User")
+    public void loadUserByUsername_null_user() {
+
+        // Expectation
+        given(userDao.findByEmail(any(String.class)))
+                .willReturn(null);
+
+        assertThrows(UsernameNotFoundException.class, () -> {
+            eventUserDetailsService.loadUserByUsername(TestUtils.admin1.getEmail());
+        });
+    }
+
+
 } // The End...

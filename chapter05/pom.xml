@@ -19,7 +19,7 @@
     <modules>
         <module>chapter05.00</module>
         <module>chapter05.01</module>
-        <module>chapter05.02</module>
+<!--        <module>chapter05.02</module>-->
     </modules>
 
     <properties>
@@ -92,11 +92,7 @@
 
 
         <!-- DATABASE: -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-
+        <!-- SEE Sub-Module pom.xml -->
 
         <!-- TOOLS: -->
         <dependency>

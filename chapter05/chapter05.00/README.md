@@ -1,5 +1,7 @@
 # Chapter 05.00
-## Authentication with Spring Data
+## JPA-based Authentication
+This chapter is the chapter BASE and continues from the previous
+chapter section, from here, we build on top of this base.
 
 ## Tasks
 

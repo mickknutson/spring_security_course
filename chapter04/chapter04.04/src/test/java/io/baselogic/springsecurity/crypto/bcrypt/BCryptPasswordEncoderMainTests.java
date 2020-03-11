@@ -9,9 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-@ExtendWith(SpringExtension.class)
-@Transactional
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 public class BCryptPasswordEncoderMainTests {
 
@@ -21,6 +18,7 @@ public class BCryptPasswordEncoderMainTests {
 
     @BeforeEach
     public void beforeEachTest() {
+        BCryptPasswordEncoderMain encoder = new BCryptPasswordEncoderMain();
     }
 
 
@@ -37,6 +35,23 @@ public class BCryptPasswordEncoderMainTests {
     public void matches() {
         String result = BCryptPasswordEncoderMain.encode(PASSWORD);
         log.info("Encoded password: [{}]", result);
+//        assertThat(result).isEqualTo(PASSWORD_ENCODED);
+    }
+
+
+    @Test
+    @DisplayName("BCryptPasswordEncoderMain - main method")
+    public void main() {
+        String[] args = {"PASSWORD"};
+        BCryptPasswordEncoderMain.main(args);
+//        assertThat(result).isEqualTo(PASSWORD_ENCODED);
+    }
+
+    @Test
+    @DisplayName("BCryptPasswordEncoderMain - main method - null input")
+    public void main_null_args() {
+        String[] args = null;
+        BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
     }
 
