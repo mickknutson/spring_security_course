@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.web.controllers;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import io.baselogic.springsecurity.service.DefaultEventServiceTests;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,19 +23,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// Spring Test: -------------------------------------------------------------//
-// Junit 5: -----------------------------------------------------------------//
-// Assert-J: ----------------------------------------------------------------//
-// --> assertThat(result.size()).isGreaterThan(0);
-// http://joel-costigliola.github.io/assertj/index.html
-
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
+@Slf4j
 public class WelcomeControllerTests {
-
-    private static final Logger log = LoggerFactory.getLogger(DefaultEventServiceTests.class);
 
     @Autowired
     private MockMvc mockMvc;

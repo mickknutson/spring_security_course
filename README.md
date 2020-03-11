@@ -87,6 +87,7 @@ and the console can be accessed via the following URL:
 * fix favicon.ico not rendering
 * Refactor WebMvcConfig to remove WebMvcConfigurerAdapter
 * My [Competition](https://www.udemy.com/course/learning-path-spring-secure-your-apps-with-spring-security/).
+* Add more tests for DomainUsernamePasswordAuthenticationFilter
 
 
 # License

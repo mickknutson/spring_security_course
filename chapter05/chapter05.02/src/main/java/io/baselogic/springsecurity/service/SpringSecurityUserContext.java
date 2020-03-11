@@ -71,9 +71,9 @@ public class SpringSecurityUserContext implements UserContext {
                 authentication.getPrincipal()
         );
 
-        if (email == null) {
-            return null;
-        }
+//        if (email == null) {
+//            return null;
+//        }
         AppUser result = eventService.findUserByEmail(email);
         if (result == null) {
             throw new IllegalStateException(

@@ -46,7 +46,8 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
         String email = token.getName();
         log.info("authenticate: {}", email);
 
-        AppUser appUser = email == null ? null : eventService.findUserByEmail(email);
+//        AppUser appUser = email == null ? null : eventService.findUserByEmail(email);
+        AppUser appUser = eventService.findUserByEmail(email);
 
         if(appUser == null) {
             throw new UsernameNotFoundException("Invalid username/password");

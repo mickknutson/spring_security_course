@@ -233,6 +233,7 @@ public class EventsControllerTests {
                 .andReturn();
     }
 
+    //-----------------------------------------------------------------------//
     @Test
     @DisplayName("Show Event Form Auto Populate")
     @WithMockUser("user1@example.com")

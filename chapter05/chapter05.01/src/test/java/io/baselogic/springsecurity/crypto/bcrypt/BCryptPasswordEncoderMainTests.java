@@ -48,6 +48,14 @@ public class BCryptPasswordEncoderMainTests {
     }
 
     @Test
+    @DisplayName("BCryptPasswordEncoderMain - main method - empty input")
+    public void main_empty_args() {
+        String[] args = {};
+        BCryptPasswordEncoderMain.main(args);
+//        assertThat(result).isEqualTo(PASSWORD_ENCODED);
+    }
+
+    @Test
     @DisplayName("BCryptPasswordEncoderMain - main method - null input")
     public void main_null_args() {
         String[] args = null;

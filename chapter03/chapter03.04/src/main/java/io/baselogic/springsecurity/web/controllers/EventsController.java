@@ -78,7 +78,10 @@ public class EventsController {
      * Useful so that users do not have to think when
      * filling out the form for testing.
      *
-     * @param eventDto
+     * @param eventDto Event data transfer Object
+     *
+     * @since chapter03.04 removed user id check (currentAppUser.getId() == 0 ? 1 : 0;)
+     *
      */
     @PostMapping(value = "/new", params = "auto")
     public String showEventFormAutoPopulate(final @ModelAttribute EventDto eventDto) {
@@ -90,7 +93,8 @@ public class EventsController {
         // make the attendee not the current user
         AppUser currentAppUser = userContext.getCurrentUser();
 
-        Integer attendeeId = currentAppUser.getId() == 0 ? 1 : 0;
+        // @since chapter03.04 removed user id check
+        Integer attendeeId = currentAppUser.getId();
 
         AppUser attendee = eventService.findUserById(attendeeId);
         eventDto.setAttendeeEmail(attendee.getEmail());

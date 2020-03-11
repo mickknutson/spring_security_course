@@ -66,7 +66,7 @@ public class EventUserAuthenticationProviderTests {
     @DisplayName("supports - UsernamePasswordAuthenticationToken.class")
     public void supports__TRUE() {
 
-        boolean result = authenticationProvider.supports(UsernamePasswordAuthenticationToken.class);
+        boolean result = authenticationProvider.supports(DomainUsernamePasswordAuthenticationToken.class);
 
         assertThat(result).isTrue();
     }
@@ -91,8 +91,8 @@ public class EventUserAuthenticationProviderTests {
                 .willReturn(null);
 
         Authentication authentication =
-                new  UsernamePasswordAuthenticationToken("user1@example.com",
-                        "user1");
+                new  DomainUsernamePasswordAuthenticationToken("user1",
+                        "user1", "example.com");
 
         assertThrows(UsernameNotFoundException.class, () -> {
             Authentication result = authenticationProvider.authenticate(authentication);
@@ -109,8 +109,8 @@ public class EventUserAuthenticationProviderTests {
                 .willReturn(testAppUser1);
 
         Authentication authentication =
-                new  UsernamePasswordAuthenticationToken("test@example.com",
-                        "password");
+                new  DomainUsernamePasswordAuthenticationToken("test",
+                        "password", "example.com");
 
         assertThrows(BadCredentialsException.class, () -> {
             Authentication result = authenticationProvider.authenticate(authentication);

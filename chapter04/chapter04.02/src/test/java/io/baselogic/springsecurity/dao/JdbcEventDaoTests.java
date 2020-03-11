@@ -2,6 +2,7 @@ package io.baselogic.springsecurity.dao;
 
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,9 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Slf4j
 public class JdbcEventDaoTests {
-
-    private static final Logger log = LoggerFactory.getLogger(JdbcEventDaoTests.class);
 
     @Autowired
     private EventDao eventDao;

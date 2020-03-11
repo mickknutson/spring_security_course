@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.dao;
 
 import io.baselogic.springsecurity.domain.AppUser;
+import io.baselogic.springsecurity.repository.AppUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +19,24 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
+/**
+ * JpaEventDaoTests
+ *
+ * @since chapter5.01
+ */
 @ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class JdbcUserDaoTests {
+public class JpaUserDaoTests {
+
+    // Mockito:
+//    @MockBean
+    private AppUserRepository appUserRepository;
+
 
     @Autowired
     private UserDao userDao;
@@ -36,6 +51,7 @@ public class JdbcUserDaoTests {
         attendee.setId(0);
     }
 
+    //-----------------------------------------------------------------------//
 
     @Test
     public void initJdbcOperations() {
@@ -45,7 +61,6 @@ public class JdbcUserDaoTests {
     @Test
     public void findById() {
         AppUser appUser = userDao.findById(1);
-        log.info(appUser.toString());
 
         assertThat(appUser).isNotNull();
         assertThat(appUser.equals(appUser)).isTrue();
@@ -68,6 +83,20 @@ public class JdbcUserDaoTests {
     }
 
 
+    /*@Test
+    public void findByEmail_EmptyResultDataAccessException() {
+
+        // Expectation
+        given(appUserRepository.findByEmail(any(String.class)))
+                .willThrow(EmptyResultDataAccessException.class);
+
+        assertThrows(EmptyResultDataAccessException.class, () -> {
+            userDao.save(owner);
+        });
+
+    }*/
+
+    //-----------------------------------------------------------------------//
 
     @Test
     public void findAllByEmail() {
@@ -78,8 +107,10 @@ public class JdbcUserDaoTests {
     @Test
     public void findAllByEmail_no_results() {
         List<AppUser> appUsers = userDao.findAllByEmail("@baselogic.io");
-        assertThat(appUsers.size()).isEqualTo(0);
+        assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
+
+    //-----------------------------------------------------------------------//
 
 
     @Test
@@ -92,16 +123,7 @@ public class JdbcUserDaoTests {
         assertThat(userId).isGreaterThanOrEqualTo(3);
 
         appUsers = userDao.findAllByEmail("example.com");
-        assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
-    }
-
-    @Test
-    public void createUser_with_id() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            AppUser appUser = TestUtils.createMockUser("test@example.com", "test", "example");
-            appUser.setId(12345);
-            int userId = userDao.save(appUser);
-        });
+        assertThat(appUsers.size()).isGreaterThanOrEqualTo(4);
     }
 
 
