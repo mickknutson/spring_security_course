@@ -27,8 +27,7 @@ authentication from the security audit discussed in Chapter 1.
 ---
 
 ### [Chapter 02.01](./chapter02.01/)
-> * Add Security and testing dependencies.
-> * BASIC Authentication enabled by default
+> * TBD
 
 ---
 
@@ -61,3 +60,5 @@ authentication from the security audit discussed in Chapter 1.
 
 
 ---
+
+# [../](../)

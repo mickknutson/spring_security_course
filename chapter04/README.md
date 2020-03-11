@@ -2,7 +2,6 @@
 
 
 ## Section Details
-
 In the previous chapter, we saw how we can extend Spring Security to utilize our
 CalendarDao interface and our existing domain model to authenticate users. In this
 chapter, we will see how we can use Spring Security's built-in JDBC support. To keep things
@@ -27,20 +26,32 @@ basic steps for setting up JDBC authentication with Spring Security.
 
 ## Section Chapters
 
-### Chapter 04.00:
+### [Chapter 04.00](./chapter04.00/)
+> * Base line Starting from chapter03.04
 
-* Base line Starting from chapter03.04
+---
 
-### Chapter 04.01:
-* TBD
-
-### Chapter 04.02:
-* TBD
-
-### Chapter 04.03:
-* TBD
-
-
-### Chapter 04.04:
+### [Chapter 04.01](./chapter04.01/)
 > * TBD
 
+---
+
+### [Chapter 04.02](./chapter04.02/)
+> * TBD
+
+
+---
+
+### [Chapter 04.03](./chapter04.03/)
+> * TBD
+
+
+---
+
+### [Chapter 04.04](./chapter04.04/)
+> * TBD
+
+
+---
+
+# [../](../)
