@@ -1,15 +1,15 @@
-# Chapter 02.05 #
+# Chapter 02.05
 
-## Getting Started with Spring Security
-In this chapter we ...
+## Conditionally displaying authentication information
+In this chapter we understand how to conditionally displaying authentication information
 
 ## Tasks
 
-### Tasks TBD
-Task details
->* Item TBD
+>* Add thymeleaf-extrasspringsecurity4 jar
+>* Update ThymeleafConfig.java
+>* Update /header.html
 
 
 ---
 
-# [../](../)
+# [../](../README.md)

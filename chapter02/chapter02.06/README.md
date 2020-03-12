@@ -1,15 +1,14 @@
-# Chapter 02.06 #
+# Chapter 02.06
 
-## Getting Started with Spring Security
-In this chapter we ...
+## Customizing behavior after login
+In this chapter we customizing behavior after login
 
 ## Tasks
 
-### Tasks TBD
-Task details
->* Item TBD
+>* Update .defaultSuccessUrl("/default") in SecurityConfig.java
+>* Create DefaultController.java
 
 
 ---
 
-# [../](../)
+# [../](../README.md)

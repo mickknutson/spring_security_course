@@ -21,42 +21,19 @@ authentication from the security audit discussed in Chapter 1.
 
 ## Section Chapters
 
-### [Chapter 02.00](./chapter02.00/)
-> * Base line Starting from chapter01.00
+### [Chapter 02.00](./chapter02.00/) (BASE line from chapter01.00)
 
----
+### [Chapter 02.01](./chapter02.01/) (Enabling Spring Security)
 
-### [Chapter 02.01](./chapter02.01/)
-> * TBD
+### [Chapter 02.02](./chapter02.02/) (Customizing login)
 
----
+### [Chapter 02.03](./chapter02.03/) (Basic role-based authorization)
 
-### [Chapter 02.02](./chapter02.02/)
-> * TBD
+### [Chapter 02.04](./chapter02.04/) (Expression-based authorization)
 
+### [Chapter 02.05](./chapter02.05/) (Conditionally displaying authentication information)
 
----
-
-### [Chapter 02.03](./chapter02.03/)
-> * TBD
-
-
----
-
-### [Chapter 02.04](./chapter02.04/)
-> * TBD
-
-
----
-
-### [Chapter 02.05](./chapter02.05/)
-> * TBD
-
-
----
-
-### [Chapter 02.06](./chapter02.06/)
-> * TBD
+### [Chapter 02.06](./chapter02.06/) (Customizing behavior after login)
 
 
 ---

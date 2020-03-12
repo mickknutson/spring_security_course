@@ -1,15 +1,13 @@
-# Chapter 02.04 #
+# Chapter 02.04
 
-## Getting Started with Spring Security
-In this chapter we ...
+## Expression-based authorization
+In this chapter we understand Expression-based authorization
 
 ## Tasks
 
-### Tasks TBD
-Task details
->* Item TBD
+>* Understand Expression-based authorization
 
 
 ---
 
-# [../](../)
+# [../](../README.md)

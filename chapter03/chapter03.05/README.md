@@ -1,24 +1,15 @@
-# Chapter 03.05
+# Chapter 03.01
 
 ## Custom Authentication
-TBD
+This chapter is the chapter BASE and continues from the previous  
+chapter section, from here, we build on top of this base.
 
 ## Tasks
 
-### No Tasks
-This section does not have any tasks.
-
->* TBD
+>* Creating a custom UserContext
+>* In this section we create a custom User Context with the SpringSecurityUserContext
 
 
 ---
 
-# [../](../)
-
-
-
-
-# Creating a custom AuthenticationProvider object
-
-In this section we ...
-
+# [../](../README.md)

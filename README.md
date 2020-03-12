@@ -21,6 +21,7 @@ has been used as the view templating engine throughout the book
 
 # Section Overview
 
+0. [General Security Overview](chapter00/README.md)
 1. [Course Reference Project](chapter01/README.md)
 2. [Getting Started with Spring Security](chapter02/README.md)
 3. [Custom Authentication](chapter03/README.md)
@@ -73,7 +74,7 @@ and the console can be accessed via the following URL:
 # Sections for next course module
 >* Remember-Me Services
 >* Client Certificate Authentication with TLS
->* Fine-Grained Access Control
+>* -----> Fine-Grained Access Control
 >* Access Control Lists
 >* Custom Authorization
 >* Session Management
@@ -82,13 +83,14 @@ and the console can be accessed via the following URL:
 
 # TODO's
 
-* Get Selenium / WebDriver tests to work.
-* Integrate CircleCI to [FOSSA](https://fossa.io/docs/integrating-tools/circleci/)
-* fix favicon.ico not rendering
-* Refactor WebMvcConfig to remove WebMvcConfigurerAdapter
-* My [Competition](https://www.udemy.com/course/learning-path-spring-secure-your-apps-with-spring-security/).
-* Add more tests for DomainUsernamePasswordAuthenticationFilter
-* [https://www.mongodb.com/products/compass](https://www.mongodb.com/products/compass) mongodb uri localhost:37681
+>* Get Selenium / WebDriver tests to work.
+>* Integrate CircleCI to [FOSSA](https://fossa.io/docs/integrating-tools/circleci/)
+>* fix favicon.ico not rendering
+> * Fix webjars
+>* Refactor WebMvcConfig to remove WebMvcConfigurerAdapter
+>* My [Competition](https://www.udemy.com/course/learning-path-spring-secure-your-apps-with-spring-security/).
+>* Add more tests for DomainUsernamePasswordAuthenticationFilter
+>* [https://www.mongodb.com/products/compass](https://www.mongodb.com/products/compass) mongodb uri localhost:37681
 
 # License
 Code is under the [BSD 2-clause "Simplified" License](LICENSE.txt).

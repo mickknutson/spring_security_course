@@ -1,26 +1,15 @@
-# Chapter 03.02
+# Chapter 03.01
 
 ## Custom Authentication
-TBD
+This chapter is the chapter BASE and continues from the previous  
+chapter section, from here, we build on top of this base.
 
 ## Tasks
 
-### No Tasks
-This section does not have any tasks.
-
->* TBD
+>* Creating a custom UserContext
+>* In this section we create a custom User Context with the SpringSecurityUserContext
 
 
 ---
 
-# [../](../)
-
-
-
-
-
-# Logging in new users using SecurityContextHolder
-
-In this section we configure the application to allow for a new User registration
-and automatically logging-in the newly created user.
-
+# [../](../README.md)

@@ -1,15 +1,16 @@
-# Chapter 02.03 #
+# Chapter 02.03
 
-## Getting Started with Spring Security
-In this chapter we ...
+## Basic role-based authorization
+In this chapter we understand Basic role-based authorization
 
 ## Tasks
 
-### Tasks TBD
-Task details
->* Item TBD
+>* Understand why our page isn't redirecting properly
+>* understand basic role-based authorization
+>* Configuring basic role-based authorization in SecurityConfig.java
+>* Understand pattern matching
 
 
 ---
 
-# [../](../)
+# [../](../README.md)

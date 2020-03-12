@@ -1,15 +1,18 @@
 # Chapter 02.02
 
-## Getting Started with Spring Security
-In this chapter we ...
+## Customizing login
+In this chapter we customizing the login and logout
 
 ## Tasks
 
-### Tasks TBD
-Task details
->* Item TBD
+>* Customize the login in SecurityConfig.java
+>* Customize the html login form
+>* Register URIs in WebMvcConfig.java
+>* Customize the logout in SecurityConfig.java
+>* Customize the html logout form
+>* Verify we have an issue
 
 
 ---
 
-# [../](../)
+# [../](../README.md)

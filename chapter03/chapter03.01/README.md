@@ -6,10 +6,9 @@ chapter section, from here, we build on top of this base.
 
 ## Tasks
 
-### Creating a custom UserContext
->* In this section we create a custom User Context with the SpringSecurityUserContext
+>* STOPPED HERE
 
 
 ---
 
-# [../](../)
+# [../](../README.md)

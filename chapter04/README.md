@@ -26,30 +26,9 @@ basic steps for setting up JDBC authentication with Spring Security.
 
 ## Section Chapters
 
-### [Chapter 04.00](./chapter04.00/)
-> * Base line Starting from chapter03.04
+### [Chapter 04.00](./chapter04.00/) (Base line Starting from chapter03.04)
 
----
-
-### [Chapter 04.01](./chapter04.01/)
-> * TBD
-
----
-
-### [Chapter 04.02](./chapter04.02/)
-> * TBD
-
-
----
-
-### [Chapter 04.03](./chapter04.03/)
-> * TBD
-
-
----
-
-### [Chapter 04.04](./chapter04.04/)
-> * TBD
+### [Chapter 04.01](./chapter04.01/) (TBD)
 
 
 ---
