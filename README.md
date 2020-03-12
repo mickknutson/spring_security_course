@@ -95,10 +95,18 @@ Code is under the [BSD 2-clause "Simplified" License](LICENSE.txt).
 
 # Badges...
 
-We don't need stinky badges:
+We don't need stinking badges...
 
+[![CircleCI](https://circleci.com/gh/mickknutson/spring_security_course.svg?style=svg)](https://circleci.com/gh/mickknutson/spring_security_course)
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=mickknutson_spring_security_course)
+
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=mickknutson_spring_security_course&metric=ncloc)](https://sonarcloud.io/dashboard?id=mickknutson_spring_security_course)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=mickknutson_spring_security_course&metric=security_rating)](https://sonarcloud.io/dashboard?id=mickknutson_spring_security_course)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mickknutson_spring_security_course&metric=alert_status)](https://sonarcloud.io/dashboard?id=mickknutson_spring_security_course)
-
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=mickknutson_spring_security_course&metric=coverage)](https://sonarcloud.io/dashboard?id=mickknutson_spring_security_course)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mickknutson_spring_security_course&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=mickknutson_spring_security_course)
 
-[![Coverage Status](https://coveralls.io/repos/github/mickknutson/spring_security_course/badge.svg)](https://coveralls.io/github/mickknutson/spring_security_course)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmickknutson%2Fspring_security_course.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmickknutson%2Fspring_security_course?ref=badge_shield)
+
+https://tenor.com/bc2EA.gif
