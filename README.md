@@ -88,7 +88,7 @@ and the console can be accessed via the following URL:
 * Refactor WebMvcConfig to remove WebMvcConfigurerAdapter
 * My [Competition](https://www.udemy.com/course/learning-path-spring-secure-your-apps-with-spring-security/).
 * Add more tests for DomainUsernamePasswordAuthenticationFilter
-
+* [https://www.mongodb.com/products/compass](https://www.mongodb.com/products/compass) mongodb uri localhost:37681
 
 # License
 Code is under the [BSD 2-clause "Simplified" License](LICENSE.txt).
