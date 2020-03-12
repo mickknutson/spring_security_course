@@ -4,13 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
-//@ExtendWith(SpringExtension.class)
-//@SpringBootTest
 @Slf4j
 public class BCryptPasswordEncoderMainTests {
 
@@ -20,6 +14,7 @@ public class BCryptPasswordEncoderMainTests {
 
     @BeforeEach
     public void beforeEachTest() {
+        BCryptPasswordEncoderMain encoder = new BCryptPasswordEncoderMain();
     }
 
 
@@ -44,6 +39,14 @@ public class BCryptPasswordEncoderMainTests {
     @DisplayName("BCryptPasswordEncoderMain - main method")
     public void main() {
         String[] args = {"PASSWORD"};
+        BCryptPasswordEncoderMain.main(args);
+//        assertThat(result).isEqualTo(PASSWORD_ENCODED);
+    }
+
+    @Test
+    @DisplayName("BCryptPasswordEncoderMain - main method - empty input")
+    public void main_empty_args() {
+        String[] args = {};
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
     }

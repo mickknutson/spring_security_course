@@ -3,40 +3,51 @@ package io.baselogic.springsecurity.dao;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.repository.EventRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * A JPA implementation of {@link EventDao}.
+ * A MongoDb Document implementation of {@link EventDao}.
  *
  * @author Mick Knutson
  *
  */
 @Repository
-public class JpaEventDao implements EventDao {
+@Validated
+@Slf4j
+public class MongoEventDao implements EventDao {
 
     private final EventRepository eventRepository;
 
+    // Simple Primary Key Generator
+    private final AtomicInteger eventPK = new AtomicInteger(102);
+
+
     @Autowired
-    public JpaEventDao(final @NotNull EventRepository eventRepository) {
+    public MongoEventDao(final @NotNull EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
+
     @Override
-    @Transactional(readOnly = true)
-    public Event findById(@NotNull Integer eventId) {
-        return eventRepository.getOne(eventId);
+//    @Transactional(readOnly = true)
+    public Event findById(final @NotNull Integer eventId) {
+        return eventRepository.findById(eventId).orElse(null);
     }
 
 
     @Override
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public List<Event> findByUser(final @NotNull Integer userId) {
         Event example = new Event();
         AppUser user = new AppUser();
@@ -46,15 +57,19 @@ public class JpaEventDao implements EventDao {
         return eventRepository.findAll(Example.of(example));
     }
 
+
     @Override
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public List<Event> findAll() {
         return eventRepository.findAll();
     }
 
-
     @Override
     public Integer save(final @NotNull @Valid Event event) {
+
+        // Get the next PK instance
+        event.setId(eventPK.incrementAndGet());
+
         Event newEvent = eventRepository.save(event);
         return newEvent.getId();
     }

@@ -1,13 +1,14 @@
 package io.baselogic.springsecurity.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -23,16 +24,11 @@ import java.util.Calendar;
 @Table(name = "events")
 
 // Lombok Annotations:
-//@Data // Throws StackOverflowError
-//@Builder // NOTE: This does not work with JPA
-@Getter
-@Setter
-//@ToString
-//@EqualsAndHashCode
-
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Event {
+public class Event implements Serializable {
 
 //    public Event() {}
 

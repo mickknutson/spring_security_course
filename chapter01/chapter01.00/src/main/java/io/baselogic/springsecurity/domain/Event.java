@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Calendar;
 @Data
 @Builder
 
-public class Event {
+public class Event implements Serializable {
 
     private Integer id;
 

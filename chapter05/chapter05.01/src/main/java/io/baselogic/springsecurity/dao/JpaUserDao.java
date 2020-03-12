@@ -66,12 +66,13 @@ public class JpaUserDao implements UserDao {
     // FIXME: Need to make a partial search:
     @Override
     @Transactional(readOnly = true)
-    public List<AppUser> findAllByEmail(@NotEmpty String partialEmail) {
+    public List<AppUser> findAllByEmail(final @NotEmpty String partialEmail) {
         return appUserRepository.findAll();
     }
 
+
     @Override
-    public Integer save(@NotNull AppUser appUser) {
+    public Integer save(final @NotNull AppUser appUser) {
 
         Set<Role> roles = new HashSet<>();
         Optional<Role> role = roleRepository.findById(0);

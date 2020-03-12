@@ -1,7 +1,7 @@
 # Chapter 05.02
 ## JPA-based Authentication
 Refactoring from an RDBMS to a document
-database
+database using MongoDB
 
 ## Tasks
 
@@ -12,10 +12,9 @@ Update project dependencies
 >* ADD spring-boot-starter-data-mongodb in [pom.xml](./pom.xml)
 >* Add de.flapdoodle.embed.mongo in [pom.xml](./pom.xml)
 
-### Reconfiguring the database configuration in
-MongoDB
-TASK Details TBD
->* TBD
+### Reconfiguring the database configuration in MongoDB
+
+>* Add Mongo configuration in [application.yml](src/main/resources/application.yml)
 
 ### Initializing the MongoDB database
 TASK Details TBD

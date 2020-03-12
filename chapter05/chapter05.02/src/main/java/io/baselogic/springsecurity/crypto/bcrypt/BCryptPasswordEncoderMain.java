@@ -13,14 +13,15 @@ import java.util.Arrays;
  * @see BCryptPasswordEncoder
  */
 @Slf4j
-public class BCryptPasswordEncoderMain {
+public final class BCryptPasswordEncoderMain {
 
-    public static String encode(String password) {
+    public static String encode(final String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
         return encoder.encode(password);
     }
 
-    public static Boolean matches(String rawPassword, String encodedPassword) {
+    public static Boolean matches(final String rawPassword,
+                                  final String encodedPassword) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
         return encoder.matches(rawPassword, encodedPassword);
     }
@@ -32,7 +33,7 @@ public class BCryptPasswordEncoderMain {
      *
      * @param args single password to encode
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         String[] passwords = {"user1", "admin1", "user2", "admin", "test"};
 
         if (args != null && args.length == 1) {

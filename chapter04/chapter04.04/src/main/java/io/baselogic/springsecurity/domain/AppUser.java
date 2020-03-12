@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,9 +26,9 @@ public class AppUser implements Principal, Serializable {
      * Gets the full name in a formatted fashion. Note in a real application a formatter may be more appropriate, but in
      * this application simplicity is more important.
      *
-     * @return
+     * @return AppUser email as their name.
      */
-//    @com.fasterxml.jackson.annotation.JsonIgnore
+    @JsonIgnore
     public String getName() {
         return getEmail();
     }

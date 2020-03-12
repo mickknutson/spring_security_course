@@ -1,13 +1,19 @@
 package io.baselogic.springsecurity.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.security.Principal;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,26 +21,18 @@ import java.util.Set;
  * user especially in large applications. This ensures that as you evolve your security requirements (update Spring
  * Security, leverage new Spring Security modules, or even swap out security implementations) you can do so easily.
  */
-// JPA Annotations:
-@Entity
-@Table(name = "app_users")
+// Document Annotations:
+@Document(collection="app_users")
 
 // Lombok Annotations:
-@Data // Throws StackOverflowError
-@Builder // NOTE: This does not work with JPA
-//@Getter
-//@Setter
-//@ToString
-//@EqualsAndHashCode
-
+@Data
+//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppUser implements Principal, Serializable {
+public class AppUser implements Persistable<Integer>, Serializable {
 
 //    public AppUser() {}
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String firstName;
@@ -42,13 +40,28 @@ public class AppUser implements Principal, Serializable {
     private String email;
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Boolean persisted = Boolean.FALSE;
 
-    private static final long serialVersionUID = 8433999509932007961L;
+
+    @DBRef(lazy = false)
+    private Set<Role> roles = new HashSet<>(5);
+
+    @PersistenceConstructor
+    public AppUser(Integer id, String email, String password, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
+    @Override
+    public boolean isNew() {
+        return !persisted;
+    }
+
+
+    // --- convenience methods ----------------------------------------------//
 
     /**
      * Gets the full name in a formatted fashion. Note in a real application a formatter may be more appropriate, but in
@@ -56,9 +69,19 @@ public class AppUser implements Principal, Serializable {
      *
      * @return AppUser email as their name.
      */
-//    @com.fasterxml.jackson.annotation.JsonIgnore
+    @JsonIgnore
+    @Transient
     public String getName() {
         return getEmail();
     }
+
+    @JsonIgnore
+    @Transient
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
+
+    private static final long serialVersionUID = 8433999509932007961L;
+
 
 } // The End...

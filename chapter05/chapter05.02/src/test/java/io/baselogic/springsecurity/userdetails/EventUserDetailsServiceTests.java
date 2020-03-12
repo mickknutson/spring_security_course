@@ -27,7 +27,7 @@ import static org.mockito.BDDMockito.given;
  * @since chapter03.03
  */
 @ExtendWith(SpringExtension.class)
-@Transactional
+//@Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 public class EventUserDetailsServiceTests {
@@ -88,6 +88,20 @@ public class EventUserDetailsServiceTests {
 
         assertThrows(UsernameNotFoundException.class, () -> {
             UserDetails result = eventUserDetailsService.loadUserByUsername("foobar");
+        });
+    }
+
+
+    @Test
+    @DisplayName("loadUserByUsername - null User")
+    public void loadUserByUsername_null_user() {
+
+        // Expectation
+        given(userDao.findByEmail(any(String.class)))
+                .willReturn(null);
+
+        assertThrows(UsernameNotFoundException.class, () -> {
+            eventUserDetailsService.loadUserByUsername(TestUtils.admin1.getEmail());
         });
     }
 

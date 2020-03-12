@@ -1,7 +1,6 @@
 package io.baselogic.springsecurity.core.authority;
 
 import io.baselogic.springsecurity.dao.TestUtils;
-import io.baselogic.springsecurity.domain.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,6 +38,14 @@ public class UserAuthorityUtilsTests {
         String result = UserAuthorityUtils.getUserEmail(TestUtils.user1UserDetails);
 
         assertThat(result).isEqualTo(TestUtils.APP_USER_1.getEmail());
+    }
+
+    @Test
+    @DisplayName("UserAuthorityUtilsTests - getUserEmail - Spring_User")
+    public void getUserEmail__Spring_User() {
+        String result = UserAuthorityUtils.getUserEmail(TestUtils.springUserUser);
+
+        assertThat(result).isEqualTo("username");
     }
 
     @Test

@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,13 +21,8 @@ import java.util.Set;
 @Table(name = "app_users")
 
 // Lombok Annotations:
-@Data // Throws StackOverflowError
-@Builder // NOTE: This does not work with JPA
-//@Getter
-//@Setter
-//@ToString
-//@EqualsAndHashCode
-
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppUser implements Principal, Serializable {
@@ -56,7 +52,7 @@ public class AppUser implements Principal, Serializable {
      *
      * @return AppUser email as their name.
      */
-//    @com.fasterxml.jackson.annotation.JsonIgnore
+    @JsonIgnore
     public String getName() {
         return getEmail();
     }

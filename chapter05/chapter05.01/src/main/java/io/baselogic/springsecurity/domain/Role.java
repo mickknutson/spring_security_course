@@ -1,9 +1,6 @@
 package io.baselogic.springsecurity.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,12 +17,8 @@ import java.util.Set;
 
 // Lombok Annotations:
 //@Data // Throws StackOverflowError
-//@Builder // NOTE: This does not work with JPA
 @Getter
 @Setter
-//@ToString
-//@EqualsAndHashCode
-
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role implements Serializable {

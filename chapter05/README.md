@@ -40,15 +40,15 @@ and other related modules including JDBC Support and Apache Hadoop.
 
 ## Section Chapters
 
-### [Chapter 05.00](./chapter05.00/)
-* Base line Starting from chapter04.06
+### [Chapter 05.00](./chapter05.00/README.md)
+> * Base line Starting from [chapter04.05](../chapter04/chapter04.04/README.md)
 
-### [Chapter 05.01](./chapter05.01/)
-* TBD
+### [Chapter 05.01](./chapter05.01/README.md)
+> * Refactor JDBC implementation to use Spring Data JPA
 
-### [Chapter 05.02](./chapter05.02/)
-* TBD
+### [Chapter 05.02](./chapter05.02/README.md)
+> * Refactor JPA implementation to use Spring Data Mongo DB
 
 ---
 
-# [../](../)
+# [../](../README.md)

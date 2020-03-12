@@ -30,7 +30,7 @@ public class JpaEventDao implements EventDao {
 
     @Override
     @Transactional(readOnly = true)
-    public Event findById(@NotNull Integer eventId) {
+    public Event findById(final @NotNull Integer eventId) {
         return eventRepository.getOne(eventId);
     }
 
