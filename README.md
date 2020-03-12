@@ -101,3 +101,4 @@ We don't need stinky badges:
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=mickknutson_spring_security_course&metric=coverage)](https://sonarcloud.io/dashboard?id=mickknutson_spring_security_course)
 
+[![Coverage Status](https://coveralls.io/repos/github/mickknutson/spring_security_course/badge.svg)](https://coveralls.io/github/mickknutson/spring_security_course)
