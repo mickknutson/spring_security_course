@@ -1,5 +1,10 @@
 # CODECOV
 #
+##
+# Code Coverage
+##
+
+repo_token: R1gBL3SWjkDAGgse1GDMfJdthOa2S7eFe
 
 coverage:
   range: "45...90"
@@ -9,6 +14,7 @@ coverage:
     slack:
       default:
         url: "https://hooks.slack.com/services/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"
+        #From Circle-ci: url: "https://hooks.slack.com/services/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"
         threshold: "2%"
   status:
     project:
@@ -17,4 +23,3 @@ coverage:
 comment:
   layout: "header, diff, tree, sunburst"
   require_changes: true
-
