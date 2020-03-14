@@ -1,13 +1,16 @@
-# Chapter 03.01
+# Chapter 03.02
 
-## Custom Authentication
-This chapter is the chapter BASE and continues from the previous  
-chapter section, from here, we build on top of this base.
+## Logging in new users using SecurityContextHolder
+This chapter is the chapter BASE and continues from the previous chapter section, from here, we build on top of this base.
 
 ## Tasks
 
->* Creating a custom UserContext
->* In this section we create a custom User Context with the SpringSecurityUserContext
+> * create InMemoryUserDetailsManager outside of the WebSecurityConfigurerAdapter
+> * update our existing EventService implementation, DefaultEventService
+> * Convert AppUser into the Spring User (UserDetails) in SpringSecurityUserContext.java
+> * Update the RegistrationController
+
+> * Execute/Run the updated code and test
 
 
 ---

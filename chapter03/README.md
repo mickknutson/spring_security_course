@@ -18,19 +18,19 @@ During the course of this chapter, we will cover the following topics:
 
 ## Section Chapters
 
-### [Chapter 03.00](./chapter03.00/) (Base line Starting from chapter02.06)
+### [Chapter 03.00](./chapter03.00/) (Base line Starting from [Chapter 02.06](./../chapter02/chapter02.06/))
 
-### [Chapter 03.01](./chapter03.01/) (TBD)
+### [Chapter 03.01](./chapter03.01/) (Implement custom UserContext)
 
-### [Chapter 03.01](./chapter03.02/) (TBD)
+### [Chapter 03.02](./chapter03.02/) (Logging in new users using SecurityContextHolder)
 
-### [Chapter 03.01](./chapter03.03/) (TBD)
+### [Chapter 03.03](./chapter03.03/) (Creating a custom UserDetailsService Object)
 
-### [Chapter 03.01](./chapter03.04/) (TBD)
+### [Chapter 03.04](./chapter03.04/) (Create Custom UserDetails Object)
 
-### [Chapter 03.01](./chapter03.05/) (TBD)
+### [Chapter 03.05](./chapter03.05/) (Create custom AuthenticationProvider Object)
 
-### [Chapter 03.01](./chapter03.06/) (TBD)
+### [Chapter 03.06](./chapter03.06/) (Authenticating with different parameters)
 
 
 ---

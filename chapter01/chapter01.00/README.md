@@ -10,6 +10,9 @@ the rest of the course.
 This is the Spring Security overview reference project for
 the rest of the course.
 
+> * Execute/Run the updated code and test
+
+> * Become familiar with the application
 
 ---
 

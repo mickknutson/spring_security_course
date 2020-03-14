@@ -6,9 +6,9 @@ and walk through the basic sections of Spring Security.
 
 ## Tasks
 
->* Create SecurityConfig.java
->* Add @EnableWebSecurity
->* Detail sections of SecurityConfig.java
+> * Create SecurityConfig.java
+> * Add @EnableWebSecurity
+> * Detail sections of SecurityConfig.java
 
 
 ---

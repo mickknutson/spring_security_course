@@ -5,7 +5,7 @@ In this chapter we understand Expression-based authorization
 
 ## Tasks
 
->* Understand Expression-based authorization
+> * Understand Expression-based authorization
 
 
 ---

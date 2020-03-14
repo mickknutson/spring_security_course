@@ -5,9 +5,9 @@ In this chapter we understand how to conditionally displaying authentication inf
 
 ## Tasks
 
->* Add thymeleaf-extrasspringsecurity4 jar
->* Update ThymeleafConfig.java
->* Update /header.html
+> * Add thymeleaf-extrasspringsecurity4 jar
+> * Update ThymeleafConfig.java
+> * Update /header.html
 
 
 ---

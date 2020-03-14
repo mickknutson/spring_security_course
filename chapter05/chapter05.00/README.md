@@ -8,7 +8,7 @@ chapter section, from here, we build on top of this base.
 ### No Tasks
 This section does not have any tasks.
 This section is a baseline from:
->* [chapter04.04](../../chapter04/chapter04.04/)
+> * [chapter04.04](../../chapter04/chapter04.04/)
 
 
 ---

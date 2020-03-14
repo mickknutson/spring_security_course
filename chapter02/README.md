@@ -21,7 +21,7 @@ authentication from the security audit discussed in Chapter 1.
 
 ## Section Chapters
 
-### [Chapter 02.00](./chapter02.00/) (BASE line from chapter01.00)
+### [Chapter 02.00](./chapter02.00/) (BASE line from [Chapter 01.00](./../chapter01/chapter01.00/))
 
 ### [Chapter 02.01](./chapter02.01/) (Enabling Spring Security)
 

@@ -1,13 +1,12 @@
 # Chapter 03.01
 
-## Custom Authentication
-This chapter is the chapter BASE and continues from the previous  
-chapter section, from here, we build on top of this base.
+## Implement custom UserContext
+In this chapter we refactor the UserContext functionality
 
 ## Tasks
 
->* STOPPED HERE
-
+> * Remove UserContextStub.java
+> * Add or Refactor SpringSecurityUserContext.java to get user from SecurityContextHolder
 
 ---
 
