@@ -1,31 +1,22 @@
 # Chapter 04.02
 
-## JDBC-Based Authentication
-This chapter is the chapter BASE and continues from the previous  
-chapter section, from here, we build on top of this base.
+## Configuring group-based access control
+This chapter is the chapter BASE and continues from the previous chapter section, from here, we build on top of this base.
 
 ## Tasks
 
-### No Tasks
-This section does not have any tasks.
-This section is a baseline from:
-> * TBD
+> * Reviewing the UserDetailsManager Interface
+> * Reviewing Group-based access control (GBAC)
+> * Configuring JdbcUserDetailsManager to use groups
+> * Configure the group-based schema
+> * Configure group-based authority mappings DDL
+
+> * Execute/Run the updated code and test
 
 
 ---
 
-# [../](../)
-
-
-* The UserDetailsManager interface
-* Group-based access control
-* Configuring group-based access control
-* Configuring JdbcUserDetailsManager to use groups
-* Utilizing GBAC JDBC scripts
-* The group-based schema
-* Group authority mappings
-
-
+# [../](../README.md)
 
 
 ## Notes:

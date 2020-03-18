@@ -7,7 +7,7 @@ chapter section, from here, we build on top of this base.
 ## Tasks
 
 > * Update EventUserDetailsService to use EventUserDetails
-> * Update CalendarUserDetailsService to return a UserDetails Object that extends AppUser and implements UserDetails in SpringSecurityUserContext.java
+> * Update EventUserDetailsService to return a UserDetails Object that extends AppUser and implements UserDetails in SpringSecurityUserContext
 > * Update header.html to Displaying custom user attributes
 
 > * Execute/Run the updated code and test

@@ -8,8 +8,8 @@ This chapter is the chapter BASE and continues from the previous chapter section
 > * Create Create a DomainUsernamePasswordAuthenticationToken Object
 > * Update EventUserAuthenticationProvider to utilize the domain field
 > * Refactor login.html file and add a new input named domain
-> * create DomainUsernamePasswordAuthenticationFilter.java
-> * updates to our SecurityConfig.java file to support DomainUsernamePasswordAuthenticationFilter
+> * Create DomainUsernamePasswordAuthenticationFilter
+> * Update to our SecurityConfig file to support DomainUsernamePasswordAuthenticationFilter
 
 > * Execute/Run the updated code and test
 

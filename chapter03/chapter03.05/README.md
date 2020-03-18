@@ -5,8 +5,8 @@ This chapter is the chapter BASE and continues from the previous chapter section
 
 ## Tasks
 
-> * Create a new class named EventUserAuthenticationProvider.java
-> * > * Refactor SecurityConfig.java file to refer to our newly created EventUserAuthenticationProvider object
+> * Create a new class named EventUserAuthenticationProvider
+> * Refactor SecurityConfig class to refer to our newly created EventUserAuthenticationProvider object
 
 > * Execute/Run the updated code and test
 

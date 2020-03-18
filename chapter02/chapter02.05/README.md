@@ -9,6 +9,7 @@ In this chapter we understand how to conditionally displaying authentication inf
 > * Update ThymeleafConfig.java
 > * Update /header.html
 
+> * Execute/Run the updated code and test
 
 ---
 

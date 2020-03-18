@@ -8,6 +8,7 @@ In this chapter we refactor the UserContext functionality
 > * Remove UserContextStub.java
 > * Add or Refactor SpringSecurityUserContext.java to get user from SecurityContextHolder
 
+> * Execute/Run the updated code and test
 ---
 
 # [../](../README.md)

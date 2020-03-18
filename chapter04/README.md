@@ -2,17 +2,16 @@
 
 
 ## Section Details
-In the previous chapter, we saw how we can extend Spring Security to utilize our
-CalendarDao interface and our existing domain model to authenticate users. In this
-chapter, we will see how we can use Spring Security's built-in JDBC support. To keep things
-simple, this chapter's sample code is based on our Spring Security setup from Chapter 2,
+In the previous section, we saw how we can extend Spring Security to utilize our
+AppUserDao interface and our existing domain model to authenticate users. In this
+section, we will see how we can use Spring Security's built-in JDBC support.
 
-Getting Started with Spring Security. In this chapter, we will cover the following topics:
+In this section, we will cover the following topics:
 
 * Using Spring Security's built-in JDBC-based authentication support
 * Utilizing Spring Security's group-based authorization to make administering users easier
 * Learning how to use Spring Security's UserDetailsManager interface
-* Configuring Spring Security to utilize the existing CalendarUser schema to authenticate users
+* Configuring Spring Security to utilize the existing AppUser schema to authenticate users
 * Learning how we can secure passwords using Spring Security's new cryptography module
 * Using Spring Security's default JDBC authentication
 
@@ -28,13 +27,13 @@ basic steps for setting up JDBC authentication with Spring Security.
 
 ### [Chapter 04.00](./chapter04.00/) (Base line Starting from [chapter03.05](./../chapter03/chapter03.05/))
 
-### [Chapter 04.01](./chapter04.01/) (TBD)
+### [Chapter 04.01](./chapter04.01/) (Configuring Jdbc Support)
 
-### [Chapter 04.02](./chapter04.02/) (TBD)
+### [Chapter 04.02](./chapter04.02/) (Configuring group-based access control)
 
-### [Chapter 04.03](./chapter04.03/) (TBD)
+### [Chapter 04.03](./chapter04.03/) (Support for a custom schema)
 
-### [Chapter 04.04](./chapter04.04/) (TBD)
+### [Chapter 04.04](./chapter04.04/) (Configuring secure passwords)
 
 
 ---

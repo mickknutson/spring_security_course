@@ -9,6 +9,9 @@ and walk through the basic sections of Spring Security.
 > * Create SecurityConfig.java
 > * Add @EnableWebSecurity
 > * Detail sections of SecurityConfig.java
+> * Run the application Using generated security credentials
+> * Use the AuthenticationManagerBuilder to create a username and password
+> * Run the application with the new username and password
 
 
 ---

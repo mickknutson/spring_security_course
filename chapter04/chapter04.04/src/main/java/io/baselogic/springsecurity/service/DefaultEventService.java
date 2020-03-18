@@ -85,6 +85,15 @@ public class DefaultEventService implements EventService {
         return userDao.findAllByEmail(partialEmail);
     }
 
+    /**
+     * Create User in database
+     *
+     * @param appUser
+     *            the new {@link AppUser} to create. The {@link AppUser#getId()} must be null.
+     * @return Integer Primary Key of newly created User
+     *
+     * @since chapter04.04 added password encoding to User to be created.
+     */
     @Override
     public Integer createUser(final AppUser appUser) {
         String encodedPassword = passwordEncoder.encode(appUser.getPassword());

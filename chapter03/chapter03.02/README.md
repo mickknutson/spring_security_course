@@ -5,9 +5,9 @@ This chapter is the chapter BASE and continues from the previous chapter section
 
 ## Tasks
 
-> * create InMemoryUserDetailsManager outside of the WebSecurityConfigurerAdapter
-> * update our existing EventService implementation, DefaultEventService
-> * Convert AppUser into the Spring User (UserDetails) in SpringSecurityUserContext.java
+> * Create InMemoryUserDetailsManager outside of the WebSecurityConfigurerAdapter
+> * Update our existing EventService implementation, DefaultEventService
+> * Convert AppUser into the Spring User (UserDetails) in SpringSecurityUserContext
 > * Update the RegistrationController
 
 > * Execute/Run the updated code and test

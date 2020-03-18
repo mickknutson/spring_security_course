@@ -1,23 +1,25 @@
 # Chapter 04.01
 
-## JDBC-Based Authentication
+## Configuring Jdbc Support
 This chapter is the chapter BASE and continues from the previous chapter section, from here, we build on top of this base.
 
 ## Tasks
 
-### No Tasks
-
-> * TBD
+> * Updating project dependencies
+> * Configuring an embedded database
+> * Update the default user schema of Spring Security
+> * Review User DDL
+> * Review user authorities DDL
+> * Configuring a Jdbc-based UserDetailsManager
 
 > * Execute/Run the updated code and test
 
 
 ---
 
-# [../](../)
+# [../](../README.md)
 
 
-TODO: Need to revisit:
-* https://dzone.com/articles/password-encoder-migration-with-spring-security-5
+## TODO: Need to revisit:* https://dzone.com/articles/password-encoder-migration-with-spring-security-5
 
 

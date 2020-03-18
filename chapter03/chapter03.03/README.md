@@ -6,8 +6,8 @@ chapter section, from here, we build on top of this base.
 
 ## Tasks
 
-> * Create a new file named EventUserDetailsService.java
-> * Update the SecurityConfig.java to use new UserDetailsService
+> * Create a new class named EventUserDetailsService
+> * Update the SecurityConfig to use new UserDetailsService
 > * remove all references to UserDetailsManager found in DefaultEventService.
 
 > * Execute/Run the updated code and test

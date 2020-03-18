@@ -1,12 +1,11 @@
 # Chapter 05.02
-## JPA-based Authentication
-Refactoring from an RDBMS to a document
-database using MongoDB
+
+## Refactoring from an RDBMS to a document database
+Refactoring from an RDBMS to a document database using MongoDB
 
 ## Tasks
 
-### Updating our dependencies
-Update project dependencies
+### Updating project dependencies
 > * REMOVE spring-boot-starter-data-jpa in [pom.xml](./pom.xml)
 > * REMOVE spring-boot-starter-data-mongodb in [pom.xml](./pom.xml)
 > * ADD spring-boot-starter-data-mongodb in [pom.xml](./pom.xml)
@@ -17,20 +16,17 @@ Update project dependencies
 > * Add Mongo configuration in [application.yml](src/main/resources/application.yml)
 
 ### Initializing the MongoDB database
-TASK Details TBD
-> * TBD
+> * Create MongoData Initializer
 
 ### Mapping domain objects with MongoDB
-TASK Details TBD
 > * TBD
 
-### Spring Data repositories of MongoDB
-TASK Details TBD
+### Refactor JPA repositories to MongoDB
 > * TBD
 
-### Data access objects in MongoDB
-TASK Details TBD
-> * TBD
+### Refactor DAO Services from JPA to MongoDB
+> * Remove JPA DAO implementations
+> * Create Mongo DAO implementations
 
 
 ---

@@ -2,9 +2,11 @@
 
 
 ## Section Details
-In this chapter, we'll apply a minimal Spring Security configuration to start addressing our
-first finding—inadvertent privilege escalation due to a lack of URL protection, and general
-authentication from the security audit discussed in Chapter 1.
+In this section, we'll apply a minimal Spring Security configuration to start addressing our
+first finding—inadvertent privilege escalation due to a lack of URL protection.
+
+In this section, we will cover the following topics:
+
 
 * Implementing a basic level of security on the Event Manager application, using the automatic configuration option in Spring Security
 
@@ -14,7 +16,7 @@ authentication from the security audit discussed in Chapter 1.
 
 * Leveraging the expression-based access controls of Spring Security
 
-* Conditionally displaying basic information about the logged-in user using the JSP library in Spring Security
+* Conditionally displaying basic information about the logged-in user using the Thymeleaf library in Spring Security
 
 * Determining the user's default location after login, based on their role
 

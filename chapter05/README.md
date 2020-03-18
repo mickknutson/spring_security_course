@@ -3,11 +3,11 @@
 
 ## Section Details
 
-In the previous chapter, we covered how to leverage Spring Security's built-in JDBC
-support. In this chapter, we will look at the Spring Data project, and how to leverage JPA to
+In the previous section, we covered how to leverage Spring Security's built-in JDBC
+support. In this section, we will look at the Spring Data project, and how to leverage JPA to
 perform authentication against a relational database. We will also explore how to perform
 authentication against a document database using MongoDB. This chapter's sample code is
-based on the Spring Security setup from Chapter 4, JDBC-Based Authentication, and has
+based on the Spring Security setup from Section 4, JDBC-Based Authentication, and has
 been updated to refactor out the need for SQL and to use ORM for all database interactions.
 During the course of this chapter, we will cover the following topics:
 

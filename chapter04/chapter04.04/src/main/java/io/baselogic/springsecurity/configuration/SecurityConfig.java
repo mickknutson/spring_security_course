@@ -27,11 +27,13 @@ import java.util.Map;
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
+ *
  * @since chapter02.01
  * @since chapter03.05 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  * @since chapter04.00 removed .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  * @since chapter04.01 Exposed 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'
  * @since chapter04.03 Added custom SQL Queries
+ * @since chapter04.04 configured bcrypt passwordEncoder
  */
 @Configuration
 @EnableWebSecurity
