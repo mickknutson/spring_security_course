@@ -11,9 +11,8 @@ that Spring Security uses in order to authenticate users.
 
 During the course of this chapter, we will cover the following topics:
 
-* Leverage Spring Security’s annotations and Java-based configuration
 * Discovering how to obtain the details of the currently logged-in user
-* Adding the ability to log in after creating a new account
+* Adding the ability to log in after creating a new account has been created
 * Learning the simplest method for indicating to Spring Security, that a user is authenticated
 * Creating custom UserDetailsService and AuthenticationProvider implementations that properly decouple the rest of the application from Spring Security
 * Adding domain-based authentication to demonstrate how to authenticate with more than just a username and password

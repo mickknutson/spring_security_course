@@ -7,6 +7,7 @@ first finding—inadvertent privilege escalation due to a lack of URL protection
 
 In this section, we will cover the following topics:
 
+* Leverage Spring Security’s annotations and Java-based configuration
 
 * Implementing a basic level of security on the Event Manager application, using the automatic configuration option in Spring Security
 

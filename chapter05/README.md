@@ -22,6 +22,7 @@ programming model for data access, while still retaining the special traits of t
 data provider.
 
 The following are just a few of the powerful features in this Spring Data project:
+
 * Powerful repository and custom object-mapping abstractions
 * Dynamic query derivation from repository method names
 * Implementation of domain base classes, providing basic properties

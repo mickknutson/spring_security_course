@@ -8,7 +8,7 @@ section, we will see how we can use Spring Security's built-in JDBC support.
 
 In this section, we will cover the following topics:
 
-* Using Spring Security's built-in JDBC-based authentication support
+* Understand Spring Security's built-in JDBC-based authentication support
 * Utilizing Spring Security's group-based authorization to make administering users easier
 * Learning how to use Spring Security's UserDetailsManager interface
 * Configuring Spring Security to utilize the existing AppUser schema to authenticate users

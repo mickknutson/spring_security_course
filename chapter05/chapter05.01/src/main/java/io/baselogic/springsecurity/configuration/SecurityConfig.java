@@ -124,7 +124,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
-
                 .antMatchers("/").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
                 .antMatchers("/registration/*").permitAll()
 

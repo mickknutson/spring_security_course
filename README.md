@@ -10,7 +10,6 @@ This project is the example code for the Spring security course on Udemy.com
 * [Udemy Course Home](https://udemy.com)
 * [Youtube Chanel](https://youtube.com/c/baselogic)
 * [GitHub](https://github.com/mickknutson/spring_security_course)
-* [codecov](https://codecov.io/gh/mickknutson)
 
 This code has been developed in [Maven](http://maven.apache.org) and has
 a sub-project for each chapter milestone.

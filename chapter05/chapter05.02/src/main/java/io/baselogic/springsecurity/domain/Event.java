@@ -1,6 +1,5 @@
 package io.baselogic.springsecurity.domain;
 
-import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.domain.Persistable;

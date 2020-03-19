@@ -6,7 +6,10 @@ import io.baselogic.springsecurity.domain.EventUserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Test Utilities

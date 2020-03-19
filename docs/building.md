@@ -39,15 +39,12 @@ After the application is running, the H2 admin Servlet will be running
 and the console can be accessed via the following URL:
 [http://localhost:8080/admin/h2](http://localhost:8080/admin/h2)
 
+## Using Compass to access in-memory MongoDB
+[https://www.mongodb.com/products/compass](https://www.mongodb.com/products/compass)
 
-# Sections for next course module
-> * Remember-Me Services
-> * Client Certificate Authentication with TLS
-> * -----> Fine-Grained Access Control
-> * Access Control Lists
-> * Custom Authorization
-> * Session Management
-> * Additional Spring Security Features
+Connection:
+
+    mongodb uri localhost:37681
 
 
 ---
