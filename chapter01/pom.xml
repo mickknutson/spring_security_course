@@ -22,14 +22,6 @@
 
 
     <properties>
-        <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
-
-        <!--<spring-boot.version>2.2.1.BUILD-SNAPSHOT</spring-boot.version>
-
-        <webjarsBootstrap.version>4.3.1</webjarsBootstrap.version>
-        <webjarsJquery.version>3.4.1</webjarsJquery.version>
-        <webjarsLocator.version>0.37</webjarsLocator.version>-->
-
         <webjarsBootstrap.version>4.3.1</webjarsBootstrap.version>
         <webjarsJquery.version>3.4.1</webjarsJquery.version>
         <webjarsLocator.version>0.37</webjarsLocator.version>

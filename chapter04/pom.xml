@@ -25,8 +25,6 @@
     </modules>
 
     <properties>
-        <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
-
         <thymeleaf-extras-springsecurity5.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity5.version>
         <thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
 

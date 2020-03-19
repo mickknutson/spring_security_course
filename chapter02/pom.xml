@@ -27,16 +27,8 @@
     </modules>
 
     <properties>
-        <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
-
         <thymeleaf-extras-springsecurity5.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity5.version>
         <thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
-
-        <!--<spring-boot.version>2.2.1.BUILD-SNAPSHOT</spring-boot.version>
-
-        <webjarsBootstrap.version>4.3.1</webjarsBootstrap.version>
-        <webjarsJquery.version>3.4.1</webjarsJquery.version>
-        <webjarsLocator.version>0.37</webjarsLocator.version>-->
 
         <webjarsBootstrap.version>4.3.1</webjarsBootstrap.version>
         <webjarsJquery.version>3.4.1</webjarsJquery.version>
