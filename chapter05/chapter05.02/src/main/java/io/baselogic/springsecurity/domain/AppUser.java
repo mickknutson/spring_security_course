@@ -30,7 +30,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class AppUser implements Persistable<Integer>, Serializable {
 
-//    public AppUser() {}
     @Id
     private Integer id;
 

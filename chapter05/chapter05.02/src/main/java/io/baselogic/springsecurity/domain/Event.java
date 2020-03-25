@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -26,7 +27,7 @@ import java.util.Calendar;
 @Document(collection="events")
 
 // Lombok Annotations:
-//@Builder // NOTE: This does not work with Mongo JPA
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
