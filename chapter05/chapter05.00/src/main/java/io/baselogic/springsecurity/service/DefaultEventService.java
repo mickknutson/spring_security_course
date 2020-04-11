@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
  *
  */
 @Service
+@Validated
 public class DefaultEventService implements EventService {
 
     private final EventDao eventDao;

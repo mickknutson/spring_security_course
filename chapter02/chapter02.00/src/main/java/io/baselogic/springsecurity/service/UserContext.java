@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.service;
 import io.baselogic.springsecurity.domain.AppUser;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.constraints.NotNull;
 
 /**
  * Manages the current {@link AppUser}. This demonstrates how in larger applications it is good to abstract out
@@ -27,6 +28,6 @@ public interface UserContext {
      * @param user the logged in {@link AppUser}. Cannot be null.
      * @throws {@link ConstraintViolationException} if the {@link AppUser} is null.
      */
-    void setCurrentUser(AppUser user);
+    void setCurrentUser(@NotNull(message="user.notNull.key") AppUser appUser);
 
 } // The End...

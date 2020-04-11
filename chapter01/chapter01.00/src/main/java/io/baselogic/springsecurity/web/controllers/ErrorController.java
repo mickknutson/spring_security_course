@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.ConstraintViolationException;
+import java.io.IOException;
+
 /**
  * ErrorController
  *
  * @since chapter01.00
  * @author mickknutson
  */
-@ControllerAdvice
+//@ControllerAdvice
 @Slf4j
 public class ErrorController {
 

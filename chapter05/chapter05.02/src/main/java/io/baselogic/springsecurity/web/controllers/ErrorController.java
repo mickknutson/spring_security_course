@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since chapter01.00
  * @author mickknutson
  */
-@ControllerAdvice
+//@ControllerAdvice
 @Slf4j
 public class ErrorController {
 

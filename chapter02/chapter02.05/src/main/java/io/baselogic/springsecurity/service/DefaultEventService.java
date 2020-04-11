@@ -6,6 +6,7 @@ import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  *
  */
 @Service
+@Validated
 public class DefaultEventService implements EventService {
 
     private final EventDao eventDao;

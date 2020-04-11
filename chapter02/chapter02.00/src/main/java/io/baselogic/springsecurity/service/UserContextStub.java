@@ -4,6 +4,7 @@ import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
  * @author mickknutson
  */
 @Service
+@Validated
 public class UserContextStub implements UserContext {
 
     private final UserDao userService;
@@ -36,9 +38,9 @@ public class UserContextStub implements UserContext {
     }
 
     @Override
-    public final void setCurrentUser(@NotNull(message="user.notNull.key") AppUser user) {
+    public final void setCurrentUser(@NotNull(message="user.notNull.key") AppUser appUser) {
 
-        Integer currentId = user.getId();
+        Integer currentId = appUser.getId();
 
         if(currentId == null) {
             throw new IllegalArgumentException("user.getId() cannot be null");
