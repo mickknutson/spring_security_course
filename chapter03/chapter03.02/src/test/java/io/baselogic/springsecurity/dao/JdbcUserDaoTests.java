@@ -54,14 +54,14 @@ public class JdbcUserDaoTests {
 
     @Test
     public void findByEmail() {
-        AppUser appUser = userDao.findByEmail("user1@example.com");
-        assertThat(appUser.getEmail()).isEqualTo("user1@example.com");
+        AppUser appUser = userDao.findByEmail("user1@baselogic.com");
+        assertThat(appUser.getEmail()).isEqualTo("user1@baselogic.com");
     }
 
 
     @Test
     public void findByEmail_no_results() {
-        AppUser appUser = userDao.findByEmail("foo@example.com");
+        AppUser appUser = userDao.findByEmail("foo@baselogic.com");
         assertThat(appUser).isNull();
     }
 
@@ -69,7 +69,7 @@ public class JdbcUserDaoTests {
 
     @Test
     public void findAllByEmail() {
-        List<AppUser> appUsers = userDao.findAllByEmail("@example");
+        List<AppUser> appUsers = userDao.findAllByEmail("@baselogic");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
 
@@ -82,21 +82,21 @@ public class JdbcUserDaoTests {
 
     @Test
     public void createUser() {
-        List<AppUser> appUsers = userDao.findAllByEmail("@example.com");
+        List<AppUser> appUsers = userDao.findAllByEmail("@baselogic.com");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
 
-        AppUser appUser = TestUtils.createMockUser("test@example.com", "test", "example");
+        AppUser appUser = TestUtils.createMockUser("test@baselogic.com", "test", "example");
         int userId = userDao.save(appUser);
         assertThat(userId).isGreaterThanOrEqualTo(3);
 
-        appUsers = userDao.findAllByEmail("example.com");
+        appUsers = userDao.findAllByEmail("baselogic.com");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
 
     @Test
     public void createUser_with_id() {
         assertThrows(IllegalArgumentException.class, () -> {
-            AppUser appUser = TestUtils.createMockUser("test@example.com", "test", "example");
+            AppUser appUser = TestUtils.createMockUser("test@baselogic.com", "test", "example");
             appUser.setId(12345);
             int userId = userDao.save(appUser);
         });

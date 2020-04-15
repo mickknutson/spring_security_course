@@ -123,7 +123,7 @@ public class DefaultEventServiceTests {
 
         AppUser user = eventService.findUserById(1);
 
-        assertThat(user.getEmail()).isEqualTo("test@example.com");
+        assertThat(user.getEmail()).isEqualTo("test@baselogic.com");
     }
 
     @Test
@@ -132,9 +132,9 @@ public class DefaultEventServiceTests {
         when(userDao.findByEmail(any(String.class)))
                 .thenReturn(TestUtils.testUser1);
 
-        AppUser user = eventService.findUserByEmail("test@example.com");
+        AppUser user = eventService.findUserByEmail("test@baselogic.com");
 
-        assertThat(user.getEmail()).isEqualTo("test@example.com");
+        assertThat(user.getEmail()).isEqualTo("test@baselogic.com");
     }
 
     @Test
@@ -143,7 +143,7 @@ public class DefaultEventServiceTests {
         when(userDao.findAllByEmail(any(String.class)))
                 .thenReturn(TestUtils.TEST_USERS);
 
-        List<AppUser> users = eventService.findUsersByEmail("@example.com");
+        List<AppUser> users = eventService.findUsersByEmail("@baselogic.com");
 
         assertThat(users).isNotEmpty();
         assertThat(users.size()).isGreaterThanOrEqualTo(3);
@@ -164,7 +164,7 @@ public class DefaultEventServiceTests {
     public void createUser_with_id() {
 
         assertThrows(ConstraintViolationException.class, () -> {
-            User user = TestUtils.createMockUser("test@example.com", "test", "example");
+            User user = TestUtils.createMockUser("test@baselogic.com", "test", "example");
             user.setId(12345);
             int userId = eventService.createUser(user);
         });

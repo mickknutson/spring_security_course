@@ -53,7 +53,7 @@ public class DefaultControllerTests {
 
     @Test
     @DisplayName("Default Controller - user1")
-    @WithMockUser("user1@example.com")
+    @WithMockUser("user1@baselogic.com")
     public void defaultRedirect__user1() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isFound())
@@ -65,7 +65,7 @@ public class DefaultControllerTests {
 
     @Test
     @DisplayName("Default Controller - admin1 - ADMIN role only")
-    @WithMockUser(value = "admin1@example.com", roles = {"ADMIN"})
+    @WithMockUser(value = "admin1@baselogic.com", roles = {"ADMIN"})
     public void defaultRedirect__admin1() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isForbidden())
@@ -75,7 +75,7 @@ public class DefaultControllerTests {
 
     @Test
     @DisplayName("Default Controller - admin1 - ADMIN and USER role")
-    @WithMockUser(value = "admin1@example.com", roles = {"USER", "ADMIN"})
+    @WithMockUser(value = "admin1@baselogic.com", roles = {"USER", "ADMIN"})
     public void defaultRedirect__admin1_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isFound())
@@ -93,7 +93,7 @@ public class DefaultControllerTests {
                 .accept(MediaType.TEXT_HTML)
                 .contentType(
                         MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username", "user1@example.com")
+                .param("username", "user1@baselogic.com")
                 .param("password", "user1")
         )
                 .andExpect(status().is3xxRedirection())

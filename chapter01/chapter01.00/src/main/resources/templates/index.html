@@ -18,10 +18,10 @@
     <hr />
     <ul>
         <li><a id="eventsLink" th:href="@{/events/}">All Events</a> - shows all events for all appUsers. Once secured, this will only be viewable by administrators.</li>
-        <li><a id="myEMLink" th:href="@{events/my}">My Events</a> - shows all events that <i>user1@example.com</i> is the owner or attendee. Once we apply security only a logged in appUser
-            will be able to view this page. Additionally, the logged in appUser will be used rather than always using <i>user1@example.com</i></li>
-        <li><a id="createEventLink" th:href="@{events/form}">Create Event</a> - will allow creating a new Event with <i>user1@example.com</i> as the owner. Once we add security, only a logged in
-            appUser will be able to view this page. Additionally, the logged in appUser will be the owner rather than always using <i>user1@example.com</i>.</li>
+        <li><a id="myEMLink" th:href="@{events/my}">My Events</a> - shows all events that <i>user1@baselogic.com</i> is the owner or attendee. Once we apply security only a logged in appUser
+            will be able to view this page. Additionally, the logged in appUser will be used rather than always using <i>user1@baselogic.com</i></li>
+        <li><a id="createEventLink" th:href="@{events/form}">Create Event</a> - will allow creating a new Event with <i>user1@baselogic.com</i> as the owner. Once we add security, only a logged in
+            appUser will be able to view this page. Additionally, the logged in appUser will be the owner rather than always using <i>user1@baselogic.com</i>.</li>
         <li>
             <a id="h2Link" th:href="@{admin/h2/}" target="_blank">H2 Database Console</a> - Allows you to interact with the database using a web console. To use it:
             <ul>

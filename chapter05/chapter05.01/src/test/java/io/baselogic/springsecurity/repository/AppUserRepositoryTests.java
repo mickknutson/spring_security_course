@@ -39,7 +39,7 @@ public class AppUserRepositoryTests {
     @Test
     @DisplayName("AppUserRepository - validateUser_User")
 	public void validateUser_User() {
-        String username = "user1@example.com";
+        String username = "user1@baselogic.com";
         AppUser user = repository.findByEmail(username);
         assertThat(user.getEmail()).isEqualTo(username);
         assertThat(user.getRoles().size()).isEqualTo(1);
@@ -49,7 +49,7 @@ public class AppUserRepositoryTests {
 	@Test
     @DisplayName("AppUserRepository - validateUser_Admin")
 	public void validateUser_Admin() {
-	    String username = "admin1@example.com";
+	    String username = "admin1@baselogic.com";
         AppUser user = repository.findByEmail(username);
         assertThat(user.getEmail()).isEqualTo(username);
         assertThat(user.getRoles().size()).isEqualTo(2);
@@ -80,15 +80,15 @@ public class AppUserRepositoryTests {
     @Test
     @DisplayName("AppUserRepository - findByEmail")
     public void findByEmail() {
-        AppUser appUser = repository.findByEmail("user1@example.com");
-        assertThat(appUser.getEmail()).isEqualTo("user1@example.com");
+        AppUser appUser = repository.findByEmail("user1@baselogic.com");
+        assertThat(appUser.getEmail()).isEqualTo("user1@baselogic.com");
     }
 
 
     @Test
     @DisplayName("AppUserRepository - findByEmail - email not found")
     public void findByEmail_no_results() {
-        AppUser appUser = repository.findByEmail("foo@example.com");
+        AppUser appUser = repository.findByEmail("foo@baselogic.com");
         assertThat(appUser).isNull();
     }
 
@@ -96,7 +96,7 @@ public class AppUserRepositoryTests {
     @Test
     @DisplayName("AppUserRepository - findAllByEmail")
     public void findAllByEmail() {
-        List<AppUser> appUsers = repository.findAllByEmailContaining("@example");
+        List<AppUser> appUsers = repository.findAllByEmailContaining("@baselogic");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
 
@@ -111,14 +111,14 @@ public class AppUserRepositoryTests {
     @Test
     @DisplayName("AppUserRepository - create User")
     public void createUser() {
-        List<AppUser> appUsers = repository.findAllByEmailContaining("@example.com");
+        List<AppUser> appUsers = repository.findAllByEmailContaining("@baselogic.com");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
 
-        AppUser appUser = TestUtils.createMockUser("test@example.com", "test", "example");
+        AppUser appUser = TestUtils.createMockUser("test@baselogic.com", "test", "example");
         int userId = repository.save(appUser).getId();
         assertThat(userId).isGreaterThanOrEqualTo(3);
 
-        appUsers = repository.findAllByEmailContaining("example.com");
+        appUsers = repository.findAllByEmailContaining("baselogic.com");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(4);
     }
 
@@ -129,7 +129,7 @@ public class AppUserRepositoryTests {
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
 
 //        assertThrows(IllegalArgumentException.class, () -> {
-            AppUser appUser = TestUtils.createMockUser("test@example.com", "test", "example");
+            AppUser appUser = TestUtils.createMockUser("test@baselogic.com", "test", "example");
             appUser.setId(12345);
             int userId = repository.save(appUser).getId();
 //        });

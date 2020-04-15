@@ -16,10 +16,10 @@ INSERT INTO group_authorities(group_id, authority) SELECT id,'ROLE_ADMIN' FROM g
 
 -----
 -- Map the users to Groups
-INSERT INTO group_members(group_id, username) SELECT id,'user1@example.com' FROM groups WHERE group_name='Users';
-INSERT INTO group_members(group_id, username) SELECT id,'admin1@example.com' FROM groups WHERE group_name='Administrators';
-INSERT INTO group_members(group_id, username) SELECT id,'user2@example.com' FROM groups WHERE group_name='Users';
-INSERT INTO group_members(group_id, username) SELECT id,'disabled1@example.com' FROM groups WHERE group_name='Users';
+INSERT INTO group_members(group_id, username) SELECT id,'user1@baselogic.com' FROM groups WHERE group_name='Users';
+INSERT INTO group_members(group_id, username) SELECT id,'admin1@baselogic.com' FROM groups WHERE group_name='Administrators';
+INSERT INTO group_members(group_id, username) SELECT id,'user2@baselogic.com' FROM groups WHERE group_name='Users';
+INSERT INTO group_members(group_id, username) SELECT id,'disabled1@baselogic.com' FROM groups WHERE group_name='Users';
 
 INSERT INTO group_members(group_id, username) SELECT id,'admin' FROM groups WHERE group_name='Administrators';
 

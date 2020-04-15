@@ -61,14 +61,14 @@ public class JdbcUserDaoTests {
 
     @Test
     public void findByEmail() {
-        AppUser user = userDao.findByEmail("user1@example.com");
-        assertThat(user.getEmail()).isEqualTo("user1@example.com");
+        AppUser user = userDao.findByEmail("user1@baselogic.com");
+        assertThat(user.getEmail()).isEqualTo("user1@baselogic.com");
     }
 
 
     @Test
     public void findByEmail_no_results() {
-        AppUser user = userDao.findByEmail("foo@example.com");
+        AppUser user = userDao.findByEmail("foo@baselogic.com");
         assertThat(user).isNull();
     }
 
@@ -76,7 +76,7 @@ public class JdbcUserDaoTests {
 
     @Test
     public void findAllByEmail() {
-        List<AppUser> users = userDao.findAllByEmail("@example");
+        List<AppUser> users = userDao.findAllByEmail("@baselogic");
         assertThat(users.size()).isEqualTo(3);
     }
 
@@ -89,21 +89,21 @@ public class JdbcUserDaoTests {
 
     @Test
     public void createUser() {
-        List<AppUser> users = userDao.findAllByEmail("@example.com");
+        List<AppUser> users = userDao.findAllByEmail("@baselogic.com");
         assertThat(users.size()).isEqualTo(3);
 
-        AppUser user = TestUtils.createMockUser("test@example.com", "test", "example");
+        AppUser user = TestUtils.createMockUser("test@baselogic.com", "test", "example");
         int userId = userDao.save(user);
         assertThat(userId).isGreaterThanOrEqualTo(3);
 
-        users = userDao.findAllByEmail("example.com");
+        users = userDao.findAllByEmail("baselogic.com");
         assertThat(users.size()).isEqualTo(4);
     }
 
     @Test
     public void createUser_with_id() {
         assertThrows(IllegalArgumentException.class, () -> {
-            AppUser user = TestUtils.createMockUser("test@example.com", "test", "example");
+            AppUser user = TestUtils.createMockUser("test@baselogic.com", "test", "example");
             user.setId(12345);
             int userId = userDao.save(user);
         });

@@ -88,7 +88,7 @@ public class EventUserAuthenticationProviderTests {
 
         Authentication authentication =
                 new  DomainUsernamePasswordAuthenticationToken("user1",
-                        "user1", "example.com");
+                        "user1", "baselogic.com");
 
         assertThrows(UsernameNotFoundException.class, () -> {
             Authentication result = authenticationProvider.authenticate(authentication);
@@ -106,7 +106,7 @@ public class EventUserAuthenticationProviderTests {
 
         Authentication authentication =
                 new  DomainUsernamePasswordAuthenticationToken("test",
-                        "password", "example.com");
+                        "password", "baselogic.com");
 
         assertThrows(BadCredentialsException.class, () -> {
             Authentication result = authenticationProvider.authenticate(authentication);

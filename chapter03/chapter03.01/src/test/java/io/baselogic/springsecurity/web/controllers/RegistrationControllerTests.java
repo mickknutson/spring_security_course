@@ -91,7 +91,7 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute("chuck@example.com");
+        email.setValueAttribute("chuck@baselogic.com");
 
         HtmlInput password = page.getHtmlElementById("password");
         password.setValueAttribute("some password");
@@ -125,7 +125,7 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute("chuck@example.com");
+        email.setValueAttribute("chuck@baselogic.com");
 
         HtmlInput password = page.getHtmlElementById("password");
         password.setValueAttribute("some password");
@@ -281,7 +281,7 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute("test@example.com");
+        email.setValueAttribute("test@baselogic.com");
 
 //        HtmlInput password = page.getHtmlElementById("password");
 //        password.setValueAttribute("some password");

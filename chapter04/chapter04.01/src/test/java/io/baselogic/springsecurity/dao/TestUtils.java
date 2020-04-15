@@ -22,28 +22,28 @@ public interface TestUtils {
 
     public static final AppUser TEST_APP_USER_1 = new AppUser(){{
         setId(42);
-        setEmail("test@example.com");
+        setEmail("test@baselogic.com");
         setPassword("test");
     }};
 
     public static final AppUser attendee = new AppUser(){{
         setId(0);
-        setEmail("user1@example.com");
+        setEmail("user1@baselogic.com");
         setPassword("user1");
     }};
     public static final AppUser owner = new AppUser(){{
         setId(1);
-        setEmail("admin1@example.com");
+        setEmail("admin1@baselogic.com");
         setPassword("admin1");
     }};
     public static final AppUser APP_USER_1 = new AppUser(){{
         setId(1);
-        setEmail("user1@example.com");
+        setEmail("user1@baselogic.com");
         setPassword("user1");
     }};
     public static final AppUser admin1 = new AppUser(){{
         setId(1);
-        setEmail("admin1@example.com");
+        setEmail("admin1@baselogic.com");
         setPassword("admin1");
     }};
 

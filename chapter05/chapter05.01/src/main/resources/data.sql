@@ -5,9 +5,9 @@
 
 -- appUsers Data
 -- Password for user1 was 'user1'
-INSERT INTO app_users (id,email,password,first_name,last_name) VALUES (0,'user1@example.com','{bcrypt}$2a$04$gBdMIzQ5P2Ffb4L/epcKSOiYRlwPcUKx1jlfENvOUMpSAm4PsRdK2','User','One');
-INSERT INTO app_users (id,email,password,first_name,last_name) VALUES (1,'admin1@example.com','{bcrypt}$2a$04$bGt.Kbtc8OaqzzjFqAzLwu5tc90IpYD5P5hSB61ZmjpIyo4.nlub6','Admin','One');
-INSERT INTO app_users (id,email,password,first_name,last_name) VALUES (2,'user2@example.com','{bcrypt}$2a$04$erLmf9XQ3hPLDBb0eTdpReVVwESHmeMUrCnR722EEgVUfC95NU3Ra','User','Two');
+INSERT INTO app_users (id,email,password,first_name,last_name) VALUES (0,'user1@baselogic.com','{bcrypt}$2a$04$gBdMIzQ5P2Ffb4L/epcKSOiYRlwPcUKx1jlfENvOUMpSAm4PsRdK2','User','One');
+INSERT INTO app_users (id,email,password,first_name,last_name) VALUES (1,'admin1@baselogic.com','{bcrypt}$2a$04$bGt.Kbtc8OaqzzjFqAzLwu5tc90IpYD5P5hSB61ZmjpIyo4.nlub6','Admin','One');
+INSERT INTO app_users (id,email,password,first_name,last_name) VALUES (2,'user2@baselogic.com','{bcrypt}$2a$04$erLmf9XQ3hPLDBb0eTdpReVVwESHmeMUrCnR722EEgVUfC95NU3Ra','User','Two');
 
 -- ROLES --
 INSERT INTO roles (id, name) values (0, 'ROLE_USER');

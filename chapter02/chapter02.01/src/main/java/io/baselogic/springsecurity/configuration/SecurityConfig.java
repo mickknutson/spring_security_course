@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <code>
      *     am.inMemoryAuthentication()
      *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
-     *          .withUser("user1@example.com").password("user1").roles(ROLE_USER);
+     *          .withUser("user1@baselogic.com").password("user1").roles(ROLE_USER);
      * </code>
      *
      * @param am       AuthenticationManagerBuilder
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
         am.inMemoryAuthentication()
-                .withUser("user1@example.com").password("{noop}user1").roles(ROLE_USER);
+                .withUser("user1@baselogic.com").password("{noop}user1").roles(ROLE_USER);
     }
 
     /**

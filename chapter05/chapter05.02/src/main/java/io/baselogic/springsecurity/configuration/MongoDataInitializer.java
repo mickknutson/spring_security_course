@@ -54,9 +54,9 @@ public class MongoDataInitializer {
 
     // AppUsers
     {
-        user1 = new AppUser(0, "user1@example.com","{bcrypt}$2a$04$qr7RWyqOnWWC1nwotUW1nOe1RD5.mKJVHK16WZy6v49pymu1WDHmi","User","1");
-        admin1 = new AppUser(1,"admin1@example.com","{bcrypt}$2a$04$0CF/Gsquxlel3fWq5Ic/ZOGDCaXbMfXYiXsviTNMQofWRXhvJH3IK","Admin","1");
-        user2 = new AppUser(2,"user2@example.com","{bcrypt}$2a$04$PiVhNPAxunf0Q4IMbVeNIuH4M4ecySWHihyrclxW..PLArjLbg8CC","User2","2");
+        user1 = new AppUser(0, "user1@baselogic.com","{bcrypt}$2a$04$qr7RWyqOnWWC1nwotUW1nOe1RD5.mKJVHK16WZy6v49pymu1WDHmi","User","1");
+        admin1 = new AppUser(1,"admin1@baselogic.com","{bcrypt}$2a$04$0CF/Gsquxlel3fWq5Ic/ZOGDCaXbMfXYiXsviTNMQofWRXhvJH3IK","Admin","1");
+        user2 = new AppUser(2,"user2@baselogic.com","{bcrypt}$2a$04$PiVhNPAxunf0Q4IMbVeNIuH4M4ecySWHihyrclxW..PLArjLbg8CC","User2","2");
 
     }
 

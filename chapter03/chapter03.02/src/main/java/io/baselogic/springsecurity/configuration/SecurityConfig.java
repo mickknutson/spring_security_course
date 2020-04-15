@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <code>
      *     am.inMemoryAuthentication()
      *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
-     *          .withUser("user1@example.com").password("user1").roles(ROLE_USER);
+     *          .withUser("user1@baselogic.com").password("user1").roles(ROLE_USER);
      * </code>
      *
      * @param am       AuthenticationManagerBuilder
@@ -60,8 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         am.userDetailsService(userDetailsService());
 
-        log.debug("***** Password for user 'user1@example.com' is 'user1'");
-        log.debug("***** Password for admin 'admin1@example.com' is 'admin1'");
+        log.debug("***** Password for user 'user1@baselogic.com' is 'user1'");
+        log.debug("***** Password for admin 'admin1@baselogic.com' is 'admin1'");
     }
 
     /**
@@ -82,8 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("user").password("{noop}password").roles(ROLE_USER).build());
         manager.createUser(User.withUsername("admin").password("{noop}admin").roles(ROLE_USER, ROLE_ADMIN).build());
-        manager.createUser(User.withUsername("user1@example.com").password("{noop}user1").roles(ROLE_USER).build());
-        manager.createUser(User.withUsername("admin1@example.com").password("{noop}admin1").roles(ROLE_USER, ROLE_ADMIN).build());
+        manager.createUser(User.withUsername("user1@baselogic.com").password("{noop}user1").roles(ROLE_USER).build());
+        manager.createUser(User.withUsername("admin1@baselogic.com").password("{noop}admin1").roles(ROLE_USER, ROLE_ADMIN).build());
         return manager;
     }
 

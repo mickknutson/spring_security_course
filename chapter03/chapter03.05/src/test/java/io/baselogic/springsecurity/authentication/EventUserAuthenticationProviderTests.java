@@ -88,7 +88,7 @@ public class EventUserAuthenticationProviderTests {
                 .willReturn(null);
 
         Authentication authentication =
-                new  UsernamePasswordAuthenticationToken("user1@example.com",
+                new  UsernamePasswordAuthenticationToken("user1@baselogic.com",
                         "user1");
 
         assertThrows(UsernameNotFoundException.class, () -> {
@@ -106,7 +106,7 @@ public class EventUserAuthenticationProviderTests {
                 .willReturn(testAppUser1);
 
         Authentication authentication =
-                new  UsernamePasswordAuthenticationToken("test@example.com",
+                new  UsernamePasswordAuthenticationToken("test@baselogic.com",
                         "password");
 
         assertThrows(BadCredentialsException.class, () -> {

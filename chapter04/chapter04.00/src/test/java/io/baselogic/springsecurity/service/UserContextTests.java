@@ -92,7 +92,7 @@ public class UserContextTests {
 
     //@Test
     @DisplayName("getCurrentUser - null User email - returns null")
-    @WithMockUser("user1@example.com")
+    @WithMockUser("user1@baselogic.com")
     public void getCurrentUser__null_user_email() {
 
         // Expectation
@@ -111,11 +111,11 @@ public class UserContextTests {
 
     @Test
     @DisplayName("getCurrentUser - throws IllegalStateException")
-    @WithMockUser("test@example.com")
+    @WithMockUser("test@baselogic.com")
     public void getCurrentUser__throws_IllegalStateException() {
 
         AppUser appUser = new AppUser();
-        appUser.setEmail("test@example.com");
+        appUser.setEmail("test@baselogic.com");
 
 
         // Expectation

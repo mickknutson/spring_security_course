@@ -50,7 +50,7 @@ public class WelcomeControllerTests {
 //                // for illustration only - defaults to ""
 //                .contextPath("")
 //                // By default MockMvc is used for localhost only;
-//                // the following will use MockMvc for example.com and example.org as well
+//                // the following will use MockMvc for baselogic.com and example.org as well
 //                // .useMockMvcForHosts("baselogic.io","baselogic.com")
 //                .build();
 //    }

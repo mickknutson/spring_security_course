@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <code>
      *     am.inMemoryAuthentication()
      *          .passwordEncoder(NoOpPasswordEncoder.getInstance())
-     *          .withUser("user1@example.com").password("user1").roles(ROLE_USER);
+     *          .withUser("user1@baselogic.com").password("user1").roles(ROLE_USER);
      * </code>
      *
      * @param am       AuthenticationManagerBuilder
@@ -49,12 +49,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         am.inMemoryAuthentication()
                 .withUser("user").password("{noop}user").roles(ROLE_USER)
                 .and().withUser("admin").password("{noop}admin").roles(ROLE_ADMIN)
-                .and().withUser("user1@example.com").password("{noop}user1").roles(ROLE_USER)
-                .and().withUser("admin1@example.com").password("{noop}admin1").roles(ROLE_USER, ROLE_ADMIN)
+                .and().withUser("user1@baselogic.com").password("{noop}user1").roles(ROLE_USER)
+                .and().withUser("admin1@baselogic.com").password("{noop}admin1").roles(ROLE_USER, ROLE_ADMIN)
         ;
 
-        log.debug("***** Password for user 'user1@example.com' is 'user1'");
-        log.debug("***** Password for admin 'admin1@example.com' is 'admin1'");
+        log.debug("***** Password for user 'user1@baselogic.com' is 'user1'");
+        log.debug("***** Password for admin 'admin1@baselogic.com' is 'admin1'");
     }
 
     /**

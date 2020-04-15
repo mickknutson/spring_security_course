@@ -104,7 +104,7 @@ public class EventsControllerTests {
 
         String summary = page.getHtmlElementById("description").getTextContent();
         assertThat(summary).contains("Below you can find the events for");
-        assertThat(summary).contains("user1@example.com");
+        assertThat(summary).contains("user1@baselogic.com");
     }
 
     //-----------------------------------------------------------------------//
@@ -197,7 +197,7 @@ public class EventsControllerTests {
                 .contains("Create Event");
 
         HtmlInput email = page.getHtmlElementById("attendeeEmail");
-        email.setValueAttribute("user2@example.com");
+        email.setValueAttribute("user2@baselogic.com");
 
         HtmlInput when = page.getHtmlElementById("when");
         when.setValueAttribute("2020-07-03 00:00:01");
@@ -226,7 +226,7 @@ public class EventsControllerTests {
                 .contains("Create Event");
 
 //        HtmlInput email = page.getHtmlElementById("attendeeEmail");
-//        email.setValueAttribute("user2@example.com");
+//        email.setValueAttribute("user2@baselogic.com");
 
         HtmlInput when = page.getHtmlElementById("when");
         when.setValueAttribute("2020-07-03 00:00:01");
@@ -258,7 +258,7 @@ public class EventsControllerTests {
                 .contains("Create Event");
 
         HtmlInput email = page.getHtmlElementById("attendeeEmail");
-        email.setValueAttribute("notfound@example.com");
+        email.setValueAttribute("notfound@baselogic.com");
 
         HtmlInput when = page.getHtmlElementById("when");
         when.setValueAttribute("2020-07-03 00:00:01");
@@ -293,7 +293,7 @@ public class EventsControllerTests {
                 .contains("Create Event");
 
         HtmlInput email = page.getHtmlElementById("attendeeEmail");
-        email.setValueAttribute("user2@example.com");
+        email.setValueAttribute("user2@baselogic.com");
 
 //        HtmlInput when = page.getHtmlElementById("when");
 //        when.setValueAttribute("2020-07-03 00:00:01");
@@ -330,7 +330,7 @@ public class EventsControllerTests {
                 .contains("Create Event");
 
         HtmlInput email = page.getHtmlElementById("attendeeEmail");
-        email.setValueAttribute("user2@example.com");
+        email.setValueAttribute("user2@baselogic.com");
 
         HtmlInput when = page.getHtmlElementById("when");
         when.setValueAttribute("2020-07-03 00:00:01");
@@ -367,7 +367,7 @@ public class EventsControllerTests {
                 .contains("Create Event");
 
         HtmlInput email = page.getHtmlElementById("attendeeEmail");
-        email.setValueAttribute("user2@example.com");
+        email.setValueAttribute("user2@baselogic.com");
 
         HtmlInput when = page.getHtmlElementById("when");
         when.setValueAttribute("2020-07-03 00:00:01");
