@@ -71,7 +71,7 @@
 
     <build>
 
-        <plugins>
+        <!--<plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -82,7 +82,7 @@
                     <workingDirectory>${project.build.outputDirectory}/FORK_DIRECTORY_${surefire.forkNumber}</workingDirectory>
                 </configuration>
             </plugin>
-        </plugins>
+        </plugins>-->
 
         <pluginManagement>
             <plugins>
