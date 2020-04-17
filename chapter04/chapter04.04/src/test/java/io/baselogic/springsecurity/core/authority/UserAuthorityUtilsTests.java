@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +23,8 @@ public class UserAuthorityUtilsTests {
     @Test
     @DisplayName("UserAuthorityUtilsTests - createAuthorities")
     public void createAuthorities() {
-        UserAuthorityUtils.createAuthorities(TestUtils.user1);
+        Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(TestUtils.user1);
+        assertThat(authorities.size()).isEqualTo(1);
     }
 
 

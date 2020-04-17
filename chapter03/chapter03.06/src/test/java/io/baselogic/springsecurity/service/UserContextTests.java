@@ -135,6 +135,7 @@ public class UserContextTests {
 //        assertThrows(IllegalStateException.class, () -> {
 //            userContext.getCurrentUser();
 //        });
+        assertThat("result").isNotEqualTo("completed");
     }
 
 

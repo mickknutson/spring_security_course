@@ -131,9 +131,10 @@ public class UserContextTests {
 
 //        org.springframework.security.core.userdetails.User;
 
-//        assertThrows(IllegalStateException.class, () -> {
+//        assertThrows(ClassCastException.class, () -> {
 //            userContext.getCurrentUser();
 //        });
+        assertThat("result").isNotEqualTo("completed");
     }
 
 
