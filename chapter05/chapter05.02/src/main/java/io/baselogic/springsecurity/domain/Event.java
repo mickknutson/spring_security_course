@@ -52,7 +52,7 @@ public class Event implements Persistable<Integer>, Serializable {
     @DBRef
     private AppUser attendee;
 
-    private Boolean persisted = Boolean.FALSE;
+    private boolean persisted = false;
 
 
     @PersistenceConstructor

@@ -23,6 +23,11 @@ public interface TestUtils {
     public static final AppUser TEST_APP_USER_1 = new AppUser(){{
         setId(42);
         setEmail("test@baselogic.com");
+    }};
+
+    public static final AppUser testUser1 = new AppUser(){{
+        setId(42);
+        setEmail("test@baselogic.com");
         setPassword("test");
     }};
 
@@ -36,7 +41,7 @@ public interface TestUtils {
         setEmail("admin1@baselogic.com");
         setPassword("admin1");
     }};
-    public static final AppUser APP_USER_1 = new AppUser(){{
+    public static final AppUser user1 = new AppUser(){{
         setId(1);
         setEmail("user1@baselogic.com");
         setPassword("user1");
@@ -47,7 +52,7 @@ public interface TestUtils {
         setPassword("admin1");
     }};
 
-    public static final EventUserDetails user1UserDetails = new EventUserDetails(APP_USER_1);
+    public static final EventUserDetails user1UserDetails = new EventUserDetails(user1);
     public static final EventUserDetails admin1UserDetails = new EventUserDetails(admin1);
     public static final User springUserUser = new User("username",
             "password",
@@ -57,20 +62,22 @@ public interface TestUtils {
             true,
             new HashSet<GrantedAuthority>());
 
+    public static final Event testEvent = Event.builder()
+            .id(42)
+            .attendee(attendee)
+            .owner(owner)
+            .build();
 
-    public static final Event testEvent = new Event(){{
-        setId(42);
-        setAttendee(attendee);
-        setOwner(owner);
-    }};
 
-    public static final Event testEvent2 = new Event(){{
-        setId(24);
-        setAttendee(attendee);
-        setOwner(owner);
-    }};
+    public static final Event testEvent2 = Event.builder()
+            .id(24)
+            .attendee(attendee)
+            .owner(owner)
+            .build();
 
     List<Event> TEST_EVENTS = Arrays.asList(testEvent, testEvent2);
+
+    List<AppUser> TEST_USERS = Arrays.asList(testUser1, attendee, owner);
 
     List<AppUser> TEST_APP_USERS = Arrays.asList(TEST_APP_USER_1, attendee, owner);
 
@@ -79,14 +86,13 @@ public interface TestUtils {
                                  AppUser attendee,
                                  String summary
     ) {
-        Event event = new Event();
-        event.setSummary(summary);
-        event.setDescription("testing + " + summary);
-        event.setWhen(Calendar.getInstance());
-        event.setAttendee(attendee);
-        event.setOwner(owner);
-
-        return event;
+        return Event.builder()
+                .summary(summary)
+                .description("testing + " + summary)
+                .when(Calendar.getInstance())
+                .attendee(attendee)
+                .owner(owner)
+                .build();
 
     }
 
@@ -94,12 +100,12 @@ public interface TestUtils {
                                   String firstName,
                                   String lastName
     ) {
-        AppUser appUser = new AppUser();
-        appUser.setEmail(email);
-        appUser.setPassword("*****");
-        appUser.setFirstName(firstName);
-        appUser.setLastName(lastName);
-        return appUser;
+        AppUser user = new AppUser();
+        user.setEmail(email);
+        user.setPassword("*****");
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        return user;
     }
 
 } // The End...

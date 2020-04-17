@@ -9,6 +9,11 @@ import java.util.List;
 
 public interface TestUtils {
 
+    public static final AppUser TEST_APP_USER_1 = new AppUser(){{
+        setId(42);
+        setEmail("test@baselogic.com");
+    }};
+
     public static final AppUser testUser1 = new AppUser(){{
         setId(42);
         setEmail("test@baselogic.com");
@@ -53,6 +58,8 @@ public interface TestUtils {
     List<Event> TEST_EVENTS = Arrays.asList(testEvent, testEvent2);
 
     List<AppUser> TEST_USERS = Arrays.asList(testUser1, attendee, owner);
+
+    List<AppUser> TEST_APP_USERS = Arrays.asList(TEST_APP_USER_1, attendee, owner);
 
 
     static Event createMockEvent(AppUser owner,

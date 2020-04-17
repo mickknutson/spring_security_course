@@ -1,7 +1,9 @@
 package io.baselogic.springsecurity.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -16,9 +18,11 @@ import java.util.Calendar;
  * @author mickknutson
  *
  */
+// Lombok Annotations:
 @Data
 @Builder
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class Event implements Serializable {
 
     private Integer id;

@@ -47,7 +47,7 @@ public class EventUserDetailsServiceTests {
 
     @BeforeEach
     public void beforeEachTest() {
-        appUser1 = TestUtils.APP_USER_1;
+        appUser1 = TestUtils.user1;
         testAppUser1 = TestUtils.TEST_APP_USER_1;
     }
 
@@ -60,9 +60,9 @@ public class EventUserDetailsServiceTests {
 
         // Expectation
         given(userDao.findByEmail(any(String.class)))
-                .willReturn(TestUtils.APP_USER_1);
+                .willReturn(TestUtils.user1);
 
-        UserDetails result = eventUserDetailsService.loadUserByUsername(TestUtils.APP_USER_1.getEmail());
+        UserDetails result = eventUserDetailsService.loadUserByUsername(TestUtils.user1.getEmail());
 
         assertThat(result).isNotNull();
     }

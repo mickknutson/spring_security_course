@@ -20,14 +20,14 @@ public class UserAuthorityUtilsTests {
     @Test
     @DisplayName("UserAuthorityUtilsTests - createAuthorities")
     public void createAuthorities() {
-        UserAuthorityUtils.createAuthorities(TestUtils.APP_USER_1);
+        UserAuthorityUtils.createAuthorities(TestUtils.user1);
     }
 
 
     @Test
     @DisplayName("UserAuthorityUtilsTests - getUserEmail - AppUser")
     public void getUserEmail_AppUser() {
-        String result = UserAuthorityUtils.getUserEmail(TestUtils.APP_USER_1);
+        String result = UserAuthorityUtils.getUserEmail(TestUtils.user1);
 
         assertThat(result).isNull();
     }
@@ -37,7 +37,7 @@ public class UserAuthorityUtilsTests {
     public void getUserEmail_UserDetails_User() {
         String result = UserAuthorityUtils.getUserEmail(TestUtils.user1UserDetails);
 
-        assertThat(result).isEqualTo(TestUtils.APP_USER_1.getEmail());
+        assertThat(result).isEqualTo(TestUtils.user1.getEmail());
     }
 
     @Test

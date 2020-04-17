@@ -43,7 +43,6 @@ public class EventsControllerTests {
 
     private WebClient webClient;
 
-    private static final String USER = TestUtils.APP_USER_1.getEmail();
     private EventUserDetails user1UserDetails;
     private EventUserDetails admin1UserDetails;
 

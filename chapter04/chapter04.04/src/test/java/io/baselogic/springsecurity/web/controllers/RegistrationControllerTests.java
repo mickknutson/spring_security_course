@@ -243,7 +243,7 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute(TestUtils.APP_USER_1.getEmail());
+        email.setValueAttribute(TestUtils.user1.getEmail());
 
         HtmlInput password = page.getHtmlElementById("password");
         password.setValueAttribute("some password");

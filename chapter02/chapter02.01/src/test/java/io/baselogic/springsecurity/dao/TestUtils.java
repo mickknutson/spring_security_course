@@ -7,9 +7,20 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Test Utilities
+ * @author mickknutson
+ *
+ * @since chapter01.00
+ */
 public interface TestUtils {
 
     public static final AppUser TEST_APP_USER_1 = new AppUser(){{
+        setId(42);
+        setEmail("test@baselogic.com");
+    }};
+
+    public static final AppUser testUser1 = new AppUser(){{
         setId(42);
         setEmail("test@baselogic.com");
         setPassword("test");
@@ -25,7 +36,7 @@ public interface TestUtils {
         setEmail("admin1@baselogic.com");
         setPassword("admin1");
     }};
-    public static final AppUser APP_USER_1 = new AppUser(){{
+    public static final AppUser user1 = new AppUser(){{
         setId(1);
         setEmail("user1@baselogic.com");
         setPassword("user1");
@@ -52,6 +63,8 @@ public interface TestUtils {
 
     List<Event> TEST_EVENTS = Arrays.asList(testEvent, testEvent2);
 
+    List<AppUser> TEST_USERS = Arrays.asList(testUser1, attendee, owner);
+
     List<AppUser> TEST_APP_USERS = Arrays.asList(TEST_APP_USER_1, attendee, owner);
 
 
@@ -73,12 +86,12 @@ public interface TestUtils {
                                   String firstName,
                                   String lastName
     ) {
-        AppUser appUser = new AppUser();
-        appUser.setEmail(email);
-        appUser.setPassword("*****");
-        appUser.setFirstName(firstName);
-        appUser.setLastName(lastName);
-        return appUser;
+        AppUser user = new AppUser();
+        user.setEmail(email);
+        user.setPassword("*****");
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        return user;
     }
 
 } // The End...

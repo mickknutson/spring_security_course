@@ -6,8 +6,6 @@ import io.baselogic.springsecurity.dao.UserDao;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.when;
+import static org.mockito.Mockito.verify;
 
 /**
  * DefaultEventServiceTests
@@ -44,18 +43,6 @@ public class DefaultEventServiceTests {
     private EventService eventService;
 
 
-    //-----------------------------------------------------------------------//
-
-    private AppUser appUser1 = new AppUser();
-    private AppUser testAppUser1 = new AppUser();
-
-
-    @BeforeEach
-    public void beforeEachTest() {
-        appUser1 = TestUtils.APP_USER_1;
-        testAppUser1 = TestUtils.TEST_APP_USER_1;
-    }
-
     //-------------------------------------------------------------------------
 
     @Test
@@ -74,9 +61,14 @@ public class DefaultEventServiceTests {
         given(eventDao.findById(any(Integer.class)))
                 .willReturn(TestUtils.testEvent);
 
+
+        // Execute test code
         Event event = eventService.findEventById(100);
 
+        // Validate assertions
         assertThat(event).isNotNull();
+
+        verify(eventDao).findById(any(Integer.class));
     }
 
     @Test
@@ -89,6 +81,8 @@ public class DefaultEventServiceTests {
 
         assertThat(events).isNotEmpty();
         assertThat(events.size()).isGreaterThanOrEqualTo(2);
+
+        verify(eventDao).findByUser(any(Integer.class));
     }
 
     @Test
@@ -101,6 +95,8 @@ public class DefaultEventServiceTests {
 
         assertThat(events).isNotEmpty();
         assertThat(events.size()).isGreaterThanOrEqualTo(2);
+
+        verify(eventDao).findAll();
     }
 
     @Test
@@ -112,6 +108,8 @@ public class DefaultEventServiceTests {
         int id = eventService.createEvent(Event.builder().build());
 
         assertThat(id).isEqualTo(42);
+
+        verify(eventDao).save(any(Event.class));
     }
 
     /*@Test
@@ -124,6 +122,8 @@ public class DefaultEventServiceTests {
         assertThrows(ConstraintViolationException.class, () -> {
             eventService.createEvent(null);
         });
+
+        verify(eventDao).save(any(Event.class));
     }*/
 
 
@@ -138,6 +138,8 @@ public class DefaultEventServiceTests {
         AppUser appUser = eventService.findUserById(1);
 
         assertThat(appUser.getEmail()).isEqualTo("test@baselogic.com");
+
+        verify(userDao).findById(1);
     }
 
     @Test
@@ -149,6 +151,8 @@ public class DefaultEventServiceTests {
         AppUser appUser = eventService.findUserByEmail("test@baselogic.com");
 
         assertThat(appUser.getEmail()).isEqualTo("test@baselogic.com");
+
+        verify(userDao).findByEmail(any(String.class));
     }
 
     @Test
@@ -161,17 +165,34 @@ public class DefaultEventServiceTests {
 
         assertThat(appUsers).isNotEmpty();
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
-    }
 
-    //-------------------------------------------------------------------------
+        verify(userDao).findAllByEmail("@baselogic.com");
+    }
 
     @Test
-    @DisplayName("Create User")
     public void createUser() {
 
-        Integer result = eventService.createUser(testAppUser1);
-        assertThat(result).isGreaterThanOrEqualTo(0);
+        given(userDao.save(any(AppUser.class)))
+                .willReturn(42);
+
+        int id = eventService.createUser(TestUtils.testUser1);
+
+        assertThat(id).isEqualTo(42);
+
+        verify(userDao).save(any(AppUser.class));
     }
+
+    /*@Test//(expected = IllegalArgumentException.class)
+    public void createUser_with_id() {
+
+        assertThrows(ConstraintViolationException.class, () -> {
+            User user = TestUtils.createMockUser("test@baselogic.com", "test", "example");
+            user.setId(12345);
+            int userId = eventService.createUser(user);
+        });
+
+        verify(userDao).save(any(AppUser.class));
+    }*/
 
 
 } // The End...

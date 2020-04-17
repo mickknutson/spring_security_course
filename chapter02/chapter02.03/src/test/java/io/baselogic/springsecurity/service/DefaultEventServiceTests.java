@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.when;
+import static org.mockito.Mockito.verify;
 
 /**
  * DefaultEventServiceTests
@@ -60,9 +61,14 @@ public class DefaultEventServiceTests {
         given(eventDao.findById(any(Integer.class)))
                 .willReturn(TestUtils.testEvent);
 
+
+        // Execute test code
         Event event = eventService.findEventById(100);
 
+        // Validate assertions
         assertThat(event).isNotNull();
+
+        verify(eventDao).findById(any(Integer.class));
     }
 
     @Test
@@ -75,6 +81,8 @@ public class DefaultEventServiceTests {
 
         assertThat(events).isNotEmpty();
         assertThat(events.size()).isGreaterThanOrEqualTo(2);
+
+        verify(eventDao).findByUser(any(Integer.class));
     }
 
     @Test
@@ -87,6 +95,8 @@ public class DefaultEventServiceTests {
 
         assertThat(events).isNotEmpty();
         assertThat(events.size()).isGreaterThanOrEqualTo(2);
+
+        verify(eventDao).findAll();
     }
 
     @Test
@@ -98,6 +108,8 @@ public class DefaultEventServiceTests {
         int id = eventService.createEvent(Event.builder().build());
 
         assertThat(id).isEqualTo(42);
+
+        verify(eventDao).save(any(Event.class));
     }
 
     /*@Test
@@ -110,6 +122,8 @@ public class DefaultEventServiceTests {
         assertThrows(ConstraintViolationException.class, () -> {
             eventService.createEvent(null);
         });
+
+        verify(eventDao).save(any(Event.class));
     }*/
 
 
@@ -124,6 +138,8 @@ public class DefaultEventServiceTests {
         AppUser appUser = eventService.findUserById(1);
 
         assertThat(appUser.getEmail()).isEqualTo("test@baselogic.com");
+
+        verify(userDao).findById(1);
     }
 
     @Test
@@ -135,6 +151,8 @@ public class DefaultEventServiceTests {
         AppUser appUser = eventService.findUserByEmail("test@baselogic.com");
 
         assertThat(appUser.getEmail()).isEqualTo("test@baselogic.com");
+
+        verify(userDao).findByEmail(any(String.class));
     }
 
     @Test
@@ -147,6 +165,8 @@ public class DefaultEventServiceTests {
 
         assertThat(appUsers).isNotEmpty();
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
+
+        verify(userDao).findAllByEmail("@baselogic.com");
     }
 
     @Test
@@ -155,9 +175,11 @@ public class DefaultEventServiceTests {
         given(userDao.save(any(AppUser.class)))
                 .willReturn(42);
 
-        int id = eventService.createUser(new AppUser());
+        int id = eventService.createUser(TestUtils.testUser1);
 
         assertThat(id).isEqualTo(42);
+
+        verify(userDao).save(any(AppUser.class));
     }
 
     /*@Test//(expected = IllegalArgumentException.class)
@@ -168,6 +190,8 @@ public class DefaultEventServiceTests {
             user.setId(12345);
             int userId = eventService.createUser(user);
         });
+
+        verify(userDao).save(any(AppUser.class));
     }*/
 
 

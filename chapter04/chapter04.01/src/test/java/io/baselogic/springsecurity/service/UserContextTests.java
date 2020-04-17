@@ -50,7 +50,7 @@ public class UserContextTests {
     public void setCurrentUser() {
         // Not in the database:
 //        userContext.setCurrentUser(TestUtils.TEST_APP_USER_1);
-        userContext.setCurrentUser(TestUtils.APP_USER_1);
+        userContext.setCurrentUser(TestUtils.user1);
 
         AppUser appUser = userContext.getCurrentUser();
 

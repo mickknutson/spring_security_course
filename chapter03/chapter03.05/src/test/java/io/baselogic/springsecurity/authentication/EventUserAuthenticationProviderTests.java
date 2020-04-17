@@ -52,7 +52,7 @@ public class EventUserAuthenticationProviderTests {
 
     @BeforeEach
     public void beforeEachTest() {
-        appUser1 = TestUtils.APP_USER_1;
+        appUser1 = TestUtils.user1;
         testAppUser1 = TestUtils.TEST_APP_USER_1;
     }
 
@@ -103,7 +103,7 @@ public class EventUserAuthenticationProviderTests {
 
         // Expectation
         given(eventService.findUserByEmail(any(String.class)))
-                .willReturn(testAppUser1);
+                .willReturn(appUser1);
 
         Authentication authentication =
                 new  UsernamePasswordAuthenticationToken("test@baselogic.com",

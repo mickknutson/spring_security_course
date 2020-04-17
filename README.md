@@ -50,4 +50,6 @@ We don't need stinking badges...
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmickknutson%2Fspring_security_course.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmickknutson%2Fspring_security_course?ref=badge_shield)
 
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3880/badge)](https://bestpractices.coreinfrastructure.org/projects/3880)
+
 https://tenor.com/bc2EA.gif

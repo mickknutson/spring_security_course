@@ -44,7 +44,7 @@ public class EventsControllerTests {
 
     private WebClient webClient;
 
-    private static final String USER = TestUtils.APP_USER_1.getEmail();
+    private static final String USER = TestUtils.user1.getEmail();
 
     @BeforeEach
     void setup(WebApplicationContext context) {
