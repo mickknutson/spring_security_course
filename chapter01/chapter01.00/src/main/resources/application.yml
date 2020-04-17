@@ -8,6 +8,10 @@
 
 ##---------------------------------------------------------------------------##
 spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+
 
   ##---------------------------------------------------------------------------##
   ## Thymeleaf configuration:
@@ -41,16 +45,6 @@ spring:
   jpa.database-platform: org.hibernate.dialect.H2Dialect
 
 
-
-  output:
-    ansi:
-      console-available: true
-#  output:
-#    ansi:
-#      enabled: ALWAYS
-
-
-
 ##---------------------------------------------------------------------------##
 ## Logging Configuration:
 logging:
@@ -58,7 +52,6 @@ logging:
     io:
       baselogic:
         testloglevel: INFO
-
 
 
 ##---------------------------------------------------------------------------##

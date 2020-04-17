@@ -118,7 +118,6 @@ public class DefaultEventServiceTests {
         given(eventDao.save(any(Event.class)))
                 .willThrow(new ConstraintViolationException(null));
 
-
         assertThrows(ConstraintViolationException.class, () -> {
             eventService.createEvent(null);
         });
