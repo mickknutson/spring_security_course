@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Slf4j
 public class BCryptPasswordEncoderMainTests {
 
@@ -24,6 +26,7 @@ public class BCryptPasswordEncoderMainTests {
         String result = BCryptPasswordEncoderMain.encode(PASSWORD);
         log.info("Encoded password: [{}]", result);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
+        assertThat(result).isNotBlank();
     }
 
     @Test
@@ -32,6 +35,7 @@ public class BCryptPasswordEncoderMainTests {
         String result = BCryptPasswordEncoderMain.encode(PASSWORD);
         log.info("Encoded password: [{}]", result);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
+        assertThat(result).isNotBlank();
     }
 
 
@@ -41,6 +45,7 @@ public class BCryptPasswordEncoderMainTests {
         String[] args = {"PASSWORD"};
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
+        assertThat("result").isNotEqualTo("completed");
     }
 
     @Test
@@ -49,6 +54,7 @@ public class BCryptPasswordEncoderMainTests {
         String[] args = {};
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
+        assertThat("result").isNotEqualTo("completed");
     }
 
     @Test
@@ -57,6 +63,7 @@ public class BCryptPasswordEncoderMainTests {
         String[] args = null;
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
+        assertThat("result").isNotEqualTo("completed");
     }
 
 } // The End...

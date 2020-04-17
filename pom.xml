@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!--<version>2.2.6.RELEASE</version>-->
+        <!--2.2.6.RELEASE-->
         <version>2.3.0.M4</version>
     </parent>
 
@@ -66,19 +66,6 @@
 
 
     <build>
-
-        <!--<plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <forkCount>1</forkCount>
-                    <reuseForks>true</reuseForks>
-                    <argLine>${JVM_MEMORY}</argLine>
-                    <workingDirectory>${project.build.outputDirectory}/FORK_DIRECTORY_${surefire.forkNumber}</workingDirectory>
-                </configuration>
-            </plugin>
-        </plugins>-->
 
         <pluginManagement>
             <plugins>

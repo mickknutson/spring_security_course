@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.authentication;
 
 import io.baselogic.springsecurity.domain.AppUser;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -12,7 +13,8 @@ import java.util.Collection;
  * @author mickknutson
  * @since chapter03.06
  */
-public final class DomainUsernamePasswordAuthenticationToken extends UsernamePasswordAuthenticationToken {
+@EqualsAndHashCode(callSuper = false)
+public class DomainUsernamePasswordAuthenticationToken extends UsernamePasswordAuthenticationToken {
     private final String domain;
 
     /**
@@ -46,6 +48,8 @@ public final class DomainUsernamePasswordAuthenticationToken extends UsernamePas
     public String getDomain() {
         return domain;
     }
+
+
 
     private static final long serialVersionUID = -31538870746127783L;
 
