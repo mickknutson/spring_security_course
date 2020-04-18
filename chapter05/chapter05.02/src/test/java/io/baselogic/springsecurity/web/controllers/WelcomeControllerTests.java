@@ -33,6 +33,11 @@ public class WelcomeControllerTests {
     // HtmlUnit uses the Rhino Engine
     private WebClient webClient;
 
+    /**
+     * Customize the WebClient to work with HtmlUnit
+     *
+     * @param context WebApplicationContext
+     */
     @BeforeEach
     void setup(WebApplicationContext context) {
         webClient = MockMvcWebClientBuilder

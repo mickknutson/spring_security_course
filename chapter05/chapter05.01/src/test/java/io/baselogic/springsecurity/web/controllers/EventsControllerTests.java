@@ -47,6 +47,11 @@ public class EventsControllerTests {
     private EventUserDetails user1UserDetails;
     private EventUserDetails admin1UserDetails;
 
+    /**
+     * Customize the WebClient to work with HtmlUnit
+     *
+     * @param context WebApplicationContext
+     */
     @BeforeEach
     void setup(WebApplicationContext context) {
         webClient = MockMvcWebClientBuilder

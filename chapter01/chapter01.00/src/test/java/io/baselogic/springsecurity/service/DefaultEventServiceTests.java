@@ -28,7 +28,6 @@ import static org.mockito.Mockito.verify;
  * @since chapter01.00
  */
 @ExtendWith(SpringExtension.class)
-@Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 public class DefaultEventServiceTests {

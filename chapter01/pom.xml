@@ -14,6 +14,7 @@
         <groupId>io.baselogic.springsecurity</groupId>
         <artifactId>spring_security_course</artifactId>
         <version>5.0.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
     </parent>
 
     <modules>
@@ -67,10 +68,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-
-        <!-- TBD Liquidbase
-        https://www.baeldung.com/liquibase-refactor-schema-of-java-app
-        -->
 
 
         <!-- TOOLS: -->

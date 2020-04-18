@@ -6,6 +6,8 @@ and walk through the basic sections of Spring Security.
 
 ## Tasks
 
+> * Add spring-boot-starter-security dependency
+> * Validate auto-generated credentials
 > * Create SecurityConfig.java
 > * Add @EnableWebSecurity
 > * Detail sections of SecurityConfig.java

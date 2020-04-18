@@ -2,11 +2,14 @@ package io.baselogic.springsecurity.web.controllers;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +20,7 @@ import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,6 +37,11 @@ public class WelcomeControllerTests {
     // HtmlUnit --> Rhino Engine
     private WebClient webClient;
 
+    /**
+     * Customize the WebClient to work with HtmlUnit
+     *
+     * @param context WebApplicationContext
+     */
     @BeforeEach
     void setup(WebApplicationContext context) {
         webClient = MockMvcWebClientBuilder
@@ -41,19 +50,6 @@ public class WelcomeControllerTests {
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setCssEnabled(false);
     }
-
-//    @BeforeEach
-//    void setup(WebApplicationContext context) {
-//        webClient = MockMvcWebClientBuilder
-//                // demonstrates applying a MockMvcConfigurer (Spring Security)
-//                .webAppContextSetup(context, springSecurity())
-//                // for illustration only - defaults to ""
-//                .contextPath("")
-//                // By default MockMvc is used for localhost only;
-//                // the following will use MockMvc for baselogic.com and example.org as well
-//                // .useMockMvcForHosts("baselogic.io","baselogic.com")
-//                .build();
-//    }
 
 
     //-------------------------------------------------------------------------
@@ -68,7 +64,6 @@ public class WelcomeControllerTests {
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!");
         assertThat(content).contains("Chapter 01.00");
-
 
     }
 

@@ -5,13 +5,18 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.TestUtils;
+import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.service.UserContext;
 import lombok.extern.slf4j.Slf4j;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,8 +25,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import static org.springframework.test.web.ModelAndViewAssert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -44,8 +54,16 @@ public class EventsControllerTests {
     @Autowired
     private UserContext userContext;
 
+    @Autowired
+    private EventDao eventDao;
+
     private WebClient webClient;
 
+    /**
+     * Customize the WebClient to work with HtmlUnit
+     *
+     * @param context WebApplicationContext
+     */
     @BeforeEach
     void setup(WebApplicationContext context) {
         webClient = MockMvcWebClientBuilder
@@ -67,10 +85,28 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events")
     public void allEventsPage() throws Exception {
+
+        // MockMvc request and validation
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/list"))
                 .andReturn();
+
+        // In-line ModelAndViewAssert validation
+        ModelAndView mav = result.getModelAndView();
+
+        assertThat(mav).isNotNull();
+        assertViewName(mav, "events/list");
+
+        assertModelAttributeAvailable(mav, "events");
+        assertAndReturnModelAttributeOfType(mav, "events", List.class);
+
+        List<Event> expectedEvents = eventDao.findAll();
+        assertCompareListModelAttribute(mav, "events", expectedEvents);
+
+        String content = result.getResponse().getContentAsString();
+        assertThat(content).contains("All Event");
+
     }
 
     //-----------------------------------------------------------------------//

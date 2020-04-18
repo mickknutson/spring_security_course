@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.web.controllers;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,11 @@ public class WelcomeControllerTests {
     // HtmlUnit uses the Rhino Engine
     private WebClient webClient;
 
+    /**
+     * Customize the WebClient to work with HtmlUnit
+     *
+     * @param context WebApplicationContext
+     */
     @BeforeEach
     void setup(WebApplicationContext context) {
         webClient = MockMvcWebClientBuilder

@@ -56,6 +56,11 @@ public class EventsControllerTests {
 
     private static final String USER = "user";
 
+    /**
+     * Customize the WebClient to work with HtmlUnit
+     *
+     * @param context WebApplicationContext
+     */
     @BeforeEach
     void setup(WebApplicationContext context) {
 
