@@ -159,7 +159,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final WebSecurity web) {
         web.ignoring()
                 .antMatchers("/css/**")
-                .antMatchers("/img/**")
+                .antMatchers("*.jpg", "*.ico")
                 .antMatchers("/webjars/**")
         ;
     }

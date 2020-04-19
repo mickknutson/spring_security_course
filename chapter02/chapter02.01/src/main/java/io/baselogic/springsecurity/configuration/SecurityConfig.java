@@ -17,7 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @since chapter02.01
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         am.inMemoryAuthentication()
                 .withUser("user1@baselogic.com").password("{noop}user1").roles(ROLE_USER);
     }
+
 
     /**
      * HTTP Security configuration
@@ -99,8 +100,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // HTTP Security Headers
                 .headers().disable()
-                ;
+        ;
     }
+
 
     /**
      * This is the equivalent to:
@@ -119,9 +121,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final WebSecurity web) {
         web.ignoring()
                 .antMatchers("/css/**")
-                .antMatchers("/img/**")
+                .antMatchers("*.jpg", "*.ico")
                 .antMatchers("/webjars/**")
         ;
     }
+
 
 } // The End...
