@@ -55,8 +55,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
+
         registry.addViewController("/login/form")
                 .setViewName("login");
+
         registry.addViewController("/error")
                 .setViewName("/error");
         registry.addViewController("/errors/403")
