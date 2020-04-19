@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,14 +19,19 @@ import java.util.Map;
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
- * @since chapter02.01
+ * @since chapter02.01 created
+ * @since chapter02.02 Added formLogin and logout configuration
+ * @since chapter02.03 Added basic role-based authorization
+ * @since chapter02.04 converted antMatchers to SPeL expressions
  */
 @Configuration
-@EnableWebSecurity//(debug = true)
+@EnableWebSecurity
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String HASANYROLE_ANONYMOUS = "hasAnyRole('ANONYMOUS', 'USER')";
+    private static final String HASROLE_USER = "hasRole('USER')";
+    private static final String HASROLE_ADMIN = "hasRole('ADMIN')";
 
     /**
      * HTTP Security configuration
@@ -47,10 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *          .and().logout();
      * </pre>
      *
+     * @see  org.springframework.security.access.expression.SecurityExpressionRoot
      * @param http HttpSecurity configuration.
      * @throws Exception Authentication configuration exception
      *
      */
+    @Description("Configure HTTP Security")
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
@@ -58,13 +66,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
 
+                .antMatchers("/resources/**").permitAll()
+
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/registration/*").permitAll()
                 .antMatchers("/login/*").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/logout/*").access(HASANYROLE_ANONYMOUS)
-                .antMatchers("/admin/*").access("hasRole('ADMIN')")
-                .antMatchers("/events/").access("hasRole('ADMIN')")
-                .antMatchers("/**").access("hasRole('USER')")
+                .antMatchers("/admin/*").access(HASROLE_ADMIN)
+                .antMatchers("/events/").access(HASROLE_ADMIN)
+                .antMatchers("/**").access(HASROLE_USER)
 
                 // The default AccessDeniedException
                 .and().exceptionHandling()
@@ -123,6 +133,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/css/**")
                 .antMatchers("*.jpg", "*.ico")
+                .antMatchers("/img/**")
                 .antMatchers("/webjars/**")
         ;
     }

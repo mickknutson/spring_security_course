@@ -27,7 +27,10 @@ import java.util.Map;
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
- * @since chapter02.01
+ * @since chapter02.01 created
+ * @since chapter02.02 Added formLogin and logout configuration
+ * @since chapter02.03 Added basic role-based authorization
+ * @since chapter02.04 converted antMatchers to SPeL expressions
  * @since chapter03.05 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  * @since chapter04.00 removed .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  * @since chapter04.01 Exposed 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'
@@ -140,16 +143,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *          .and().logout();
      * </pre>
      *
+     * @see  org.springframework.security.access.expression.SecurityExpressionRoot
      * @param http HttpSecurity configuration.
      * @throws Exception Authentication configuration exception
      *
      */
+    @Description("Configure HTTP Security")
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
+
+                .antMatchers("/resources/**").permitAll()
 
                 .antMatchers("/").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
                 .antMatchers("/registration/*").permitAll()
@@ -218,6 +225,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/css/**")
                 .antMatchers("*.jpg", "*.ico")
+                .antMatchers("/img/**")
                 .antMatchers("/webjars/**")
         ;
     }

@@ -2,6 +2,7 @@ package io.baselogic.springsecurity.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
@@ -13,7 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
- * @since chapter02.01
+ * @since chapter02.01 created
+ * @since chapter02.02 Added formLogin and logout configuration
+ * @since chapter02.03 Added basic role-based authorization
+ * @since chapter02.04 converted antMatchers to SPeL expressions
  */
 @Configuration
 @EnableWebSecurity//(debug = true)
@@ -21,8 +25,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String HASANYROLE_ANONYMOUS = "hasAnyRole('ANONYMOUS', 'USER')";
+    private static final String HASROLE_USER = "hasRole('USER')";
+    private static final String HASROLE_ADMIN = "hasRole('ADMIN')";
+
     private static final String ROLE_USER = "USER";
     private static final String ROLE_ADMIN = "ADMIN";
+
     /**
      * Configure {@link AuthenticationManager} with {@link InMemoryUserDetailsManagerConfigurer} credentials.
      *
@@ -47,9 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final AuthenticationManagerBuilder am) throws Exception {
 
         am.inMemoryAuthentication()
-                .withUser("user").password("{noop}user").roles(ROLE_USER)
-                .and().withUser("admin").password("{noop}admin").roles(ROLE_ADMIN)
-                .and().withUser("user1@baselogic.com").password("{noop}user1").roles(ROLE_USER)
+                .withUser("user1@baselogic.com").password("{noop}user1").roles(ROLE_USER)
                 .and().withUser("admin1@baselogic.com").password("{noop}admin1").roles(ROLE_USER, ROLE_ADMIN)
         ;
 
@@ -77,21 +83,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *          .and().logout();
      * </pre>
      *
+     * @see  org.springframework.security.access.expression.SecurityExpressionRoot
      * @param http HttpSecurity configuration.
      * @throws Exception Authentication configuration exception
      *
      */
+    @Description("Configure HTTP Security")
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                .antMatchers("/resources/**").permitAll()
 
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/login/*").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/logout/*").access(HASANYROLE_ANONYMOUS)
-                .antMatchers("/admin/*").access("hasRole('ADMIN')")
-                .antMatchers("/events/").access("hasRole('ADMIN')")
-                .antMatchers("/**").access("hasRole('USER')")
+                .antMatchers("/admin/*").access(HASROLE_ADMIN)
+                .antMatchers("/events/").access(HASROLE_ADMIN)
+                .antMatchers("/**").access(HASROLE_USER)
 
                 // The default AccessDeniedException
                 .and().exceptionHandling().accessDeniedPage("/errors/403")
@@ -147,6 +156,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/css/**")
                 .antMatchers("*.jpg", "*.ico")
+                .antMatchers("/img/**")
                 .antMatchers("/webjars/**")
         ;
     }

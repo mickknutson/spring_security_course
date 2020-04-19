@@ -2,6 +2,7 @@ package io.baselogic.springsecurity.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
@@ -13,7 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
- * @since chapter02.01
+ * @since chapter02.01 created
+ * @since chapter02.02 Added formLogin and logout configuration
  */
 @Configuration
 @EnableWebSecurity
@@ -69,10 +71,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *          .and().logout();
      * </pre>
      *
+     * @see  org.springframework.security.access.expression.SecurityExpressionRoot
      * @param http HttpSecurity configuration.
      * @throws Exception Authentication configuration exception
      *
      */
+    @Description("Configure HTTP Security")
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
@@ -121,6 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/css/**")
                 .antMatchers("*.jpg", "*.ico")
+                .antMatchers("/img/**")
                 .antMatchers("/webjars/**")
         ;
     }
