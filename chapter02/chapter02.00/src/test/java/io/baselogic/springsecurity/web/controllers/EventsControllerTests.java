@@ -60,10 +60,13 @@ public class EventsControllerTests {
      * Customize the WebClient to work with HtmlUnit
      *
      * @param context WebApplicationContext
+     *
+     * @since chapter02.00 Added .apply(springSecurity()) to MockMvcBuilders
      */
     @BeforeEach
     void setup(WebApplicationContext context) {
 
+        // https://docs.spring.io/spring-security/site/docs/current/reference/html5/#test-mockmvc-setup
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())

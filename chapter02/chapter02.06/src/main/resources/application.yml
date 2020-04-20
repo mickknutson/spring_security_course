@@ -50,4 +50,9 @@ logging:
       baselogic:
         testloglevel: INFO
 
+    # SET log level for Spring Security
+    org:
+      springframework:
+        security: DEBUG
+
 ##---------------------------------------------------------------------------##
