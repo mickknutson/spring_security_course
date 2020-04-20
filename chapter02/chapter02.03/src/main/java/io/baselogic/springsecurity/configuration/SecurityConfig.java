@@ -89,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/resources/**").permitAll()
+//                .antMatchers("/resources/**").permitAll()
 
                 .antMatchers("/").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
                 .antMatchers("/login/*").hasAnyRole(ROLE_ANONYMOUS, ROLE_USER)
@@ -127,6 +127,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // HTTP Security Headers
         http.headers().disable();
+        http.headers().xssProtection().disable();
+        http.headers().contentTypeOptions().disable();
 
         // Enable <frameset> in order to use H2 web console
         http.headers().frameOptions().disable();
@@ -149,7 +151,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final WebSecurity web) {
         web.ignoring()
+                .antMatchers("/resources/**")
                 .antMatchers("/css/**")
+                .antMatchers("/favicon.ico")
                 .antMatchers("*.jpg", "*.ico")
                 .antMatchers("/img/**")
                 .antMatchers("/webjars/**")

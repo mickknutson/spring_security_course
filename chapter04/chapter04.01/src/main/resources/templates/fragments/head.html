@@ -1,22 +1,20 @@
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html  xmlns:th="http://www.thymeleaf.org" lang="en">
 <head lang="en" th:fragment="head">
 
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <!-- Styles -->
+    <link rel="stylesheet"
+          type="text/css"
+          href="/css/styles.css"
+          th:href="@{/css/styles.css}" />
 
-    <link href="/css/styles.css"
-          th:href="@{/css/styles.css}" rel="stylesheet" media="screen"/>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous" />
-
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.4.1/jquery.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+          type="text/css"
+          media="all"
+          crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}" />
 
 
     <!-- Favorite Icons -->
-
     <link rel="icon" type="image/jpg" sizes="16x16" th:href="@{/img/favicon-16x16.jpg}"  />
     <link rel="icon" type="image/jpg" sizes="32x32" th:href="@{/img/favicon-32x32.jpg}" />
     <link rel="icon" type="image/jpg" sizes="96x96" th:href="@{/img/favicon-96x96.jpg}" />

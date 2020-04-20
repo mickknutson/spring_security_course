@@ -57,9 +57,9 @@ import javax.servlet.http.HttpServletRequest;
  * </http>
  * </pre>
  *
- * @since chapter02.06
  * @author mickknutson
  *
+ * @since chapter02.06 created
  */
 @Controller
 public class DefaultController {

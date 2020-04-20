@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
 
-                .antMatchers("/resources/**").permitAll()
+//                .antMatchers("/resources/**").permitAll()
 
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/registration/*").permitAll()
@@ -107,6 +107,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // HTTP Security Headers
         http.headers().disable();
+        http.headers().xssProtection().disable();
+        http.headers().contentTypeOptions().disable();
 
         // Enable <frameset> in order to use H2 web console
         http.headers().frameOptions().disable();
@@ -129,7 +131,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final WebSecurity web) {
         web.ignoring()
+                .antMatchers("/resources/**")
                 .antMatchers("/css/**")
+                .antMatchers("/favicon.ico")
                 .antMatchers("*.jpg", "*.ico")
                 .antMatchers("/img/**")
                 .antMatchers("/webjars/**")

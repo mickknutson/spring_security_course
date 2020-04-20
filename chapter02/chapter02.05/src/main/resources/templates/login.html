@@ -22,7 +22,7 @@
             <strong>Failed to login.</strong>
 
             <span th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}">
-                <span th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">Invalid credentials</span>
+                <span th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">Security Exception</span>
             </span>
         </div>
         <div th:if="${param.logout != null}" class="alert alert-success">

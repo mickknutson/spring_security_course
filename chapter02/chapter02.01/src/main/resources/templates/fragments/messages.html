@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 <div class="container">
 
@@ -13,10 +13,9 @@
             <span th:text="${#vars['error']}"></span>
         </div>
 
-        <span th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}">
-<span th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">
-Invalid credentials</span>
-</span>
+        <div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}" class="alert alert-danger">
+            <span th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">Security Exception</span>
+        </div>
 
     </div>
 </div>
