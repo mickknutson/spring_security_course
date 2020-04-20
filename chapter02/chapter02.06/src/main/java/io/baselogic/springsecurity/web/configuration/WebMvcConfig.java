@@ -35,20 +35,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/resources/**")
-//                .addResourceLocations("classpath:resources/")
-//                .setCachePeriod(1)
-//        ;
-
         // Add WebJars for Bootstrap & jQuery
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("/webjars/")
-//                .setCachePeriod(1)
         ;
 
         registry.addResourceHandler("/**")
                 .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS)
-//                .setCachePeriod(1)
         ;
     }
 

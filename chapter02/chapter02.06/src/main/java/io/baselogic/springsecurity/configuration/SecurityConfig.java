@@ -19,6 +19,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
  * @since chapter02.02 Added formLogin and logout configuration
  * @since chapter02.03 Added basic role-based authorization
  * @since chapter02.04 converted antMatchers to SPeL expressions
+ * @since chapter02.05 Added .defaultSuccessUrl("/default")
  */
 @Configuration
 @EnableWebSecurity(debug = true)
