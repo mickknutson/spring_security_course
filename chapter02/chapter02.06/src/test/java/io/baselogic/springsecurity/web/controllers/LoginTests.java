@@ -106,7 +106,7 @@ public class LoginTests {
                 // Simulate a valid security User:
                 .with(anonymous()))
 
-                .andExpect(status().isUnauthorized())
+                .andExpect(status().isOk())
                 .andExpect(unauthenticated())
                 .andReturn();
     }
@@ -123,7 +123,7 @@ public class LoginTests {
                 // Simulate a valid security User:
                 .with(anonymous()))
 
-                .andExpect(status().isUnauthorized())
+                .andExpect(status().isOk())
                 .andExpect(unauthenticated())
                 .andReturn();
     }
@@ -140,7 +140,7 @@ public class LoginTests {
                 // Simulate a valid security User:
                 .with(anonymous()))
 
-                .andExpect(status().isUnauthorized())
+                .andExpect(status().isFound())
                 .andExpect(unauthenticated())
                 .andReturn();
     }
