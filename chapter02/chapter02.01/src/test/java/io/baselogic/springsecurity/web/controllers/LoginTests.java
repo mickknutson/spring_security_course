@@ -27,7 +27,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -36,7 +38,7 @@ import static org.springframework.security.test.web.servlet.response.SecurityMoc
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.ModelAndViewAssert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Login tests to demonstrate testing with various users including:
@@ -163,7 +165,9 @@ public class LoginTests {
                 .with(user(USER)))
 
                 .andExpect(status().isOk())
-                .andExpect(authenticated().withRoles("USER"))
+                .andExpect(authenticated().withUsername(USER).withRoles("USER"))
+                .andExpect(view().name("events/my"))
+                .andExpect(model().attribute("events", hasSize(2)))
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
@@ -195,7 +199,9 @@ public class LoginTests {
                         .user(USER)
                         .password("user1")
         )
-                .andExpect(authenticated().withRoles("USER"))
+                .andExpect(authenticated().withUsername(USER).withRoles("USER"))
+                .andExpect(redirectedUrl("/"))
+                .andExpect(header().string("Location", endsWith("/")))
                 .andReturn();
 
     }
@@ -257,6 +263,8 @@ public class LoginTests {
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withRoles("USER","ADMIN"))
+                .andExpect(view().name("events/list"))
+                .andExpect(model().attribute("events", hasSize(3)))
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();

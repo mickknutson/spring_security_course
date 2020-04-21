@@ -26,6 +26,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.endsWith;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -88,7 +89,8 @@ public class EventsControllerTests {
         MvcResult result = mockMvc.perform(get("/events/")
         )
                 .andExpect(status().isFound())
-                .andExpect(header().string("Location", "http://localhost/login/form"))
+                .andExpect(redirectedUrl("http://localhost/login/form"))
+                .andExpect(header().string("Location", endsWith("/login/form")))
 
                 // The login page should be displayed
                 .andReturn();
