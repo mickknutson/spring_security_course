@@ -47,6 +47,34 @@ and the web application server are secure against many kinds of tampering and sn
 
 
 
+### Spring Security to the rescue
+With Spring Security, we'll be able to make the following changes to increase our
+application's security:
+> * Segment users of the system into user classes
+> * Assign levels of authorization to user roles
+> * Assign user roles to user classes
+> * Apply authentication rules globally across application resources
+> * Apply authorization rules at all levels of the application architecture
+> * Prevent common types of attacks intended to manipulate or steal a user's session
+
+
+### Why Spring Security?
+Spring Security exists to fill a gap in the universe of Java third-party libraries, much as the
+Spring Framework originally did when it was first introduced.
+
+Standards such as Java Authentication and Authorization Service (JAAS) or Java EE Security do offer some ways
+of performing some of the same authentication and authorization functions, but Spring
+Security is a winner because it includes everything you need to implement a top-to-bottom
+application security solution in a concise and sensible way.
+
+Additionally, Spring Security appeals to many, because it offers out-of-the-box integration
+with many common enterprise authentication systems; so it's adaptable to most situations
+with little effort (beyond configuration) on the part of the developer.
+
+It's in wide use because there's really no other mainstream framework quite like it!
+
+
+
 ---
 
 # [../](../README.md)

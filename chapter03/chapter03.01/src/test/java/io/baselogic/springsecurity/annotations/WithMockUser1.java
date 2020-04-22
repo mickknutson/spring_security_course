@@ -1,19 +1,12 @@
 package io.baselogic.springsecurity.annotations;
 
-import io.baselogic.springsecurity.userdetails.WithMockEventUserDetailsSecurityContextFactory;
-import org.springframework.security.test.context.support.WithSecurityContext;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-
-@WithSecurityContext(factory =
-        WithMockEventUserDetailsSecurityContextFactory.class)
-public @interface WithMockEventUserDetails {
-
-    String username() default "user1@baselogic.com";
-
-    String name() default "user1";
+@WithMockUser(username="user1@baselogic.com", password="user1", roles="USER")
+public @interface WithMockUser1 {
 
 }  // The End...

@@ -35,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
+@WithAnonymousUser
 @Slf4j
 public class RegistrationControllerTests {
 
@@ -75,7 +76,6 @@ public class RegistrationControllerTests {
      */
     @Test
     @DisplayName("Show Registration Form - WithAnonymousUser")
-    @WithAnonymousUser
     public void showEventForm__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/registration/form")
         )
@@ -91,7 +91,6 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form")
-    @WithAnonymousUser
     public void createEvent() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -126,7 +125,6 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null first name")
-    @WithAnonymousUser
     public void createEvent__null__first_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -165,7 +163,6 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null last name")
-    @WithAnonymousUser
     public void createEvent__null__last_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -204,7 +201,6 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null email")
-    @WithAnonymousUser
     public void createEvent__null__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -243,7 +239,6 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - duplicate email")
-    @WithAnonymousUser
     public void createEvent__duplicate__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -282,7 +277,6 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null password")
-    @WithAnonymousUser
     public void createEvent__null__password() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 

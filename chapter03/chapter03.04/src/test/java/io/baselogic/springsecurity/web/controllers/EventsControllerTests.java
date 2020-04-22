@@ -1,6 +1,9 @@
 package io.baselogic.springsecurity.web.controllers;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import io.baselogic.springsecurity.annotations.WithMockUser1;
+import io.baselogic.springsecurity.annotations.WithUserDetailsAdmin1;
+import io.baselogic.springsecurity.annotations.WithUserDetailsUser1;
 import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.domain.EventUserDetails;
@@ -28,6 +31,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,8 +47,6 @@ public class EventsControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
-
-    private WebClient webClient;
 
     private static final String USER = TestUtils.user1.getEmail();
     private EventUserDetails user1UserDetails;
@@ -62,13 +65,6 @@ public class EventsControllerTests {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
-
-        webClient = MockMvcWebClientBuilder
-                .webAppContextSetup(context)
-                .build();
-        webClient.getOptions().setJavaScriptEnabled(false);
-        webClient.getOptions().setCssEnabled(false);
-        webClient.getOptions().setPrintContentOnFailingStatusCode(true);
 
         this.user1UserDetails = TestUtils.user1UserDetails;
         this.admin1UserDetails = TestUtils.admin1UserDetails;
@@ -104,11 +100,9 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("MockMvc All Events - user1")
+    @WithUserDetailsUser1
     public void allEvents_not_authenticated__WithUser1() throws Exception {
-        MvcResult result = mockMvc.perform(get("/events/")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
-        )
+        MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
 
@@ -120,7 +114,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("MockMvc All Events - user1 - ROLE_USER")
-    @WithMockUser(username="user1@baselogic.com", roles={"USER"})
+    @WithMockUser1
     public void allEvents_not_authenticated__WithUser1_and_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
@@ -131,6 +125,7 @@ public class EventsControllerTests {
 
     /**
      * Test the URI for All Events.
+     * Using @WithMockUser("admin1@baselogic.com") to ensure this user does not have ADMIN role
      */
     @Test
     @DisplayName("MockMvc All Events - admin1")
@@ -148,20 +143,14 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("MockMvc All Events - admin1 - ROLE_ADMIN")
+    @WithUserDetailsAdmin1
     public void allEventsPage__WithUser1_roles() throws Exception {
-        MvcResult result = mockMvc.perform(get("/events/")
-                // Simulate a valid security User:
-                .with(user(admin1UserDetails))
-        )
+        MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isOk())
 
                 .andExpect(content().string(containsString("All Event")))
-
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(3))))
                 .andReturn();
-
-        ModelAndView mav = result.getModelAndView();
-        List<Event> events = (List<Event>)mav.getModel().get("events");
-        assertThat(events.size()).isEqualTo(3);
 
     }
 
@@ -190,23 +179,16 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("Current Users Events")
+    @WithUserDetailsUser1
     public void testCurrentUsersEventsPage_htmlUnit() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/events/my")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
-        )
+        MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isOk())
 
                 .andExpect(content().string(containsString("Current User Events")))
                 .andExpect(content().string(containsString("This shows all events for the current appUser.")))
-// FIXME:                .andExpect(model().attribute("events", is()))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(3))))
                 .andReturn();
-
-        ModelAndView mav = result.getModelAndView();
-        List<Event> events = (List<Event>)mav.getModel().get("events");
-        assertThat(events.size()).isEqualTo(3);
-
     }
 
     //-----------------------------------------------------------------------//
@@ -218,13 +200,10 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("Show Event Details - user1")
-    @WithMockUser("user1@baselogic.com")
+    @WithUserDetailsUser1
     public void testShowEvent_user1() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/events/100")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
-        )
+        MvcResult result = mockMvc.perform(get("/events/100"))
                 .andExpect(status().isOk())
 
                 .andExpect(content().string(containsString("Birthday Party")))
@@ -243,11 +222,9 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("Show Event Form - WithUser")
+    @WithUserDetailsUser1
     public void showEventForm__WithUser() throws Exception {
-        MvcResult result = mockMvc.perform(get("/events/form")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
-        )
+        MvcResult result = mockMvc.perform(get("/events/form"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/create"))
 
@@ -258,10 +235,10 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Show Event Form Auto Populate")
+    @WithUserDetailsUser1
     public void showEventFormAutoPopulate() throws Exception {
         MvcResult result = mockMvc.perform(post("/events/new")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
+
                 .param("auto", "auto")
         )
                 .andExpect(status().isOk())
@@ -276,10 +253,10 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Show Event Form Auto Populate - admin1")
+    @WithUserDetailsAdmin1
     public void showEventFormAutoPopulate_admin1() throws Exception {
         MvcResult result = mockMvc.perform(post("/events/new")
-                // Simulate a valid security User:
-                .with(user(admin1UserDetails))
+
                 .param("auto", "auto")
         )
                 .andExpect(status().isOk())
@@ -299,12 +276,11 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form")
-//    @WithMockUser("user1@baselogic.com")
+    @WithUserDetailsUser1
     public void createEvent() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
+
 
                 .param("attendeeEmail", "user2@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
@@ -323,11 +299,10 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null email")
+    @WithUserDetailsUser1
     public void createEvent_null_email() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
 
 //                .param("attendeeEmail", "user2@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
@@ -344,11 +319,11 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - not found email")
+    @WithUserDetailsUser1
     public void createEvent_not_found_email() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-                        // Simulate a valid security User:
-                .with(user(user1UserDetails))
+
                 .param("attendeeEmail", "notFound@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
                 .param("summary", "Test Summary")
@@ -367,11 +342,11 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null when")
+    @WithUserDetailsUser1
     public void createEvent_null_when() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
+
                 .param("attendeeEmail", "user2@baselogic.com")
 //                .param("when", "2020-07-03 00:00:01")
                 .param("summary", "Test Summary")
@@ -390,11 +365,11 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null summary")
+    @WithUserDetailsUser1
     public void createEvent_null_summary() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
+
                 .param("attendeeEmail", "user2@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
 //                .param("summary", "Test Summary")
@@ -413,11 +388,11 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null description")
+    @WithUserDetailsUser1
     public void createEvent_null_description() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-                // Simulate a valid security User:
-                .with(user(user1UserDetails))
+
                 .param("attendeeEmail", "notFound@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
                 .param("summary", "Test Summary")

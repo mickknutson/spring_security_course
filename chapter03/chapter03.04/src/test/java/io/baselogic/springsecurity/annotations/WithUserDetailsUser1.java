@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
 
-@WithUserDetails(value="admin1@baselogic.com")
-public @interface WithUserDetailsAdmin1 {
+@WithUserDetails(value="user1@baselogic.com")
+public @interface WithUserDetailsUser1 {
 
 }  // The End...

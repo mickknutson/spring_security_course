@@ -35,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
+@WithAnonymousUser
 @Slf4j
 public class RegistrationControllerTests {
 
@@ -75,8 +76,7 @@ public class RegistrationControllerTests {
      */
     @Test
     @DisplayName("Show Registration Form - WithAnonymousUser")
-    @WithAnonymousUser
-    public void showRegistrationForm__WithUser() throws Exception {
+    public void showEventForm__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/registration/form")
         )
                 .andExpect(status().isOk())
@@ -91,8 +91,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form")
-    @WithAnonymousUser
-    public void registerNewUser() throws Exception {
+    public void createEvent() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -105,7 +104,7 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute("chuck@baselogic.com");
+        email.setValueAttribute("test@baselogic.com");
 
         HtmlInput password = page.getHtmlElementById("password");
         password.setValueAttribute("some password");
@@ -115,18 +114,18 @@ public class RegistrationControllerTests {
 
         HtmlPage pageAfterClick = button.click();
 
-//        assertThat(pageAfterClick.getTitleText())
-//                .contains("Welcome to the EventManager!");
+        assertThat(pageAfterClick.getTitleText())
+                .contains("Welcome to the EventManager!");
 
-        // FIXME: Need to login after registration!
+//        assertThat(pageAfterClick.getTitleText())
+//                .contains("TODO we will implement registration later in the chapter");
     }
 
     //-----------------------------------------------------------------------//
 
     @Test
     @DisplayName("Submit Registration Form - null first name")
-    @WithAnonymousUser
-    public void registerNewUser__null__first_name() throws Exception {
+    public void createEvent__null__first_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -164,8 +163,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null last name")
-    @WithAnonymousUser
-    public void registerNewUser__null__last_name() throws Exception {
+    public void createEvent__null__last_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -203,8 +201,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null email")
-    @WithAnonymousUser
-    public void registerNewUser__null__email() throws Exception {
+    public void createEvent__null__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -242,8 +239,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - duplicate email")
-    @WithAnonymousUser
-    public void registerNewUser__duplicate__email() throws Exception {
+    public void createEvent__duplicate__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -281,8 +277,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null password")
-    @WithAnonymousUser
-    public void registerNewUser__null__password() throws Exception {
+    public void createEvent__null__password() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())

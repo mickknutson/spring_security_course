@@ -24,9 +24,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * DefaultControllerTests
+ * Controller to handle after-login behavior
  *
- * @since chapter01.00
+ * @author mickknutson
+ *
+ * @since chapter02.06 Created class
  */
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
@@ -36,9 +38,6 @@ public class DefaultControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
-
-    // HtmlUnit uses the Rhino Engine
-    private WebClient webClient;
 
     /**
      * Customize the WebClient to work with HtmlUnit
@@ -53,12 +52,6 @@ public class DefaultControllerTests {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
-
-        webClient = MockMvcWebClientBuilder
-                .webAppContextSetup(context)
-                .build();
-        webClient.getOptions().setJavaScriptEnabled(false);
-        webClient.getOptions().setCssEnabled(false);
     }
 
 
@@ -76,9 +69,21 @@ public class DefaultControllerTests {
 
     }
 
+    /**
+     * This test does not fail if the @@WithMockAdmin1 is used.
+     * Nor does it fail if this is used:
+     * [authorities = {"ADMIN"}]
+     * or
+     * [roles = {"ADMIN"}]
+     * or
+     * [roles = {"USER", "ADMIN"}]
+     *
+     * @throws Exception if MockMvc throws exception
+     */
     @Test
     @DisplayName("Default Controller - admin1 - ADMIN role only")
-    @WithMockUser(value = "admin1@baselogic.com", roles = {"ADMIN"})
+    @WithMockUser(username = "admin1@baselogic.com", password = "admin1", roles = {"ADMIN"})
+//    @WithMockAdmin1
     public void defaultRedirect__admin1() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isForbidden())

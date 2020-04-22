@@ -129,6 +129,7 @@ public class EventsControllerTests {
 
     /**
      * Test the URI for All Events.
+     * Using @WithMockUser("admin1@baselogic.com") to ensure this user does not have ADMIN role
      */
     @Test
     @DisplayName("MockMvc All Events - admin1")

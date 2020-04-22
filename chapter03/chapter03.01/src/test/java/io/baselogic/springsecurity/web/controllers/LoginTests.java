@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.web.controllers;
 
+import io.baselogic.springsecurity.annotations.WithMockUser1;
 import io.baselogic.springsecurity.dao.TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,7 +62,6 @@ public class LoginTests {
     private MockMvc mockMvc;
 
     private static final String USER = TestUtils.user1.getEmail();
-    private static final String ADMIN = TestUtils.admin1.getEmail();
 
 
     /**
@@ -144,15 +144,15 @@ public class LoginTests {
      */
     @Test
     @DisplayName("My Events Page - authenticated - user1")
-    @WithMockUser
+    @WithMockUser1
     public void testMyEventsPage_user1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("user").withRoles("USER"))
+                .andExpect(authenticated().withUsername(USER).withRoles("USER"))
 
                 .andExpect(view().name("events/my"))
-                .andExpect(model().attribute("events", hasSize(2)))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(2))))
                 .andReturn();
     }
 
@@ -163,17 +163,16 @@ public class LoginTests {
      */
     @Test
     @DisplayName("My Events Page - authenticated - user1 - RequestPostProcessor")
+    @WithMockUser1
     public void testMyEventsPage_user1_authenticated__RequestPostProcessor() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/events/my")
-                // Simulate a valid security User:
-                .with(user(USER)))
+        MvcResult result = mockMvc.perform(get("/events/my"))
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withUsername(USER).withRoles("USER"))
 
                 .andExpect(view().name("events/my"))
-                .andExpect(model().attribute("events", hasSize(2)))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(2))))
                 .andReturn();
     }
 

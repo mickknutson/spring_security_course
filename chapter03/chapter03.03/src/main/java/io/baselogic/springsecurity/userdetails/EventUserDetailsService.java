@@ -28,9 +28,9 @@ import java.util.Collection;
  *
  * @author mickknutson
  *
- * @since chapter03.03
+ * @since chapter03.03 Created class
  *
- *
+ * TODO: Explore WithMockEventUserDetailsSecurityContextFactory.class
  */
 @Component
 @Slf4j

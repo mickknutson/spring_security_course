@@ -1,4 +1,4 @@
-package io.baselogic.springsecurity.service;
+package io.baselogic.springsecurity.userdetails;
 
 import io.baselogic.springsecurity.annotations.WithMockEventUserDetails;
 import io.baselogic.springsecurity.domain.AppUser;

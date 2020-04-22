@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.web.controllers;
 
 import io.baselogic.springsecurity.dao.TestUtils;
+import io.baselogic.springsecurity.domain.EventUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,6 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author mickknutson
  *
  * @since chapter02.01 created
+ * @since chapter03.04 added WithUserDetails support for EventUserDetails
  */
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
@@ -144,12 +146,12 @@ public class LoginTests {
      */
     @Test
     @DisplayName("My Events Page - authenticated - user1")
-    @WithMockUser
+    @WithUserDetails("user1@baselogic.com")
     public void testMyEventsPage_user1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("user").withRoles("USER"))
+                .andExpect(authenticated().withUsername(USER).withRoles("USER"))
 
                 .andExpect(view().name("events/my"))
                 .andExpect(model().attribute("events", hasSize(2)))
@@ -167,13 +169,13 @@ public class LoginTests {
 
         MvcResult result = mockMvc.perform(get("/events/my")
                 // Simulate a valid security User:
-                .with(user(USER)))
+                .with(user(TestUtils.user1UserDetails)))
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withUsername(USER).withRoles("USER"))
 
                 .andExpect(view().name("events/my"))
-                .andExpect(model().attribute("events", hasSize(2)))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(2))))
                 .andReturn();
     }
 
@@ -251,7 +253,7 @@ public class LoginTests {
 
         MvcResult result = mockMvc.perform(get("/events/")
                 // Simulate a valid security User:
-                .with(user("admin1@baselogic.com").password("admin1").roles("USER","ADMIN")))
+                .with(user(TestUtils.admin1UserDetails)))
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withRoles("USER","ADMIN"))

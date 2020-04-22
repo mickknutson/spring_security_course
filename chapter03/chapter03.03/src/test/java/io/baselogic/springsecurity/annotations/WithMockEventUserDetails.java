@@ -1,6 +1,6 @@
 package io.baselogic.springsecurity.annotations;
 
-import io.baselogic.springsecurity.service.WithMockEventUserDetailsSecurityContextFactory;
+import io.baselogic.springsecurity.userdetails.WithMockEventUserDetailsSecurityContextFactory;
 import org.springframework.security.test.context.support.WithSecurityContext;
 
 import java.lang.annotation.Retention;
