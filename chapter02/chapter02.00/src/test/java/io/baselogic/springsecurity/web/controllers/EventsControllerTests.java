@@ -32,6 +32,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -77,6 +79,7 @@ public class EventsControllerTests {
                 .build();
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setCssEnabled(false);
+        webClient.getOptions().setPrintContentOnFailingStatusCode(true);
     }
 
 
@@ -132,13 +135,11 @@ public class EventsControllerTests {
         )
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/list"))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(3))))
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("All Event");
-        ModelAndView mav = result.getModelAndView();
-        List<Event> events = (List<Event>)mav.getModel().get("events");
-        assertThat(events.size()).isEqualTo(3);
     }
 
 
@@ -172,13 +173,11 @@ public class EventsControllerTests {
         )
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/my"))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(2))))
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Current User Event");
-        ModelAndView mav = result.getModelAndView();
-        List<Event> events = (List<Event>)mav.getModel().get("events");
-        assertThat(events.size()).isEqualTo(2);
     }
 
     /**

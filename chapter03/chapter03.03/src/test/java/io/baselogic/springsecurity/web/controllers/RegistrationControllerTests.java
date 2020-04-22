@@ -18,11 +18,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -35,7 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
-@WithAnonymousUser
 @Slf4j
 public class RegistrationControllerTests {
 
@@ -52,13 +49,6 @@ public class RegistrationControllerTests {
      */
     @BeforeEach
     void setup(WebApplicationContext context) {
-
-        // https://docs.spring.io/spring-security/site/docs/current/reference/html5/#test-mockmvc-setup
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(context)
-                .apply(springSecurity())
-                .build();
-
         webClient = MockMvcWebClientBuilder
                 .webAppContextSetup(context)
                 .build();
@@ -76,6 +66,7 @@ public class RegistrationControllerTests {
      */
     @Test
     @DisplayName("Show Registration Form - WithAnonymousUser")
+    @WithAnonymousUser
     public void showEventForm__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/registration/form")
         )
@@ -91,6 +82,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form")
+    @WithAnonymousUser
     public void createEvent() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -104,7 +96,7 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute("test@baselogic.com");
+        email.setValueAttribute("chuck@baselogic.com");
 
         HtmlInput password = page.getHtmlElementById("password");
         password.setValueAttribute("some password");
@@ -125,6 +117,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null first name")
+    @WithAnonymousUser
     public void createEvent__null__first_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -163,6 +156,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null last name")
+    @WithAnonymousUser
     public void createEvent__null__last_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -201,6 +195,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null email")
+    @WithAnonymousUser
     public void createEvent__null__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -239,6 +234,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - duplicate email")
+    @WithAnonymousUser
     public void createEvent__duplicate__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
@@ -277,6 +273,7 @@ public class RegistrationControllerTests {
 
     @Test
     @DisplayName("Submit Registration Form - null password")
+    @WithAnonymousUser
     public void createEvent__null__password() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 

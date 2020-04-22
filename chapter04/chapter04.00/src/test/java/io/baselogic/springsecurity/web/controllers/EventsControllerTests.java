@@ -28,6 +28,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,8 +44,6 @@ public class EventsControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
-
-    private WebClient webClient;
 
     private static final String USER = TestUtils.user1.getEmail();
     private EventUserDetails user1UserDetails;
@@ -62,13 +62,6 @@ public class EventsControllerTests {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
-
-        webClient = MockMvcWebClientBuilder
-                .webAppContextSetup(context)
-                .build();
-        webClient.getOptions().setJavaScriptEnabled(false);
-        webClient.getOptions().setCssEnabled(false);
-        webClient.getOptions().setPrintContentOnFailingStatusCode(true);
 
         this.user1UserDetails = TestUtils.user1UserDetails;
         this.admin1UserDetails = TestUtils.admin1UserDetails;
@@ -157,13 +150,9 @@ public class EventsControllerTests {
                 .andExpect(status().isOk())
 
                 .andExpect(content().string(containsString("All Event")))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(3))))
 
                 .andReturn();
-
-        ModelAndView mav = result.getModelAndView();
-        List<Event> events = (List<Event>)mav.getModel().get("events");
-        assertThat(events.size()).isEqualTo(3);
-
     }
 
 
@@ -201,13 +190,8 @@ public class EventsControllerTests {
 
                 .andExpect(content().string(containsString("Current User Events")))
                 .andExpect(content().string(containsString("This shows all events for the current appUser.")))
-// FIXME:                .andExpect(model().attribute("events", is()))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(3))))
                 .andReturn();
-
-        ModelAndView mav = result.getModelAndView();
-        List<Event> events = (List<Event>)mav.getModel().get("events");
-        assertThat(events.size()).isEqualTo(3);
-
     }
 
     //-----------------------------------------------------------------------//

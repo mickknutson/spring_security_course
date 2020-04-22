@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.web.controllers;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import io.baselogic.springsecurity.annotations.WithMockUser1;
 import io.baselogic.springsecurity.dao.TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContext;
@@ -180,12 +182,17 @@ public class LoginTests {
     }
 
     /**
-     * Test form login with {@link RequestPostProcessor} mixed with {@link SecurityMockMvcResultMatchers}
+     * Test form login with {@link RequestPostProcessor}.
+     * Leverage the {@link SecurityMockMvcRequestBuilders} mixed with {@link SecurityMockMvcResultMatchers}
+     *
+     * The {@link SecurityMockMvcRequestBuilders} will not work with the {@link WithMockUser} annotation.
+     * Using the {@link WithMockUser} annotation will result in a null {@link Authentication} Object.
      *
      * @throws Exception is the test fails unexpectedly.
      */
     @Test
     @DisplayName("Form Login - authenticated - user1")
+//    @WithMockUser1
     public void testFormLogin_user1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(

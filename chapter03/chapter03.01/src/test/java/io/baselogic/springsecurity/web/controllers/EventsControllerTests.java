@@ -103,7 +103,6 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("MockMvc All Events - user1 - ROLE_USER")
-//    @WithMockUser(username="user1@baselogic.com", roles={"USER"})
     @WithMockUser1
     public void allEvents_not_authenticated__WithUser1_and_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
@@ -260,7 +259,6 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form")
-//    @WithMockUser("user1@baselogic.com")
     @WithMockUser1
     public void createEvent() throws Exception {
 

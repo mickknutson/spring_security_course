@@ -67,6 +67,7 @@ public class EventsControllerTests {
                 .build();
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setCssEnabled(false);
+        webClient.getOptions().setPrintContentOnFailingStatusCode(true);
     }
 
 

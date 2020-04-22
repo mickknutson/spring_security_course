@@ -1,5 +1,7 @@
 package io.baselogic.springsecurity.web.controllers;
 
+import io.baselogic.springsecurity.annotations.WithMockAdmin1;
+import io.baselogic.springsecurity.annotations.WithMockUser1;
 import io.baselogic.springsecurity.dao.TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -163,11 +165,10 @@ public class LoginTests {
      */
     @Test
     @DisplayName("My Events Page - authenticated - user1 - RequestPostProcessor")
+    @WithMockUser1
     public void testMyEventsPage_user1_authenticated__RequestPostProcessor() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/events/my")
-                // Simulate a valid security User:
-                .with(user(USER)))
+        MvcResult result = mockMvc.perform(get("/events/my"))
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withUsername(USER).withRoles("USER"))
@@ -247,11 +248,10 @@ public class LoginTests {
      */
     @Test
     @DisplayName("All Events Page - authenticated - admin1")
+    @WithMockAdmin1
     public void test_AllEventsPage_admin1_authenticated() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/events/")
-                // Simulate a valid security User:
-                .with(user("admin1@baselogic.com").password("admin1").roles("USER","ADMIN")))
+        MvcResult result = mockMvc.perform(get("/events/"))
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withRoles("USER","ADMIN"))
@@ -272,9 +272,5 @@ public class LoginTests {
         assertAndReturnModelAttributeOfType(mav, "events", List.class);
 
     }
-
-    //-----------------------------------------------------------------------//
-    // admin1 Tests
-
 
 } // The End...
