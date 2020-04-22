@@ -156,7 +156,7 @@ public class LoginTests {
                 .andExpect(authenticated().withUsername("user").withRoles("USER"))
 
                 .andExpect(view().name("events/my"))
-                .andExpect(model().attribute("events", hasSize(2)))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(2))))
                 .andReturn();
     }
 
