@@ -28,8 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.endsWith;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -63,9 +62,6 @@ public class LoginTests {
     @Autowired
     private MockMvc mockMvc;
 
-    // HtmlUnit --> Rhino Engine
-    private WebClient webClient;
-
     private static final String USER = TestUtils.user1.getEmail();
     private static final String ADMIN = TestUtils.admin1.getEmail();
 
@@ -83,12 +79,6 @@ public class LoginTests {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
-
-        webClient = MockMvcWebClientBuilder
-                .webAppContextSetup(context)
-                .build();
-        webClient.getOptions().setJavaScriptEnabled(false);
-        webClient.getOptions().setCssEnabled(false);
     }
 
     //-----------------------------------------------------------------------//
@@ -104,10 +94,7 @@ public class LoginTests {
     @WithAnonymousUser
     public void testHomePage_isUnauthorized() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/")
-                // Simulate a valid security User:
-                .with(anonymous()))
-
+        MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(unauthenticated())
                 .andReturn();
@@ -158,7 +145,26 @@ public class LoginTests {
      */
     @Test
     @DisplayName("My Events Page - authenticated - user1")
+    @WithMockUser
     public void testMyEventsPage_user1_authenticated() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/events/my"))
+                .andExpect(status().isOk())
+                .andExpect(authenticated().withUsername("user").withRoles("USER"))
+
+                .andExpect(view().name("events/my"))
+                .andExpect(model().attribute("events", hasSize(2)))
+                .andReturn();
+    }
+
+    /**
+     * Test Secured Page with {@link RequestPostProcessor} mixed with {@link SecurityMockMvcResultMatchers}
+     *
+     * @throws Exception is the test fails unexpectedly.
+     */
+    @Test
+    @DisplayName("My Events Page - authenticated - user1 - RequestPostProcessor")
+    public void testMyEventsPage_user1_authenticated__RequestPostProcessor() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my")
                 // Simulate a valid security User:
@@ -166,22 +172,10 @@ public class LoginTests {
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withUsername(USER).withRoles("USER"))
+
                 .andExpect(view().name("events/my"))
+                .andExpect(model().attribute("events", hasSize(2)))
                 .andReturn();
-
-        String content = result.getResponse().getContentAsString();
-        log.info("[{}]", content);
-        assertThat(content).contains("Current Users Events");
-
-        // In-line ModelAndViewAssert validation
-        ModelAndView mav = result.getModelAndView();
-
-        assertThat(mav).isNotNull();
-        assertViewName(mav, "events/my");
-
-        assertModelAttributeAvailable(mav, "events");
-        assertAndReturnModelAttributeOfType(mav, "events", List.class);
-
     }
 
     /**
@@ -263,7 +257,7 @@ public class LoginTests {
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withRoles("USER","ADMIN"))
                 .andExpect(view().name("events/list"))
-                .andExpect(model().attribute("events", hasSize(3)))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(3))))
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();

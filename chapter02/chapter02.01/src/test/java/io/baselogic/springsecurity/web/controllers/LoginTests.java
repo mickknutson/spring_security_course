@@ -1,6 +1,5 @@
 package io.baselogic.springsecurity.web.controllers;
 
-import com.gargoylesoftware.htmlunit.WebClient;
 import io.baselogic.springsecurity.dao.TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +18,6 @@ import org.springframework.security.test.web.servlet.response.SecurityMockMvcRes
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -28,8 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.Matchers.endsWith;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -39,6 +36,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.ModelAndViewAssert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 /**
  * Login tests to demonstrate testing with various users including:
@@ -63,9 +61,6 @@ public class LoginTests {
     @Autowired
     private MockMvc mockMvc;
 
-    // HtmlUnit --> Rhino Engine
-    private WebClient webClient;
-
     private static final String USER = TestUtils.user1.getEmail();
     private static final String ADMIN = TestUtils.admin1.getEmail();
 
@@ -83,12 +78,6 @@ public class LoginTests {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
-
-        webClient = MockMvcWebClientBuilder
-                .webAppContextSetup(context)
-                .build();
-        webClient.getOptions().setJavaScriptEnabled(false);
-        webClient.getOptions().setCssEnabled(false);
     }
 
     //-----------------------------------------------------------------------//
@@ -104,10 +93,7 @@ public class LoginTests {
     @WithAnonymousUser
     public void testHomePage_isUnauthorized() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/")
-                // Simulate a valid security User:
-                .with(anonymous()))
-
+        MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(unauthenticated())
                 .andReturn();
@@ -158,7 +144,26 @@ public class LoginTests {
      */
     @Test
     @DisplayName("My Events Page - authenticated - user1")
+    @WithMockUser
     public void testMyEventsPage_user1_authenticated() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/events/my"))
+                .andExpect(status().isOk())
+                .andExpect(authenticated().withUsername("user").withRoles("USER"))
+
+                .andExpect(view().name("events/my"))
+                .andExpect(model().attribute("events", hasSize(2)))
+                .andReturn();
+    }
+
+    /**
+     * Test Secured Page with {@link RequestPostProcessor} mixed with {@link SecurityMockMvcResultMatchers}
+     *
+     * @throws Exception is the test fails unexpectedly.
+     */
+    @Test
+    @DisplayName("My Events Page - authenticated - user1 - RequestPostProcessor")
+    public void testMyEventsPage_user1_authenticated__RequestPostProcessor() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my")
                 // Simulate a valid security User:
@@ -166,23 +171,10 @@ public class LoginTests {
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withUsername(USER).withRoles("USER"))
+
                 .andExpect(view().name("events/my"))
                 .andExpect(model().attribute("events", hasSize(2)))
                 .andReturn();
-
-        String content = result.getResponse().getContentAsString();
-        log.info("[{}]", content);
-        assertThat(content).contains("Current Users Events");
-
-        // In-line ModelAndViewAssert validation
-        ModelAndView mav = result.getModelAndView();
-
-        assertThat(mav).isNotNull();
-        assertViewName(mav, "events/my");
-
-        assertModelAttributeAvailable(mav, "events");
-        assertAndReturnModelAttributeOfType(mav, "events", List.class);
-
     }
 
     /**
@@ -264,7 +256,7 @@ public class LoginTests {
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withRoles("USER","ADMIN"))
                 .andExpect(view().name("events/list"))
-                .andExpect(model().attribute("events", hasSize(3)))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(3))))
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
