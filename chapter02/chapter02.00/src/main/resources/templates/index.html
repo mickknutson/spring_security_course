@@ -1,5 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title id="pageTitle">Welcome to the EventManager!</title>
 
@@ -13,7 +12,7 @@
 
     <h1 id="chapterHeading">Chapter 02.00</h1>
     <p id="chapterTitle">Each chapter will have a slightly different summary depending on what has been done.</p>
-    <h4 id="summary">Below you can find some highlights about <strong>EventManager</strong>.</h4>
+    <h4 id="summary">BASE line from Chapter 01.00.</h4>
     <ul>
         <li><a id="eventsLink" th:href="@{/events/}">All Events</a> - shows all events for all appUsers. Once secured, this will only be viewable by administrators.</li>
         <li><a id="myEMLink" th:href="@{events/my}">My Events</a> - shows all events that <i>user1@baselogic.com</i> is the owner or attendee. Once we apply security only a logged in appUser

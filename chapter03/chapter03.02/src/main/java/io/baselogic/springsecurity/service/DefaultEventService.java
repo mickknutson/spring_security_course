@@ -23,7 +23,6 @@ import java.util.List;
 
  * @since chapter01.00
  * @since chapter03.02 adding {@link UserDetailsManager} userDetailsManager
- *
  */
 @Service
 @Validated

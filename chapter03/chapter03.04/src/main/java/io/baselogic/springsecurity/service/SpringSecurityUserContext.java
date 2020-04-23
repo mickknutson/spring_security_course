@@ -2,11 +2,13 @@ package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.domain.AppUser;
+import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
@@ -18,7 +20,9 @@ import java.util.Collection;
  * {@link Authentication} by principal name.
  *
  * @author Mick Knutson
- * @since chapter03.01
+ * @since chapter03.01 Class Created
+ * @since chapter03.02 Added {@link UserDetailsManager} support
+ * @since chapter03.03 Changed {@link UserDetailsManager} to use custom {@link EventUserDetailsService}.
  */
 @Component
 public class SpringSecurityUserContext implements UserContext {
@@ -52,7 +56,7 @@ public class SpringSecurityUserContext implements UserContext {
             throw new IllegalArgumentException("email cannot be null");
         }
         Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(appUser);
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(appUser,
+        Authentication authentication = new UsernamePasswordAuthenticationToken(appUser,
                 appUser.getPassword(), authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

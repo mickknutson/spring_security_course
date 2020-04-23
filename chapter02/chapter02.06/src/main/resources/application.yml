@@ -12,9 +12,10 @@ spring:
 
   ##---------------------------------------------------------------------------##
   ## Thymeleaf configuration:
-  thymeleaf:
-    cache: false
-    mode: HTML
+  # @since chapter02.05 moved configuration to ThymeleafConfig.
+  #  thymeleaf:
+  #    cache: false
+  #    mode: HTML
 
 
   ##---------------------------------------------------------------------------##

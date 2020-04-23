@@ -79,7 +79,7 @@ public class EventsController {
      * Useful so that users do not have to think when
      * filling out the form for testing.
      *
-     * @param eventDto Event data transfer Object
+     * @param {@link eventDto} for new {@link Event} to be created.
      */
     @PostMapping(value = "/new", params = "auto")
     public String showEventFormAutoPopulate(final @ModelAttribute EventDto eventDto) {

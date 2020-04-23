@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
@@ -26,7 +27,9 @@ import javax.validation.constraints.NotNull;
  * {@link Authentication} by principal name.
  *
  * @author Mick Knutson
- * @since chapter03.01
+ * @since chapter03.01 Class Created
+ * @since chapter03.02 Added {@link UserDetailsManager} support
+ * @since chapter03.03 Changed {@link UserDetailsManager} to use custom {@link EventUserDetailsService}.
  * @since chapter04.02 added conversion to/from {@link org.springframework.security.core.userdetails.User}
  */
 @Component
@@ -93,7 +96,7 @@ public class SpringSecurityUserContext implements UserContext {
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(appUser.getEmail());
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 appUser.getPassword(),
                 userDetails.getAuthorities());

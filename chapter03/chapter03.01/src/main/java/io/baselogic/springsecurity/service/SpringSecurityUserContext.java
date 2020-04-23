@@ -15,9 +15,8 @@ import javax.validation.constraints.NotNull;
  * An implementation of {@link UserContext} that looks up the {@link AppUser} using the Spring Security's
  * {@link Authentication} by principal name.
  *
- * @since chapter03.01
  * @author Mick Knutson
- *
+ * @since chapter03.01 Class Created
  */
 @Component
 public class SpringSecurityUserContext implements UserContext {

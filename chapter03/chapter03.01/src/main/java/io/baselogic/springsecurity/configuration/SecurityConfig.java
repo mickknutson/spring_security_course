@@ -27,9 +27,10 @@ import java.util.Map;
  * @since chapter02.03 Added basic role-based authorization
  * @since chapter02.04 converted antMatchers to SPeL expressions
  * @since chapter02.05 Added .defaultSuccessUrl("/default")
+ * @since chapter03.01 Added PasswordEncoder passwordEncoder()
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -72,7 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         log.debug("***** Password for admin 'admin1@baselogic.com' is 'admin1'");
     }
 
-
     /**
      * HTTP Security configuration
      *
@@ -103,9 +103,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
-                .antMatchers("/admin/h2/**").permitAll()
-
 //                .antMatchers("/resources/**").permitAll()
 
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
@@ -120,18 +117,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().accessDeniedPage("/errors/403")
 
                 .and().formLogin()
-                    .loginPage("/login/form")
-                    .loginProcessingUrl("/login")
-                    .failureUrl("/login/form?error")
-                    .usernameParameter("username") // redundant
-                    .passwordParameter("password") // redundant
-                    .defaultSuccessUrl("/default", true)
-                    .permitAll()
+                .loginPage("/login/form")
+                .loginProcessingUrl("/login")
+                .failureUrl("/login/form?error")
+                .usernameParameter("username") // redundant
+                .passwordParameter("password") // redundant
+
+                .defaultSuccessUrl("/default", true)
+                .permitAll()
 
                 .and().logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login/form?logout")
-                    .permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login/form?logout")
+                .permitAll()
         ;
 
 
@@ -177,6 +175,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**")
         ;
     }
+
 
     /**
      * Create a DelegatingPasswordEncoder

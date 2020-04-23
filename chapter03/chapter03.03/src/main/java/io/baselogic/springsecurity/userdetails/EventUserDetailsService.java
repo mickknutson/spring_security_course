@@ -54,6 +54,7 @@ public class EventUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Invalid username/password.");
         }
         Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(appUser);
+        
         return new User(appUser.getEmail(), appUser.getPassword(), authorities);
     }
 

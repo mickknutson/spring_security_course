@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 <div class="container">
-
     <div th:fragment="messages">
         <!-- Standard messages -->
         <div th:if="${message != null}" class="alert alert-success">
@@ -17,9 +16,7 @@
         <div th:if="${#vars['error'] != null}" class="alert alert-danger">
             <span th:text="${#vars['error']}"></span>
         </div>-->
-
     </div>
 </div>
-
 </body>
 </html>

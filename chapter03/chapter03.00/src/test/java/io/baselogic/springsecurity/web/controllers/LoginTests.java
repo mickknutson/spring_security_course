@@ -1,6 +1,6 @@
 package io.baselogic.springsecurity.web.controllers;
 
-import io.baselogic.springsecurity.annotations.WithMockAdmin1;
+import com.gargoylesoftware.htmlunit.WebClient;
 import io.baselogic.springsecurity.annotations.WithMockUser1;
 import io.baselogic.springsecurity.dao.TestUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithSecurityContext;
@@ -20,6 +21,7 @@ import org.springframework.security.test.web.servlet.response.SecurityMockMvcRes
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -165,10 +167,11 @@ public class LoginTests {
      */
     @Test
     @DisplayName("My Events Page - authenticated - user1 - RequestPostProcessor")
-    @WithMockUser1
     public void testMyEventsPage_user1_authenticated__RequestPostProcessor() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/events/my"))
+        MvcResult result = mockMvc.perform(get("/events/my")
+                // Simulate a valid security User:
+                .with(user(USER)))
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withUsername(USER).withRoles("USER"))
@@ -179,12 +182,17 @@ public class LoginTests {
     }
 
     /**
-     * Test form login with {@link RequestPostProcessor} mixed with {@link SecurityMockMvcResultMatchers}
+     * Test form login with {@link RequestPostProcessor}.
+     * Leverage the {@link SecurityMockMvcRequestBuilders} mixed with {@link SecurityMockMvcResultMatchers}
+     *
+     * The {@link SecurityMockMvcRequestBuilders} will not work with the {@link WithMockUser} annotation.
+     * Using the {@link WithMockUser} annotation will result in a null {@link Authentication} Object.
      *
      * @throws Exception is the test fails unexpectedly.
      */
     @Test
     @DisplayName("Form Login - authenticated - user1")
+//    @WithMockUser1
     public void testFormLogin_user1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(
@@ -248,10 +256,11 @@ public class LoginTests {
      */
     @Test
     @DisplayName("All Events Page - authenticated - admin1")
-    @WithMockAdmin1
     public void test_AllEventsPage_admin1_authenticated() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/events/"))
+        MvcResult result = mockMvc.perform(get("/events/")
+                // Simulate a valid security User:
+                .with(user("admin1@baselogic.com").password("admin1").roles("USER","ADMIN")))
 
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withRoles("USER","ADMIN"))
@@ -272,5 +281,9 @@ public class LoginTests {
         assertAndReturnModelAttributeOfType(mav, "events", List.class);
 
     }
+
+    //-----------------------------------------------------------------------//
+    // admin1 Tests
+
 
 } // The End...

@@ -90,7 +90,7 @@
             <artifactId>jquery</artifactId>
             <version>${webjarsJquery.version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
             <version>${webjarsLocator.version}</version>
@@ -99,7 +99,7 @@
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator-core</artifactId>
             <version>${webjarsLocatorCore.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!-- DATABASE: -->
         <dependency>

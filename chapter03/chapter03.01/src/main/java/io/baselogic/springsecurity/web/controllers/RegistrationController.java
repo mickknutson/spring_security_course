@@ -71,14 +71,11 @@ public class RegistrationController {
                 passwordEncoder.encode(registrationDto.getPassword())
         );
 
-        // TODO: To implement in chapter03.02
-//        int id = eventService.createUser(user);
-//        log.info("Created user ID {}.", id);
-//        user.setId(id);
-//        userContext.setCurrentUser(user);
+        int id = eventService.createUser(appUser);
+        log.info("Created user ID {}.", id);
 
         StringBuilder sb = new StringBuilder("Registration Successful.");
-        sb.append(" Account created for '").append(email).append("' and automatically logged-in.");
+        sb.append(" Account created for '").append(email).append("'.");
 
         redirectAttributes.addFlashAttribute("message",
                 sb.toString());

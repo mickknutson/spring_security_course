@@ -1,8 +1,9 @@
-<html  xmlns:th="http://www.thymeleaf.org"
+<!DOCTYPE HTML>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org"
        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
 <body>
 <div class="container">
-
     <div th:fragment="header">
         <nav class="navbar navbar-inverse">
             <div class="container">
@@ -22,23 +23,19 @@
                             <p class="navbar-text">Welcome: <div class="navbar-text" th:text="${#authentication.name}">User</div></p>
                         </li>
                         <li>
-                            <a id="navLogoutLink" class="btn btn-primary" role="button"  th:href="@{/logout}">Logout</a>
+                            <a id="navLogoutLink" class="btn btn-default" role="button"  th:href="@{/logout}">Logout</a>
                         </li>
                         <li>&nbsp;|&nbsp;</li>
                     </ul>
-
                     <ul class="nav navbar-nav pull-right" sec:authorize=" ! isAuthenticated()">
                         <li><a id="navSignupLink" class="btn btn-default" role="button" th:href="@{/registration/form}">Register</a></li>
                         <li><a id="navLoginLink" class="btn btn-default" role="button" th:href="@{/login/form}">Login</a></li>
                         <li>&nbsp;|&nbsp;</li>
                     </ul>
-
                 </div>
             </div>
         </nav>
     </div>
 </div>
-
-
 </body>
 </html>

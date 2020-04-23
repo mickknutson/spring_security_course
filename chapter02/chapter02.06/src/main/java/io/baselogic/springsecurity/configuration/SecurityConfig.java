@@ -114,7 +114,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .passwordParameter("password") // redundant
 
                     .defaultSuccessUrl("/default", true)
-
                     .permitAll()
 
                 .and().logout()

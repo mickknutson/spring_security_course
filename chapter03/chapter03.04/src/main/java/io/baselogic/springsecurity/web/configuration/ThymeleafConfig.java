@@ -15,7 +15,7 @@ import org.thymeleaf.templatemode.TemplateMode;
  * Thymeleaf Configuration
  * The first chapter this is required in is chapter02.05
  *
- * @since chapter02.05
+ * @since chapter02.05 Class created.
  */
 @Configuration
 public class ThymeleafConfig {

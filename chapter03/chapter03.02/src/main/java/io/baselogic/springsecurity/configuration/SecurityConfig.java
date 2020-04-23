@@ -30,7 +30,9 @@ import java.util.Map;
  * @since chapter02.03 Added basic role-based authorization
  * @since chapter02.04 converted antMatchers to SPeL expressions
  * @since chapter02.05 Added .defaultSuccessUrl("/default")
+ * @since chapter03.01 Added PasswordEncoder passwordEncoder()
  * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
+ * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
  */
 @Configuration
 @EnableWebSecurity
@@ -81,16 +83,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * Use the following Password Encoder instead of prefixing passwords with {noop}
      * <code>User.UserBuilder users = User.withDefaultPasswordEncoder();</code>
-     *
-     * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
      */
     @Bean
     @Override
     public UserDetailsManager userDetailsService() {
 
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("user").password("{noop}password").roles(ROLE_USER).build());
-        manager.createUser(User.withUsername("admin").password("{noop}admin").roles(ROLE_USER, ROLE_ADMIN).build());
         manager.createUser(User.withUsername("user1@baselogic.com").password("{noop}user1").roles(ROLE_USER).build());
         manager.createUser(User.withUsername("admin1@baselogic.com").password("{noop}admin1").roles(ROLE_USER, ROLE_ADMIN).build());
         return manager;

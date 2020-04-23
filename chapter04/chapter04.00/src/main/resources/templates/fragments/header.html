@@ -25,7 +25,7 @@
                             <p class="navbar-text">Welcome <div class="navbar-text" th:text="${#authentication.getPrincipal().getName()}">User</div></p>
                         </li>
                         <li>
-                            <a id="navLogoutLink" class="btn btn-primary" role="button"  th:href="@{/logout}">Logout</a>
+                            <a id="navLogoutLink" class="btn btn-default" role="button"  th:href="@{/logout}">Logout</a>
                         </li>
                         <li>&nbsp;|&nbsp;</li>
                     </ul>

@@ -83,7 +83,7 @@ public class WelcomeControllerTests {
         assertThat(chapterTitle).contains("Each chapter will have a slightly different summary depending on what has been done.");
 
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("Below you can find some highlights about EventManager.");
+        assertThat(summary).contains("BASE line from Chapter 01.00.");
     }
 
     //-------------------------------------------------------------------------

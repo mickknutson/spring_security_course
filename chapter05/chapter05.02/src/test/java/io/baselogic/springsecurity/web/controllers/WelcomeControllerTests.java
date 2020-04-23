@@ -69,7 +69,7 @@ public class WelcomeControllerTests {
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!");
         assertThat(content).contains("Chapter 05.02");
-        assertThat(content).contains("JPA-Based Authentication");
+        assertThat(content).contains("Refactor JPA implementation to use Spring Data Mongo DB");
 
     }
 
@@ -89,7 +89,7 @@ public class WelcomeControllerTests {
         assertThat(chapterTitle).contains("Each chapter will have a slightly different summary depending on what has been done.");
 
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("JPA-Based Authentication");
+        assertThat(summary).contains("Refactor JPA implementation to use Spring Data Mongo DB");
     }
 
     //-------------------------------------------------------------------------

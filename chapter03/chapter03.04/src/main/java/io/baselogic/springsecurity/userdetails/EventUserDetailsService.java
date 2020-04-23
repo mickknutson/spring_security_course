@@ -25,8 +25,8 @@ import javax.validation.constraints.NotNull;
  *
  * @author mickknutson
  *
- * @since chapter03.03
- * @since chapter03.04 added EventUserDetails.class inner-class
+ * @since chapter03.03 Created Class
+ * @since chapter03.04 added support for custom EventUserDetails
  *
  */
 @Component

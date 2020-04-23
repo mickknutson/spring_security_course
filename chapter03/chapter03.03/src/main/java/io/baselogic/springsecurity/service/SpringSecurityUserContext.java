@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.domain.AppUser;
+import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
@@ -19,9 +21,11 @@ import javax.validation.constraints.NotNull;
  * An implementation of {@link UserContext} that looks up the {@link AppUser} using the Spring Security's
  * {@link Authentication} by principal name.
  *
- * @since chapter03.01
  * @author Mick Knutson
  *
+ * @since chapter03.01 Class Created
+ * @since chapter03.02 Added {@link UserDetailsManager} support
+ * @since chapter03.03 Changed {@link UserDetailsManager} to use custom {@link EventUserDetailsService}.
  */
 @Component
 public class SpringSecurityUserContext implements UserContext {
@@ -66,7 +70,7 @@ public class SpringSecurityUserContext implements UserContext {
     @Override
     public void setCurrentUser(final @Valid @NotNull(message="user.notNull.key") AppUser appUser) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(appUser.getEmail());
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 appUser.getPassword(),
                 userDetails.getAuthorities());

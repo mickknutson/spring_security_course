@@ -32,6 +32,8 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.ModelAndViewAssert.assertAndReturnModelAttributeOfType;
+import static org.springframework.test.web.ModelAndViewAssert.assertModelAttributeAvailable;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -47,8 +49,6 @@ public class EventsControllerTests {
 
     @Autowired
     private UserContext userContext;
-
-    private static final String USER = TestUtils.user1.getEmail();
 
     /**
      * Customize the WebClient to work with HtmlUnit
@@ -120,14 +120,14 @@ public class EventsControllerTests {
 
     /**
      * Test the URI for All Events.
-     * Using @WithMockUser("admin1@baselogic.com") to ensure this user does not have ADMIN role
      */
     @Test
     @DisplayName("MockMvc All Events - admin1")
-    @WithMockUser("admin1@baselogic.com")
+    @WithMockAdmin1
     public void allEventsPage() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
-                .andExpect(status().isForbidden())
+                .andExpect(status().isOk())
+                .andExpect(view().name("events/list"))
                 .andReturn();
 
     }
@@ -145,6 +145,7 @@ public class EventsControllerTests {
 
                 .andExpect(content().string(containsString("All Event")))
                 .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(3))))
+
                 .andReturn();
     }
 
@@ -310,7 +311,6 @@ public class EventsControllerTests {
     public void createEvent_not_found_email() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-
                 .param("attendeeEmail", "notFound@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
                 .param("summary", "Test Summary")
@@ -333,7 +333,6 @@ public class EventsControllerTests {
     public void createEvent_null_when() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-
                         .param("attendeeEmail", "user2@baselogic.com")
 //                .param("when", "2020-07-03 00:00:01")
                         .param("summary", "Test Summary")
@@ -356,7 +355,6 @@ public class EventsControllerTests {
     public void createEvent_null_summary() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-
                         .param("attendeeEmail", "user2@baselogic.com")
                         .param("when", "2020-07-03 00:00:01")
 //                .param("summary", "Test Summary")
@@ -379,7 +377,6 @@ public class EventsControllerTests {
     public void createEvent_null_description() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-
                         .param("attendeeEmail", "notFound@baselogic.com")
                         .param("when", "2020-07-03 00:00:01")
                         .param("summary", "Test Summary")

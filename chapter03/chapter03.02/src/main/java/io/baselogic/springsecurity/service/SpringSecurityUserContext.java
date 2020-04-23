@@ -2,6 +2,7 @@ package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.domain.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -9,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
@@ -18,21 +20,22 @@ import javax.validation.constraints.NotNull;
  * An implementation of {@link UserContext} that looks up the {@link AppUser} using the Spring Security's
  * {@link Authentication} by principal name.
  *
- * @since chapter03.01
  * @author Mick Knutson
  *
+ * @since chapter03.01 Class Created
+ * @since chapter03.02 Added {@link UserDetailsManager} support
  */
 @Component
 public class SpringSecurityUserContext implements UserContext {
 
     private final EventService eventService;
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsManager userDetailsManager;
 
     @Autowired
     public SpringSecurityUserContext(final @NotNull EventService eventService,
-                                     final @NotNull UserDetailsService userDetailsService) {
+                                     final @NotNull @Qualifier("userDetailsService") UserDetailsManager userDetailsManager) {
         this.eventService = eventService;
-        this.userDetailsService = userDetailsService;
+        this.userDetailsManager = userDetailsManager;
     }
 
     /**
@@ -64,8 +67,8 @@ public class SpringSecurityUserContext implements UserContext {
 
     @Override
     public void setCurrentUser(final @Valid @NotNull(message="user.notNull.key") AppUser appUser) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(appUser.getEmail());
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+        UserDetails userDetails = userDetailsManager.loadUserByUsername(appUser.getEmail());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 appUser.getPassword(),
                 userDetails.getAuthorities());

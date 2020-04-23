@@ -69,7 +69,7 @@ public class WelcomeControllerTests {
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!");
         assertThat(content).contains("Chapter 04.03");
-        assertThat(content).contains("JDBC-Based Authentication");
+        assertThat(content).contains("Support for a custom schema");
 
     }
 
@@ -89,7 +89,7 @@ public class WelcomeControllerTests {
         assertThat(chapterTitle).contains("Each chapter will have a slightly different summary depending on what has been done.");
 
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("JDBC-Based Authentication");
+        assertThat(summary).contains("Support for a custom schema");
     }
 
     //-------------------------------------------------------------------------

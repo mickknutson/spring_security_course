@@ -1,7 +1,6 @@
 package io.baselogic.springsecurity.configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,13 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Spring Security Configuration  Class
@@ -29,7 +21,7 @@ import java.util.Map;
  * @since chapter02.05 Added .defaultSuccessUrl("/default")
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -120,6 +112,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureUrl("/login/form?error")
                     .usernameParameter("username") // redundant
                     .passwordParameter("password") // redundant
+
                     .defaultSuccessUrl("/default", true)
                     .permitAll()
 
@@ -173,23 +166,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 
-    /**
-     * Create a DelegatingPasswordEncoder
-     *  see https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
-     *
-     *  Standard use, see {@link PasswordEncoderFactories}:
-     *  <code>return PasswordEncoderFactories.createDelegatingPasswordEncoder();</code>
-     *
-     * @return DelegatingPasswordEncoder
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-
-        String idForEncode = "noop";
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put(idForEncode, NoOpPasswordEncoder.getInstance());
-
-        return new DelegatingPasswordEncoder(idForEncode, encoders);
-    }
 
 } // The End...

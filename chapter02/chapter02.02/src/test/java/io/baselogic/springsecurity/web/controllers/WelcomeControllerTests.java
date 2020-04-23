@@ -83,7 +83,7 @@ public class WelcomeControllerTests {
         assertThat(chapterTitle).contains("The page isn't redirecting properly!");
 
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("Below you can find some highlights about EventManager.");
+        assertThat(summary).contains("Customizing login.");
     }
 
     //-------------------------------------------------------------------------

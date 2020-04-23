@@ -79,6 +79,8 @@ public class RegistrationController {
         int id = eventService.createUser(appUser);
         log.info("Created user ID {}.", id);
         appUser.setId(id);
+
+        // Set AppUser into current SecurityContext
         userContext.setCurrentUser(appUser);
 
         StringBuilder sb = new StringBuilder("Registration Successful.");
