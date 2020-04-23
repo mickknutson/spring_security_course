@@ -17,6 +17,8 @@
 > * Custom Authorization
 > * Session Management
 > * Additional Spring Security Features
+> * Look into mocking out EventUserAuthenticationProvider or SpringSecurityUserContext for chapter03.05
+>   * So we can remove EventUserDetailsService in the same chapter.
 
 
 ---

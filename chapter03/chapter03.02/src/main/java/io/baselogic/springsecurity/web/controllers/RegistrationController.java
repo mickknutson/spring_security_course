@@ -77,14 +77,14 @@ public class RegistrationController {
         );
 
         int id = eventService.createUser(appUser);
+        appUser.setId(id);
         log.info("Created user ID {}.", id);
         appUser.setId(id);
 
-        // Set AppUser into current SecurityContext
         userContext.setCurrentUser(appUser);
 
         StringBuilder sb = new StringBuilder("Registration Successful.");
-        sb.append(" Account created for '").append(email).append("' and automatically logged-in.");
+        sb.append(" Account created for '").append(email).append("'.");
 
         redirectAttributes.addFlashAttribute("message",
                 sb.toString());

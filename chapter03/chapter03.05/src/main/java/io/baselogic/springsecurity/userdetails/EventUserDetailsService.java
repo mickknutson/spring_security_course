@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author mickknutson
  *
- * @since chapter03.03
+ * @since chapter03.03 Created Class
  * @since chapter03.04 added support for custom EventUserDetails
  *
  */
@@ -48,6 +48,7 @@ public class EventUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("*** Executing eventUserDetailsService.loadUserByUsername('{}')", username);
         AppUser appUser = userDao.findByEmail(username);
         if (appUser == null) {
             throw new UsernameNotFoundException("Invalid username/password.");

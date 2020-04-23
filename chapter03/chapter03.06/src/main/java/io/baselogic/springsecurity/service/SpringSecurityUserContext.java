@@ -23,6 +23,7 @@ import java.util.Collection;
  * @since chapter03.01 Class Created
  * @since chapter03.02 Added {@link UserDetailsManager} support
  * @since chapter03.03 Changed {@link UserDetailsManager} to use custom {@link EventUserDetailsService}.
+ * @since chapter03.04 simplify setCurrentUser(AppUser)
  */
 @Component
 public class SpringSecurityUserContext implements UserContext {

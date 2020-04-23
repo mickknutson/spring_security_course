@@ -28,7 +28,8 @@ import java.util.Map;
  * @since chapter03.01 Added PasswordEncoder passwordEncoder()
  * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
  * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
- * @since chapter03.05 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
+ * @since chapter03.05 Added auth.authenticationProvider(EventUserAuthenticationProvider)
+ * @since chapter03.06 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  * @since chapter04.00 removed .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  */
 @Configuration
@@ -72,8 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
-
-//                .antMatchers("/resources/**").permitAll()
 
                 .antMatchers("/registration/*").permitAll()
 

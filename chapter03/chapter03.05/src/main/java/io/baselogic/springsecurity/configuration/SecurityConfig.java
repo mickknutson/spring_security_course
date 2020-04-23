@@ -1,11 +1,13 @@
 package io.baselogic.springsecurity.configuration;
 
 import io.baselogic.springsecurity.authentication.EventUserAuthenticationProvider;
+import io.baselogic.springsecurity.service.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -17,11 +19,13 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Spring Security Configuration  Class
+ *
  * @see WebSecurityConfigurerAdapter
  * @since chapter02.01 created
  * @since chapter02.02 Added formLogin and logout configuration
@@ -31,10 +35,12 @@ import java.util.Map;
  * @since chapter03.01 Added PasswordEncoder passwordEncoder()
  * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
  * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
- * @since chapter03.05 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
+ * @since chapter03.05 Added EventUserAuthenticationProvider @Bean
+ * @since chapter03.05 Added auth.authenticationProvider(EventUserAuthenticationProvider)
+ * @since chapter03.06 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -105,8 +111,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
 
-//                .antMatchers("/resources/**").permitAll()
-
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/registration/*").permitAll()
                 .antMatchers("/login/*").access(HASANYROLE_ANONYMOUS)
@@ -176,6 +180,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**")
         ;
     }
+
+
+    /**
+     * Custom Event AuthenticationProvider
+     *
+     * @param passwordEncoder To perform password matching
+     * @param eventService To look up user in database.
+     * @return AuthenticationProvider for EventManager
+     */
+    @Bean
+    public EventUserAuthenticationProvider authenticationProvider(final @NotNull PasswordEncoder passwordEncoder,
+                                                                  final @NotNull EventService eventService) {
+
+        return new EventUserAuthenticationProvider(passwordEncoder, eventService);
+    }
+
 
 
     /**

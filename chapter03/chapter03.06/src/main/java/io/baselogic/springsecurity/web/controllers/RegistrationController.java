@@ -75,22 +75,19 @@ public class RegistrationController {
         appUser.setEmail(email);
         appUser.setFirstName(registrationDto.getFirstName());
         appUser.setLastName(registrationDto.getLastName());
-
         appUser.setPassword(
-                registrationDto.getPassword()
+                passwordEncoder.encode(registrationDto.getPassword())
         );
 
-//        user.setPassword(
-//                passwordEncoder.encode(registrationDto.getPassword())
-//        );
-
         int id = eventService.createUser(appUser);
+        appUser.setId(id);
         log.info("Created user ID {}.", id);
         appUser.setId(id);
+
         userContext.setCurrentUser(appUser);
 
         StringBuilder sb = new StringBuilder("Registration Successful.");
-        sb.append(" Account created for '").append(email).append("' and automatically logged-in.");
+        sb.append(" Account created for '").append(email).append("'.");
 
         redirectAttributes.addFlashAttribute("message",
                 sb.toString());

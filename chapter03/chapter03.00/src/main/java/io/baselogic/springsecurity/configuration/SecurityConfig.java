@@ -94,7 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-//                .antMatchers("/resources/**").permitAll()
 
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/login/*").access(HASANYROLE_ANONYMOUS)

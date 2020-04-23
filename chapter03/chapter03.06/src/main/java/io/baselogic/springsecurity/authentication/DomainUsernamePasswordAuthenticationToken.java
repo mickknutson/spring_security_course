@@ -11,10 +11,12 @@ import java.util.Collection;
  * The DomainUsernamePasswordAuthenticationToken class
  *
  * @author mickknutson
- * @since chapter03.06
+ *
+ * @since chapter03.06 Created Class
  */
 @EqualsAndHashCode(callSuper = false)
 public class DomainUsernamePasswordAuthenticationToken extends UsernamePasswordAuthenticationToken {
+
     private final String domain;
 
     /**

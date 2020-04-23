@@ -108,7 +108,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("MockMvc All Events - user1 - ROLE_USER")
-    @WithMockUser(username="user1@baselogic.com", roles={"USER"})
+    @WithUserDetailsUser1
     public void allEvents_not_authenticated__WithUser1_and_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
@@ -123,7 +123,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("MockMvc All Events - admin1")
-    @WithMockUser("admin1@baselogic.com")
+    @WithUserDetailsUser1
     public void allEventsPage() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())

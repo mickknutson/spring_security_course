@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.configuration;
 
 import io.baselogic.springsecurity.authentication.EventUserAuthenticationProvider;
+import io.baselogic.springsecurity.service.EventService;
 import io.baselogic.springsecurity.web.authentication.DomainUsernamePasswordAuthenticationFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +39,8 @@ import java.util.Map;
  * @since chapter03.01 Added PasswordEncoder passwordEncoder()
  * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
  * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
- * @since chapter03.05 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
+ * @since chapter03.05 Added auth.authenticationProvider(EventUserAuthenticationProvider)
+ * @since chapter03.06 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  */
 @Configuration
 @EnableWebSecurity
@@ -107,8 +110,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
-
-//                .antMatchers("/resources/**").permitAll()
 
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/registration/*").permitAll()
@@ -195,6 +196,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 
+
+    /**
+     * Custom Event AuthenticationProvider
+     *
+     * @param passwordEncoder To perform password matching
+     * @param eventService To look up user in database.
+     * @return AuthenticationProvider for EventManager
+     */
+    @Bean
+    public EventUserAuthenticationProvider authenticationProvider(final @NotNull PasswordEncoder passwordEncoder,
+                                                                  final @NotNull EventService eventService) {
+
+        return new EventUserAuthenticationProvider(passwordEncoder, eventService);
+    }
+
+
     /**
      * Expose AuthenticationManager
      * @return AuthenticationManager for use in other Bean's
@@ -243,6 +260,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * LoginUrlAuthenticationEntryPoint
+     *
      * @return LoginUrlAuthenticationEntryPoint
      * @since chapter03.06
      */

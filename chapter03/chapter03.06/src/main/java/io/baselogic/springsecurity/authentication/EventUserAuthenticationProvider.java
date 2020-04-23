@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
@@ -20,50 +21,60 @@ import java.util.Collection;
 
 /**
  * A Spring Security {@link AuthenticationProvider} that uses our {@link EventService} for authentication.
+ *
  * Compare this to our {@link EventUserDetailsService} which is called by
  * Spring Security's {@link DaoAuthenticationProvider}.
  *
- * @author mickknutson
  * @see EventUserDetailsService
+ * @author mickknutson
  *
- * @since chapter03.05
+ * @since chapter03.05 Created Class
+ * @since chapter03.06 Added DomainUsernamePasswordAuthenticationToken support
  */
-@Component
 @Slf4j
 public class EventUserAuthenticationProvider implements AuthenticationProvider {
 
     private final EventService eventService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public EventUserAuthenticationProvider(final @NotNull EventService eventService) {
+    public EventUserAuthenticationProvider(final @NotNull PasswordEncoder passwordEncoder,
+                                           final @NotNull EventService eventService) {
         this.eventService = eventService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
         DomainUsernamePasswordAuthenticationToken token = (DomainUsernamePasswordAuthenticationToken) authentication;
+
         String userName = token.getName();
         String domain = token.getDomain();
         String email = userName + "@" + domain;
 
-//        User user = email == null ? null : calendarService.findUserByEmail(email);
+        log.info("*** Attempting EventUserAuthenticationProvider.authenticate('{}')", email);
+
         AppUser appUser = eventService.findUserByEmail(email);
-        log.info("User: {}", appUser);
 
         if(appUser == null) {
             throw new UsernameNotFoundException("Invalid username/password");
         }
 
-        String password = appUser.getPassword();
-        log.info("Password: {}", password);
-        log.info("Credentials: {}", token.getCredentials());
+        String encodedPassword = appUser.getPassword();
+        String presentedPassword = authentication.getCredentials().toString();
 
-        if(!password.equals(token.getCredentials())) {
+        log.info("Encoded Password: {}", encodedPassword);
+        log.info("Authentication Credentials: {}", presentedPassword);
+
+        if ( ! passwordEncoder.matches(presentedPassword, encodedPassword)) {
+            log.debug("Authentication failed: password does not match stored value");
             throw new BadCredentialsException("Invalid username/password");
         }
+
         Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(appUser);
-        log.info("authorities: {}", authorities);
-        return new DomainUsernamePasswordAuthenticationToken(appUser, password, domain, authorities);
+        log.info("return valid UsernamePasswordAuthenticationToken");
+
+        return new DomainUsernamePasswordAuthenticationToken(appUser, presentedPassword, domain, authorities);
     }
 
     @Override

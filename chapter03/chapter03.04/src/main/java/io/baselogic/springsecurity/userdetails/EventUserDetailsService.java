@@ -48,6 +48,7 @@ public class EventUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("*** Executing eventUserDetailsService.loadUserByUsername('{}')", username);
         AppUser appUser = userDao.findByEmail(username);
         if (appUser == null) {
             throw new UsernameNotFoundException("Invalid username/password.");
