@@ -34,7 +34,6 @@ public class SpringSecurityUserContext implements UserContext {
      * {@link Authentication#getName()} and using that to find the {@link AppUser} by email address (since for our
      * application Spring Security username's are email addresses).
      *
-     * TODO: Add SecurityContextHolder tests
      */
     @Override
     public AppUser getCurrentUser() {

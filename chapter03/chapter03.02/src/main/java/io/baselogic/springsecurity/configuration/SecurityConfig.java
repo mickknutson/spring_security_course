@@ -30,6 +30,7 @@ import java.util.Map;
  * @since chapter02.03 Added basic role-based authorization
  * @since chapter02.04 converted antMatchers to SPeL expressions
  * @since chapter02.05 Added .defaultSuccessUrl("/default")
+ * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
  */
 @Configuration
 @EnableWebSecurity
@@ -81,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Use the following Password Encoder instead of prefixing passwords with {noop}
      * <code>User.UserBuilder users = User.withDefaultPasswordEncoder();</code>
      *
-     * @since chapter03.02
+     * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
      */
     @Bean
     @Override

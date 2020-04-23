@@ -9,9 +9,9 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * An {@link Event} is an item on a calendar that contains an owner (the person who created it), an attendee
- * (someone who was invited to the event), when the event will occur, a summary, and a description. For simplicity, all
- * fields are required.
+ * An {@link Event} is an item on a Event that contains an owner (the person who created it), an attendee
+ * (someone who was invited to the event), when the event will occur, a summary, and a description.
+ * For simplicity, all fields are required.
  *
  * @author mickknutson
  *

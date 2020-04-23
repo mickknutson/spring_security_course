@@ -68,7 +68,6 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
         <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
@@ -80,9 +79,6 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>${thymeleaf-extras-springsecurity5.version}</version>
         </dependency>
-
-
-
 
         <dependency>
             <groupId>org.webjars</groupId>
@@ -105,8 +101,6 @@
             <version>${webjarsLocatorCore.version}</version>
         </dependency>
 
-
-
         <!-- DATABASE: -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -117,10 +111,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-
-        <!-- TBD Liquidbase
-        https://www.baeldung.com/liquibase-refactor-schema-of-java-app
-        -->
 
 
         <!-- TOOLS: -->

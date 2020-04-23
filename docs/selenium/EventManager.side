@@ -14,13 +14,6 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "007d0800-7beb-467b-a6a9-d58126e48037",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1424x1024",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "a9dc6b74-f13c-44ba-b283-9793581b4f08",
       "comment": "",
       "command": "click",
@@ -101,13 +94,6 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "9c62a779-2603-44a9-ad41-28d23b85fe00",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1424x1024",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "8a3103f1-3223-4597-ba9e-0b58d3bae9e4",
       "comment": "",
       "command": "click",
@@ -185,13 +171,6 @@
       "comment": "",
       "command": "open",
       "target": "/",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "376d997f-c4ce-4e95-8c00-123596fb43a0",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1424x1024",
       "targets": [],
       "value": ""
     }, {
