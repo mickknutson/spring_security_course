@@ -8,8 +8,8 @@ This chapter is the chapter BASE and continues from the previous chapter section
 > * Updating project dependencies
 > * Configuring an embedded database
 > * Update the default user schema of Spring Security
-> * Review User DDL
-> * Review user authorities DDL
+> * Review User DML/DDL
+> * Review user authorities DML/DDL
 > * Configuring a Jdbc-based UserDetailsManager
 
 > * Execute/Run the updated code and test

@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@Sql({"classpath:test-data.sql"})
 @Slf4j
 public class EventRepositoryTests {
 

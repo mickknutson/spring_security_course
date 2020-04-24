@@ -19,8 +19,6 @@ This chapter is the chapter BASE and continues from the previous chapter section
 # [../](../README.md)
 
 
-
-
 ## Notes:
 
 
