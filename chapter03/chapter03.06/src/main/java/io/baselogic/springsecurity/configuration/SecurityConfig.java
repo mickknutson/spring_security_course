@@ -40,10 +40,10 @@ import java.util.Map;
  * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
  * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
  * @since chapter03.05 Added auth.authenticationProvider(EventUserAuthenticationProvider)
- * @since chapter03.06 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
+ * @since chapter03.06 Added DomainUsernamePasswordAuthenticationFilter support
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -123,10 +123,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling()
                 .accessDeniedPage("/errors/403")
 
-                // We overrode defaultAuthenticationEntryPoint and added a reference to
-                // o.s.s.web.authentication.LoginUrlAuthenticationEntryPoint, which
-                // determines what happens when a request for a protected resource occurs and the
-                // user is not authenticated. In our case, we are redirected to a login page.
+                /*
+                 * We overrode defaultAuthenticationEntryPoint and added a reference to
+                 * o.s.s.web.authentication.LoginUrlAuthenticationEntryPoint, which
+                 * determines what happens when a request for a protected resource occurs and the
+                 * user is not authenticated. In our case, we are redirected to a login page.
+                 */
                 .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
 
                 // Login Configuration
@@ -146,9 +148,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
 
-
                 // Add custom DomainUsernamePasswordAuthenticationFilter
-                .and().addFilterAt(domainUsernamePasswordAuthenticationFilter(),
+                .and().addFilterAt(
+                        domainUsernamePasswordAuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class)
         ;
 
@@ -237,25 +239,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public DomainUsernamePasswordAuthenticationFilter domainUsernamePasswordAuthenticationFilter()
             throws Exception {
 
-        DomainUsernamePasswordAuthenticationFilter dupaf
+        // Filter
+        DomainUsernamePasswordAuthenticationFilter filter
                 = new DomainUsernamePasswordAuthenticationFilter(super.authenticationManagerBean());
-        dupaf.setFilterProcessesUrl("/login");
-        dupaf.setUsernameParameter("username");
-        dupaf.setPasswordParameter("password");
+        filter.setFilterProcessesUrl("/login");
+        filter.setUsernameParameter("username");
+        filter.setPasswordParameter("password");
 
+        // Success Handling
         SavedRequestAwareAuthenticationSuccessHandler sraash
                 = new SavedRequestAwareAuthenticationSuccessHandler();
         sraash.setDefaultTargetUrl("/default");
-        dupaf.setAuthenticationSuccessHandler(sraash);
+        sraash.setAlwaysUseDefaultTargetUrl(true);
+        filter.setAuthenticationSuccessHandler(sraash);
 
+        // Failure Handling
         SimpleUrlAuthenticationFailureHandler safh
                 = new SimpleUrlAuthenticationFailureHandler();
         safh.setDefaultFailureUrl("/login/form?error");
-        dupaf.setAuthenticationFailureHandler(safh);
+        filter.setAuthenticationFailureHandler(safh);
 
-        dupaf.afterPropertiesSet();
+        filter.afterPropertiesSet();
 
-        return dupaf;
+        return filter;
     }
 
     /**

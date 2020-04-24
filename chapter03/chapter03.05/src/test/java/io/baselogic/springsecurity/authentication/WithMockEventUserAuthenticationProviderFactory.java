@@ -22,6 +22,8 @@ import java.util.Collection;
 public class WithMockEventUserAuthenticationProviderFactory
         implements WithSecurityContextFactory<WithMockEventUserDetails> {
 
+    // Placeholder: Allow Autowiring AuthenticationProvider
+
     @Override
     public SecurityContext createSecurityContext(WithMockEventUserDetails mockUser){
         SecurityContext context =

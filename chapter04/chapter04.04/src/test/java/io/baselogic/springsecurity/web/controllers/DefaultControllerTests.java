@@ -1,5 +1,7 @@
 package io.baselogic.springsecurity.web.controllers;
 
+import io.baselogic.springsecurity.annotations.WithMockEventUserDetailsAdmin1;
+import io.baselogic.springsecurity.annotations.WithMockEventUserDetailsUser1;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -58,7 +59,7 @@ public class DefaultControllerTests {
 
     @Test
     @DisplayName("Default Controller - user1")
-    @WithMockUser("user1@baselogic.com")
+    @WithMockEventUserDetailsUser1
     public void defaultRedirect__user1() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isFound())
@@ -68,31 +69,10 @@ public class DefaultControllerTests {
 
     }
 
-    /**
-     * This test does not fail if the @@WithMockAdmin1 is used.
-     * Nor does it fail if this is used:
-     * [authorities = {"ADMIN"}]
-     * or
-     * [roles = {"ADMIN"}]
-     * or
-     * [roles = {"USER", "ADMIN"}]
-     *
-     * @throws Exception if MockMvc throws exception
-     */
-    @Test
-    @DisplayName("Default Controller - admin1 - ADMIN role only")
-    @WithMockUser(username = "admin1@baselogic.com", password = "admin1", roles = {"ADMIN"})
-//    @WithMockAdmin1
-    public void defaultRedirect__admin1() throws Exception {
-        MvcResult result = mockMvc.perform(get("/default"))
-                .andExpect(status().isForbidden())
-                .andReturn();
-
-    }
 
     @Test
     @DisplayName("Default Controller - admin1 - ADMIN and USER role")
-    @WithMockUser(value = "admin1@baselogic.com", roles = {"USER", "ADMIN"})
+    @WithMockEventUserDetailsAdmin1
     public void defaultRedirect__admin1_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isFound())

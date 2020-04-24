@@ -2,7 +2,6 @@ package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.domain.AppUser;
-import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

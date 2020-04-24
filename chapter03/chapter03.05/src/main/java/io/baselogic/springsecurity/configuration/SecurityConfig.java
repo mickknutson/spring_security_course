@@ -36,7 +36,6 @@ import java.util.Map;
  * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
  * @since chapter03.05 Added EventUserAuthenticationProvider @Bean
  * @since chapter03.05 Added auth.authenticationProvider(EventUserAuthenticationProvider)
- * @since chapter03.06 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  */
 @Configuration
 @EnableWebSecurity(debug = false)

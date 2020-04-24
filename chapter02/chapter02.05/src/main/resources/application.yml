@@ -8,9 +8,9 @@
 
 spring:
   ## Thymeleaf configuration:
-  thymeleaf:
-    cache: false
-    mode: HTML
+#  thymeleaf:
+#    cache: false
+#    mode: HTML
 
 
 #  resources:

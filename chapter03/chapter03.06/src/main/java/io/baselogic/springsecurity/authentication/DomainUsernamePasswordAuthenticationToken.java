@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.authentication;
 
 import io.baselogic.springsecurity.domain.AppUser;
+import io.baselogic.springsecurity.domain.EventUserDetails;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +18,9 @@ import java.util.Collection;
 @EqualsAndHashCode(callSuper = false)
 public class DomainUsernamePasswordAuthenticationToken extends UsernamePasswordAuthenticationToken {
 
+    /**
+     * Additional authentication parameter
+     */
     private final String domain;
 
     /**
@@ -39,7 +43,7 @@ public class DomainUsernamePasswordAuthenticationToken extends UsernamePasswordA
      * @param domain
      * @param authorities
      */
-    public DomainUsernamePasswordAuthenticationToken(final AppUser principal,
+    public DomainUsernamePasswordAuthenticationToken(final EventUserDetails principal,
                                                      final String credentials,
                                                      final String domain,
                                                      final Collection<GrantedAuthority> authorities) {

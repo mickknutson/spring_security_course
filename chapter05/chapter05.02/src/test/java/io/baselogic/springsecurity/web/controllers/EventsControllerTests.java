@@ -411,10 +411,10 @@ public class EventsControllerTests {
     @DisplayName("Validate EventUserDetails")
     public void validate_EventUserDetails() throws Exception {
 
-        assertThat(user1UserDetails.isAccountNonExpired()).isTrue();
-        assertThat(user1UserDetails.isAccountNonLocked()).isTrue();
-        assertThat(user1UserDetails.isCredentialsNonExpired()).isTrue();
-        assertThat(user1UserDetails.isEnabled()).isTrue();
+        assertThat(TestUtils.user1UserDetails.isAccountNonExpired()).isTrue();
+        assertThat(TestUtils.user1UserDetails.isAccountNonLocked()).isTrue();
+        assertThat(TestUtils.user1UserDetails.isCredentialsNonExpired()).isTrue();
+        assertThat(TestUtils.user1UserDetails.isEnabled()).isTrue();
 
     }
 

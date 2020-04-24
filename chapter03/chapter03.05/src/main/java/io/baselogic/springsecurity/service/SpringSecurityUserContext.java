@@ -2,7 +2,6 @@ package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.domain.AppUser;
-import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +21,7 @@ import java.util.Collection;
  * @author Mick Knutson
  * @since chapter03.01 Class Created
  * @since chapter03.02 Added {@link UserDetailsManager} support
- * @since chapter03.03 Changed {@link UserDetailsManager} to use custom {@link EventUserDetailsService}.
+ * @since chapter03.03 Changed {@link UserDetailsManager} to use custom EventUserDetailsService.
  * @since chapter03.04 simplify setCurrentUser(AppUser)
  */
 @Component

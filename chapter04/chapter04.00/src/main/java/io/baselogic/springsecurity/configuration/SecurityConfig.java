@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * Spring Security Configuration  Class
+ *
  * @see WebSecurityConfigurerAdapter
  * @since chapter02.01 created
  * @since chapter02.02 Added formLogin and logout configuration
@@ -28,9 +29,8 @@ import java.util.Map;
  * @since chapter03.01 Added PasswordEncoder passwordEncoder()
  * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
  * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
+ * @since chapter03.05 Added EventUserAuthenticationProvider @Bean
  * @since chapter03.05 Added auth.authenticationProvider(EventUserAuthenticationProvider)
- * @since chapter03.06 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
- * @since chapter04.00 removed .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  */
 @Configuration
 @EnableWebSecurity(debug = false)
@@ -74,9 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
 
-                .antMatchers("/registration/*").permitAll()
-
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
+                .antMatchers("/registration/*").permitAll()
                 .antMatchers("/login/*").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/logout/*").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/admin/*").access(HASROLE_ADMIN)
@@ -84,10 +83,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").access(HASROLE_USER)
 
                 // The default AccessDeniedException
-                .and().exceptionHandling()
-                .accessDeniedPage("/errors/403")
+                .and().exceptionHandling().accessDeniedPage("/errors/403")
 
-                // Login Configuration
                 .and().formLogin()
                 .loginPage("/login/form")
                 .loginProcessingUrl("/login")
@@ -97,7 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/default", true)
                 .permitAll()
 
-                // Logout Configuration
                 .and().logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
@@ -137,7 +133,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * the {@link org.springframework.web.filter.DelegatingFilterProxy} delegates to.
      * </p>
      */
-    @Description("Configure Web Security")
     @Override
     public void configure(final WebSecurity web) {
         web.ignoring()
@@ -160,7 +155,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @return DelegatingPasswordEncoder
      */
     @Bean
-    @Description("Configure Password Encoder")
     public PasswordEncoder passwordEncoder() {
 
         String idForEncode = "noop";

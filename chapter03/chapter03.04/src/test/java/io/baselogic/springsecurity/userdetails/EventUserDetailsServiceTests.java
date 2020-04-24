@@ -40,16 +40,9 @@ public class EventUserDetailsServiceTests {
     private EventUserDetailsService eventUserDetailsService;
 
 
-    //-----------------------------------------------------------------------//
-
-    private AppUser appUser1 = new AppUser();
-    private AppUser testAppUser1 = new AppUser();
-
 
     @BeforeEach
     public void beforeEachTest() {
-        appUser1 = TestUtils.user1;
-        testAppUser1 = TestUtils.TEST_APP_USER_1;
     }
 
     //-------------------------------------------------------------------------

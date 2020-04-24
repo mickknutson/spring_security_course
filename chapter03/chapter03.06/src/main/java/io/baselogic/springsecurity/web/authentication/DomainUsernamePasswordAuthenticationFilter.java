@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,10 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  * obtains a domain parameter and then creates a {@link DomainUsernamePasswordAuthenticationToken}.
  *
  * @author mickknutson
- * @since chapter03.06
+ * @since chapter03.06 Created Class
  *
  */
-//@Component
 @Slf4j
 public final class DomainUsernamePasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -33,14 +34,17 @@ public final class DomainUsernamePasswordAuthenticationFilter extends UsernamePa
     public Authentication attemptAuthentication(final HttpServletRequest request,
                                                 final HttpServletResponse response)
             throws AuthenticationException {
+
         log.info("attemptAuthentication");
         log.info("request.getMethod(): {}", request.getMethod());
+
         if (!request.getMethod().equals("POST")) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
 
         String username = obtainUsername(request);
         String password = obtainPassword(request);
+
         String domain = request.getParameter("domain");
 
         log.info("Create new DomainUsernamePasswordAuthenticationToken");
@@ -50,6 +54,7 @@ public final class DomainUsernamePasswordAuthenticationFilter extends UsernamePa
                 = new DomainUsernamePasswordAuthenticationToken(username, password, domain);
 
         setDetails(request, authRequest);
+
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 
@@ -58,5 +63,6 @@ public final class DomainUsernamePasswordAuthenticationFilter extends UsernamePa
     public void setAuthenticationManager(final AuthenticationManager authenticationManager) {
         super.setAuthenticationManager(authenticationManager);
     }
+
 
 } // The End...

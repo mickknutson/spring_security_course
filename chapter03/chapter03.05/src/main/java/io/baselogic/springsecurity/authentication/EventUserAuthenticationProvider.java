@@ -2,8 +2,8 @@ package io.baselogic.springsecurity.authentication;
 
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.domain.AppUser;
+import io.baselogic.springsecurity.domain.EventUserDetails;
 import io.baselogic.springsecurity.service.EventService;
-import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,10 +20,10 @@ import java.util.Collection;
 
 /**
  * A Spring Security {@link AuthenticationProvider} that uses our {@link EventService} for authentication.
- * Compare this to our {@link EventUserDetailsService} which is called by
+ *
+ * Compare this to our EventUserDetailsService which is called by
  * Spring Security's {@link DaoAuthenticationProvider}.
  *
- * @see EventUserDetailsService
  * @author mickknutson
  *
  * @since chapter03.05 Created Class
@@ -68,7 +68,10 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
         Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(appUser);
         log.info("return valid UsernamePasswordAuthenticationToken");
 
-        return new UsernamePasswordAuthenticationToken(appUser, presentedPassword, authorities);
+        return new UsernamePasswordAuthenticationToken(
+                new EventUserDetails(appUser),
+                presentedPassword,
+                authorities);
     }
 
     @Override
