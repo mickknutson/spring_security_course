@@ -12,8 +12,14 @@ import java.lang.annotation.RetentionPolicy;
         WithMockEventUserDetailsSecurityContextFactory.class)
 public @interface WithMockEventUserDetails {
 
-    String username() default "user1@baselogic.com";
+    int id() default 0;
 
-    String name() default "user1";
+    String username() default "user";
+
+    String password() default "password";
+
+    String name() default "USER";
+
+    String[] roles() default { "USER" };
 
 }  // The End...

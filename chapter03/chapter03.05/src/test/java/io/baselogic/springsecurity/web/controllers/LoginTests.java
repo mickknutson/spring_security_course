@@ -1,9 +1,7 @@
 package io.baselogic.springsecurity.web.controllers;
 
-import io.baselogic.springsecurity.annotations.WithMockAdmin1;
-import io.baselogic.springsecurity.annotations.WithMockUser1;
-import io.baselogic.springsecurity.annotations.WithUserDetailsAdmin1;
-import io.baselogic.springsecurity.annotations.WithUserDetailsUser1;
+import io.baselogic.springsecurity.annotations.WithMockEventUserDetailsAdmin1;
+import io.baselogic.springsecurity.annotations.WithMockEventUserDetailsUser1;
 import io.baselogic.springsecurity.dao.TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -147,7 +145,7 @@ public class LoginTests {
      */
     @Test
     @DisplayName("My Events Page - authenticated - user1")
-    @WithUserDetailsUser1
+    @WithMockEventUserDetailsUser1
     public void testMyEventsPage_user1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
@@ -167,7 +165,7 @@ public class LoginTests {
      */
     @Test
     @DisplayName("My Events Page - authenticated - user1 - RequestPostProcessor")
-    @WithUserDetailsUser1
+    @WithMockEventUserDetailsUser1
     public void testMyEventsPage_user1_authenticated__RequestPostProcessor() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
@@ -192,7 +190,7 @@ public class LoginTests {
      * But also get the following error:
      * java.lang.AssertionError: Redirected URL expected:</default> but was:</login/form?error>
      */
-    /*@Test
+    @Test
     @DisplayName("Form Login - authenticated - user1")
     public void testFormLogin_user1_authenticated() throws Exception {
 
@@ -207,7 +205,7 @@ public class LoginTests {
                 .andExpect(header().string("Location", endsWith("/default")))
                 .andReturn();
 
-    }*/
+    }
 
     /**
      * Test form login with {@link RequestPostProcessor} mixed with {@link SecurityMockMvcResultMatchers}
@@ -258,7 +256,7 @@ public class LoginTests {
      */
     @Test
     @DisplayName("All Events Page - authenticated - admin1")
-    @WithUserDetailsAdmin1
+    @WithMockEventUserDetailsAdmin1
     public void test_AllEventsPage_admin1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/"))

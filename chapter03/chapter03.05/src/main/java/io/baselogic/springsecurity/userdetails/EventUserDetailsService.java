@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull;
  * @since chapter03.04 added support for custom EventUserDetails
  *
  */
-@Component
+//@Component
 @Slf4j
 public class EventUserDetailsService implements UserDetailsService {
 
