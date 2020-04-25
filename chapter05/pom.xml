@@ -64,21 +64,17 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
         <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
             <version>${thymeleaf-layout-dialect.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 -->
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>${thymeleaf-extras-springsecurity5.version}</version>
         </dependency>
-
-
 
         <dependency>
             <groupId>org.webjars</groupId>
@@ -103,6 +99,7 @@
 
         <!-- DATABASE: -->
         <!-- SEE Sub-Module pom.xml -->
+
 
         <!-- TOOLS: -->
         <dependency>

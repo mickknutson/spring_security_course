@@ -67,7 +67,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Show Registration Form - WithAnonymousUser")
     @WithAnonymousUser
-    public void showEventForm__WithUser() throws Exception {
+    public void showRegistrationForm__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/registration/form")
         )
                 .andExpect(status().isOk())
@@ -83,7 +83,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form")
     @WithAnonymousUser
-    public void createEvent() throws Exception {
+    public void registrationForm() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -99,15 +99,15 @@ public class RegistrationControllerTests {
         email.setValueAttribute("chuck@baselogic.com");
 
         HtmlInput password = page.getHtmlElementById("password");
-        password.setValueAttribute("some password");
+        password.setValueAttribute("chucknorris");
 
         HtmlButton button =  page.getHtmlElementById("submit");
 
 
         HtmlPage pageAfterClick = button.click();
 
-        assertThat(pageAfterClick.getTitleText())
-                .contains("Welcome to the EventManager!");
+//        assertThat(pageAfterClick.getTitleText())
+//                .contains("Welcome to the EventManager!");
 
 //        assertThat(pageAfterClick.getTitleText())
 //                .contains("TODO we will implement registration later in the chapter");
@@ -118,7 +118,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - null first name")
     @WithAnonymousUser
-    public void createEvent__null__first_name() throws Exception {
+    public void registrationForm__null__first_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -134,7 +134,7 @@ public class RegistrationControllerTests {
         email.setValueAttribute("chuck@baselogic.com");
 
         HtmlInput password = page.getHtmlElementById("password");
-        password.setValueAttribute("some password");
+        password.setValueAttribute("chucknorris");
 
         HtmlButton button =  page.getHtmlElementById("submit");
 
@@ -157,7 +157,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - null last name")
     @WithAnonymousUser
-    public void createEvent__null__last_name() throws Exception {
+    public void registrationForm__null__last_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -173,7 +173,7 @@ public class RegistrationControllerTests {
         email.setValueAttribute(TestUtils.TEST_APP_USER_1.getEmail());
 
         HtmlInput password = page.getHtmlElementById("password");
-        password.setValueAttribute("some password");
+        password.setValueAttribute("chucknorris");
 
         HtmlButton button =  page.getHtmlElementById("submit");
 
@@ -196,7 +196,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - null email")
     @WithAnonymousUser
-    public void createEvent__null__email() throws Exception {
+    public void registrationForm__null__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -209,10 +209,10 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
 //        HtmlInput email = page.getHtmlElementById("email");
-//        email.setValueAttribute(TestUtils.testTest1.getEmail());
+//        email.setValueAttribute("chuck@baselogic.com");
 
         HtmlInput password = page.getHtmlElementById("password");
-        password.setValueAttribute("some password");
+        password.setValueAttribute("chucknorris");
 
         HtmlButton button =  page.getHtmlElementById("submit");
 
@@ -235,7 +235,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - duplicate email")
     @WithAnonymousUser
-    public void createEvent__duplicate__email() throws Exception {
+    public void registrationForm__duplicate__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -251,7 +251,7 @@ public class RegistrationControllerTests {
         email.setValueAttribute(TestUtils.user1.getEmail());
 
         HtmlInput password = page.getHtmlElementById("password");
-        password.setValueAttribute("some password");
+        password.setValueAttribute("chucknorris");
 
         HtmlButton button =  page.getHtmlElementById("submit");
 
@@ -274,7 +274,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - null password")
     @WithAnonymousUser
-    public void createEvent__null__password() throws Exception {
+    public void registrationForm__null__password() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -287,10 +287,10 @@ public class RegistrationControllerTests {
         lastName.setValueAttribute("Norris");
 
         HtmlInput email = page.getHtmlElementById("email");
-        email.setValueAttribute("test@baselogic.com");
+        email.setValueAttribute("chuck@baselogic.com");
 
 //        HtmlInput password = page.getHtmlElementById("password");
-//        password.setValueAttribute("some password");
+//        password.setValueAttribute("chucknorris");
 
         HtmlButton button =  page.getHtmlElementById("submit");
 

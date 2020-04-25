@@ -26,6 +26,7 @@ import java.util.Map;
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
+ *
  * @since chapter02.01 created
  * @since chapter02.02 Added formLogin and logout configuration
  * @since chapter02.03 Added basic role-based authorization
@@ -37,7 +38,7 @@ import java.util.Map;
  * @since chapter03.05 Added auth.authenticationProvider(EventUserAuthenticationProvider)
  * @since chapter03.06 Added .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
  * @since chapter04.00 removed .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
- * @since chapter04.01 Exposed 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'
+ * @since chapter04.01 Added .jdbcAuthentication() and Exposed 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'
  */
 @Configuration
 @EnableWebSecurity
@@ -81,6 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 
+
     /**
      * The parent method from {@link WebSecurityConfigurerAdapter} (public UserDetailsService userDetailsService())
      * originally returns a {@link org.springframework.security.core.userdetails.UserDetailsService},
@@ -95,7 +97,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         judm.setDataSource(dataSource);
         return judm;
     }
-
 
     /**
      * HTTP Security configuration

@@ -244,6 +244,86 @@
       ],
       "value": ""
     }]
+  }, {
+    "id": "3d8e594f-e3f7-4854-af86-0c5b5af631e1",
+    "name": "disabled1",
+    "commands": [{
+      "id": "759d04a7-0231-4f6d-962b-bc3d0f4a1807",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b1b35649-65b5-4692-8795-7230468b4c0d",
+      "comment": "",
+      "command": "click",
+      "target": "id=navLoginLink",
+      "targets": [
+        ["id=navLoginLink", "id"],
+        ["linkText=Login", "linkText"],
+        ["css=#navLoginLink", "css:finder"],
+        ["xpath=//a[contains(text(),'Login')]", "xpath:link"],
+        ["xpath=//a[@id='navLoginLink']", "xpath:attributes"],
+        ["xpath=//div[@id='navbar']/ul[2]/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/login/form')]", "xpath:href"],
+        ["xpath=//ul[2]/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "92908f25-e901-43fd-8557-4ef41d0c5cc1",
+      "comment": "",
+      "command": "type",
+      "target": "id=username",
+      "targets": [
+        ["id=username", "id"],
+        ["name=username", "name"],
+        ["css=#username", "css:finder"],
+        ["xpath=//input[@id='username']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "disabled1@baselogic.com"
+    }, {
+      "id": "974a559e-89d3-4217-80a3-183b4e2cbbf0",
+      "comment": "",
+      "command": "click",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ac9c84bd-4169-4297-9112-adcc31519e57",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "disabled1"
+    }, {
+      "id": "21b82f44-5cc4-45f3-b57f-8b0e52f8ae98",
+      "comment": "",
+      "command": "click",
+      "target": "name=submit",
+      "targets": [
+        ["name=submit", "name"],
+        ["css=.col-sm-5 > .btn", "css:finder"],
+        ["xpath=//button[@name='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "5e559249-3361-40b1-b8a9-5eb47a109e87",

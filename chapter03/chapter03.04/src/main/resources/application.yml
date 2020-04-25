@@ -36,12 +36,6 @@ spring:
     continue-on-error: true
     generate-unique-name: true
 
-
-  ##---------------------------------------------------------------------------##
-  ## JPA
-  jpa.database-platform: org.hibernate.dialect.H2Dialect
-
-
 ##---------------------------------------------------------------------------##
 ## Logging Configuration:
 logging:

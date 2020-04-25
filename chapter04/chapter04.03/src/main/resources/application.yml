@@ -48,11 +48,6 @@ spring:
     generate-unique-name: false
 
 
-  ##---------------------------------------------------------------------------##
-  ## JPA
-  jpa.database-platform: org.hibernate.dialect.H2Dialect
-
-
 ##---------------------------------------------------------------------------##
 ## Logging Configuration:
 logging:

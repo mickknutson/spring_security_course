@@ -54,7 +54,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Jdbc SQL Query for 'EVENT'")
     public String eventQuery(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("SELECT e.id, e.summary, e.description, e.event_date, ")
 
                 .append("owner.id as owner_id, owner.email as owner_email, owner.password as owner_password, owner.first_name as owner_first_name, owner.last_name as owner_last_name, ")
@@ -68,7 +68,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Jdbc SQL Query for 'appUsers'")
     public String userQuery(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("SELECT id, email, password, first_name, last_name ")
                 .append("FROM appUsers ")
                 .append("WHERE ")
@@ -79,7 +79,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Jdbc SQL Insert for 'appUsers'")
     public String userInsertQuery(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("INSERT INTO appUsers (email, password, first_name, last_name) ")
                 .append("VALUES(:email, :psswd, :first_name, :last_name)")
                 .toString();
@@ -88,7 +88,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Custom Group Authorities By Username Query")
     public String customGroupAuthoritiesByUsernameQuery(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("SELECT g.id, g.group_name, ga.authority ")
                 .append("FROM groups g, group_members gm, ")
                 .append("group_authorities ga WHERE gm.username = ? ")

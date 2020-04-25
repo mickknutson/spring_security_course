@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * Spring Security Configuration  Class
+ *
  * @see WebSecurityConfigurerAdapter
  * @since chapter02.01 created
  * @since chapter02.02 Added formLogin and logout configuration

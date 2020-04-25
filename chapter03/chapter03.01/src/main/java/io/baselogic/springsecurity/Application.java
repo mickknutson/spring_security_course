@@ -24,7 +24,7 @@ public class Application {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(1_000);
             sb.append("\n------------------------------------------------");
             sb.append("Let's inspect the beans provided by Spring Boot:");
             sb.append("\n------------------------------------------------");

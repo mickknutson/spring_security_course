@@ -55,7 +55,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Jdbc SQL Query for 'EVENT'")
     public String eventQuery(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("SELECT e.id, e.summary, e.description, e.event_date, ")
 
                 .append("owner.id as owner_id, owner.email as owner_email, owner.password as owner_password, owner.first_name as owner_first_name, owner.last_name as owner_last_name, ")
@@ -69,7 +69,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Jdbc SQL Query for 'appUsers'")
     public String userQuery(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("SELECT id, email, password, first_name, last_name ")
                 .append("FROM appUsers ")
                 .append("WHERE ")
@@ -80,7 +80,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Jdbc SQL Insert for 'appUsers'")
     public String userInsertQuery(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("INSERT INTO appUsers (email, password, first_name, last_name) ")
                 .append("VALUES(:email, :psswd, :first_name, :last_name)")
                 .toString();
@@ -89,7 +89,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Custom Jdbc SQL Insert for 'appUsers'")
     public String customCreateUserSql(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("INSERT INTO appUsers (username, password, enabled) ")
                 .append("VALUES(?,?,?)")
                 .toString();
@@ -98,7 +98,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Custom Jdbc SQL Insert for 'appUsers_authorities'")
     public String customCreateUserAuthoritiesSql(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("INSERT INTO appUsers_authorities (appUsers, authority) ")
                 .append("VALUES(?,?)")
                 .toString();
@@ -107,7 +107,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Custom Query for 'appUsers'")
     public String customUserByUsernameQuery(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("SELECT email, password, true ")
                 .append("FROM appUsers WHERE email = ? ")
                 .toString();
@@ -116,7 +116,7 @@ public class DataSourceConfig {
     @Bean
     @Description("Custom Query for 'appUsers_authorities'")
     public String customUserByUsernameAuthoritiesQuery(){
-        return new StringBuilder()
+        return new StringBuilder(100)
                 .append("SELECT aua.id, aua.authority ")
                 .append("FROM appUsers au, appUsers_authorities aua ")
                 .append("WHERE au.email = ? ")

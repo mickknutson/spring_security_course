@@ -33,10 +33,7 @@ spring:
     generate-unique-name: true
 
 
-  ## JPA
-
-  jpa.database-platform: org.hibernate.dialect.H2Dialect
-
+##---------------------------------------------------------------------------##
 
 logging:
   level:

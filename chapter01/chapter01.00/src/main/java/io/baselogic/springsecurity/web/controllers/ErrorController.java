@@ -22,7 +22,7 @@ public class ErrorController {
 
         final String BREAK = "<br />";
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(1_000);
         sb.append("<h2>Unknown error</h2>").append(BREAK);
         sb.append("Exception during execution of SpringSecurity application:").append(BREAK);
 

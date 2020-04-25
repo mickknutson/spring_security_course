@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
  *
  * @since chapter03.01 Does not create a User in the database.
  * @since chapter03.02 Creates a new User object with the eventService and sets it in the userContext
+ * @since chapter04.01 The registration form does not add user to USERS table, only APPUSERS
  */
 @Controller
 @RequestMapping("registration")

@@ -1,6 +1,4 @@
 -- In Spring Boot using Spring Data, we use ~/src/main/resources/data.sql to seed data.
--- We no longer have to use ~/src/main/resources/database/h2/calendar-data.sql to seed data.
-
 
 
 -- appUsers Data
