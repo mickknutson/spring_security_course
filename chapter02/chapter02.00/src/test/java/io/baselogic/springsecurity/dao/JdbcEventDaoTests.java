@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @ExtendWith(SpringExtension.class)
 @Transactional
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @Slf4j
 public class JdbcEventDaoTests {
 

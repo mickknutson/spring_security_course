@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author mickknutson
  *
  * @since chapter01.00
- * @since chapter04.01 added DataSource config to manually add additional SQL files to the init.
+ * @since chapter04.02 Added customGroupAuthoritiesByUsernameQuery() for GBAC support
  * @since chapter05.01 REMOVED DataSource config to manually add additional SQL files to the init.
  */
 @Configuration

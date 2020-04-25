@@ -41,7 +41,7 @@ import java.util.Map;
  * @since chapter04.01 Exposed 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -137,9 +137,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
 
-                .antMatchers("/registration/*").permitAll()
-
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
+                .antMatchers("/registration/*").permitAll()
                 .antMatchers("/login/*").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/logout/*").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/admin/*").access(HASROLE_ADMIN)
@@ -147,8 +146,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").access(HASROLE_USER)
 
                 // The default AccessDeniedException
-                .and().exceptionHandling()
-                .accessDeniedPage("/errors/403")
+                .and().exceptionHandling().accessDeniedPage("/errors/403")
 
                 // Login Configuration
                 .and().formLogin()

@@ -271,7 +271,6 @@ public class EventsControllerTests {
         description.setValueAttribute("Test Description");
 
         HtmlButton button =  page.getHtmlElementById("submit");
-
         HtmlPage pageAfterClick = button.click();
 
         assertThat(pageAfterClick.getTitleText())

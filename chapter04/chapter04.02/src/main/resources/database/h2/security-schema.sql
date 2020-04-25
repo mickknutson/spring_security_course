@@ -9,11 +9,13 @@ CREATE TABLE users(
     enabled boolean not null
 );
 
+
 CREATE TABLE authorities (
-                            username varchar(256) not null,
-                            authority varchar(256) not null,
-                            constraint fk_authorities_users foreign key(username) references users(username)
+    username varchar(256) not null,
+    authority varchar(256) not null,
+    constraint fk_authorities_users foreign key(username) references users(username)
 );
+
 
 CREATE UNIQUE INDEX ix_auth_username on authorities (username,authority);
 

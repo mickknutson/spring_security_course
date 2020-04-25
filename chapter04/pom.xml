@@ -38,8 +38,9 @@
         4.1.3 -x
         3.4.1 -+
         3.3.7-1 -+
+        webjars/bootstrap/3.4.1/css/bootstrap.min.css
         -->
-        <webjarsBootstrap.version>3.4.1</webjarsBootstrap.version>
+        <webjarsBootstrap.version>3.3.7-1</webjarsBootstrap.version>
         <webjarsJquery.version>3.4.1</webjarsJquery.version>
         <webjarsLocator.version>0.39</webjarsLocator.version>
         <webjarsLocatorCore.version>0.45</webjarsLocatorCore.version>

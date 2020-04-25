@@ -4,7 +4,6 @@ import io.baselogic.springsecurity.configuration.SecurityConfig;
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.EventUserDetails;
-import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,7 +41,7 @@ public class SpringSecurityUserContext implements UserContext {
 
     @Autowired
     public SpringSecurityUserContext(final @NotNull EventService eventService,
-                                     final @NotNull @Qualifier("eventUserDetailsService") UserDetailsService userDetailsService) {
+                                     final @NotNull UserDetailsService userDetailsService) {
 
         this.eventService = eventService;
         this.userDetailsService = userDetailsService;

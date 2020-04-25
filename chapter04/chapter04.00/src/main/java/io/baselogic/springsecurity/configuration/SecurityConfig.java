@@ -85,6 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // The default AccessDeniedException
                 .and().exceptionHandling().accessDeniedPage("/errors/403")
 
+                // Login Configuration
                 .and().formLogin()
                 .loginPage("/login/form")
                 .loginProcessingUrl("/login")
@@ -94,6 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/default", true)
                 .permitAll()
 
+                // Logout Configuration
                 .and().logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
@@ -119,6 +121,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
     } // end configure
+
 
     /**
      * This is the equivalent to:

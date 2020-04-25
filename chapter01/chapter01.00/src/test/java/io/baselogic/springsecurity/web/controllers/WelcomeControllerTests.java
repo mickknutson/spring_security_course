@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 public class WelcomeControllerTests {
 
@@ -45,6 +45,7 @@ public class WelcomeControllerTests {
                 .build();
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setCssEnabled(false);
+        webClient.getOptions().setPrintContentOnFailingStatusCode(true);
     }
 
 
