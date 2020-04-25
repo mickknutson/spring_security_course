@@ -40,7 +40,7 @@ public class UserDetailsServiceTests {
     public void beforeEachTest() {
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Test
     @DisplayName("loadUserByUsername - null User")

@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Slf4j
 public class DataSourceConfig {
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Bean
     @Description("Jdbc ResultSet RowMapper for 'appUsers'")
@@ -85,7 +85,7 @@ public class DataSourceConfig {
     }
 
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
 
     /**

@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  * @since chapter01.00
  * @since chapter04.02 Added customGroupAuthoritiesByUsernameQuery() for GBAC support
+ * @since chapter04.03 Added Support for JdbcUserDetailsManager SQL
  */
 @Configuration
 @EnableTransactionManagement
@@ -25,7 +26,7 @@ public class DataSourceConfig {
 
 
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Bean
     @Description("Jdbc ResultSet RowMapper for 'appUsers'")
@@ -86,6 +87,10 @@ public class DataSourceConfig {
                 .toString();
     }
 
+
+    //-----------------------------------------------------------------------//
+    // @since chapter04.03 Added Support for JdbcUserDetailsManager SQL
+
     @Bean
     @Description("Custom Jdbc SQL Insert for 'appUsers'")
     public String customCreateUserSql(){
@@ -104,6 +109,10 @@ public class DataSourceConfig {
                 .toString();
     }
 
+    /**
+     * Overrides Spring Security query for 'users-by-username-query'
+     * @return String SQL query
+     */
     @Bean
     @Description("Custom Query for 'appUsers'")
     public String customUserByUsernameQuery(){
@@ -113,6 +122,10 @@ public class DataSourceConfig {
                 .toString();
     }
 
+    /**
+     * Overrides Spring Security query for 'authorities-by-username-query'
+     * @return String SQL query
+     */
     @Bean
     @Description("Custom Query for 'appUsers_authorities'")
     public String customUserByUsernameAuthoritiesQuery(){
@@ -125,7 +138,7 @@ public class DataSourceConfig {
     }
 
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
 
     /**

@@ -32,7 +32,7 @@ public class JdbcEventDao implements EventDao {
 
     private final String eventQuery;
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     public JdbcEventDao(final @NotNull NamedParameterJdbcTemplate jdbcTemplate,
                         final EventRowMapper eventRowMapper,
@@ -42,7 +42,7 @@ public class JdbcEventDao implements EventDao {
         this.eventQuery = eventQuery;
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Override
     @Transactional(readOnly = true)

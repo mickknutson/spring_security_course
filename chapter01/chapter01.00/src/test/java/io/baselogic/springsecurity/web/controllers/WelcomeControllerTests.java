@@ -49,7 +49,7 @@ public class WelcomeControllerTests {
     }
 
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
@@ -83,7 +83,7 @@ public class WelcomeControllerTests {
         assertThat(summary).contains("Below you can find some highlights about EventManager.");
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
 
 } // The End...

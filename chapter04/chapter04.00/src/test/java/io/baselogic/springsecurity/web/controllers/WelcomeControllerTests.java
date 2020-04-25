@@ -58,7 +58,7 @@ public class WelcomeControllerTests {
     }
 
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
@@ -93,7 +93,7 @@ public class WelcomeControllerTests {
         assertThat(summary).contains("Base line Starting from chapter03.05");
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
 
 } // The End...

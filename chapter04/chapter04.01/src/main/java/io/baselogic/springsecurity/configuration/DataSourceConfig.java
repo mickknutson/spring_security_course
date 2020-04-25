@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class DataSourceConfig {
 
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     /**
      * NOTE: This is an example in JavaConfig verse applicaiton.yml
@@ -71,7 +71,7 @@ public class DataSourceConfig {
                 .build();
     }*/
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Bean
     @Description("Jdbc ResultSet RowMapper for 'appUsers'")
@@ -132,7 +132,7 @@ public class DataSourceConfig {
                 .toString();
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
 
     /**

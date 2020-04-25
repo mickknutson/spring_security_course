@@ -11,13 +11,6 @@ spring:
 
 
   ##---------------------------------------------------------------------------##
-  ## Thymeleaf configuration:
-#  thymeleaf:
-#    cache: false
-#    mode: HTML
-
-
-  ##---------------------------------------------------------------------------##
   ## H2 Admin Servlet Configuration:
   ## Note: See SecurityConfig.java for configuration:
 

@@ -46,7 +46,7 @@ public class JdbcUserDao implements UserDao {
         this.userInsertQuery = userInsertQuery;
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Override
     @Transactional(readOnly = true)

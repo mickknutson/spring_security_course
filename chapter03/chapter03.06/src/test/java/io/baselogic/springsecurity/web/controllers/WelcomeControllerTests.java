@@ -58,7 +58,7 @@ public class WelcomeControllerTests {
     }
 
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
@@ -93,7 +93,7 @@ public class WelcomeControllerTests {
         assertThat(summary).contains("Authenticating with different parameters");
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
 
 } // The End...

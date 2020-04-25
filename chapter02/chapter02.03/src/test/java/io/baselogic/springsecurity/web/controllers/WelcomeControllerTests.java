@@ -57,7 +57,7 @@ public class WelcomeControllerTests {
         webClient.getOptions().setPrintContentOnFailingStatusCode(true);
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
@@ -92,7 +92,7 @@ public class WelcomeControllerTests {
         assertThat(summary).contains("Basic role based authorization.");
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------------------------------------------------------//
 
 
 } // The End...
