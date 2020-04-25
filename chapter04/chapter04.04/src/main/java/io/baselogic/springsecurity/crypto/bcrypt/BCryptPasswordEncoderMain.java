@@ -16,14 +16,14 @@ import java.util.Arrays;
 public final class BCryptPasswordEncoderMain {
 
     public static String encode(final String password) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
-        return encoder.encode(password);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(4);
+        return passwordEncoder.encode(password);
     }
 
     public static Boolean matches(final String rawPassword,
                                   final String encodedPassword) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
-        return encoder.matches(rawPassword, encodedPassword);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(4);
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
     /**
@@ -34,19 +34,30 @@ public final class BCryptPasswordEncoderMain {
      * @param args single password to encode
      */
     public static void main(final String[] args) {
-        String[] passwords = {"user1", "admin1", "user2", "admin", "test"};
+        StringBuilder sb = new StringBuilder(1_000);
+        sb.append("\n------------------------------------------------");
+        sb.append("\nLets encrypt our standard passwords with our PasswordEncoder:");
+        sb.append("\n------------------------------------------------");
 
-        if (args != null && args.length == 1) {
-            log.info(encode(args[0]));
+        String[] passwords = {"user1", "admin1", "user2"};
+        sb.append("\n\nEncoding passwords: ").append(Arrays.toString(passwords));
+        sb.append("\n------------------------------------------------\n");
+
+        for(String raw: passwords){
+            String encoded = encode(raw);
+
+            sb.append("\n[").append(raw).append("] ");
+            sb.append("Matches [").append(encoded).append("] ");
+            sb.append(": ").append(matches(raw, encoded));
+
+            sb.append("\nValue for database: \n");
+            sb.append("[").append(encoded).append("]");
+            sb.append("\n------------------------------------------------\n");
         }
-        else {
-            log.info("\n\nEncoding passwords: {}", Arrays.toString(passwords));
-            for(String raw: passwords){
-                String encoded = encode(raw);
-                log.info("\n[{}] matches [{}]: {}", raw, encode(raw), matches(raw, encoded));
-                log.info("\n{}: [{bcrypt}{}]", raw, encoded);
-            }
-        }
+
+        sb.append("\n\n------------------------------------------------\n\n");
+
+        log.info(sb.toString());
     }
 
 } // The End...

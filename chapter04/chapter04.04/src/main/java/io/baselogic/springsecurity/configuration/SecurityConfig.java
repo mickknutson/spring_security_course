@@ -100,7 +100,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .usersByUsernameQuery(customUserByUsernameQuery)
                 .authoritiesByUsernameQuery(customUserByUsernameAuthoritiesQuery)
-                .passwordEncoder(passwordEncoder())
         ;
     }
 
