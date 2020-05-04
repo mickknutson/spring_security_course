@@ -42,6 +42,7 @@ spring:
     data:
       - classpath:/database/h2/events-data.sql
       - classpath:/database/h2/events-authorities-data.sql
+      - classpath:/database/h2/app_user_bcrypt_password_update.sql
 
     # These items are needed for testing:
     continue-on-error: true

@@ -55,6 +55,8 @@ public class EventUserAuthenticationProviderTests {
     }
 
     //-----------------------------------------------------------------------//
+    // Supports
+    //-----------------------------------------------------------------------//
 
 
     @Test
@@ -76,6 +78,26 @@ public class EventUserAuthenticationProviderTests {
     }
 
     //-----------------------------------------------------------------------//
+    // authenticate
+    //-----------------------------------------------------------------------//
+
+
+    @Test
+    @DisplayName("authenticate - valid User")
+    public void authenticate__valid_user() {
+
+        Authentication authentication =
+                new  DomainUsernamePasswordAuthenticationToken("user1",
+                        "user1", "baselogic.com");
+
+        // Expectation
+        given(eventService.findUserByEmail(any(String.class)))
+                .willReturn(TestUtils.user1);
+
+        Authentication result = authenticationProvider.authenticate(authentication);
+
+        assertThat(result.isAuthenticated()).isTrue();
+    }
 
     @Test
     @DisplayName("authenticate - null User")
