@@ -11,13 +11,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 
 /**
  * Integrates with Spring Security using our existing {@link UserDao} by looking up
  * a {@link User} and
- * converting it into a {@link UserDetails} so that Spring Security can do the
+ * converting it into a {@link EventUserDetails} so that Spring Security can do the
  * username/password comparison for us.
  *
  *  This replaces the manual UserDetailsService code in
@@ -29,7 +30,7 @@ import javax.validation.constraints.NotNull;
  * @since chapter03.04 added support for custom EventUserDetails
  *
  */
-@Component
+@Service
 @Slf4j
 public class EventUserDetailsService implements UserDetailsService {
 
@@ -44,7 +45,7 @@ public class EventUserDetailsService implements UserDetailsService {
     /**
      * Lookup a {@link AppUser} by the username representing
      * the email address. Then, convert the {@link AppUser}
-     * into a {@link UserDetails} to conform to the {@link UserDetails} interface.
+     * into a {@link EventUserDetails} to conform to the {@link UserDetails} interface.
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

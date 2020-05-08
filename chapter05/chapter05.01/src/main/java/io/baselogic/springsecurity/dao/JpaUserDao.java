@@ -22,7 +22,7 @@ import java.util.Set;
  * A JPA implementation of {@link UserDao}.
  *
  * @author Mick Knutson
- *
+ * @since chapter05.01 Created Class
  */
 @Repository
 @Validated
@@ -45,22 +45,12 @@ public class JpaUserDao implements UserDao {
         Optional<AppUser> user = appUserRepository.findById(id);
 
         return user.orElse(null);
-//        if(user.isPresent()){
-//            return null;
-//        } else {
-//            return user.get();
-//        }
     }
 
     @Override
     @Transactional(readOnly = true)
     public AppUser findByEmail(final @NotEmpty String email) {
-        try {
-            return appUserRepository.findByEmail(email);
-        } catch (EmptyResultDataAccessException notFound) {
-            log.warn("User Not found for email: [{}]", email);
-            return null;
-        }
+        return appUserRepository.findByEmail(email);
     }
 
     // FIXME: Need to make a partial search:

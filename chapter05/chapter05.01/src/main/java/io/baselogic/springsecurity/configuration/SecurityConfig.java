@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String HASROLE_USER = "hasRole('USER')";
     private static final String HASROLE_ADMIN = "hasRole('ADMIN')";
 
-    @Autowired @Qualifier("userDetailsServiceImpl")
+    @Autowired
     private UserDetailsService userDetailsService;
 
 

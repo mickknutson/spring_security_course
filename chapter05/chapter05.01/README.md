@@ -33,7 +33,7 @@ Mapping domain objects using JPA
 ### Updating Application Service-Layer Objects
 
 > * Update DefaultEventService.java
-> * Update UserDetailsServiceImpl.java
+> * Update EventUserDetailsService.java
 
 ### Update Test and other Misc Code
 Need to modify some code used for Testing and test fixtures
