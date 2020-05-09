@@ -11,12 +11,6 @@ spring:
 
 
   ##---------------------------------------------------------------------------##
-  ## Thymeleaf configuration:
-#  thymeleaf:
-#    cache: false
-#    mode: HTML
-
-  ##---------------------------------------------------------------------------##
   ## MongoDB
   data:
     mongodb:
@@ -31,9 +25,5 @@ logging:
     io:
       baselogic:
         testloglevel: INFO
-
-logging.level.org.hibernate.SQL: INFO
-logging.level.org.hibernate.type.descriptor.sql.BasicBinder: DEBUG
-
 
 ##---------------------------------------------------------------------------##

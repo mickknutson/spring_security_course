@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * A MongoDb Document implementation of {@link EventDao}.
  *
  * @author Mick Knutson
- *
+ * @since chapter05.02 Created Class
  */
 @Repository
 @Validated
@@ -38,14 +38,12 @@ public class MongoEventDao implements EventDao {
 
 
     @Override
-//    @Transactional(readOnly = true)
     public Event findById(final @NotNull Integer eventId) {
         return eventRepository.findById(eventId).orElse(null);
     }
 
 
     @Override
-//    @Transactional(readOnly = true)
     public List<Event> findByUser(final @NotNull Integer userId) {
         Event example = new Event();
         AppUser user = new AppUser();
@@ -57,7 +55,6 @@ public class MongoEventDao implements EventDao {
 
 
     @Override
-//    @Transactional(readOnly = true)
     public List<Event> findAll() {
         return eventRepository.findAll();
     }
@@ -65,8 +62,10 @@ public class MongoEventDao implements EventDao {
     @Override
     public Integer save(final @NotNull @Valid Event event) {
 
-        // Get the next PK instance
-        event.setId(eventPK.incrementAndGet());
+        if(event.getId() == null) {
+            // Get the next PK instance
+            event.setId(eventPK.incrementAndGet());
+        }
 
         Event newEvent = eventRepository.save(event);
         return newEvent.getId();

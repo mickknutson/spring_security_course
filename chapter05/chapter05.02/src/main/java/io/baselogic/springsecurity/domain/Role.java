@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Document(collection="role")
 
 // Lombok Annotations:
-@Data // Throws StackOverflowError
+@Data
 @NoArgsConstructor
 public class Role implements Persistable<Integer>, Serializable {
 

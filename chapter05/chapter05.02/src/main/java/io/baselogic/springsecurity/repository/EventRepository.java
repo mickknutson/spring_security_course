@@ -12,7 +12,7 @@ public interface EventRepository extends MongoRepository<Event, Integer> {
     List<Event> findByOwner(AppUser appUser);
 
     @Query("{'owner.id' : ?0}")
-    List<Event> findByUser(Integer name);
+    List<Event> findByUser(Integer id);
 
 
 } // The End...

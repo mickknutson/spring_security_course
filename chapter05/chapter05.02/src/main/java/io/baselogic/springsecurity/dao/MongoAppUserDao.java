@@ -22,13 +22,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * A MongoDb Document implementation of {@link UserDao}.
  *
  * @author Mick Knutson
- *
+ * @since chapter05.02 Created Class
  */
 @Repository
 @Validated
 @Slf4j
 public class MongoAppUserDao implements UserDao {
-
 
     private final AppUserRepository appUserRepository;
     private final RoleRepository roleRepository;
@@ -46,19 +45,16 @@ public class MongoAppUserDao implements UserDao {
 
 
     @Override
-//    @Transactional(readOnly = true)
     public AppUser findById(final @NotNull Integer id) {
         return appUserRepository.findById(id).orElse(null);
     }
 
     @Override
-//    @Transactional(readOnly = true)
     public AppUser findByEmail(final @NotEmpty String email) {
         return appUserRepository.findByEmail(email);
     }
 
     @Override
-//    @Transactional(readOnly = true)
     public List<AppUser> findAllByEmail(@NotEmpty String partialEmail) {
         return appUserRepository.findAll();
     }

@@ -30,6 +30,7 @@ has been used as the view templating engine throughout the book
 ---
 
 ### [Building and Running the code examples](docs/building.md)
+### [Resources](docs/resources.md)
 ### [License](docs/license.md)
 ### [TODOs](docs/todo.md)
 

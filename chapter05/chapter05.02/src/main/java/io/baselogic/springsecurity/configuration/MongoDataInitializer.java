@@ -14,10 +14,13 @@ import javax.annotation.PostConstruct;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-
 /**
  * Initialize the initial data in the MongoDb
- * This replaces data.sql
+ * This replaces data.sql and schema.sql
+ *
+ * @author mickknutson
+ * @since chapter05.02
+ *
  */
 @Configuration
 @Slf4j
@@ -35,7 +38,8 @@ public class MongoDataInitializer {
     @PostConstruct
     public void setUp() {
         log.info("*******************************************************");
-        log.info("clean the database");
+        log.info("* Clean the database");
+        log.info("*******************************************************");
         appUserRepository.deleteAll();
         roleRepository.deleteAll();
         eventRepository.deleteAll();
@@ -47,10 +51,15 @@ public class MongoDataInitializer {
         seedAppUsers();
         log.info("seedEvents");
         seedEvents();
+
+        log.info("*******************************************************");
+        log.info("* The End...");
         log.info("*******************************************************");
     }
 
-    AppUser user1, admin1, user2;
+    private AppUser user1;
+    private AppUser admin1;
+    private AppUser user2;
 
     // AppUsers
     {
@@ -60,7 +69,8 @@ public class MongoDataInitializer {
 
     }
 
-    Role user_role, admin_role;
+    private Role user_role;
+    private Role admin_role;
 
     /**
      * -- ROLES --
@@ -118,8 +128,7 @@ public class MongoDataInitializer {
 
         List<Event> events = eventRepository.findAll();
 
-        log.info("Events: {}", events);
-
+        log.info("Events [{}]: {}", events.size(), events);
     }
 
 
