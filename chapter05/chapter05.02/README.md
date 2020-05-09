@@ -7,7 +7,7 @@ Refactoring from an RDBMS to a document database using MongoDB
 
 ### Updating project dependencies
 > * REMOVE spring-boot-starter-data-jpa in [pom.xml](./pom.xml)
-> * REMOVE spring-boot-starter-data-mongodb in [pom.xml](./pom.xml)
+> * REMOVE com.h2database:h2 in [pom.xml](./pom.xml)
 > * ADD spring-boot-starter-data-mongodb in [pom.xml](./pom.xml)
 > * Add de.flapdoodle.embed.mongo in [pom.xml](./pom.xml)
 
