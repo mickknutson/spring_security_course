@@ -18,6 +18,12 @@
 > * [https://en.wikipedia.org/wiki/Authentication](https://en.wikipedia.org/wiki/Authentication)
 > * [TBD](https://baselogic.io)
 
+## Testing Resources
+> * [http://en.wikipedia.org/wiki/Behavior_Driven_Development](http://en.wikipedia.org/wiki/Behavior_Driven_Development)
+> * [https://site.mockito.org/javadoc/current/org/mockito/BDDMockito.html](https://site.mockito.org/javadoc/current/org/mockito/BDDMockito.html)
+
+
+
 
 ---
 
