@@ -1,14 +1,15 @@
-# Chapter 09.00
+# Chapter 09.01
 ## Advanced Authorization
-This chapter is the chapter BASE and continues from the previous
-chapter section, from here, we build on top of this base.
+
+Conditional rendering with the Thymeleaf Spring Security tag library
 
 ## Tasks
 
-### No Tasks
-This section does not have any tasks.
-This section is a baseline from:
-> * [chapter05.01](../../chapter05/chapter05.01/)
+### Update Dependencies
+> * Add dependencies
+> * Update *[header.html](./src/main/resources/templates/fragments/header.html)* to add Conditional rendering based on URL access rules.
+> * Update *[header.html](./src/main/resources/templates/fragments/header.html)* to add Conditional rendering using SpEL.
+
 
 
 ---

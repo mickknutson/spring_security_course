@@ -1,12 +1,36 @@
 package io.baselogic.springsecurity.configuration;
 
-import io.baselogic.springsecurity.authentication.ProviderConnectionSignup;
-import io.baselogic.springsecurity.authentication.SocialAuthenticationUtils;
+import javax.inject.Inject;
+import javax.sql.DataSource;
+
+import io.baselogic.springsecurity.service.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.social.UserIdSource;
+import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
+import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurer;
-import org.springframework.social.config.annotation.SocialConfigurerAdapter;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInController;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.social.config.annotation.EnableSocial;
+import org.springframework.social.config.annotation.SocialConfigurer;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
@@ -19,44 +43,54 @@ import javax.sql.DataSource;
  * Social Java Configuration
  *
  * @author mickknutson
+ *
+ * @since chapter09.01
  */
 @Configuration
-public class SocialConfig {
+@EnableSocial
+public class SocialConfig implements SocialConfigurer {
 
     @Autowired
-    private ConnectionFactoryLocator connectionFactoryLocator;
+    private DataSource dataSource;
 
-    /**
-     * Defines callback methods to customize Java-based configuration enabled by {@code @EnableWebMvc}.
-     * {@code @EnableWebMvc}-annotated classes may implement this interface or
-     * extend {@link SocialConfigurerAdapter}, which provides some default configuration.
-     * In this initialization we are configuring the {@link SocialConfigurer} to use our local
-     * database to store OAuth provider details for a given user.
-     */
-    @Bean
-    public SocialConfigurer socialConfigurerAdapter(final DataSource dataSource) {
-        // https://github.com/spring-projects/spring-social/blob/master/spring-social-config/src/main/java/org/springframework/social/config/annotation/SocialConfiguration.java#L87
-        return new DatabaseSocialConfigurer(dataSource);
+    @Autowired
+    private UserContext userContext;
+
+    @Override
+    public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
+        cfConfig.addConnectionFactory(new FacebookConnectionFactory(env.getProperty("facebook.appKey"), env.getProperty("facebook.appSecret")));
     }
 
-    @Autowired
-    private UsersConnectionRepository usersConnectionRepository;
-
-    @Autowired
-    private ProviderConnectionSignup providerConnectionSignup;
 
     /**
-     * create a custom authenticate utility method to create an
-     * Authentication objet and add it to our SecurityContext based on
-     * the returned provider details.
-     * @return
+     * Singleton data access object providing access to connections across all users.
      */
-    @Bean
-    public SignInAdapter authSignInAdapter() {
-        return (userId, connection, request) -> {
-            SocialAuthenticationUtils.authenticate(connection);
-            return null;
+    @Override
+    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+        JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+        repository.setConnectionSignUp(new SimpleConnectionSignUp());
+        return repository;
+    }
+
+    public UserIdSource getUserIdSource() {
+        return new UserIdSource() {
+            @Override
+            public String getUserId() {
+                return userContext.getCurrentUser().getId();
+            }
         };
+    }
+
+    @Bean
+    @Scope(value="request", proxyMode= ScopedProxyMode.INTERFACES)
+    public Facebook facebook(ConnectionRepository repository) {
+        Connection<Facebook> connection = repository.findPrimaryConnection(Facebook.class);
+        return connection != null ? connection.getApi() : null;
+    }
+
+    @Bean
+    public ProviderSignInController providerSignInController(ConnectionFactoryLocator connectionFactoryLocator, UsersConnectionRepository usersConnectionRepository) {
+        return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, new SimpleSignInAdapter());
     }
 
     /**

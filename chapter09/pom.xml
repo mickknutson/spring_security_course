@@ -19,7 +19,9 @@
 
     <modules>
         <module>chapter09.00</module>
-<!--        <module>chapter09.01</module>-->
+        <module>chapter09.01</module>
+        <module>chapter09.02</module>
+        <module>chapter09.03</module>
     </modules>
 
     <properties>

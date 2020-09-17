@@ -4,8 +4,8 @@
     <packaging>jar</packaging>
 
     <groupId>io.baselogic.springsecurity.chapter08</groupId>
-    <artifactId>chapter08.00</artifactId>
-    <version>5.8.0-SNAPSHOT</version>
+    <artifactId>chapter08.01</artifactId>
+    <version>5.8.1-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>Event Planner: ${project.artifactId}</description>
@@ -18,6 +18,53 @@
     </parent>
 
     <dependencies>
+
+        <!-- chapter09.01: Required dependencies -->
+
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-config</artifactId>
+            <version>1.1.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>1.1.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-web</artifactId>
+            <version>1.1.6.RELEASE</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-github</artifactId>
+            <version>1.0.0.M4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-google</artifactId>
+            <version>1.0.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook</artifactId>
+            <version>2.0.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-linkedin</artifactId>
+            <version>1.0.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-twitter</artifactId>
+            <version>1.1.2.RELEASE</version>
+        </dependency>
+
+
         <!-- chapter05.01: Required dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<div class="container">
+
+    <div th:fragment="messages">
+        <!-- Standard messages -->
+        <div th:if="${message != null}" class="alert alert-success">
+            <span th:text="${message}"></span>
+        </div>
+        <div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}" class="alert alert-danger">
+            <span th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">Security Exception</span>
+        </div>
+        <!--<div th:if="${#vars['message'] != null}" th:unless="${#vars['error'] != null}" class="alert alert-success">
+            <span th:text="${#vars['message']}"></span>
+        </div>
+        <div th:if="${#vars['error'] != null}" class="alert alert-danger">
+            <span th:text="${#vars['error']}"></span>
+        </div>-->
+
+    </div>
+</div>
+
+</body>
+</html>

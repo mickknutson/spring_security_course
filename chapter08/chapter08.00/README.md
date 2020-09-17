@@ -1,5 +1,5 @@
-# Chapter 08.00
-## Advanced Authentication
+# Chapter 08: Spring Social OAuth2
+
 This chapter is the chapter BASE and continues from the previous
 chapter section, from here, we build on top of this base.
 

@@ -18,6 +18,7 @@ import javax.sql.DataSource;
  * data into our local database.
  *
  * @author mickknutson
+ * @since chapter09.01
  */
 public class DatabaseSocialConfigurer extends SocialConfigurerAdapter {
 

@@ -4,8 +4,8 @@
     <packaging>jar</packaging>
 
     <groupId>io.baselogic.springsecurity.chapter09</groupId>
-    <artifactId>chapter09.00</artifactId>
-    <version>5.9.0-SNAPSHOT</version>
+    <artifactId>chapter09.01</artifactId>
+    <version>5.9.1-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>Event Planner: ${project.artifactId}</description>
@@ -18,6 +18,32 @@
     </parent>
 
     <dependencies>
+
+        <!-- chapter09.01: Required dependencies -->
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+
+        <!--// Already provided by Spring Boot-->
+        <!--<dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>3.3.0</version>
+        </dependency>-->
+
+
+        <!--// Required for protect-pointcut-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+<!--            <scope>runtime</scope>-->
+        </dependency>
+
+
+
+
         <!-- chapter05.01: Required dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -8,6 +8,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 /**
  * General Spring Configuration.
  * See Other Configs: {@link DataSourceConfig}
+ *
  * @since chapter01.00
  * @since chapter03.03 added .userdetails package
  * @since chapter03.05 added .authentication package

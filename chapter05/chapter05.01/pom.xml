@@ -18,6 +18,7 @@
     </parent>
 
     <dependencies>
+
         <!-- chapter05.01: Required dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

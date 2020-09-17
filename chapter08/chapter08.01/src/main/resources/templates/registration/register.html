@@ -73,6 +73,19 @@
         </fieldset>
     </form>
 
+
+
+    <br />
+    <h3>Social Login</h3>
+    <br />
+    <form th:action="@{/registration/twitter}" method="POST" class="form-horizontal">
+        <input type="hidden" name="scope" value="public_profile" />
+        <div class="form-actions">
+            <input id="twitter-submit" class="btn" type="submit" value="Login using Twitter"/>
+        </div>
+    </form>
+
+
 </div>
 
 <!--/*/ <th:block th:include="fragments/footer :: foot"></th:block> /*/-->

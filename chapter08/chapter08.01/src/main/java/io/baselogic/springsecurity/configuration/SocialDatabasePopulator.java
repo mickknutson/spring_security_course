@@ -11,7 +11,11 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 
 /**
+ * Social Java Configuration
  *
+ * @author mickknutson
+ *
+ * @since chapter09.01
  */
 @Component
 public class SocialDatabasePopulator implements InitializingBean {
