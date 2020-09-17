@@ -47,10 +47,17 @@ public class Event implements Serializable {
     private Calendar when;
 
 
+
+
+
+
+
     @NotNull(message = "Owner is required")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="owner", referencedColumnName="id")
     private AppUser owner;
+
+
 
     @NotNull(message = "Attendee is required")
     @ManyToOne(fetch = FetchType.LAZY)

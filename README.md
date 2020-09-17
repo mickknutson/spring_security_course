@@ -1,4 +1,4 @@
-# Spring Security Course (Module 1)
+# Spring Security Course Master Class
 
 This project is the example code for the Spring security course on Udemy.com
 
@@ -7,7 +7,7 @@ This project is the example code for the Spring security course on Udemy.com
 * BLiNC Event Manager Application
 * 5.00.00-SNAPSHOT
 * [BASE Logic Home](https://baselogic.io)
-* [Udemy Course Home](https://udemy.com)
+* [Udemy Course Home](https://www.udemy.com/course/spring_security_master_class)
 * [Youtube Chanel](https://youtube.com/c/baselogic)
 * [GitHub](https://github.com/mickknutson/spring_security_course)
 
@@ -26,6 +26,16 @@ has been used as the view templating engine throughout the book
 3. [Custom Authentication](chapter03/README.md)
 4. [JDBC-Based Authentication](chapter04/README.md)
 5. [JPA-based Authentication](chapter05/README.md)
+6. [Remember-me Service](chapter06/README.md)
+7. [Advanced Authentication](chapter07/README.md)
+8. [Spring Social OAuth 2](chapter08/README.md)
+9. [Advanced Authorization](chapter09/README.md)
+10. [Access Control Lists](chapter10/README.md)
+11. [Custom Authorization](chapter11/README.md)
+12. [Session Management](chapter12/README.md)
+13. [Additional Spring Security HTTP Features](chapter13/README.md)
+14. [Reactive Spring Security](chapter14/README.md)
+15. [Microservice Security with OAuth 2 and JSON Web Tokens](chapter15/README.md)
 
 ---
 

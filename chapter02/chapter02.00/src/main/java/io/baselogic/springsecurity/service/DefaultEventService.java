@@ -22,9 +22,12 @@ import java.util.List;
 @Validated
 public class DefaultEventService implements EventService {
 
+    // Field level
+    // What is the OO term for this???
     private final EventDao eventDao;
     private final UserDao userDao;
 
+    // Constructor level
     @Autowired
     public DefaultEventService(final @NotNull EventDao eventDao,
                                final @NotNull UserDao userDao) {

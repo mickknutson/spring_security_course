@@ -6,6 +6,7 @@
 # Turn on debug logging to show ConditionEvaluationReport :
 #debug: true
 
+
 ##---------------------------------------------------------------------------##
 spring:
   output:

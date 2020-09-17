@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title id="pageTitle">Event Manager - HTTP 403 FORBIDDEN</title>
+
+    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+</head>
+<body>
+
+<div class="container">
+
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/messages :: messages"></th:block> /*/-->
+
+    <h1 id="chapterHeading" class="alert alert-danger">HTTP 403 FORBIDDEN</h1>
+    <p id="chapterTitle">You are forbidden to access the requested resource / page!</p>
+    <h4 id="summary">You are not allowed to access this page.</h4>
+    <p>Try <a id="loginLink" th:href="@{/login}">logging in</a> as <b>Username:</b> <i>admin1@baselogic.com</i> and <b>Password:</b> <i>admin1</i></p>
+</div>
+
+<!--/*/ <th:block th:include="fragments/footer :: foot"></th:block> /*/-->
+
+</body>
+</html>

@@ -153,10 +153,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // Allow anonymous users
         http.anonymous();
 
-        // CSRF is enabled by default, with Java Config
+        // Cross-Site Request Forgery (CSRF) is enabled by default, with Java Config
         http.csrf().disable();
 
-        // Cross Origin Resource Sharing
+        // Cross Origin Resource Sharing (CORS) is enabled by default, with Java Config
         http.cors().disable();
 
         // HTTP Security Headers

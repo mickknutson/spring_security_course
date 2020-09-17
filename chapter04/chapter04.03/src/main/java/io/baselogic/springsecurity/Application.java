@@ -21,7 +21,7 @@ public class Application {
 
     @Profile("trace")
     @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+    public CommandLineRunner viewBeansInContext(ApplicationContext ctx) {
         return args -> {
 
             StringBuilder sb = new StringBuilder(1_000);

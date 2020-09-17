@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
                 "io.baselogic.springsecurity"
         }
 )
+@Slf4j
 public class JavaConfig {
 
     @Bean

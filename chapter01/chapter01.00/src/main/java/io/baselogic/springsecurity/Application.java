@@ -1,11 +1,13 @@
 package io.baselogic.springsecurity;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
@@ -19,9 +21,10 @@ public class Application {
 	}
 
 
-    @Profile("trace")
-    @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+    //@Profile("trace")
+    @Bean     // ApplicationContextAware
+    @Autowired
+    public CommandLineRunner viewBeansInContext(ApplicationContext ctx) {
         return args -> {
 
             StringBuilder sb = new StringBuilder(1_000);

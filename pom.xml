@@ -14,8 +14,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!--2.2.6.RELEASE-->
-        <version>2.3.0.RC1</version>
+        <version>2.4.0-M2</version>
+<!--        <version>2.3.3.RELEASE</version>-->
     </parent>
 
     <modules>
@@ -24,6 +24,16 @@
         <module>chapter03</module>
         <module>chapter04</module>
         <module>chapter05</module>
+        <module>chapter06</module>
+        <module>chapter07</module>
+        <module>chapter08</module>
+        <module>chapter09</module>
+        <module>chapter10</module>
+        <module>chapter11</module>
+        <module>chapter12</module>
+        <module>chapter13</module>
+        <module>chapter14</module>
+        <module>chapter15</module>
     </modules>
 
     <properties>
@@ -32,6 +42,8 @@
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <downloadSources>true</downloadSources>
+        <downloadJavadocs>true</downloadJavadocs>
 
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
 
