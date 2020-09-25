@@ -38,4 +38,10 @@ basic steps for setting up JDBC authentication with Spring Security.
 
 ---
 
-# [../](../)
+## Resources
+> * [Project Resources](../docs/resources.md)
+
+
+---
+
+# [../](../README.md)

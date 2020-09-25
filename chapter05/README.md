@@ -50,12 +50,8 @@ and other related modules including JDBC Support and Apache Hadoop.
 ---
 
 ## Resources
-> * [https://spring.io/projects/spring-data](https://spring.io/projects/spring-data)
-> * [https://spring.io/projects/spring-data-jpa](https://spring.io/projects/spring-data-jpa)
-> * [https://spring.io/projects/spring-data-mongodb](https://spring.io/projects/spring-data-mongodb)
-> * [http://www.h2database.com/html/main.html](http://www.h2database.com/html/main.html)
-> * [https://www.mongodb.com/](https://www.mongodb.com/)
-> * [https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo](https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo)
+> * [Project Resources](../docs/resources.md)
+
 
 ---
 

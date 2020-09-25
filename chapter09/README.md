@@ -28,12 +28,20 @@ During the course of this chapter, we'll cover the following topics:
 
 ### [Chapter 09.03](./chapter09.03/README.md) (Using the WebInvocationPrivilegeEvaluator class)
 
+### [Chapter 09.04](./chapter09.04/README.md) (Securing the business tier with prePostEnabled enabled)
+
+### [Chapter 09.05](./chapter09.05/README.md) (Securing the business tier with jsr250Enabled enabled)
+
+### [Chapter 09.06](./chapter09.06/README.md) (Method security rules incorporating method parameters)
+
+### [Chapter 09.07](./chapter09.07/README.md) (Method security rules incorporating returned values)
+
+### [Chapter 09.08](./chapter09.08/README.md) (Securing method data using role-based filtering)
+
 ---
 
 ## Resources
-> * [https://spring.io/projects/spring-data](https://spring.io/projects/spring-data)
-> * [https://spring.io/projects/spring-data-jpa](https://spring.io/projects/spring-data-jpa)
-> * [http://www.h2database.com/html/main.html](http://www.h2database.com/html/main.html)
+> * [Project Resources](../docs/resources.md)
 
 ---
 

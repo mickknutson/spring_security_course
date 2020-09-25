@@ -37,4 +37,10 @@ During the course of this chapter, we will cover the following topics:
 
 ---
 
+## Resources
+> * [Project Resources](../docs/resources.md)
+
+
+---
+
 # [../](../README.md)

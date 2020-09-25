@@ -25,7 +25,15 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+/**
+ * AdvancedAuthorizationTests
+ *
+ * @author mickknutson
+ * @since chapter09.01 created
+ * @since chapter09.01 added Conditional rendering tests for user1 & admin1
+ * @since chapter09.02 added Conditional ModelAttribute rendering tests for user1 & admin1
+ * @since chapter09.03 added Access admin secured event listing tests
+ */
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -113,6 +121,36 @@ public class AdvancedAuthorizationTests {
         assertThat(content).contains("Create Event");
     }
 
+    @Test
+    @DisplayName("Login as admin1 -  with H2 Links")
+    @WithMockEventUserDetailsUser1
+    public void login_user1_with_h2Link() throws Exception {
+        MvcResult result = mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        assertThat(content).doesNotContain("<a id=\"h2Link\"");
+        assertThat(content).doesNotContain("<a id=\"navH2Link\"");
+
+    }
+
+    @Test
+    @DisplayName("Login as admin1 -  Access admin secured event listing")
+    @WithMockEventUserDetailsUser1
+    public void login_user1_access_admin_event_listing() throws Exception {
+        MvcResult result = mockMvc.perform(get("/events/102"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        assertThat(content).contains("Event Details");
+
+    }
+
+
 
 
     //-----------------------------------------------------------------------//
@@ -183,6 +221,22 @@ public class AdvancedAuthorizationTests {
         String content = result.getResponse().getContentAsString();
 
         assertThat(content).doesNotContain("Create Event");
+    }
+
+
+    @Test
+    @DisplayName("Login as user1 -  No H2 Links")
+    @WithMockEventUserDetailsAdmin1
+    public void login_admin1__no_h2Link() throws Exception {
+        MvcResult result = mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        assertThat(content).contains("<a id=\"h2Link\"");
+        assertThat(content).contains("<a id=\"navH2Link\"");
+
     }
 
 

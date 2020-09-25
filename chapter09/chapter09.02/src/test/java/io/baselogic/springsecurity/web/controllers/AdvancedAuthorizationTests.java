@@ -25,7 +25,14 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+/**
+ * AdvancedAuthorizationTests
+ *
+ * @author mickknutson
+ * @since chapter09.01 created
+ * @since chapter09.01 added Conditional rendering tests for user1 & admin1
+ * @since chapter09.02 added Conditional ModelAttribute rendering tests for user1 & admin1
+ */
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest

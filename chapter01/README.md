@@ -10,6 +10,12 @@ This section is the reference application for the rest of this course.
 ### [Chapter 01.00](./chapter01.00/)
 > * Base line Starting from chapter01.00
 
+
+---
+
+## Resources
+> * [Project Resources](../docs/resources.md)
+
 ---
 
 # [../](../README.md)

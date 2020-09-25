@@ -4,8 +4,8 @@
     <packaging>jar</packaging>
 
     <groupId>io.baselogic.springsecurity.chapter12</groupId>
-    <artifactId>chapter12.00</artifactId>
-    <version>5.12.0-SNAPSHOT</version>
+    <artifactId>chapter12.01</artifactId>
+    <version>5.12.1-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>Event Planner: ${project.artifactId}</description>

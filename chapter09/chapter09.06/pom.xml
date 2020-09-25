@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+
+    <groupId>io.baselogic.springsecurity.chapter09</groupId>
+    <artifactId>chapter09.06</artifactId>
+    <version>5.9.6-SNAPSHOT</version>
+
+    <name>${project.artifactId}</name>
+    <description>Event Planner: ${project.artifactId}</description>
+
+    <parent>
+        <groupId>io.baselogic.springsecurity</groupId>
+        <artifactId>chapter09</artifactId>
+        <version>5.9.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+    <dependencies>
+
+        <!-- chapter09.01: Required dependencies -->
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+
+        <!--// Already provided by Spring Boot-->
+        <!--<dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>3.3.0</version>
+        </dependency>-->
+
+
+        <!--// Required for protect-pointcut-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
+
+
+
+        <!-- chapter05.01: Required dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

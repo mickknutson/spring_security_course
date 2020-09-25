@@ -42,10 +42,7 @@ In this section, we will cover the following topics:
 ---
 
 ## Resources
-> * [https://en.wikipedia.org/wiki/Internet_security](https://en.wikipedia.org/wiki/Internet_security)
-> * [https://owasp.org/](https://owasp.org/)
-> * [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)
-> * [https://en.wikipedia.org/wiki/Authentication](https://en.wikipedia.org/wiki/Authentication)
+> * [Project Resources](../docs/resources.md)
 
 ---
 

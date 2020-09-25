@@ -15,7 +15,7 @@
 > * -----> Fine-Grained Access Control
 > * Access Control Lists
 > * Custom Authorization
-> * Session Management
+> * -----> Session Management
 > * -----> Additional Spring Security Features
 
 

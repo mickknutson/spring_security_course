@@ -45,9 +45,8 @@ affects the flow of the login experience.
 ---
 
 ## Resources
-> * [https://spring.io/projects/spring-data](https://spring.io/projects/spring-data)
-> * [https://spring.io/projects/spring-data-jpa](https://spring.io/projects/spring-data-jpa)
-> * [http://www.h2database.com/html/main.html](http://www.h2database.com/html/main.html)
+> * [Project Resources](../docs/resources.md)
+
 
 ---
 

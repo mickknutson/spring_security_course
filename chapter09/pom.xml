@@ -22,6 +22,10 @@
         <module>chapter09.01</module>
         <module>chapter09.02</module>
         <module>chapter09.03</module>
+        <module>chapter09.04</module>
+        <module>chapter09.05</module>
+        <module>chapter09.06</module>
+        <module>chapter09.07</module>
     </modules>
 
     <properties>
