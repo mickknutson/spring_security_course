@@ -307,7 +307,9 @@ public class LoginTests {
 
         HtmlPage page = webClient.getPage("http://localhost/login/form");
 
-        log.info("Custom Login Form: {}", page.asXml());
+        if(log.isTraceEnabled()){
+            log.info("***: {}", page.asXml());
+        }
 
         HtmlInput username = page.getHtmlElementById("username");
         username.setValueAttribute("user1");

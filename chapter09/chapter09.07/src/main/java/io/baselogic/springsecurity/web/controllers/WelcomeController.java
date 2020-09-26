@@ -32,7 +32,7 @@ public class WelcomeController {
     }
 
 
-    @GetMapping(value="/")
+    @GetMapping("/")
     public String welcome() {
         return "index";
     }

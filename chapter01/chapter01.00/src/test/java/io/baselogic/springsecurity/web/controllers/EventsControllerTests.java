@@ -343,7 +343,9 @@ public class EventsControllerTests {
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-//        log.info("***: {}", pageAfterClick.asXml());
+        if(log.isTraceEnabled()){
+            log.info("***: {}", pageAfterClick.asXml());
+        }
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
         assertThat(errors).contains("Event Date/Time is required");
@@ -380,7 +382,9 @@ public class EventsControllerTests {
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-//        log.info("***: {}", pageAfterClick.asXml());
+        if(log.isTraceEnabled()){
+            log.info("***: {}", pageAfterClick.asXml());
+        }
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
         assertThat(errors).contains("Summary is required");
@@ -417,8 +421,9 @@ public class EventsControllerTests {
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-//        log.info("***: {}", pageAfterClick.asXml());
-
+        if(log.isTraceEnabled()){
+            log.info("***: {}", pageAfterClick.asXml());
+        }
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
         assertThat(errors).contains("Description is required");

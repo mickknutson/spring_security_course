@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 public class WelcomeController {
 
-    @GetMapping(value="/")
+    @GetMapping("/")
     public String welcome() {
         return "index";
     }

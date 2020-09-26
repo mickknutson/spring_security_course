@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title id="pageTitle">My Sessions</title>
+    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+</head>
+<body>
+
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+    <p>This shows all the sessions for a user.</p>
+
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
+        <tr>
+            <th>Last Used</th>
+            <th>Session ID</th>
+            <th>Remove</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:if="${userSessions.empty}">
+            <td colspan="3" class="msg">No sessions available. This may happen before the SessionRegistry is wired properly
+                or when user's sessions are restored across container restarts. Read the Chapter text for details.</td>
+        </tr>
+        <tr th:each="userSession : ${userSessions}">
+
+            <td th:text="${#calendars.format(userSession.lastRequest, 'yyyy-MM-dd HH:mm')}">lastUsed</td>
+            <td th:text="${userSession.sessionId}"></td>
+
+            <td>
+                <form th:action="@{'/user/sessions/{id}'(id=${userSession.sessionId})}"
+                      th:method="DELETE" cssClass="form-horizontal">
+                    <button id="delete" name="delete" type="submit" class="btn btn-default">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<!--/*/ <th:block th:include="fragments/footer :: foot"></th:block> /*/-->
+
+</body>
+</html>

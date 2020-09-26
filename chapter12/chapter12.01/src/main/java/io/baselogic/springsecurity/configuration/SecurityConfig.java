@@ -26,6 +26,7 @@ import java.util.Map;
 /**
  * Spring Security Configuration  Class
  * @see WebSecurityConfigurerAdapter
+ *
  * @since chapter02.01 created
  * @since chapter02.02 Added formLogin and logout configuration
  * @since chapter02.03 Added basic role-based authorization
@@ -42,9 +43,10 @@ import java.util.Map;
  * @since chapter05.01 Removed 'UserDetailsManager'
  * @since chapter05.01 Removed custom SQL Queries
  * @since chapter05.01 Added auth.userDetailsService(userDetailsService)
+ * @since chapter12.01 Added http.sessionManagement().sessionFixation().none();
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity //(debug = true)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -115,9 +117,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        // Authorize Requests Ant Matchers
+        http.authorizeRequests(authorizeRequests -> authorizeRequests
+
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
 
                 .antMatchers("/registration/*").permitAll()
 
@@ -127,13 +132,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/*").access(HASROLE_ADMIN)
                 .antMatchers("/events/").access(HASROLE_ADMIN)
                 .antMatchers("/**").access(HASROLE_USER)
+        );
 
-                // The default AccessDeniedException
-                .and().exceptionHandling()
+        // The default AccessDeniedException
+        http.exceptionHandling(handler -> handler
                 .accessDeniedPage("/errors/403")
+        );
 
-                // Login Configuration
-                .and().formLogin()
+        // Login Configuration
+        http.formLogin(form -> form
                 .loginPage("/login/form")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login/form?error")
@@ -141,17 +148,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password") // redundant
                 .defaultSuccessUrl("/default", true)
                 .permitAll()
+        );
 
-                // Logout Configuration
-                .and().logout()
+        // Logout Configuration
+        http.logout(form -> form
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
-        ;
+        );
 
 
         // Session Management
-        http.sessionManagement().sessionFixation().none();
+        http.sessionManagement( session -> session
+                .sessionFixation().none()
+        );
 
 
         // Allow anonymous users

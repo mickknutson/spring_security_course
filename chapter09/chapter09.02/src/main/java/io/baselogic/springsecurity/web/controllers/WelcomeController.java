@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class WelcomeController {
 
-    @GetMapping(value="/")
+    @GetMapping("/")
     public String welcome() {
         return "index";
     }

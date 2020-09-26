@@ -51,7 +51,7 @@ spring:
 
     properties:
       hibernate:
-        format_sql: false
+        format_sql: true
 
       # These properties are only needed to dump the JPA generated ddl to a file:
       javax:
@@ -64,6 +64,21 @@ spring:
 
 
 ##---------------------------------------------------------------------------##
+## Actuators:
+## https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-endpoints
+## To expose all endpoints (be aware before exposing all endpoints for production)
+# http://localhost:8080/actuator
+# http://localhost:8080/actuator/beans
+# http://localhost:8080/actuator/mappings
+management:
+  endpoints:
+    web:
+      #      base-path: /admin/actuator
+      exposure:
+        include: '*'
+
+
+##---------------------------------------------------------------------------##
 ## Logging Configuration:
 logging:
   level:
@@ -71,8 +86,8 @@ logging:
       baselogic:
         testloglevel: INFO
 
-logging.level.org.hibernate.SQL: DEBUG
-logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+logging.level.org.hibernate.SQL: INFO
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: INFO
 
 
 ##---------------------------------------------------------------------------##

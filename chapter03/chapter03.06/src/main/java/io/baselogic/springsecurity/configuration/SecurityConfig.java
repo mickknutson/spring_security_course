@@ -36,6 +36,7 @@ import java.util.Map;
  * @since chapter02.03 Added basic role-based authorization
  * @since chapter02.04 converted antMatchers to SPeL expressions
  * @since chapter02.05 Added .defaultSuccessUrl("/default")
+ * @since chapter03.01 Converted configure(HttpSecurity) to use DSL
  * @since chapter03.01 Added PasswordEncoder passwordEncoder()
  * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
  * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
@@ -107,9 +108,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http.authorizeRequests(authorizeRequests -> authorizeRequests
+
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
 
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/registration/*").permitAll()
@@ -119,8 +122,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/events/").access(HASROLE_ADMIN)
                 .antMatchers("/**").access(HASROLE_USER)
 
-                // The default AccessDeniedException
-                .and().exceptionHandling()
+        );
+
+
+        // The default AccessDeniedException
+        http.exceptionHandling(handler -> handler
                 .accessDeniedPage("/errors/403")
 
                 /*
@@ -130,29 +136,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  * user is not authenticated. In our case, we are redirected to a login page.
                  */
                 .authenticationEntryPoint(loginUrlAuthenticationEntryPoint())
+        );
 
-                // Login Configuration
-                //NOTE: We remove this in favor of the {@link LoginUrlAuthenticationEntryPoint}
-                /*.and().formLogin()
+        // Login Configuration
+        //NOTE: We remove this in favor of the {@link LoginUrlAuthenticationEntryPoint}
+        /*http.formLogin(form -> form
                 .loginPage("/login/form")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login/form?error")
                 .usernameParameter("username") // redundant
                 .passwordParameter("password") // redundant
                 .defaultSuccessUrl("/default", true)
-                .permitAll()*/
+                .permitAll()
+        );*/
 
-                // Logout Configuration
-                .and().logout()
+        // Logout Configuration
+        http.logout(form -> form
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
+        );
 
-                // Add custom DomainUsernamePasswordAuthenticationFilter
-                .and().addFilterAt(
-                        domainUsernamePasswordAuthenticationFilter(),
-                        UsernamePasswordAuthenticationFilter.class)
-        ;
+        // Logout Configuration
+        http.addFilterAt(
+                domainUsernamePasswordAuthenticationFilter(),
+                UsernamePasswordAuthenticationFilter.class);
 
 
         // Allow anonymous users

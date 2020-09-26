@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title id="pageTitle" th:text="'Event - ' + ${event.summary}"></title>
+
+    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+</head>
+<body>
+
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/messages :: messages"></th:block> /*/-->
+
+    <h1 id="chapterHeading">Event Details</h1>
+
+    <table class="table table-bordered table-striped table-condensed">
+        <tr>
+            <th class="col-sm-1">Summary</th>
+            <td class="col-sm-4" id="summary" th:text="${event.summary}">Generic Event</td>
+        </tr>
+        <tr>
+            <th>Owner</th>
+            <td id="owner" th:text="${event.owner.name}"></td>
+        </tr>
+        <tr>
+            <th>Attendee</th>
+            <td id="attendee" th:text="${event.attendee.name}"></td>
+        </tr>
+        <tr>
+            <th>When</th>
+            <td id="when" th:text="${#calendars.format(event.when, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td id="description" th:text="${event.description}"></td>
+        </tr>
+    </table>
+
+    <div id="myEvents"><a id="navMyEMLink" th:href="@{/events/my}">My Events</a></div>
+
+</div>
+
+<!--/*/ <th:block th:include="fragments/footer :: foot"></th:block> /*/-->
+
+</body>
+</html>

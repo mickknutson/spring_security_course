@@ -31,6 +31,7 @@ import java.util.Map;
  * @since chapter02.03 Added basic role-based authorization
  * @since chapter02.04 converted antMatchers to SPeL expressions
  * @since chapter02.05 Added .defaultSuccessUrl("/default")
+ * @since chapter03.01 Converted configure(HttpSecurity) to use DSL
  * @since chapter03.01 Added PasswordEncoder passwordEncoder()
  * @since chapter03.02 Created userDetailsService() to return {@link UserDetailsManager}
  * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
@@ -115,9 +116,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http.authorizeRequests(authorizeRequests -> authorizeRequests
+
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
 
                 .antMatchers("/registration/*").permitAll()
 
@@ -128,12 +131,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/events/").access(HASROLE_ADMIN)
                 .antMatchers("/**").access(HASROLE_USER)
 
-                // The default AccessDeniedException
-                .and().exceptionHandling()
-                .accessDeniedPage("/errors/403")
 
-                // Login Configuration
-                .and().formLogin()
+        );
+
+        // The default AccessDeniedException
+        http.exceptionHandling(handler -> handler
+                .accessDeniedPage("/errors/403")
+        );
+
+        // Login Configuration
+        http.formLogin(form -> form
                 .loginPage("/login/form")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login/form?error")
@@ -141,13 +148,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password") // redundant
                 .defaultSuccessUrl("/default", true)
                 .permitAll()
+        );
 
-                // Logout Configuration
-                .and().logout()
+        // Logout Configuration
+        http.logout(form -> form
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
-        ;
+        );
+
 
 
         // Allow anonymous users

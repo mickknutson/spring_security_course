@@ -19,6 +19,21 @@ spring:
 
 
 ##---------------------------------------------------------------------------##
+## Actuators:
+## https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-endpoints
+## To expose all endpoints (be aware before exposing all endpoints for production)
+# http://localhost:8080/actuator
+# http://localhost:8080/actuator/beans
+# http://localhost:8080/actuator/mappings
+management:
+  endpoints:
+    web:
+      #      base-path: /admin/actuator
+      exposure:
+        include: '*'
+
+
+##---------------------------------------------------------------------------##
 ## Logging Configuration:
 logging:
   level:

@@ -16,7 +16,7 @@
     <p id="chapterTitle">Login with Username and Password.</p>
     <h4 id="summary">Enter credentials below:</h4>
 
-    <form th:action="@{/login}" method="POST" class="form-horizontal"  cssClass="error">
+    <form name="login" th:action="@{/login}" method="POST" class="form-horizontal"  cssClass="error">
 
         <div th:if="${param.error != null}" class="alert alert-danger">
             <strong>Failed to login.</strong>
@@ -34,7 +34,7 @@
                 <label for="username">Username</label>
             </div>
             <div class="col-sm-4">
-                <input class="form-control input-xlarge" type="text" id="username" name="username" autofocus="autofocus"/>
+                <input class="form-control input-xlarge" type="text" id="username" name="username" autofocus="autofocus" value="user1@baselogic.com"/>
             </div>
         </div>
         <div class="form-group row">

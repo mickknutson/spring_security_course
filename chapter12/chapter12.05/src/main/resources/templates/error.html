@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<title>Error page</title>
+    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+</head>
+<body>
+
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+    <h1 id="chapterHeading">ERROR</h1>
+    <p id="chapterTitle">We encountered an error with your request.</p>
+    <h4 id="summary">Error</h4>
+
+    <!--/*/ <th:block th:include="fragments/messages :: messages"></th:block> /*/-->
+
+
+    <!--<h1 th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}"></h1>-->
+
+    <!--<h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>-->
+    <!--<p th:utext="${error}">Error java.lang.NullPointerException</p>-->
+    <!--<h2 id="global" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" cssClass="alert alert-error" />-->
+
+
+    <a href="index.html" th:href="@{/}">Back to Home Page</a>
+</div>
+
+    <!--/*/ <th:block th:include="fragments/footer :: foot"></th:block> /*/-->
+
+</body>
+</html>

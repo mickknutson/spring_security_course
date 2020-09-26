@@ -29,6 +29,7 @@ public class JpaRequestConfigMappingService implements RequestConfigMappingServi
 
     /**
      * .antMatchers("/admin/h2/**").permitAll()
+     * .antMatchers("/actuator/**").permitAll()
      * .antMatchers("/").permitAll()
      * .antMatchers("/login/*").permitAll()
      * .antMatchers("/logout").permitAll()

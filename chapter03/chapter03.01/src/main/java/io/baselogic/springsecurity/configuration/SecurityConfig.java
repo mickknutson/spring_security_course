@@ -27,6 +27,7 @@ import java.util.Map;
  * @since chapter02.03 Added basic role-based authorization
  * @since chapter02.04 converted antMatchers to SPeL expressions
  * @since chapter02.05 Added .defaultSuccessUrl("/default")
+ * @since chapter03.01 Converted configure(HttpSecurity) to use DSL
  * @since chapter03.01 Added PasswordEncoder passwordEncoder()
  */
 @Configuration
@@ -102,7 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http.authorizeRequests(authorizeRequests -> authorizeRequests
 
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
                 .antMatchers("/registration/*").permitAll()
@@ -112,24 +113,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/events/").access(HASROLE_ADMIN)
                 .antMatchers("/**").access(HASROLE_USER)
 
-                // The default AccessDeniedException
-                .and().exceptionHandling().accessDeniedPage("/errors/403")
+        );
 
-                .and().formLogin()
+        // The default AccessDeniedException
+        http.exceptionHandling(handler -> handler
+                .accessDeniedPage("/errors/403")
+        );
+
+        // Login Configuration
+        http.formLogin(form -> form
                 .loginPage("/login/form")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login/form?error")
                 .usernameParameter("username") // redundant
                 .passwordParameter("password") // redundant
-
                 .defaultSuccessUrl("/default", true)
                 .permitAll()
+        );
 
-                .and().logout()
+        // Logout Configuration
+        http.logout(form -> form
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
-        ;
+        );
 
 
         // Allow anonymous users

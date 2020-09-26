@@ -1,10 +1,11 @@
 # Resources
 
 ## Spring Resources
-> * [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
-> * [https://spring.io/projects/spring-data](https://spring.io/projects/spring-data)
-> * [https://spring.io/projects/spring-data-jpa](https://spring.io/projects/spring-data-jpa)
-> * [https://spring.io/projects/spring-data-mongodb](https://spring.io/projects/spring-data-mongodb)
+> * [spring-boot](https://spring.io/projects/spring-boot)
+> * [production-ready-endpoints](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-endpoints)
+> * [spring-data](https://spring.io/projects/spring-data)
+> * [spring-data-jpa](https://spring.io/projects/spring-data-jpa)
+> * [spring-data-mongodb](https://spring.io/projects/spring-data-mongodb)
 
 
 ## Database Resources
@@ -26,8 +27,15 @@
 
 
 ## Testing Resources
-> * [http://en.wikipedia.org/wiki/Behavior_Driven_Development](http://en.wikipedia.org/wiki/Behavior_Driven_Development)
-> * [https://site.mockito.org/javadoc/current/org/mockito/BDDMockito.html](https://site.mockito.org/javadoc/current/org/mockito/BDDMockito.html)
+> * [Spring Framework Testing](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/testing.html)
+> * [Spring Mvc Testing](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/testing.html#spring-mvc-test-framework)
+> * [Spring Web Test Client](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/testing.html#webtestclient)
+> * [Spring General Testing Utilities](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/testing.html#unit-testing-utilities)
+> * [Spring MVC Testing Utilities](https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/testing.html#unit-testing-spring-mvc)
+> * [Html Unit](https://htmlunit.sourceforge.io/)
+> * [Mockito](https://site.mockito.org/)
+> * [Behavior_Driven_Development](http://en.wikipedia.org/wiki/Behavior_Driven_Development)
+> * [BDDMockito.html](https://site.mockito.org/javadoc/current/org/mockito/BDDMockito.html)
 
 
 
