@@ -77,7 +77,7 @@ public class CsrfTests {
     @WithAnonymousUser
     public void test_login_form_csrf() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/login.form"))
+        MvcResult result = mockMvc.perform(get("/login/form"))
                 .andExpect(status().isOk())
                 .andExpect(unauthenticated())
                 .andReturn();

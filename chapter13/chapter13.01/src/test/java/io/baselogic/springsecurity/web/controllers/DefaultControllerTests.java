@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author mickknutson
  *
  * @since chapter02.06 Created class
+ * @since chapter13.01 Added CSRF support for Mock Mvc using .with(csrf())
  */
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
@@ -87,6 +89,7 @@ public class DefaultControllerTests {
     @WithAnonymousUser
     public void user1_Login() throws Exception {
         mockMvc.perform(post("/login")
+                .with(csrf())
                 .accept(MediaType.TEXT_HTML)
                 .contentType(
                         MediaType.APPLICATION_FORM_URLENCODED)

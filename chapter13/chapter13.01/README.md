@@ -6,8 +6,11 @@ In this chapter we enable default CSRF support in Spring and Thymeleaf.
 ## Tasks
 
 ### Update SecurityConfig
-
 > * Enabled .crsf()
+
+
+### Update Unit Tests
+> * Added CSRF support for Mock Mvc using .with(csrf())
 
 
 ### TODO

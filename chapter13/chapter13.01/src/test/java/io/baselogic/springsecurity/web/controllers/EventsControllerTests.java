@@ -25,11 +25,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * EventsControllerTests
+ * @author mickknutson
+ * @since chapter01.00 Created
+ * @since chapter13.01 Added CSRF support for Mock Mvc using .with(csrf())
+ */
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -174,7 +181,7 @@ public class EventsControllerTests {
 
                 .andExpect(content().string(containsString("Current User Events")))
                 .andExpect(content().string(containsString("This shows all events for the current appUser.")))
-                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(2))))
+                .andExpect(model().attribute("events", hasSize(greaterThanOrEqualTo(1))))
                 .andReturn();
     }
 
@@ -228,6 +235,7 @@ public class EventsControllerTests {
     @WithMockEventUserDetailsUser1
     public void showEventFormAutoPopulate() throws Exception {
         MvcResult result = mockMvc.perform(post("/events/new")
+                .with(csrf())
 
                 .param("auto", "auto")
         )
@@ -246,6 +254,7 @@ public class EventsControllerTests {
     @WithMockEventUserDetailsAdmin1
     public void showEventFormAutoPopulate_admin1() throws Exception {
         MvcResult result = mockMvc.perform(post("/events/new")
+                .with(csrf())
 
                 .param("auto", "auto")
         )
@@ -270,7 +279,7 @@ public class EventsControllerTests {
     public void createEvent() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
-
+                .with(csrf())
                 .param("attendeeEmail", "user2@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
                 .param("summary", "Test Summary")
@@ -292,6 +301,7 @@ public class EventsControllerTests {
     public void createEvent_null_email() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
+                        .with(csrf())
 
 //                .param("attendeeEmail", "user2@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
@@ -312,6 +322,7 @@ public class EventsControllerTests {
     public void createEvent_not_found_email() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
+                .with(csrf())
 
                 .param("attendeeEmail", "notFound@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
@@ -335,6 +346,7 @@ public class EventsControllerTests {
     public void createEvent_null_when() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
+                        .with(csrf())
 
                 .param("attendeeEmail", "user2@baselogic.com")
 //                .param("when", "2020-07-03 00:00:01")
@@ -358,6 +370,7 @@ public class EventsControllerTests {
     public void createEvent_null_summary() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
+                        .with(csrf())
 
                 .param("attendeeEmail", "user2@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
@@ -381,6 +394,7 @@ public class EventsControllerTests {
     public void createEvent_null_description() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
+                        .with(csrf())
 
                 .param("attendeeEmail", "notFound@baselogic.com")
                 .param("when", "2020-07-03 00:00:01")
