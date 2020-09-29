@@ -66,7 +66,6 @@ public class DefaultControllerTests {
                 .andExpect(view().name("redirect:/"))
                 .andExpect(header().string("Location", "/"))
                 .andReturn();
-
     }
 
 

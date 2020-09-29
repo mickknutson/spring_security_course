@@ -4,9 +4,11 @@ import io.baselogic.springsecurity.service.DefaultEventService;
 import io.baselogic.springsecurity.service.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -46,6 +48,10 @@ import java.util.Map;
  */
 @Configuration
 @EnableWebSecurity
+
+// Thymeleaf needs to use the Thymeleaf configured FilterSecurityInterceptor
+// and not the default Filter from AutoConfiguration.
+@Order(SecurityProperties.IGNORED_ORDER)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

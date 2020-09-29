@@ -42,6 +42,7 @@ import java.util.Map;
  * @since chapter05.01 Removed 'UserDetailsManager'
  * @since chapter05.01 Removed custom SQL Queries
  * @since chapter05.01 Added auth.userDetailsService(userDetailsService)
+ * @since chapter06.02 / chapter07.01 Added ' and isFullyAuthenticated()' to 'HASROLE_ADMIN
  * @since chapter07.01 Added http.x509().userDetailsService(userDetailsService);
  */
 @Configuration
@@ -51,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String HASANYROLE_ANONYMOUS = "hasAnyRole('ANONYMOUS', 'USER')";
     private static final String HASROLE_USER = "hasRole('USER')";
-    private static final String HASROLE_ADMIN = "hasRole('ADMIN')";
+    private static final String HASROLE_ADMIN = "hasRole('ADMIN') and isFullyAuthenticated()";
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -115,7 +116,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http.authorizeRequests(authorizeRequests -> authorizeRequests
+
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
@@ -129,12 +131,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/events/").access(HASROLE_ADMIN)
                 .antMatchers("/**").access(HASROLE_USER)
 
-                // The default AccessDeniedException
-                .and().exceptionHandling()
-                .accessDeniedPage("/errors/403")
 
-                // Login Configuration
-                .and().formLogin()
+        );
+
+        // The default AccessDeniedException
+        http.exceptionHandling(handler -> handler
+                .accessDeniedPage("/errors/403")
+        );
+
+        // Login Configuration
+        http.formLogin(form -> form
                 .loginPage("/login/form")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login/form?error")
@@ -142,28 +148,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password") // redundant
                 .defaultSuccessUrl("/default", true)
                 .permitAll()
+        );
 
-                // Logout Configuration
-                .and().logout()
+        // Logout Configuration
+        http.logout(form -> form
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
-        ;
-
-        // SSL / TLS x509 support
-        http.x509().userDetailsService(userDetailsService);
-
-        // TODO: Need to make redirects work
-        // Automatically redirect the HTTP requests to HTTPS
-//        http.portMapper()
-//                .http(8080)
-//                .mapsTo(8443);
-
-        // we only need https on /**
-//        http.requiresChannel()
-//                .antMatchers("/**").requiresSecure()
-//                .anyRequest().requiresInsecure();
-//        http.requiresChannel().anyRequest().requiresSecure();
+        );
 
         // Allow anonymous users
         http.anonymous();
@@ -183,37 +175,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
     } // end configure
-
-//    @Bean
-//    public TomcatServletWebServerFactory httpsRedirectConfig() {
-//        return new TomcatServletWebServerFactory () {
-//            @Override
-//            protected void postProcessContext(Context context) {
-//                SecurityConstraint securityConstraint = new SecurityConstraint();
-//                securityConstraint.setUserConstraint("CONFIDENTIAL");
-//                SecurityCollection collection = new SecurityCollection();
-//                collection.addPattern("/**");
-//                securityConstraint.addCollection(collection);
-//                context.addConstraint(securityConstraint);
-//            }
-//            @Override
-//            protected void customizeConnector(Connector connector) {
-//                super.customizeConnector(connector);
-//                super.customizeConnector(createConnection());
-//            }
-//        };
-//    }
-//
-//
-//    private Connector createConnection() {
-//        final String protocol = "org.apache.coyote.http11.Http11NioProtocol";
-//        final Connector connector = new Connector(protocol);
-//
-//        connector.setScheme("http");
-//        connector.setPort(9090);
-//        connector.setRedirectPort(8443);
-//        return connector;
-//    }
 
     /**
      * This is the equivalent to:

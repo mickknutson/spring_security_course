@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="chapter07.00 Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="Chapter 07">
+    <module name="chapter07.00" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.baselogic.springsecurity.Application" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

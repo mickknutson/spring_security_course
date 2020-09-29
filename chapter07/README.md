@@ -21,11 +21,10 @@ During the course of this chapter, we will cover the following topics:
 
 ### [Chapter 07.00](./chapter07.00/README.md) (Base line Starting from chapter05.01)
 
-### [Chapter 07.01](./chapter07.01/README.md) (Basic token-based remember-me configuration)
+### [Chapter 07.01](./chapter07.01/README.md) (Server-side TLS authentication)
 
-### [Chapter 07.02](./chapter07.02/README.md) (Advanced token-based remember-me configuration)
+### [Chapter 07.02](./chapter07.02/README.md) (Mutual authentication (Client-side))
 
-### [Chapter 07.03](./chapter07.03/README.md) (Persistent remember-me configuration)
 
 ---
 

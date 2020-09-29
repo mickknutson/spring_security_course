@@ -18,7 +18,10 @@
 > * [https://owasp.org/](https://owasp.org/)
 > * [https://owasp.org/www-project-top-ten/](https://owasp.org/www-project-top-ten/)
 > * [https://en.wikipedia.org/wiki/Authentication](https://en.wikipedia.org/wiki/Authentication)
-> * [TBD](https://baselogic.io)
+> * [BASE Logic, Inc.](https://baselogic.io)
+> * [x.509](https://en.wikipedia.org/wiki/X.509)
+> * [Transport Layer Security (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security)
+> * [letsencrypt.org TLS Certificates](https://letsencrypt.org/getting-started/)
 
 ## Java EE
 > * [https://www.oracle.com/africa/java/technologies/java-ee-glance.html](https://www.oracle.com/africa/java/technologies/java-ee-glance.html)

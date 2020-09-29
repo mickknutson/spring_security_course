@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String HASANYROLE_ANONYMOUS = "hasAnyRole('ANONYMOUS', 'USER')";
     private static final String HASROLE_USER = "hasRole('USER')";
-    private static final String HASROLE_ADMIN = "hasRole('ADMIN')";
+    private static final String HASROLE_ADMIN = "hasRole('ADMIN') and isFullyAuthenticated()";
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -115,7 +115,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http.authorizeRequests(authorizeRequests -> authorizeRequests
+
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
                 .antMatchers("/admin/h2/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
@@ -129,12 +130,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/events/").access(HASROLE_ADMIN)
                 .antMatchers("/**").access(HASROLE_USER)
 
-                // The default AccessDeniedException
-                .and().exceptionHandling()
-                .accessDeniedPage("/errors/403")
 
-                // Login Configuration
-                .and().formLogin()
+        );
+
+        // The default AccessDeniedException
+        http.exceptionHandling(handler -> handler
+                .accessDeniedPage("/errors/403")
+        );
+
+        // Login Configuration
+        http.formLogin(form -> form
                 .loginPage("/login/form")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login/form?error")
@@ -142,13 +147,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password") // redundant
                 .defaultSuccessUrl("/default", true)
                 .permitAll()
+        );
 
-                // Logout Configuration
-                .and().logout()
+        // Logout Configuration
+        http.logout(form -> form
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login/form?logout")
                 .permitAll()
-        ;
+        );
 
         // SSL / TLS x509 support
         http.x509()

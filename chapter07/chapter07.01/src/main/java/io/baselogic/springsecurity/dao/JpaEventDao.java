@@ -38,6 +38,7 @@ public class JpaEventDao implements EventDao {
     @Override
     @Transactional(readOnly = true)
     public List<Event> findByUser(final @NotNull Integer userId) {
+
         Event example = new Event();
         AppUser user = new AppUser();
         user.setId(userId);

@@ -38,6 +38,8 @@ During the course of this chapter, we'll cover the following topics:
 
 ### [Chapter 09.08](./chapter09.08/README.md) (Securing method data using role-based filtering)
 
+### [Chapter 09.09](./chapter09.09/README.md) (TODO: Spring Data Integration)
+
 ---
 
 ## Resources

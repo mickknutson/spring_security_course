@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -43,9 +44,11 @@ import java.util.Map;
  * @since chapter05.01 Removed 'UserDetailsManager'
  * @since chapter05.01 Removed custom SQL Queries
  * @since chapter05.01 Added auth.userDetailsService(userDetailsService)
+ * @since chapter13.01 Enabled CSRF
  */
 @Configuration
 @EnableWebSecurity
+//@EnableWebMvcSecurity
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -162,7 +165,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.anonymous();
 
         // CSRF is enabled by default, with Java Config
-        http.csrf().disable();
+        http.csrf(); // ENABLED: .disable();
 
         // Cross Origin Resource Sharing
         http.cors().disable();

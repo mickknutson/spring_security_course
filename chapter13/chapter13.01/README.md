@@ -1,14 +1,20 @@
-# Chapter 10.00
-## Access Control Lists
-This chapter is the chapter BASE and continues from the previous
-chapter section, from here, we build on top of this base.
+# Chapter 13.01
+
+## Using Spring Security CSRF protection
+In this chapter we enable default CSRF support in Spring and Thymeleaf.
 
 ## Tasks
 
-### No Tasks
-This section does not have any tasks.
-This section is a baseline from:
-> * [chapter05.01](../../chapter05/chapter05.01/)
+### Update SecurityConfig
+
+> * Enabled .crsf()
+
+
+### TODO
+> * .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+> * CsrfAuthenticationStrategy
+> * .csrfTokenRepository()
+> * .requireCsrfProtectionMatcher()
 
 
 ---
