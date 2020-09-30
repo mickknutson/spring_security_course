@@ -43,12 +43,12 @@ public class JpaEventDaoTests {
 
 
     @Test
-    public void initJdbcOperations() {
+    void initJdbcOperations() {
         assertThat(eventDao).isNotNull();
     }
 
     @Test
-    public void find() {
+    void find() {
         Event event = eventDao.findById(100);
         log.info(event.toString());
 

@@ -14,23 +14,23 @@
 
     <table class="table table-bordered table-striped table-condensed">
         <tr>
-            <th class="col-sm-1">Summary</th>
+            <th class="col-sm-1" id="summaryLabel">Summary</th>
             <td class="col-sm-4" id="summary" th:text="${event.summary}">Generic Event</td>
         </tr>
         <tr>
-            <th>Owner</th>
+            <th id="ownerLabel">Owner</th>
             <td id="owner" th:text="${event.owner.name}"></td>
         </tr>
         <tr>
-            <th>Attendee</th>
+            <th id="attendeeLabel">Attendee</th>
             <td id="attendee" th:text="${event.attendee.name}"></td>
         </tr>
         <tr>
-            <th>When</th>
+            <th id="whenLabel">When</th>
             <td id="when" th:text="${#calendars.format(event.when, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
         <tr>
-            <th>Description</th>
+            <th id="descriptionLabel">Description</th>
             <td id="description" th:text="${event.description}"></td>
         </tr>
     </table>

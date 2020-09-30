@@ -40,7 +40,7 @@ public class JpaUserDaoTests {
     //-----------------------------------------------------------------------//
 
     @Test
-    public void initJdbcOperations() {
+    void initJdbcOperations() {
         assertThat(userDao).isNotNull();
     }
 

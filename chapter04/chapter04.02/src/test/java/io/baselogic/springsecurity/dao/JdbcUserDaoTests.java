@@ -43,7 +43,7 @@ public class JdbcUserDaoTests {
 
 
     @Test
-    public void initJdbcOperations() {
+    void initJdbcOperations() {
         assertThat(userDao).isNotNull();
     }
 

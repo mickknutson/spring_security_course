@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/zsh
 
 ##---------------------------------------------------------------------------##
-## Creating certificates for Chapter 07
-## ./runTrustStoreGenerator.sh
+## Running Generators for Chapter 07
+## ./runGenerators.sh
 ##---------------------------------------------------------------------------##
 echo "--> Setup Properties"
 
@@ -17,6 +17,33 @@ DNAME="CN=admin1@baselogic.com, OU=Event Manager, O=BASE Logic, L=Park City, S=U
 SAN="SAN=IP:IP:127.0.0.1,DNS:baselogic.com,DNS:localhost,EMAIL:user1@baselogic.com,EMAIL:admin1@baselogic.com"
 LINE="--------------------"
 STARS="********************"
+
+
+##---------------------------------------------------------------------------##
+# Array of sub-modules to loop through
+
+echo "##---------------------------------------------------------------------------##"
+echo "Loop through all Modules"
+
+export ROOT_DIR=$PWD
+
+MODULES=(
+'chapter07.00'
+'chapter07.01'
+'chapter07.02'
+)
+
+for module in "${MODULES[@]}"; do
+
+
+echo "##---------------------------------------------------------------------------##"
+
+cd "$module"
+echo "Current: $PWD"
+echo "##---------------------------------------------------------------------------##"
+
+echo "Move to DIR: $module"
+echo "New Current: $PWD"
 
 
 ##---------------------------------------------------------------------------##
@@ -65,6 +92,9 @@ keytool -importcert \
 -storepass "$PASSWORD" \
 -file "$KEYS_DIR/$CERTIFICATE"
 
+##---------------------------------------------------------------------------##
+echo "$LINE"
+echo "--> List certificates in the $TRUSTSTORE"
 
 keytool -list -v -keystore "$KEYS_DIR/$TRUSTSTORE" -storepass "$PASSWORD"
 
@@ -75,3 +105,9 @@ echo "...The End..."
 echo "$LINE"
 
 ##---------------------------------------------------------------------------##
+
+echo "Back to $ROOT_DIR"
+cd "$ROOT_DIR"
+echo "New Current: $PWD"
+
+done

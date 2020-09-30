@@ -57,7 +57,7 @@ public class EventRepositoryTests {
 
     @Test
     @DisplayName("EventRepository - find Event by id")
-    public void find() {
+    void find() {
         Event event = repository.findById(100).orElseThrow(RuntimeException::new);
         log.info(event.toString());
 

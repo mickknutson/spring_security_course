@@ -23,7 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.when;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 /**
  * DefaultEventServiceTests
@@ -50,7 +51,7 @@ public class DefaultEventServiceTests {
     //-----------------------------------------------------------------------//
 
     @Test
-    public void initJdbcOperations() {
+    void initJdbcOperations() {
         assertThat(eventService).isNotNull();
     }
 

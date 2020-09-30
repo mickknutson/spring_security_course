@@ -38,7 +38,7 @@ public class UserContextTests {
 
 
     @Test
-    public void initJdbcOperations() {
+    void initJdbcOperations() {
         assertThat(userContext).isNotNull();
     }
 

@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.service;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import org.springframework.dao.EmptyResultDataAccessException;
+
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
