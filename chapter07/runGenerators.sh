@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 ##---------------------------------------------------------------------------##
 ## Running Generators for Chapter 07
@@ -22,18 +22,28 @@ STARS="********************"
 ##---------------------------------------------------------------------------##
 # Array of sub-modules to loop through
 
+echo "##---------------------------------------------------------------------------##"
+echo "Loop through all Modules"
 
-declare -a modules=(
-"chapter07.00"
-"chapter07.01"
-"chapter07.02"
+export ROOT_DIR=$PWD
+
+MODULES=(
+'chapter07.00'
+'chapter07.01'
+'chapter07.02'
 )
 
-for element in modules
+for module in "${MODULES[@]}"; do
 
-do
 
-echo "Move to DIR: $element"
+echo "##---------------------------------------------------------------------------##"
+
+cd "$module"
+echo "Current: $PWD"
+echo "##---------------------------------------------------------------------------##"
+
+echo "Move to DIR: $module"
+echo "New Current: $PWD"
 
 
 ##---------------------------------------------------------------------------##
@@ -95,4 +105,9 @@ echo "...The End..."
 echo "$LINE"
 
 ##---------------------------------------------------------------------------##
-Done
+
+echo "Back to $ROOT_DIR"
+cd "$ROOT_DIR"
+echo "New Current: $PWD"
+
+done

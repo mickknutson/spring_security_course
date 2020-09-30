@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="spring_security_course [clean,verify,-e]" type="MavenRunConfiguration" factoryName="Maven" folderName="Chapter 15" nameIsGenerated="true">
+  <configuration default="false" name="chapter15 [clean,verify,-e]" type="MavenRunConfiguration" factoryName="Maven" folderName="Chapter 15" nameIsGenerated="true">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -20,7 +20,7 @@
             <map />
           </option>
           <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$" />
+          <option name="workingDirPath" value="$PROJECT_DIR$/chapter15" />
         </MavenRunnerParameters>
       </option>
     </MavenSettings>
