@@ -16,6 +16,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -61,6 +62,17 @@ public class JpaEventDaoTests {
         assertThat(event.getSummary()).isEqualTo("Birthday Party");
         assertThat(event.getOwner().getId()).isEqualTo(0);
         assertThat(event.getAttendee().getId()).isEqualTo(1);
+
+        assertAll(
+                () -> assertThat(event).isNotNull(),
+                () -> assertThat(event.equals(event)).isTrue(),
+                () -> assertThat(event.equals(new Object())).isFalse(),
+                () -> assertThat(event.equals(new Event())).isFalse(),
+                () -> assertThat(event.hashCode()).isNotEqualTo(0),
+                () -> assertThat(event.getSummary()).isEqualTo("Birthday Party"),
+                () -> assertThat(event.getOwner().getId()).isEqualTo(0),
+                () -> assertThat(event.getAttendee().getId()).isEqualTo(1)
+        );
     }
 
 
