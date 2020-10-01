@@ -3,13 +3,13 @@
 <head>
     <title id="pageTitle">Welcome to the EventManager! </title>
 
-    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+    <th:block th:insert="fragments/head :: head"></th:block>
 </head>
 <body>
 
 <div class="container">
-    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-    <!--/*/ <th:block th:include="fragments/messages :: messages"></th:block> /*/-->
+    <th:block th:insert="fragments/header :: header"></th:block>
+    <th:block th:insert="fragments/messages :: messages"></th:block>
 
     <h1 id="chapterHeading">Chapter 09.01</h1>
     <p id="chapterTitle">Each chapter will have a slightly different summary depending on what has been done.</p>
@@ -45,7 +45,7 @@
 
 </div>
 
-<!--/*/ <th:block th:include="fragments/footer :: foot"></th:block> /*/-->
+<th:block th:insert="fragments/footer :: footer"></th:block>
 
 </body>
 </html>

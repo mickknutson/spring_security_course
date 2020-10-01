@@ -3,13 +3,13 @@
 <head>
     <title id="pageTitle">All EventManager Events</title>
 
-    <!--/*/ <th:block th:include="fragments/head :: head"></th:block> /*/-->
+    <th:block th:insert="fragments/head :: head"></th:block>
 </head>
 <body>
 
 <div class="container">
-    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-    <!--/*/ <th:block th:include="fragments/messages :: messages"></th:block> /*/-->
+    <th:block th:insert="fragments/header :: header"></th:block>
+    <th:block th:insert="fragments/messages :: messages"></th:block>
 
     <h2 id="heading">All Event</h2>
 
@@ -41,7 +41,7 @@
 
 </div>
 
-<!--/*/ <th:block th:include="fragments/footer :: foot"></th:block> /*/-->
+<th:block th:insert="fragments/footer :: footer"></th:block>
 
 </body>
 </html>
