@@ -90,8 +90,8 @@ public class DefaultControllerTests {
                 .accept(MediaType.TEXT_HTML)
                 .contentType(
                         MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username", "user1@baselogic.com")
-                .param("password", "user1")
+                .param("username", "user2@baselogic.com")
+                .param("password", "user2")
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/default"))

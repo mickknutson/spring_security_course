@@ -203,10 +203,10 @@ public class LoginTests {
                         .password(TestUtils.user1UserDetails.getPassword())
         )
                 .andDo(print())
-//                .andExpect(redirectedUrl("/default"))
-                .andExpect(redirectedUrl("/login/form?error"))
-//                .andExpect(header().string("Location", endsWith("/default")))
-                .andExpect(header().string("Location", endsWith("/login/form?error")))
+                .andExpect(redirectedUrl("/default"))
+//                .andExpect(redirectedUrl("/login/form?error"))
+                .andExpect(header().string("Location", endsWith("/default")))
+//                .andExpect(header().string("Location", endsWith("/login/form?error")))
                 .andReturn();
 
     }
