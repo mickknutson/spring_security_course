@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="spring_security_course [clean,verify,-e]" type="MavenRunConfiguration" factoryName="Maven" folderName="Chapter 15" nameIsGenerated="true">
+  <configuration default="false" name="spring_security_course [clean,verify,-e]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />

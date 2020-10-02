@@ -12,18 +12,35 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 
+/**
+ * Main Spring boot Application class
+ *
+ * @author mickknutson
+ * @since chapter01.00 created
+ * @since chapter03.01 Added passwordEncoding(ApplicationContext) to display encoded passwords.
+ * @since chapter03.01 Now students can see the encoded user passwords for adding into the DB.
+ */
 @SpringBootApplication
 @Slf4j
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Profile("debug")
+    /**
+     * Utility to print out user password encoded.
+     * These values can be used to change the encoded DB values based on the
+     * {@link PasswordEncoder} implemented.
+     * The default for this course is {@link BCrypt}
+     *
+     * @param ctx Application Context
+     * @return CommandLineRunner
+     */
+    @Profile("trace")
     @Bean
     public CommandLineRunner passwordEncoding(ApplicationContext ctx) {
         return args -> {
@@ -55,9 +72,16 @@ public class Application {
         };
     }
 
+
+    /**
+     * This simple utility will print out to the console, the beans that have bee loaded into the current context
+     * @param ctx Application Context
+     * @return CommandLineRunner
+     */
     @Profile("trace")
     @Bean
-    public CommandLineRunner viewBeansInContext(ApplicationContext ctx) {
+    @Autowired
+    public CommandLineRunner viewBeansInContext(final ApplicationContext ctx) {
         return args -> {
 
             StringBuilder sb = new StringBuilder(1_000);
@@ -76,4 +100,6 @@ public class Application {
             log.debug(sb.toString());
         };
     }
+
+
 } // The End...

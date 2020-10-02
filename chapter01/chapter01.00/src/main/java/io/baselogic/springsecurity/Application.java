@@ -7,22 +7,34 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
 
+/**
+ * Main Spring boot Application class
+ *
+ * @author mickknutson
+ * @since chapter01.00
+ */
 @SpringBootApplication
 @Slf4j
 public class Application {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 
 
-    //@Profile("trace")
-    @Bean     // ApplicationContextAware
+    /**
+     * This simple utility will print out to the console, the beans that have bee loaded into the current context
+     * @param ctx Application Context
+     * @return CommandLineRunner
+     */
+	@Profile("trace")
+    @Bean
     @Autowired
-    public CommandLineRunner viewBeansInContext(ApplicationContext ctx) {
+    public CommandLineRunner viewBeansInContext(final ApplicationContext ctx) {
         return args -> {
 
             StringBuilder sb = new StringBuilder(1_000);
@@ -41,4 +53,6 @@ public class Application {
             log.debug(sb.toString());
         };
     }
+
+
 } // The End...

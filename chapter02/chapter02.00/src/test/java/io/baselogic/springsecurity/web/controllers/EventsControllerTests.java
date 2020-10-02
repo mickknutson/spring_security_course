@@ -66,7 +66,7 @@ public class EventsControllerTests {
      * @since chapter02.00 Added .apply(springSecurity()) to MockMvcBuilders
      */
     @BeforeEach
-    void setup(WebApplicationContext context) {
+    void beforeEachTest(WebApplicationContext context) {
 
         // https://docs.spring.io/spring-security/site/docs/current/reference/html5/#test-mockmvc-setup
         mockMvc = MockMvcBuilders

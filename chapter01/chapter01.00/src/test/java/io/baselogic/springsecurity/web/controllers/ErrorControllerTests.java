@@ -39,7 +39,7 @@ public class ErrorControllerTests {
     private ErrorController controller;
 
     @BeforeEach
-    void setup(WebApplicationContext context) {
+    void beforeEachTest(WebApplicationContext context) {
     }
 
 

@@ -61,7 +61,7 @@ public class EventsControllerTests {
      * @param context WebApplicationContext
      */
     @BeforeEach
-    void setup(WebApplicationContext context) {
+    void beforeEachTest(WebApplicationContext context) {
         webClient = MockMvcWebClientBuilder
                 .webAppContextSetup(context)
                 .build();

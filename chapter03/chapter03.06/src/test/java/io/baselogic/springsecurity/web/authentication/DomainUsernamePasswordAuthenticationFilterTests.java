@@ -51,7 +51,7 @@ public final class DomainUsernamePasswordAuthenticationFilterTests {
 
 
     @BeforeEach
-    void setup(WebApplicationContext context) {
+    void beforeEachTest(WebApplicationContext context) {
 
         // https://docs.spring.io/spring-security/site/docs/current/reference/html5/#test-mockmvc-setup
         mockMvc = MockMvcBuilders
