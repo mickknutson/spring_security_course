@@ -263,7 +263,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form")
     @WithUserDetails("user1@baselogic.com")
-    public void createEvent() throws Exception {
+    void createEvent() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
 

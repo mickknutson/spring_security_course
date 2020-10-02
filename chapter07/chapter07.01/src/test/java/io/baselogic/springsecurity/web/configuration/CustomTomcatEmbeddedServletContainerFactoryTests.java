@@ -85,8 +85,8 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
     @WithAnonymousUser
     public void testing_tls_index() throws Exception {
 
-        String URL = "https://localhost:8443/";
-//    String URL = "http://localhost:8080/";
+//        String URL = "https://localhost:8443/";
+    String URL = "http://localhost:8080/";
 
         IndexPage indexPage = IndexPage.to(driver);
         indexPage.navigateTo();
@@ -100,29 +100,6 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
 
         assertThat(indexPage.validate()).isTrue();
 
-    }
-
-
-    static final String targetDir = "./target/webDriver/";
-
-
-    /**
-     * This function will take screenshot
-     * @param webdriver
-     * @param fileWithPath
-     * @throws Exception
-     */
-    public static void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception{
-        //Convert web driver object to TakeScreenshot
-        TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
-
-        //Call getScreenshotAs method to create image file
-        File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
-
-        //Move image file to new destination
-        File DestFile = new File(targetDir + fileWithPath);
-        //Copy file at destination
-        FileUtils.copyFile(SrcFile, DestFile);
     }
 
 } // The End...

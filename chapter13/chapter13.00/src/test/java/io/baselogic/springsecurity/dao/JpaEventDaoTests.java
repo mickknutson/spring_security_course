@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class JpaEventDaoTests {
+class JpaEventDaoTests {
 
     @Autowired
     private EventDao eventDao;
@@ -37,7 +37,7 @@ public class JpaEventDaoTests {
     private AppUser attendee = new AppUser();
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         owner.setId(1);
         attendee.setId(0);
     }
@@ -77,7 +77,7 @@ public class JpaEventDaoTests {
 
 
     @Test
-    public void createEvent() {
+    void createEvent() {
         log.debug("******************************");
         List<Event> events = eventDao.findByUser(owner.getId());
         assertThat(events.size()).isGreaterThanOrEqualTo(1);
@@ -92,14 +92,14 @@ public class JpaEventDaoTests {
     }
 
     @Test
-    public void createEvent_null_event() {
+    void createEvent_null_event() {
         assertThrows(InvalidDataAccessApiUsageException.class, () -> {
             eventDao.save(null);
         });
     }
 
     /*@Test
-    public void createEvent_with_event_id() {
+    void createEvent_with_event_id() {
         assertThrows(IllegalArgumentException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setId(12345);
@@ -109,7 +109,7 @@ public class JpaEventDaoTests {
     }*/
 
     @Test
-    public void createEvent_null_event_owner() {
+    void createEvent_null_event_owner() {
         assertThrows(ConstraintViolationException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setOwner(null);
@@ -119,7 +119,7 @@ public class JpaEventDaoTests {
     }
 
     @Test
-    public void createEvent_null_event_attendee() {
+    void createEvent_null_event_attendee() {
         assertThrows(ConstraintViolationException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setAttendee(null);
@@ -129,7 +129,7 @@ public class JpaEventDaoTests {
     }
 
     @Test
-    public void createEvent_null_event_when() {
+    void createEvent_null_event_when() {
         assertThrows(ConstraintViolationException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setWhen(null);
@@ -140,7 +140,7 @@ public class JpaEventDaoTests {
 
 
     @Test
-    public void findAll() {
+    void findAll() {
         List<Event> events = eventDao.findAll();
         assertThat(events.size()).isGreaterThanOrEqualTo(3);
     }

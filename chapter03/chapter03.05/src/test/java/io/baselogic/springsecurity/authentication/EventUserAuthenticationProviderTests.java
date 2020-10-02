@@ -50,7 +50,7 @@ public class EventUserAuthenticationProviderTests {
 
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         appUser1 = TestUtils.user1;
         appUser1.setPassword("{noop}user1");
     }

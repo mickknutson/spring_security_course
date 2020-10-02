@@ -8,21 +8,21 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-public class BCryptPasswordEncoderMainTests {
+class BCryptPasswordEncoderMainTests {
 
     private static final String PASSWORD = "user1";
     private static final String PASSWORD_ENCODED = "$2a$04$gBdMIzQ5P2Ffb4L/epcKSOiYRlwPcUKx1jlfENvOUMpSAm4PsRdK2";
 
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         BCryptPasswordEncoderMain encoder = new BCryptPasswordEncoderMain();
     }
 
 
     @Test
     @DisplayName("BCryptPasswordEncoderMain - encode")
-    public void encode() {
+    void encode() {
         String result = BCryptPasswordEncoderMain.encode(PASSWORD);
         log.info("Encoded password: [{}]", result);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
@@ -31,7 +31,7 @@ public class BCryptPasswordEncoderMainTests {
 
     @Test
     @DisplayName("BCryptPasswordEncoderMain - matches")
-    public void matches() {
+    void matches() {
         String result = BCryptPasswordEncoderMain.encode(PASSWORD);
         log.info("Encoded password: [{}]", result);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
@@ -41,7 +41,7 @@ public class BCryptPasswordEncoderMainTests {
 
     @Test
     @DisplayName("BCryptPasswordEncoderMain - main method")
-    public void main() {
+    void main() {
         String[] args = {"PASSWORD"};
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
@@ -50,7 +50,7 @@ public class BCryptPasswordEncoderMainTests {
 
     @Test
     @DisplayName("BCryptPasswordEncoderMain - main method - empty input")
-    public void main_empty_args() {
+    void main_empty_args() {
         String[] args = {};
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
@@ -59,7 +59,7 @@ public class BCryptPasswordEncoderMainTests {
 
     @Test
     @DisplayName("BCryptPasswordEncoderMain - main method - null input")
-    public void main_null_args() {
+    void main_null_args() {
         String[] args = null;
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);

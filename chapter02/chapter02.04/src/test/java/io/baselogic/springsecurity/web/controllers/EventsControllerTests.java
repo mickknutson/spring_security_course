@@ -270,7 +270,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form")
 //    @WithMockUser("user1@baselogic.com")
-    public void createEvent() throws Exception {
+    void createEvent() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
                 // Simulate a valid security User:

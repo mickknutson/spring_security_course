@@ -54,7 +54,7 @@ public class UserContextTests {
 
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         appUser1 = TestUtils.user1;
         testAppUser1 = TestUtils.TEST_APP_USER_1;
     }

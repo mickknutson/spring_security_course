@@ -32,7 +32,7 @@ public class UserContextTests {
 
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         owner.setId(1);
     }
 

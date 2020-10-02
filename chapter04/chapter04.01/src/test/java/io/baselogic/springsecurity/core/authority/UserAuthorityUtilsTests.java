@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserAuthorityUtilsTests {
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         UserAuthorityUtilsTests utils = new UserAuthorityUtilsTests();
     }
 

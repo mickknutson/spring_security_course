@@ -254,7 +254,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form")
     @WithMockUser1
-    public void createEvent() throws Exception {
+    void createEvent() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
 

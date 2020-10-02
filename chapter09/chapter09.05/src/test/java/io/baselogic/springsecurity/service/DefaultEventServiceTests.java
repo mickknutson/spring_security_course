@@ -118,7 +118,7 @@ public class DefaultEventServiceTests {
     }
 
     @Test
-    public void createEvent() {
+    void createEvent() {
 
         given(eventDao.save(any(Event.class)))
                 .willReturn(42);
@@ -188,7 +188,7 @@ public class DefaultEventServiceTests {
     }
 
     @Test
-    public void createUser() {
+    void createUser() {
 
         given(userDao.save(any(AppUser.class)))
                 .willReturn(42);

@@ -42,7 +42,7 @@ public class EventUserDetailsServiceTests {
 
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
     }
 
     //-----------------------------------------------------------------------//

@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class JpaUserDaoTests {
+class JpaUserDaoTests {
 
     @Autowired
     private UserDao userDao;
@@ -32,7 +32,7 @@ public class JpaUserDaoTests {
 
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         owner.setId(1);
         attendee.setId(0);
     }
@@ -45,7 +45,7 @@ public class JpaUserDaoTests {
     }
 
     @Test
-    public void findById() {
+    void findById() {
         AppUser appUser = userDao.findById(1);
 
         assertThat(appUser).isNotNull();
@@ -56,21 +56,21 @@ public class JpaUserDaoTests {
     }
 
     @Test
-    public void findByEmail() {
+    void findByEmail() {
         AppUser appUser = userDao.findByEmail("user1@baselogic.com");
         assertThat(appUser.getEmail()).isEqualTo("user1@baselogic.com");
     }
 
 
     @Test
-    public void findByEmail_no_results() {
+    void findByEmail_no_results() {
         AppUser appUser = userDao.findByEmail("foo@baselogic.com");
         assertThat(appUser).isNull();
     }
 
 
     /*@Test
-    public void findByEmail_EmptyResultDataAccessException() {
+    void findByEmail_EmptyResultDataAccessException() {
 
         // Expectation
         given(appUserRepository.findByEmail(any(String.class)))
@@ -85,13 +85,13 @@ public class JpaUserDaoTests {
     //-----------------------------------------------------------------------//
 
     @Test
-    public void findAllByEmail() {
+    void findAllByEmail() {
         List<AppUser> appUsers = userDao.findAllByEmail("@baselogic");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
 
     @Test
-    public void findAllByEmail_no_results() {
+    void findAllByEmail_no_results() {
         List<AppUser> appUsers = userDao.findAllByEmail("@baselogic.io");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
@@ -100,7 +100,7 @@ public class JpaUserDaoTests {
 
 
     @Test
-    public void createUser() {
+    void createUser() {
         List<AppUser> appUsers = userDao.findAllByEmail("@baselogic.com");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
 

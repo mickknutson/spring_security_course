@@ -202,7 +202,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form")
-    public void createEvent() throws Exception {
+    void createEvent() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())

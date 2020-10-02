@@ -16,10 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @ActiveProfiles("trace")
 @Slf4j
-public class ApplicationTests {
+class ApplicationTests {
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
 
         Application.main(new String[0]);
 

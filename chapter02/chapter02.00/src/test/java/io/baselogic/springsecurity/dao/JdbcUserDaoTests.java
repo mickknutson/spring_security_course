@@ -36,7 +36,7 @@ public class JdbcUserDaoTests {
 
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         owner.setId(1);
         attendee.setId(0);
     }
@@ -48,7 +48,7 @@ public class JdbcUserDaoTests {
     }
 
     @Test
-    public void findById() {
+    void findById() {
         AppUser user = userDao.findById(1);
         log.info(user.toString());
 
@@ -60,14 +60,14 @@ public class JdbcUserDaoTests {
     }
 
     @Test
-    public void findByEmail() {
+    void findByEmail() {
         AppUser user = userDao.findByEmail("user1@baselogic.com");
         assertThat(user.getEmail()).isEqualTo("user1@baselogic.com");
     }
 
 
     @Test
-    public void findByEmail_no_results() {
+    void findByEmail_no_results() {
         AppUser user = userDao.findByEmail("foo@baselogic.com");
         assertThat(user).isNull();
     }
@@ -75,20 +75,20 @@ public class JdbcUserDaoTests {
 
 
     @Test
-    public void findAllByEmail() {
+    void findAllByEmail() {
         List<AppUser> users = userDao.findAllByEmail("@baselogic");
         assertThat(users.size()).isEqualTo(3);
     }
 
     @Test
-    public void findAllByEmail_no_results() {
+    void findAllByEmail_no_results() {
         List<AppUser> users = userDao.findAllByEmail("@baselogic.io");
         assertThat(users.size()).isEqualTo(0);
     }
 
 
     @Test
-    public void createUser() {
+    void createUser() {
         List<AppUser> users = userDao.findAllByEmail("@baselogic.com");
         assertThat(users.size()).isEqualTo(3);
 

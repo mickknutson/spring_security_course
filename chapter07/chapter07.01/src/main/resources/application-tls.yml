@@ -16,7 +16,15 @@ server:
     protocol: TLS
     enabled: true
 
+    # Not required for just TLS connections.
+    # This is used for Client Certificate Authentication
     trust-store: "classpath:keys/event_manager.truststore"
     trust-store-password: changeit
+
+
+  # Enable MBean support for Tomcat
+  tomcat:
+    mbeanregistry:
+      enabled: true
 
 ##---------------------------------------------------------------------------##

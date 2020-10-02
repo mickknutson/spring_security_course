@@ -30,7 +30,7 @@ public class AppUserRepositoryTests {
 
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         owner.setId(1);
         attendee.setId(0);
     }
@@ -65,7 +65,7 @@ public class AppUserRepositoryTests {
 
     @Test
     @DisplayName("AppUserRepository - findById")
-    public void findById() {
+    void findById() {
         AppUser appUser = repository.findById(1).orElseThrow(RuntimeException::new);
         log.info(appUser.toString());
 
@@ -79,7 +79,7 @@ public class AppUserRepositoryTests {
 
     @Test
     @DisplayName("AppUserRepository - findByEmail")
-    public void findByEmail() {
+    void findByEmail() {
         AppUser appUser = repository.findByEmail("user1@baselogic.com");
         assertThat(appUser.getEmail()).isEqualTo("user1@baselogic.com");
     }
@@ -87,7 +87,7 @@ public class AppUserRepositoryTests {
 
     @Test
     @DisplayName("AppUserRepository - findByEmail - email not found")
-    public void findByEmail_no_results() {
+    void findByEmail_no_results() {
         AppUser appUser = repository.findByEmail("foo@baselogic.com");
         assertThat(appUser).isNull();
     }
@@ -95,14 +95,14 @@ public class AppUserRepositoryTests {
 
     @Test
     @DisplayName("AppUserRepository - findAllByEmail")
-    public void findAllByEmail() {
+    void findAllByEmail() {
         List<AppUser> appUsers = repository.findAllByEmailContaining("@baselogic");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
     }
 
     @Test
     @DisplayName("AppUserRepository - findAllByEmail - not found")
-    public void findAllByEmail_no_results() {
+    void findAllByEmail_no_results() {
         List<AppUser> appUsers = repository.findAllByEmailContaining("@baselogic.io");
         assertThat(appUsers.size()).isEqualTo(0);
     }
@@ -110,7 +110,7 @@ public class AppUserRepositoryTests {
 
     @Test
     @DisplayName("AppUserRepository - create User")
-    public void createUser() {
+    void createUser() {
         List<AppUser> appUsers = repository.findAllByEmailContaining("@baselogic.com");
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
 

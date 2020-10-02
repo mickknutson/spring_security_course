@@ -35,7 +35,7 @@ public class JdbcEventDaoTests {
     private AppUser attendee = new AppUser();
 
     @BeforeEach
-    public void beforeEachTest() {
+    void beforeEachTest() {
         owner.setId(1);
         attendee.setId(0);
     }
@@ -64,7 +64,7 @@ public class JdbcEventDaoTests {
 
 
     @Test
-    public void createEvent() {
+    void createEvent() {
         log.debug("******************************");
         List<Event> events = eventDao.findByUser(owner.getId());
         assertThat(events.size()).isEqualTo(2);
@@ -79,14 +79,14 @@ public class JdbcEventDaoTests {
     }
 
     @Test
-    public void createEvent_null_event() {
+    void createEvent_null_event() {
         assertThrows(ConstraintViolationException.class, () -> {
             eventDao.save(null);
         });
     }
 
     @Test
-    public void createEvent_with_event_id() {
+    void createEvent_with_event_id() {
         assertThrows(IllegalArgumentException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setId(12345);
@@ -96,7 +96,7 @@ public class JdbcEventDaoTests {
     }
 
     @Test
-    public void createEvent_null_event_owner() {
+    void createEvent_null_event_owner() {
         assertThrows(ConstraintViolationException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setOwner(null);
@@ -106,7 +106,7 @@ public class JdbcEventDaoTests {
     }
 
     @Test
-    public void createEvent_null_event_attendee() {
+    void createEvent_null_event_attendee() {
         assertThrows(ConstraintViolationException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setAttendee(null);
@@ -116,7 +116,7 @@ public class JdbcEventDaoTests {
     }
 
     @Test
-    public void createEvent_null_event_when() {
+    void createEvent_null_event_when() {
         assertThrows(ConstraintViolationException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
             event.setWhen(null);
@@ -127,7 +127,7 @@ public class JdbcEventDaoTests {
 
 
     @Test
-    public void findAll() {
+    void findAll() {
         List<Event> events = eventDao.findAll();
         assertThat(events.size()).isGreaterThanOrEqualTo(3);
     }
