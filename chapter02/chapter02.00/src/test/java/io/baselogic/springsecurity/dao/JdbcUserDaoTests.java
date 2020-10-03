@@ -56,7 +56,7 @@ public class JdbcUserDaoTests {
         assertThat(user.equals(user)).isTrue();
         assertThat(user.equals(new Object())).isFalse();
         assertThat(user.equals(new AppUser())).isFalse();
-        assertThat(user.hashCode()).isNotEqualTo(0);
+        assertThat(user.hashCode()).isNotZero();
     }
 
     @Test

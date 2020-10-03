@@ -160,6 +160,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
+        //NOSONAR
         http.authorizeRequests(authorizeRequests -> authorizeRequests
 
                 // Allow anyone to use H2 (NOTE: NOT FOR PRODUCTION USE EVER !!! )
@@ -205,6 +206,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.anonymous();
 
         // CSRF is enabled by default, with Java Config
+        //NOSONAR
         http.csrf().disable();
 
         // Cross Origin Resource Sharing

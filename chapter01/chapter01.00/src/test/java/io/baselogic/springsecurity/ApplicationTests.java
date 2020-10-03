@@ -23,7 +23,7 @@ class ApplicationTests {
 
         Application.main(new String[0]);
 
-        assertThat("foo").isNotEqualTo("bar");
+        assertThat("foo").isNotNull();
     }
 
 } // The End...

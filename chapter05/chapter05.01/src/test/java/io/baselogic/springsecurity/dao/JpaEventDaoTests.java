@@ -56,7 +56,7 @@ class JpaEventDaoTests {
         assertThat(event.equals(event)).isEqualTo(true);
         assertThat(event.equals(new Object())).isFalse();
         assertThat(event.equals(new Event())).isFalse();
-        assertThat(event.hashCode()).isNotEqualTo(0);
+        assertThat(event.hashCode()).isNotZero();
 
         assertThat(event.getSummary()).isEqualTo("Birthday Party");
         assertThat(event.getOwner().getId()).isEqualTo(0);

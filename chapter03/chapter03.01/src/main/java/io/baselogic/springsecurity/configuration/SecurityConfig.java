@@ -103,6 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 
+        //NOSONAR
         http.authorizeRequests(authorizeRequests -> authorizeRequests
 
                 .antMatchers("/").access(HASANYROLE_ANONYMOUS)
@@ -143,6 +144,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.anonymous();
 
         // CSRF is enabled by default, with Java Config
+        //NOSONAR
         http.csrf().disable();
 
         // Cross Origin Resource Sharing

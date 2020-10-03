@@ -11,12 +11,7 @@
         <div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}" class="alert alert-danger">
             <span th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}">Security Exception</span>
         </div>
-        <!--<div th:if="${#vars['message'] != null}" th:unless="${#vars['error'] != null}" class="alert alert-success">
-            <span th:text="${#vars['message']}"></span>
-        </div>
-        <div th:if="${#vars['error'] != null}" class="alert alert-danger">
-            <span th:text="${#vars['error']}"></span>
-        </div>-->
+
 
     </div>
 </div>

@@ -10,13 +10,7 @@
         <th:block th:insert="fragments/header :: header"></th:block>
         <th:block th:insert="fragments/messages :: messages"></th:block>
 
-        <!--<h1 th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}"></h1>-->
-
-        <!--<h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>-->
-            <!--<p th:utext="${error}">Error java.lang.NullPointerException</p>-->
-<!--        <h2 id="global" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}" cssClass="alert alert-error" />-->
-
-        <a href="index.html" th:href="@{/index}">Back to Home Page</a>
+        <a href="index.html" th:href="@{/}">Back to Home Page</a>
     </div>
 
 </body>

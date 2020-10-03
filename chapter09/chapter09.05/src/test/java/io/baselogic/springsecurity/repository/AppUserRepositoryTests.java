@@ -73,7 +73,7 @@ public class AppUserRepositoryTests {
         assertThat(appUser.equals(appUser)).isTrue();
         assertThat(appUser.equals(new Object())).isFalse();
         assertThat(appUser.equals(new AppUser())).isFalse();
-        assertThat(appUser.hashCode()).isNotEqualTo(0);
+        assertThat(appUser.hashCode()).isNotZero();
     }
 
 
