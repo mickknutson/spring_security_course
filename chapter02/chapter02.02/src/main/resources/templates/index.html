@@ -16,10 +16,10 @@
     <h4 id="summary">Customizing login.</h4>
     <ul>
         <li><a id="eventsLink" th:href="@{/events/}">All Events</a> - shows all events for all appUsers. Once secured, this will only be viewable by administrators.</li>
-        <li><a id="myEMLink" th:href="@{events/my}">My Events</a> - shows all events that <i>user1@baselogic.com</i> is the owner or attendee. Once we apply security only a logged in appUser
-            will be able to view this page. Additionally, the logged in appUser will be used rather than always using <i>user1@baselogic.com</i></li>
-        <li><a id="createEventLink" th:href="@{events/form}">Create Event</a> - will allow creating a new Event with <i>user1@baselogic.com</i> as the owner. Once we add security, only a logged in
-            appUser will be able to view this page. Additionally, the logged in appUser will be the owner rather than always using <i>user1@baselogic.com</i>.</li>
+        <li><a id="myEMLink" th:href="@{events/my}">My Events</a> - shows all events that <em>user1@baselogic.com</em> is the owner or attendee. Once we apply security only a logged in appUser
+            will be able to view this page. Additionally, the logged in appUser will be used rather than always using <em>user1@baselogic.com</em></li>
+        <li><a id="createEventLink" th:href="@{events/form}">Create Event</a> - will allow creating a new Event with <em>user1@baselogic.com</em> as the owner. Once we add security, only a logged in
+            appUser will be able to view this page. Additionally, the logged in appUser will be the owner rather than always using <em>user1@baselogic.com</em>.</li>
         <li>
             <a id="h2Link" th:href="@{admin/h2/}" target="_blank">H2 Database Console</a> - Allows you to interact with the database using a web console. To use it:
             <ul>
@@ -27,7 +27,7 @@
                 <li>Ensure that <strong>Generic H2 (Embedded)</strong> is selected</li>
                 <li>Ensure that <strong>org.h2.Driver</strong> is the Driver Class</li>
                 <li>Enter <strong>jdbc:h2:mem:dataSource</strong> as the JDBC URL</li>
-                <li>Ensure that the username is '<i>sa</i>'</li>
+                <li>Ensure that the username is '<em>sa</em>'</li>
                 <li>Ensure the password is left empty</li>
                 <li>Click Connect</li>
             </ul>

@@ -72,10 +72,10 @@ public class CustomTomcatEmbeddedServletContainerFactory {
         connector.setRedirectPort(redirectPort);
 
         /**
-        Not sure, but I think this flag is for cookies:
-        <cookie-config>
-            <http-only>true</http-only>
-            <secure>true</secure>
+         Not sure, but I think this flag is for cookies:
+         <cookie-config>
+         <http-only>true</http-only>
+         <secure>true</secure>
          </cookie-config>
          */
         connector.setSecure(false);
