@@ -5,6 +5,7 @@ import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.embedded.tomcat.ConfigurableTomcatWebServerFactory;
 import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -31,15 +32,18 @@ public class CustomTomcatEmbeddedServletContainerFactory {
     @Value("${redirectPort: 8443}")
     private int redirectPort;
 
+    /**
+     * Create TomcatServletWebServerFactory Servlet Container
+     *
+     * TODO: research WebServerFactoryCustomizer
+     * @return WebServerFactoryCustomizer<TomcatServletWebServerFactory>
+     */
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainer() {
         log.info("*** Setting Custom Tomcat specific configurations ***");
 
         return factory -> {
-            factory.addAdditionalTomcatConnectors(createSslRedirectingConnector());
-            factory.addContextCustomizers(context -> {
-                context.addConstraint(createSecurityConstraints());
-            });
+            init(factory);
         };
     }
 
@@ -47,7 +51,24 @@ public class CustomTomcatEmbeddedServletContainerFactory {
      * Customize {@link TomcatServletWebServerFactory} by creating a {@link TomcatContextCustomizer}
      * @return Connector Configured to redirect for TLS connections
      */
-    private SecurityConstraint createSecurityConstraints() {
+    protected ConfigurableTomcatWebServerFactory init(final TomcatServletWebServerFactory factory) {
+        log.info("...initialize ConfigurableTomcatWebServerFactory");
+
+        factory.addAdditionalTomcatConnectors(createSslRedirectingConnector());
+        factory.addContextCustomizers(context -> {
+            context.addConstraint(createSecurityConstraints());
+        });
+
+        return factory;
+    }
+
+
+    /**
+     * Customize {@link TomcatServletWebServerFactory} by creating a {@link TomcatContextCustomizer}
+     * @return Connector Configured to redirect for TLS connections
+     */
+    protected SecurityConstraint createSecurityConstraints() {
+        log.info("...create Security Constraints");
 
         SecurityConstraint securityConstraint = new SecurityConstraint();
         securityConstraint.setUserConstraint("CONFIDENTIAL");
@@ -64,8 +85,8 @@ public class CustomTomcatEmbeddedServletContainerFactory {
      * NOTE: This only works with HTTP/1.1
      * @return Connector Configured to redirect for TLS connections
      */
-    private Connector createSslRedirectingConnector() {
-        log.info("***** Redirecting http traffic from port {}, to port {} *****", defaultPort, redirectPort);
+    protected Connector createSslRedirectingConnector() {
+        log.info("...create http Redirect traffic from port {}, to port {}", defaultPort, redirectPort);
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
         connector.setPort(defaultPort);

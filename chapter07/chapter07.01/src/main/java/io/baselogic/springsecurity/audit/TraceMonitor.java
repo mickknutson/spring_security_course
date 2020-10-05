@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.baselogic.springsecurity.audit.logger.LoggerThreadLocal;
 import io.baselogic.springsecurity.audit.logger.Method;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.aspectj.lang.JoinPoint;
@@ -16,31 +17,73 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
+/**
+ * Trace Monitoring Aspect and Advice
+ */
 @Aspect
 @Service
-@Configuration
+//@Configuration
+@Slf4j
 public class TraceMonitor {
 
-    @Pointcut(value = "execution(* io.baselogic.springsecurity.service.*Service.*(..))")
-    private void executionInService() {
-        //do nothing, just for pointcut def
-    }
+//    @Pointcut("within(io.baselogic.springsecurity.web.controllers..*)")
+    @Pointcut(value = "execution(* io.baselogic.springsecurity.web.controllers.*Controller.*(..))")
+    public void inWebLayer() {}
 
-    @Before(value = "executionInService()")
-    public void pushStackInBean(JoinPoint joinPoint) {
+//    @Pointcut("within(io.baselogic.springsecurity.service..*)")
+    @Pointcut(value = "execution(* io.baselogic.springsecurity.service.*Service.*(..))")
+    public void inServiceLayer() {}
+
+//    @Pointcut("within(io.baselogic.springsecurity.dao..*)")
+    @Pointcut(value = "execution(* io.baselogic.springsecurity.dao.*Dao.*(..))")
+    public void inDaoLayer() {}
+
+//    @Pointcut("within(io.baselogic.springsecurity.userdetails..*)")
+    @Pointcut(value = "execution(* io.baselogic.springsecurity.userdetails.*Service.*(..))")
+    public void inUserDetailsLayer() {}
+
+    //-----------------------------------------------------------------------//
+
+
+//    @Pointcut(value = "execution(* io.baselogic.springsecurity.service.*Service.*(..))")
+//    private void executionInService() {
+//        //do nothing, just for pointcut def
+//    }
+//
+//    @Before(value = "executionInService()")
+//    public void pushStackInBean(JoinPoint joinPoint) {
+//        log.info("pushStackInBean(joinPoint): {}", joinPoint);
+//        pushStack(joinPoint);
+//    }
+//
+//    @AfterReturning(value = "executionInService()", returning = "returnValue")
+//    public void popStackInBean(Object returnValue) {
+//        log.info("popStackInBean(returnValue): {}", returnValue);
+//        popStack(returnValue);
+//    }
+
+
+    //-----------------------------------------------------------------------//
+
+    @Before("inWebLayer() || inServiceLayer() || inDaoLayer() || inUserDetailsLayer()")
+    public void pushTraceStack(JoinPoint joinPoint) {
         pushStack(joinPoint);
     }
 
-    @AfterReturning(value = "executionInService()", returning = "returnValue")
-    public void popStackInBean(Object returnValue) {
+    @AfterReturning(value = "inWebLayer() || inServiceLayer() || inDaoLayer() || inUserDetailsLayer()",
+            returning = "returnValue")
+    public void popTraceStack(Object returnValue) {
         popStack(returnValue);
     }
+
+
+    //-----------------------------------------------------------------------//
 
     ObjectMapper mapper = new ObjectMapper();
 
     private void pushStack(JoinPoint joinPoint) {
             Method m = new Method();
-            m.setMethodName(StringUtils.replace(joinPoint.getSignature().toString(), "com.example.demo.service.", ""));
+            m.setMethodName(StringUtils.replace(joinPoint.getSignature().toString(), "io.baselogic.springsecurity.", "i.b.s."));
             String input = getInputParametersString(joinPoint.getArgs());
             m.setInput(input);
             m.setTimeInMs(Long.valueOf(System.currentTimeMillis()));
@@ -60,8 +103,9 @@ public class TraceMonitor {
 
     private void popStack(Object output) {
         Method childMethod = LoggerThreadLocal.getMethodStack().pop();
+
         try {
-            childMethod.setOutput(output==null?"": mapper.writeValueAsString(output));
+            childMethod.setOutput(output == null? "": mapper.writeValueAsString(output));
         } catch (JsonProcessingException e) {
             childMethod.setOutput(e.getMessage());
         }
@@ -85,7 +129,6 @@ public class TraceMonitor {
 
     /**
      * Get Audit Trace String
-     * TODO: Convert to JSON
      */
     public String printTrace() {
         StringBuilder sb = new StringBuilder();
@@ -96,12 +139,16 @@ public class TraceMonitor {
                             LoggerThreadLocal.getMainMethod()));
         } catch (JsonProcessingException e) {
             sb.append(
-                    StringUtils.abbreviate(ExceptionUtils.getStackTrace(e), 2000)
+                    StringUtils.abbreviate(ExceptionUtils.getStackTrace(e), 2_000)
             );
-
         }
         sb.append("\n</AUDIT>");
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return printTrace();
     }
 
 } // The End...

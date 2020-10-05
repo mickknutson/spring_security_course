@@ -33,6 +33,7 @@ public class Role implements Serializable {
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
+    @JsonBackReference
     private Set<AppUser> users;
 
 } // The End...

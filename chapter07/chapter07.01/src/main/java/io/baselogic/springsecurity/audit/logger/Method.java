@@ -1,7 +1,14 @@
-package com.example.demo.util.log.standartlogger;
+package io.baselogic.springsecurity.audit.logger;
+
+import lombok.Data;
 
 import java.util.List;
 
+/**
+ *
+ */
+// Lombok Annotations:
+@Data
 public class Method {
 
 	private String methodName;
@@ -10,44 +17,4 @@ public class Method {
 	private String output;
 	private Long timeInMs;
 
-	public Long getTimeInMs() {
-		return timeInMs;
-	}
-
-	public void setTimeInMs(Long timeInMs) {
-		this.timeInMs = timeInMs;
-	}
-
-	public String getInput() {
-		return input;
-	}
-
-	public void setInput(String input) {
-		this.input = input;
-	}
-
-	public String getOutput() {
-		return output;
-	}
-
-	public void setOutput(String output) {
-		this.output = output;
-	}
-
-	public List<Method> getMethodList() {
-		return methodList;
-	}
-
-	public void setMethodList(List<Method> methodList) {
-		this.methodList = methodList;
-	}
-
-	public String getMethodName() {
-		return methodName;
-	}
-
-	public void setMethodName(String methodName) {
-		this.methodName = methodName;
-	}	
-	
-}
+} // The End...

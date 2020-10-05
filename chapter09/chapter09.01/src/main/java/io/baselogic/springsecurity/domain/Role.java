@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,7 @@ public class Role implements Serializable {
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
+    @JsonBackReference
     private Set<AppUser> users;
 
 } // The End...

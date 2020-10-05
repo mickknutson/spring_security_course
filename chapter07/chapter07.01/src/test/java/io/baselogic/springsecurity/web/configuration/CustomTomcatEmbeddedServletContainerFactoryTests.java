@@ -3,9 +3,6 @@ package io.baselogic.springsecurity.web.configuration;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import io.baselogic.springsecurity.annotations.WithMockEventUserDetailsUser1;
-import io.baselogic.springsecurity.dao.TestUtils;
-import io.baselogic.springsecurity.web.functional.objects.IndexPage;
-import io.baselogic.springsecurity.web.functional.objects.LoginPage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.junit.jupiter.api.AfterEach;
@@ -13,26 +10,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.embedded.tomcat.ConfigurableTomcatWebServerFactory;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
-import org.springframework.test.web.servlet.htmlunit.webdriver.MockMvcHtmlUnitDriverBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.net.URI;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
@@ -41,10 +36,13 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @Slf4j
 public class CustomTomcatEmbeddedServletContainerFactoryTests {
 
-    @Value("${server.port: 8080}")
-    private int serverPort;
-
     int localServerPort = 8080;
+
+    int localRedirectPort = 8443;
+
+
+    String url = "http://localhost:8080/";
+    String redirectUrl = "https://localhost:8443/";
 
 
     @Autowired
@@ -52,7 +50,6 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
 
     private WebClient webClient;
 
-    private WebDriver driver;
 
     /**
      * Customize the WebClient to work with HtmlUnit
@@ -68,11 +65,6 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
                 .apply(springSecurity())
                 .build();
 
-        // https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/testing.html#spring-mvc-test-server-htmlunit-webdriver
-        driver = MockMvcHtmlUnitDriverBuilder
-                .mockMvcSetup(mockMvc)
-                .build();
-
         webClient = MockMvcWebClientBuilder
                 .webAppContextSetup(context)
                 .build();
@@ -82,57 +74,68 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
     }
 
     @AfterEach
-    void afterEachTest() {
-        if (driver != null) {
-            driver.close();
-        }
-    }
+    void afterEachTest() {}
 
 
 
     //-----------------------------------------------------------------------//
 
+    String expectedPageTitle = "Welcome to the EventManager!";
+    String expectedChapterHeading = "Chapter 07.01";
+    String expectedChapterTitle = "Each chapter will have a slightly different summary depending on what has been done.";
+    String expectedChapterSummary = "Advanced Certificate Authentication";
+
+
     @Test
-    @DisplayName("Test TLS Port Redirect")
+    @DisplayName("Test TLS Port Redirect with Mock Mvc")
+    public void testHomePage() throws Exception {
+
+//        URI uri = new URI(redirectUrl);
+        URI uri = new URI(url);
+
+        MvcResult result = mockMvc.perform(get(uri))
+                .andExpect(status().isOk())
+//                .andExpect(forwardedUrlPattern(redirectUrl))
+//                .andExpect(redirectedUrl(redirectUrl))
+                .andReturn();
+
+        log.info("getForwardedUrl: {}", result.getResponse().getForwardedUrl());
+        log.info("getIncludedUrl: {}", result.getResponse().getIncludedUrl());
+        log.info("getRedirectedUrl: {}", result.getResponse().getRedirectedUrl());
+        String content = result.getResponse().getContentAsString();
+        log.info("Resulting page: {}", content);
+
+    }
+
+//    @Test
+    @DisplayName("Test TLS Port Redirect with WebClient")
     @WithMockEventUserDetailsUser1
     public void default_port_Redirect() throws Exception {
         log.info("Executing tests on port {}", localServerPort);
+        log.info("Redirecting from [{}] to [{}]", url, redirectUrl);
 
-        HtmlPage page = webClient.getPage("http://localhost:"+localServerPort+"/events/form");
+//        String targetUri = url+"/";
+        String targetUri = redirectUrl+"/";
 
-        String titleText = page.getTitleText();
-        log.info("page.uri: {}", page.getBaseURI());
-        log.info("page.URL: {}", page.getUrl());
+        HtmlPage page = webClient.getPage(targetUri);
 
-        assertThat(titleText).contains("Create Event");
-    }
+        log.info("page.asText(): {}", page.asXml());
 
+//        log.info("page.getDocumentURI(): {}", page.getDocumentURI());
+//        assertThat(page.getDocumentURI()).contains(redirectUrl);
 
+        String id = page.getTitleText();
+        assertThat(id).isEqualTo(expectedPageTitle);
 
-    /**
-     * Test Secured Page with {@link WithAnonymousUser} annotations mixed with {@link SecurityMockMvcResultMatchers}
-     *
-     * @throws Exception is the test fails unexpectedly.
-     */
-    @Test
-    @DisplayName("Testing that TLS is working with 'tls' profile")
-    @WithAnonymousUser
-    void testing_tls_index() throws Exception {
+        String chapterHeading = page.getHtmlElementById("chapterHeading").getTextContent();
+        assertThat(chapterHeading).contains(expectedChapterHeading);
 
-//        String URL = "https://localhost:8443/";
-    String URL = "http://localhost:8080/";
+        String chapterTitle = page.getHtmlElementById("chapterTitle").getTextContent();
+        assertThat(chapterTitle).contains(expectedChapterTitle);
 
-        IndexPage indexPage = IndexPage.to(driver);
-        indexPage.navigateTo();
+        String summary = page.getHtmlElementById("summary").getTextContent();
+        assertThat(summary).contains(expectedChapterSummary);
 
-        assertThat(indexPage.validate()).isTrue();
-
-        LoginPage loginPage = indexPage.clickLogin();
-        assertThat(loginPage.validate()).isTrue();
-
-        indexPage = loginPage.formLogin(TestUtils.user1);
-
-        assertThat(indexPage.validate()).isTrue();
 
     }
 

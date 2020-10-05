@@ -45,7 +45,7 @@
         <downloadSources>true</downloadSources>
         <downloadJavadocs>true</downloadJavadocs>
 
-        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
 
         <sonar.projectKey>mickknutson_spring_security_course</sonar.projectKey>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>

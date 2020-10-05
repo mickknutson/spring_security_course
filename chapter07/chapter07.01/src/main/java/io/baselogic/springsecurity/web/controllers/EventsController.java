@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.web.controllers;
 
+import io.baselogic.springsecurity.audit.TraceMonitor;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.service.EventService;
@@ -53,6 +54,9 @@ public class EventsController {
         return new ModelAndView(EVENT_LIST_VIEW, "events", eventService.findAllEvents());
     }
 
+    @Autowired
+    TraceMonitor traceMonitor;
+
     @GetMapping("/my")
     public ModelAndView userEvents() {
         AppUser currentAppUser = userContext.getCurrentUser();
@@ -60,6 +64,8 @@ public class EventsController {
 
         ModelAndView result = new ModelAndView(EVENT_MY_VIEW, "events", eventService.findEventByUser(currentUserId));
         result.addObject("currentAppUser", currentAppUser);
+
+        log.info("\n\n\n***** traceMonitor: *****\n\n{} \n\n\n", traceMonitor.printTrace());
         return result;
     }
 
