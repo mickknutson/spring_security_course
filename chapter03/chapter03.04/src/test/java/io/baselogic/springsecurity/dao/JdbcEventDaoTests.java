@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class JdbcEventDaoTests {
+class JdbcEventDaoTests {
 
     @Autowired
     private EventDao eventDao;
@@ -52,8 +52,8 @@ public class JdbcEventDaoTests {
         log.info(event.toString());
 
         assertThat(event).isNotNull();
-        assertThat(event.equals(event)).isEqualTo(true);
-        assertThat(event.equals(new Object())).isFalse();
+        assertThat(event).isEqualTo(event);
+        assertThat(event).isNotEqualTo(new Object());
         assertThat(event.equals(Event.builder().build())).isFalse();
         assertThat(event.hashCode()).isNotZero();
 

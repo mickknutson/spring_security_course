@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-public class EventsControllerTests {
+class EventsControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -80,7 +80,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("MockMvc All Events")
-    public void allEventsPage() throws Exception {
+    void allEventsPage() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
@@ -95,7 +95,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("All Events: UnAuthorized - WithNoUser - RequestPostProcessor")
-    public void testCurrentUsersEventsPage() throws Exception {
+    void testCurrentUsersEventsPage() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isUnauthorized())
@@ -108,7 +108,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("Current Users Events - HtmlUnit")
-    public void testCurrentUsersEventsPage_htmlUnit() throws Exception {
+    void testCurrentUsersEventsPage_htmlUnit() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/my");
 
         String id = page.getTitleText();
@@ -128,7 +128,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("Show Event Details - user1")
-    public void testShowEvent_user1() throws Exception {
+    void testShowEvent_user1() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/100");
 
         String id = page.getTitleText();
@@ -160,7 +160,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Show Event Form Auto Populate")
-    public void showEventFormAutoPopulate() throws Exception {
+    void showEventFormAutoPopulate() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         HtmlButton button =  page.getHtmlElementById("auto");
@@ -180,7 +180,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Show Event Form Auto Populate - admin1")
-    public void showEventFormAutoPopulate_admin1() throws Exception {
+    void showEventFormAutoPopulate_admin1() throws Exception {
         userContext.setCurrentUser(TestUtils.admin1);
 
         HtmlPage page = webClient.getPage("http://localhost/events/form");
@@ -231,7 +231,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null email")
-    public void createEvent_null_email() throws Exception {
+    void createEvent_null_email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -263,7 +263,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - not found email")
-    public void createEvent_not_found_email() throws Exception {
+    void createEvent_not_found_email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -298,7 +298,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null when")
-    public void createEvent_null_when() throws Exception {
+    void createEvent_null_when() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -335,7 +335,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null summary")
-    public void createEvent_null_summary() throws Exception {
+    void createEvent_null_summary() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -372,7 +372,7 @@ public class EventsControllerTests {
 
     @Test
     @DisplayName("Submit Event Form - null description")
-    public void createEvent_null_description() throws Exception {
+    void createEvent_null_description() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())

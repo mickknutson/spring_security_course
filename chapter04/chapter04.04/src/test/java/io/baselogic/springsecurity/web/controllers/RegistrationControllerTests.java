@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-public class RegistrationControllerTests {
+class RegistrationControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -68,7 +68,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Show Registration Form - WithAnonymousUser")
     @WithAnonymousUser
-    public void showRegistrationForm__WithUser() throws Exception {
+    void showRegistrationForm__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/registration/form")
         )
                 .andExpect(status().isOk())
@@ -84,7 +84,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form")
     @WithAnonymousUser
-    public void registrationForm() throws Exception {
+    void registrationForm() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -119,7 +119,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - null first name")
     @WithAnonymousUser
-    public void registrationForm__null__first_name() throws Exception {
+    void registrationForm__null__first_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -158,7 +158,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - null last name")
     @WithAnonymousUser
-    public void registrationForm__null__last_name() throws Exception {
+    void registrationForm__null__last_name() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -197,7 +197,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - null email")
     @WithAnonymousUser
-    public void registrationForm__null__email() throws Exception {
+    void registrationForm__null__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -236,7 +236,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - duplicate email")
     @WithAnonymousUser
-    public void registrationForm__duplicate__email() throws Exception {
+    void registrationForm__duplicate__email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())
@@ -275,7 +275,7 @@ public class RegistrationControllerTests {
     @Test
     @DisplayName("Submit Registration Form - null password")
     @WithAnonymousUser
-    public void registrationForm__null__password() throws Exception {
+    void registrationForm__null__password() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/registration/form");
 
         assertThat(page.getTitleText())

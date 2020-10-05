@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class WelcomeControllerTests {
+class WelcomeControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,7 +53,7 @@ public class WelcomeControllerTests {
 
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
-    public void testHomePage() throws Exception {
+    void testHomePage() throws Exception {
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -66,7 +66,7 @@ public class WelcomeControllerTests {
 
     @Test
     @DisplayName("HTML Unit Welcome Home Page")
-    public void testHomePage_htmlUnit() throws Exception {
+    void testHomePage_htmlUnit() throws Exception {
 
         HtmlPage welcomePage = webClient.getPage("http://localhost/");
 

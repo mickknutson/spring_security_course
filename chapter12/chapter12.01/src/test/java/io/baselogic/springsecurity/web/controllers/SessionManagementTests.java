@@ -95,7 +95,7 @@ public class SessionManagementTests {
 
 //        @Test
         @DisplayName("HTML Unit Welcome Home Page")
-        public void testHomePage_htmlUnit() throws Exception {
+        void testHomePage_htmlUnit() throws Exception {
 
             HtmlPage page = webClient.getPage("http://localhost:"+serverPort+"/login/form");
 

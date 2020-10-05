@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-public class EventsControllerTests {
+class EventsControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -66,7 +66,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("All Events: UnAuthorized - WithAnonymousUser - RequestPostProcessor")
     @WithAnonymousUser
-    public void allEvents_not_authenticated__WithAnonymousUser() throws Exception {
+    void allEvents_not_authenticated__WithAnonymousUser() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/")
         )
@@ -84,7 +84,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events - user1")
     @WithMockUser1
-    public void allEvents_not_authenticated__WithUser1() throws Exception {
+    void allEvents_not_authenticated__WithUser1() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
@@ -98,7 +98,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events - user1 - ROLE_USER")
     @WithMockUser1
-    public void allEvents_not_authenticated__WithUser1_and_roles() throws Exception {
+    void allEvents_not_authenticated__WithUser1_and_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
@@ -113,7 +113,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events - admin1")
     @WithMockUser("admin1@baselogic.com")
-    public void allEventsPage() throws Exception {
+    void allEventsPage() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
@@ -127,7 +127,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events - admin1 - ROLE_ADMIN")
     @WithMockAdmin1
-    public void allEventsPage__WithUser1_roles() throws Exception {
+    void allEventsPage__WithUser1_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isOk())
 
@@ -146,7 +146,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("All Events: UnAuthorized - WithNoUser - RequestPostProcessor")
-    public void testCurrentUsersEventsPage() throws Exception {
+    void testCurrentUsersEventsPage() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isFound())
@@ -162,7 +162,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Current Users Events - WithMockUser1")
     @WithMockUser1
-    public void testCurrentUsersEventsPage_htmlUnit() throws Exception {
+    void testCurrentUsersEventsPage_htmlUnit() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isOk())
@@ -183,7 +183,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Show Event Details - user1")
     @WithMockUser1
-    public void testShowEvent_user1() throws Exception {
+    void testShowEvent_user1() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/100"))
                 .andExpect(status().isOk())
@@ -205,7 +205,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form - WithUser")
     @WithMockUser1
-    public void showEventForm__WithUser() throws Exception {
+    void showEventForm__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/form"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/create"))
@@ -218,7 +218,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form Auto Populate")
     @WithMockUser1
-    public void showEventFormAutoPopulate() throws Exception {
+    void showEventFormAutoPopulate() throws Exception {
         MvcResult result = mockMvc.perform(post("/events/new")
 
                 .param("auto", "auto")
@@ -236,7 +236,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form Auto Populate - admin1")
     @WithMockAdmin1
-    public void showEventFormAutoPopulate_admin1() throws Exception {
+    void showEventFormAutoPopulate_admin1() throws Exception {
         MvcResult result = mockMvc.perform(post("/events/new")
 
                 .param("auto", "auto")
@@ -275,7 +275,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null email")
     @WithMockUser1
-    public void createEvent_null_email() throws Exception {
+    void createEvent_null_email() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
 
@@ -295,7 +295,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - not found email")
     @WithMockUser1
-    public void createEvent_not_found_email() throws Exception {
+    void createEvent_not_found_email() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
 
@@ -318,7 +318,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null when")
     @WithMockUser1
-    public void createEvent_null_when() throws Exception {
+    void createEvent_null_when() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
 
@@ -341,7 +341,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null summary")
     @WithMockUser1
-    public void createEvent_null_summary() throws Exception {
+    void createEvent_null_summary() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
 
@@ -364,7 +364,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null description")
     @WithMockUser1
-    public void createEvent_null_description() throws Exception {
+    void createEvent_null_description() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
 

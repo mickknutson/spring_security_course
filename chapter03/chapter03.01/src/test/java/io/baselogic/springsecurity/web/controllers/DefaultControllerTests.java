@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-public class DefaultControllerTests {
+class DefaultControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -58,7 +58,7 @@ public class DefaultControllerTests {
     @Test
     @DisplayName("Default Controller - user1")
     @WithMockUser1
-    public void defaultRedirect__user1() throws Exception {
+    void defaultRedirect__user1() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/"))
@@ -82,7 +82,7 @@ public class DefaultControllerTests {
     @DisplayName("Default Controller - admin1 - ADMIN role only")
     @WithMockUser(username = "admin1@baselogic.com", password = "admin1", roles = {"ADMIN"})
 //    @WithMockAdmin1
-    public void defaultRedirect__admin1() throws Exception {
+    void defaultRedirect__admin1() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isForbidden())
                 .andReturn();
@@ -92,7 +92,7 @@ public class DefaultControllerTests {
     @Test
     @DisplayName("Default Controller - admin1 - ADMIN and USER role")
     @WithMockAdmin1
-    public void defaultRedirect__admin1_roles() throws Exception {
+    void defaultRedirect__admin1_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/events/"))

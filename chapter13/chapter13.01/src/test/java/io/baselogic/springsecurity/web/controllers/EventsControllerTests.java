@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-public class EventsControllerTests {
+class EventsControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -74,7 +74,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("All Events: UnAuthorized - WithAnonymousUser - RequestPostProcessor")
     @WithAnonymousUser
-    public void allEvents_not_authenticated__WithAnonymousUser() throws Exception {
+    void allEvents_not_authenticated__WithAnonymousUser() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/")
         )
@@ -92,7 +92,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events - user1")
     @WithMockEventUserDetailsUser1
-    public void allEvents_not_authenticated__WithUser1() throws Exception {
+    void allEvents_not_authenticated__WithUser1() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
 
                 .andExpect(status().isForbidden())
@@ -107,7 +107,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events - user1 - ROLE_USER")
     @WithMockUser(username="user1@baselogic.com", roles={"USER"})
-    public void allEvents_not_authenticated__WithUser1_and_roles() throws Exception {
+    void allEvents_not_authenticated__WithUser1_and_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
@@ -122,7 +122,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events - admin1")
     @WithMockUser("admin1@baselogic.com")
-    public void allEventsPage() throws Exception {
+    void allEventsPage() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
@@ -136,7 +136,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events - admin1 - ROLE_ADMIN")
     @WithMockEventUserDetailsAdmin1
-    public void allEventsPage__WithUser1_roles() throws Exception {
+    void allEventsPage__WithUser1_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
 
                 .andExpect(status().isOk())
@@ -157,7 +157,7 @@ public class EventsControllerTests {
      */
     @Test
     @DisplayName("All Events: UnAuthorized - WithNoUser - RequestPostProcessor")
-    public void testCurrentUsersEventsPage() throws Exception {
+    void testCurrentUsersEventsPage() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isFound())
@@ -173,7 +173,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Current Users Events")
     @WithMockEventUserDetailsUser1
-    public void testCurrentUsersEventsPage_htmlUnit() throws Exception {
+    void testCurrentUsersEventsPage_htmlUnit() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
 
@@ -196,7 +196,7 @@ public class EventsControllerTests {
     @DisplayName("Show Event Details - user1")
     @WithMockUser("user1@baselogic.com")
     @WithMockEventUserDetailsUser1
-    public void testShowEvent_user1() throws Exception {
+    void testShowEvent_user1() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/100"))
 
@@ -219,7 +219,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form - WithUser")
     @WithMockEventUserDetailsUser1
-    public void showEventForm__WithUser() throws Exception {
+    void showEventForm__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/form"))
 
                 .andExpect(status().isOk())
@@ -233,7 +233,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form Auto Populate")
     @WithMockEventUserDetailsUser1
-    public void showEventFormAutoPopulate() throws Exception {
+    void showEventFormAutoPopulate() throws Exception {
         MvcResult result = mockMvc.perform(post("/events/new")
                 .with(csrf())
 
@@ -252,7 +252,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form Auto Populate - admin1")
     @WithMockEventUserDetailsAdmin1
-    public void showEventFormAutoPopulate_admin1() throws Exception {
+    void showEventFormAutoPopulate_admin1() throws Exception {
         MvcResult result = mockMvc.perform(post("/events/new")
                 .with(csrf())
 
@@ -298,7 +298,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null email")
     @WithMockEventUserDetailsUser1
-    public void createEvent_null_email() throws Exception {
+    void createEvent_null_email() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
                         .with(csrf())
@@ -319,7 +319,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - not found email")
     @WithMockEventUserDetailsUser1
-    public void createEvent_not_found_email() throws Exception {
+    void createEvent_not_found_email() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
                 .with(csrf())
@@ -343,7 +343,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null when")
     @WithMockEventUserDetailsUser1
-    public void createEvent_null_when() throws Exception {
+    void createEvent_null_when() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
                         .with(csrf())
@@ -367,7 +367,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null summary")
     @WithMockEventUserDetailsUser1
-    public void createEvent_null_summary() throws Exception {
+    void createEvent_null_summary() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
                         .with(csrf())
@@ -391,7 +391,7 @@ public class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null description")
     @WithMockEventUserDetailsUser1
-    public void createEvent_null_description() throws Exception {
+    void createEvent_null_description() throws Exception {
 
         MvcResult result = mockMvc.perform(post("/events/new")
                         .with(csrf())

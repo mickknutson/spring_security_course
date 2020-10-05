@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Transactional
 @SpringBootTest
 @Slf4j
-public class JdbcUserDaoTests {
+class JdbcUserDaoTests {
 
     @Autowired
     private UserDao userDao;

@@ -88,7 +88,7 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
 
     @Test
     @DisplayName("Test TLS Port Redirect with Mock Mvc")
-    public void testHomePage() throws Exception {
+    void testHomePage() throws Exception {
 
 //        URI uri = new URI(redirectUrl);
         URI uri = new URI(url);
