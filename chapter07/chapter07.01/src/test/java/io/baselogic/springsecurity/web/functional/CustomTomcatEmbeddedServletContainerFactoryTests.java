@@ -1,40 +1,39 @@
-package io.baselogic.springsecurity.web.configuration;
+package io.baselogic.springsecurity.web.functional;
 
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import io.baselogic.springsecurity.annotations.WithMockEventUserDetailsUser1;
 import io.baselogic.springsecurity.dao.TestUtils;
-import io.baselogic.springsecurity.web.driver.IndexPage;
-import io.baselogic.springsecurity.web.driver.LoginPage;
+import io.baselogic.springsecurity.web.functional.objects.IndexPage;
+import io.baselogic.springsecurity.web.functional.objects.LoginPage;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.htmlunit.webdriver.MockMvcHtmlUnitDriverBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.io.File;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
-@SpringBootTest
+@SpringBootTest //(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("tls")
 @Slf4j
 public class CustomTomcatEmbeddedServletContainerFactoryTests {
@@ -42,9 +41,13 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
     @Value("${server.port: 8080}")
     private int serverPort;
 
+    int localServerPort = 8080;
+
 
     @Autowired
     private MockMvc mockMvc;
+
+    private WebClient webClient;
 
     private WebDriver driver;
 
@@ -66,6 +69,13 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
         driver = MockMvcHtmlUnitDriverBuilder
                 .mockMvcSetup(mockMvc)
                 .build();
+
+        webClient = MockMvcWebClientBuilder
+                .webAppContextSetup(context)
+                .build();
+        webClient.getOptions().setJavaScriptEnabled(false);
+        webClient.getOptions().setCssEnabled(false);
+        webClient.getOptions().setPrintContentOnFailingStatusCode(true);
     }
 
     @AfterEach
@@ -74,6 +84,27 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
             driver.close();
         }
     }
+
+
+
+    //-----------------------------------------------------------------------//
+
+    @Test
+    @DisplayName("Test TLS Port Redirect")
+    @WithMockEventUserDetailsUser1
+    public void default_port_Redirect() throws Exception {
+        log.info("Executing tests on port {}", localServerPort);
+
+        HtmlPage page = webClient.getPage("http://localhost:"+localServerPort+"/events/form");
+
+        String titleText = page.getTitleText();
+        log.info("page.uri: {}", page.getBaseURI());
+        log.info("page.URL: {}", page.getUrl());
+
+        assertThat(titleText).contains("Create Event");
+    }
+
+
 
     /**
      * Test Secured Page with {@link WithAnonymousUser} annotations mixed with {@link SecurityMockMvcResultMatchers}

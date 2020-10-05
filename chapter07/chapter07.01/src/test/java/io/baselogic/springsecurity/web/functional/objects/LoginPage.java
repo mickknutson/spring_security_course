@@ -1,4 +1,4 @@
-package io.baselogic.springsecurity.web.driver;
+package io.baselogic.springsecurity.web.functional.objects;
 
 
 import io.baselogic.springsecurity.domain.AppUser;
@@ -18,7 +18,8 @@ import org.openqa.selenium.support.PageFactory;
 @Slf4j
 public class LoginPage {
 
-    static String URL = "https://localhost:8443/login/form";
+//    static String URL = "https://localhost:8443/login/form";
+    static String URL = "http://localhost:8080/login/form";
 
     private WebDriver driver;
 

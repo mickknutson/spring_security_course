@@ -20,10 +20,10 @@
           th:action="@{/events/new}"
           th:object="${eventDto}" method="post" cssClass="error">
 
-        <fieldset>
+        <legend>
             <table class="table table-bordered table-striped table-condensed">
                 <tr>
-                    <th class="col-sm-1">
+                    <th id="nameHeader" class="col-sm-1">
                         <label class=" col-form-label" for="attendeeEmail">Attendee Email</label>
                         <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('attendeeEmail')}"
                               th:errors="*{attendeeEmail}"></span>
@@ -72,7 +72,7 @@
                 </tr>
             </table>
 
-        </fieldset>
+        </legend>
     </form>
 
 </div>

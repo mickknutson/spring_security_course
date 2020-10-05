@@ -19,10 +19,10 @@
           th:action="@{/registration/new}"
           th:object="${registrationDto}" method="post" cssClass="error">
 
-        <fieldset>
+        <legend>
             <table class="table table-bordered table-striped table-condensed">
                 <tr>
-                    <th class="col-sm-1">
+                    <th id="nameHeader" class="col-sm-1">
                         <label class=" col-form-label" for="firstName">First Name</label>
                         <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('firstName')}"
                               th:errors="*{firstName}"></span>
@@ -32,7 +32,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="col-sm-1">
+                    <th id="nameHeader" class="col-sm-1">
                         <label class=" col-form-label" for="lastName">Last Name</label>
                         <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('lastName')}"
                               th:errors="*{lastName}"></span>
@@ -42,7 +42,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="col-sm-1">
+                    <th id="nameHeader" class="col-sm-1">
                         <label class=" col-form-label" for="email">Email</label>
                         <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('email')}"
                               th:errors="*{email}"></span>
@@ -52,7 +52,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="col-sm-1">
+                    <th id="nameHeader" class="col-sm-1">
                         <label class=" col-form-label" for="password">Password</label>
                         <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('password')}"
                               th:errors="*{password}"></span>
@@ -70,7 +70,7 @@
                 </tr>
             </table>
 
-        </fieldset>
+        </legend>
     </form>
 
 </div>

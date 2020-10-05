@@ -1,10 +1,9 @@
-package io.baselogic.springsecurity.web.driver;
+package io.baselogic.springsecurity.web.functional.objects;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-
-
-import org.openqa.selenium.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.test.web.servlet.htmlunit.webdriver.WebConnectionHtmlUnitDriver;
@@ -21,8 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class IndexPage //extends AbstractPage
 {
 
-    static String URL = "https://localhost:8443/";
-//    static String URL = "http://localhost:8080/";
+//    static String URL = "https://localhost:8443/";
+    static String URL = "http://localhost:8080/";
 
     private WebDriver driver;
 
