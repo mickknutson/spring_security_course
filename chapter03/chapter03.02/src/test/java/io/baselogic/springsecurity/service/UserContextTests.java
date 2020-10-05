@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -32,7 +33,7 @@ import static org.mockito.BDDMockito.given;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class UserContextTests {
+class UserContextTests {
 
     @Autowired
     private UserContext userContext;
@@ -139,7 +140,7 @@ public class UserContextTests {
     //-----------------------------------------------------------------------//
 
     @Test
-    public void setCurrentUser() {
+    void setCurrentUser() {
         userContext.setCurrentUser(appUser1);
 
         assertThrows(IllegalStateException.class, () -> {
@@ -155,19 +156,26 @@ public class UserContextTests {
     }
 
     @Test
-    public void setCurrentUser_null_User() {
+    void setCurrentUser_null_User() {
         assertThrows(NullPointerException.class, () -> {
             userContext.setCurrentUser(null);
         });
     }
 
     @Test
-    public void setCurrentUser_invalid_User() {
+    void setCurrentUser_invalid_User() {
         assertThrows(NullPointerException.class, () -> {
             userContext.setCurrentUser(new AppUser());
         });
     }
 
-    //-----------------------------------------------------------------------//
+
+    @Test
+    @DisplayName("getCurrentUser with a null authentication from SecurityContext")
+    void getCurrentUser_null_authentication() {
+        SecurityContextHolder.clearContext();
+        AppUser result = userContext.getCurrentUser();
+        assertThat(result).isNull();
+    }
 
 } // The End...

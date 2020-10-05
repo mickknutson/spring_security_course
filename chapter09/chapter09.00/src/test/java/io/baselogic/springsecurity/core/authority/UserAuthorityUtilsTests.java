@@ -12,7 +12,7 @@ import java.util.Collection;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-public class UserAuthorityUtilsTests {
+class UserAuthorityUtilsTests {
 
     @BeforeEach
     void beforeEachTest() {
@@ -22,7 +22,7 @@ public class UserAuthorityUtilsTests {
 
     @Test
     @DisplayName("UserAuthorityUtilsTests - createAuthorities")
-    public void createAuthorities() {
+    void createAuthorities() {
         Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(TestUtils.user1);
         assertThat(authorities.size()).isEqualTo(1);
     }
@@ -30,7 +30,7 @@ public class UserAuthorityUtilsTests {
 
     @Test
     @DisplayName("UserAuthorityUtilsTests - getUserEmail - AppUser")
-    public void getUserEmail_AppUser() {
+    void getUserEmail_AppUser() {
         String result = UserAuthorityUtils.getUserEmail(TestUtils.user1);
 
         assertThat(result).isNull();
@@ -38,7 +38,7 @@ public class UserAuthorityUtilsTests {
 
     @Test
     @DisplayName("UserAuthorityUtilsTests - getUserEmail - UserDetails_User")
-    public void getUserEmail_UserDetails_User() {
+    void getUserEmail_UserDetails_User() {
         String result = UserAuthorityUtils.getUserEmail(TestUtils.user1UserDetails);
 
         assertThat(result).isEqualTo(TestUtils.user1.getEmail());
@@ -46,7 +46,7 @@ public class UserAuthorityUtilsTests {
 
     @Test
     @DisplayName("UserAuthorityUtilsTests - getUserEmail - Spring_User")
-    public void getUserEmail__Spring_User() {
+    void getUserEmail__Spring_User() {
         String result = UserAuthorityUtils.getUserEmail(TestUtils.springUserUser);
 
         assertThat(result).isEqualTo("username");
@@ -54,7 +54,7 @@ public class UserAuthorityUtilsTests {
 
     @Test
     @DisplayName("UserAuthorityUtilsTests - getUserEmail - Non-user user")
-    public void getUserEmail_non_user_user() {
+    void getUserEmail_non_user_user() {
         String result = UserAuthorityUtils.getUserEmail("Chuck Norris");
 
         assertThat(result).isNull();
@@ -62,7 +62,7 @@ public class UserAuthorityUtilsTests {
 
     @Test
     @DisplayName("UserAuthorityUtilsTests - getUserEmail - null user")
-    public void getUserEmail_null_user() {
+    void getUserEmail_null_user() {
         String result = UserAuthorityUtils.getUserEmail(null);
 
         assertThat(result).isNull();

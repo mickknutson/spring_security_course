@@ -36,11 +36,9 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @SpringBootTest //(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("tls")
 @Slf4j
-public class CustomTomcatEmbeddedServletContainerFactoryTests {
+public class WebDriverTests {
 
     @Value("${server.port: 8080}")
-    private int serverPort;
-
     int localServerPort = 8080;
 
 
@@ -114,7 +112,7 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
     @Test
     @DisplayName("Testing that TLS is working with 'tls' profile")
     @WithAnonymousUser
-    public void testing_tls_index() throws Exception {
+    void testing_tls_index() throws Exception {
 
 //        String URL = "https://localhost:8443/";
     String URL = "http://localhost:8080/";

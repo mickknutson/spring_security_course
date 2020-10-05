@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class EventRepositoryTests {
+class EventRepositoryTests {
 
     @Autowired
     private EventRepository repository;
@@ -42,7 +42,7 @@ public class EventRepositoryTests {
 
     @Test
     @DisplayName("EventRepository - Initialize Repository")
-    public void initRepositoryOperations() {
+    void initRepositoryOperations() {
         assertThat(repository).isNotNull();
     }
 

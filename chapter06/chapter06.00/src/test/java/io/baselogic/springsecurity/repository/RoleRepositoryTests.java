@@ -17,14 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class RoleRepositoryTests {
+class RoleRepositoryTests {
 
     @Autowired
     private RoleRepository repository;
 
 	@Test
     @DisplayName("RoleRepository - validateUser_User")
-    public void validateUser_User() {
+    void validateUser_User() {
         Role user = repository.findById(0).orElseThrow(RuntimeException::new);
         assertThat(user.getId()).isEqualTo(0);
         assertThat(user.getName()).isEqualTo("ROLE_USER");
@@ -32,7 +32,7 @@ public class RoleRepositoryTests {
 
 	@Test
     @DisplayName("RoleRepository - validateUser_Admin")
-	public void validateUser_Admin() {
+	void validateUser_Admin() {
         Role user = repository.findById(1).orElseThrow(RuntimeException::new);
         assertThat(user.getId()).isEqualTo(1);
         assertThat(user.getName()).isEqualTo("ROLE_ADMIN");

@@ -4,10 +4,13 @@ import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.domain.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithSecurityContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class UserContextTests {
+class UserContextTests {
 
     @Autowired
     private UserContext userContext;
@@ -46,7 +49,7 @@ public class UserContextTests {
 
 
     @Test
-    public void setCurrentUser() {
+    void setCurrentUser() {
         // Not in the database:
 //        userContext.setCurrentUser(TestUtils.TEST_APP_USER_1);
         userContext.setCurrentUser(TestUtils.user1);
@@ -58,7 +61,7 @@ public class UserContextTests {
     }
 
     @Test
-    public void setCurrentUser_null_User() {
+    void setCurrentUser_null_User() {
         assertThrows(NullPointerException.class, () -> {
             userContext.setCurrentUser(null);
         });
@@ -66,10 +69,18 @@ public class UserContextTests {
     }
 
     @Test
-    public void setCurrentUser_invalid_User() {
+    void setCurrentUser_invalid_User() {
         assertThrows(IllegalArgumentException.class, () -> {
             userContext.setCurrentUser(new AppUser());
         });
+    }
+
+    @Test
+    @DisplayName("getCurrentUser with a null authentication from SecurityContext")
+    void getCurrentUser_null_authentication() {
+        SecurityContextHolder.clearContext();
+        AppUser result = userContext.getCurrentUser();
+        assertThat(result).isNull();
     }
 
 } // The End...

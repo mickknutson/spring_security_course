@@ -36,7 +36,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class DefaultEventServiceTests {
+class DefaultEventServiceTests {
 
     // Mockito:
     @MockBean
@@ -60,7 +60,7 @@ public class DefaultEventServiceTests {
 
 
     @Test
-    public void findEventById() {
+    void findEventById() {
 
         // Expectation
         given(eventDao.findById(any(Integer.class)))
@@ -77,7 +77,7 @@ public class DefaultEventServiceTests {
     }
 
     @Test
-    public void findEventByUser() {
+    void findEventByUser() {
 
         given(eventDao.findByUser(any(Integer.class)))
                 .willReturn(TestUtils.TEST_EVENTS);
@@ -92,7 +92,7 @@ public class DefaultEventServiceTests {
 
     @Test
     @WithMockEventUserDetailsAdmin1
-    public void findAllEvents() {
+    void findAllEvents() {
 
         given(eventDao.findAll())
                 .willReturn(TestUtils.TEST_EVENTS);
@@ -133,7 +133,7 @@ public class DefaultEventServiceTests {
     }
 
     /*@Test
-    public void createEvent_throws_Exception() {
+    void createEvent_throws_Exception() {
 
         given(eventDao.save(any(Event.class)))
                 .willThrow(new ConstraintViolationException(null));
@@ -150,7 +150,7 @@ public class DefaultEventServiceTests {
     //-----------------------------------------------------------------------//
 
     @Test
-    public void findUserById() {
+    void findUserById() {
 
         when(userDao.findById(any(Integer.class)))
                 .thenReturn(TestUtils.TEST_APP_USER_1);
@@ -163,7 +163,7 @@ public class DefaultEventServiceTests {
     }
 
     @Test
-    public void findUserByEmail() {
+    void findUserByEmail() {
 
         when(userDao.findByEmail(any(String.class)))
                 .thenReturn(TestUtils.TEST_APP_USER_1);
@@ -176,7 +176,7 @@ public class DefaultEventServiceTests {
     }
 
     @Test
-    public void findUsersByEmail() {
+    void findUsersByEmail() {
 
         when(userDao.findAllByEmail(any(String.class)))
                 .thenReturn(TestUtils.TEST_APP_USERS);
@@ -203,7 +203,7 @@ public class DefaultEventServiceTests {
     }
 
     /*@Test//(expected = IllegalArgumentException.class)
-    public void createUser_with_id() {
+    void createUser_with_id() {
 
         assertThrows(ConstraintViolationException.class, () -> {
             User user = TestUtils.createMockUser("test@baselogic.com", "test", "example");

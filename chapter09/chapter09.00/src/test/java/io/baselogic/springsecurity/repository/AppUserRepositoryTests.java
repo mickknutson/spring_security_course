@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class AppUserRepositoryTests {
+class AppUserRepositoryTests {
 
     @Autowired
     private AppUserRepository repository;
@@ -38,7 +38,7 @@ public class AppUserRepositoryTests {
 
     @Test
     @DisplayName("AppUserRepository - validateUser_User")
-	public void validateUser_User() {
+	void validateUser_User() {
         String username = "user1@baselogic.com";
         AppUser user = repository.findByEmail(username);
         assertThat(user.getEmail()).isEqualTo(username);
@@ -48,7 +48,7 @@ public class AppUserRepositoryTests {
 
 	@Test
     @DisplayName("AppUserRepository - validateUser_Admin")
-	public void validateUser_Admin() {
+	void validateUser_Admin() {
 	    String username = "admin1@baselogic.com";
         AppUser user = repository.findByEmail(username);
         assertThat(user.getEmail()).isEqualTo(username);
@@ -58,7 +58,7 @@ public class AppUserRepositoryTests {
 
     @Test
     @DisplayName("AppUserRepository - Initialize Repository")
-    public void initJpaOperations() {
+    void initJpaOperations() {
         assertThat(repository).isNotNull();
     }
 
@@ -124,7 +124,7 @@ public class AppUserRepositoryTests {
 
     @Test
     @DisplayName("AppUserRepository - create User - with ID")
-    public void createUser_with_id() {
+    void createUser_with_id() {
         List<AppUser> appUsers = repository.findAll();
         assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
 

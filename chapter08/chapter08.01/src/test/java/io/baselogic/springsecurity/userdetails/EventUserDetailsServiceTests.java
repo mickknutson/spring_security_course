@@ -30,7 +30,7 @@ import static org.mockito.BDDMockito.given;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class EventUserDetailsServiceTests {
+class EventUserDetailsServiceTests {
 
     // Mockito:
     @MockBean
@@ -57,7 +57,7 @@ public class EventUserDetailsServiceTests {
 
     @Test
     @DisplayName("loadUserByUsername - user1")
-    public void loadUserByUsername_user1() {
+    void loadUserByUsername_user1() {
 
         // Expectation
         given(userDao.findByEmail(any(String.class)))
@@ -70,7 +70,7 @@ public class EventUserDetailsServiceTests {
 
     @Test
     @DisplayName("loadUserByUsername - admin1")
-    public void loadUserByUsername_admin1() {
+    void loadUserByUsername_admin1() {
 
         // Expectation
         given(userDao.findByEmail(any(String.class)))
@@ -84,7 +84,7 @@ public class EventUserDetailsServiceTests {
 
     @Test
     @DisplayName("loadUserByUsername - no User found")
-    public void loadUserByUsername__null_credentials() {
+    void loadUserByUsername__null_credentials() {
 
         assertThrows(UsernameNotFoundException.class, () -> {
             UserDetails result = eventUserDetailsService.loadUserByUsername("foobar");
@@ -94,7 +94,7 @@ public class EventUserDetailsServiceTests {
 
     @Test
     @DisplayName("loadUserByUsername - null User")
-    public void loadUserByUsername_null_user() {
+    void loadUserByUsername_null_user() {
 
         // Expectation
         given(userDao.findByEmail(any(String.class)))
