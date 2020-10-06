@@ -1,4 +1,4 @@
-package io.baselogic.springsecurity.audit.logger;
+package io.baselogic.springsecurity.audit;
 
 import lombok.Data;
 
@@ -16,6 +16,8 @@ public class Method {
 	private String input;
 	private List<Method> methodList = new ArrayList<>();
 	private String output;
+	private Long startTime;
+	private Long endTime;
 	private Long timeInMs;
 
 } // The End...

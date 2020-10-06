@@ -1,11 +1,8 @@
 package io.baselogic.springsecurity.audit;
 
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import io.baselogic.springsecurity.annotations.WithMockEventUserDetailsUser1;
-import io.baselogic.springsecurity.web.configuration.CustomTomcatEmbeddedServletContainerFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,11 +19,7 @@ import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.net.URI;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AuditTraceTests {
 
     @Autowired
-    TraceMonitor traceMonitor;
+    TraceAspect traceAspect;
 
     @Autowired
     private MockMvc mockMvc;
@@ -83,15 +75,20 @@ public class AuditTraceTests {
     @WithMockEventUserDetailsUser1
     public void test_audit_trace() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/events/my"))
+        mockMvc.perform(get("/events/my"))
+
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MvcResult result = mockMvc.perform(get("/trace"))
 
                 .andExpect(status().isOk())
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
 
-        log.info("TEST: traceMonitor: {}", traceMonitor.toString());
-//        log.info("content: {}", content);
+        log.info("TEST: traceMonitor: {}", traceAspect.toString());
+        log.info("content: {}", content);
 
     }
 

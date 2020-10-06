@@ -1,6 +1,6 @@
 package io.baselogic.springsecurity.web.controllers;
 
-import io.baselogic.springsecurity.audit.TraceMonitor;
+import io.baselogic.springsecurity.audit.TraceAspect;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.service.EventService;
@@ -55,7 +55,7 @@ public class EventsController {
     }
 
     @Autowired
-    TraceMonitor traceMonitor;
+    TraceAspect traceAspect;
 
     @GetMapping("/my")
     public ModelAndView userEvents() {

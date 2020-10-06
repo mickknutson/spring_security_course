@@ -2,14 +2,16 @@ package io.baselogic.springsecurity.audit;
 
 import org.springframework.util.Assert;
 
-public class ThreadLocalAuditContextHolderStrategy implements AuditContextHolderStrategy{
+public class GlobalAuditContextHolderStrategy implements AuditContextHolderStrategy{
 
 //    private static final ThreadLocal<AuditContext> contextHolder = new ThreadLocal<>();
-    private static final ThreadLocal<AuditContext> contextHolder = new InheritableThreadLocal<>();
+//    private static final ThreadLocal<AuditContext> contextHolder = new InheritableThreadLocal<>();
+    private static AuditContext contextHolder;
+
 
     @Override
     public void clearContext() {
-        contextHolder.remove();
+        contextHolder = null;
     }
 
     /**
@@ -20,14 +22,11 @@ public class ThreadLocalAuditContextHolderStrategy implements AuditContextHolder
      */
     @Override
     public AuditContext getContext() {
-        AuditContext ctx = contextHolder.get();
-
-        if (ctx == null) {
-            ctx = createEmptyContext();
-            contextHolder.set(ctx);
+        if (contextHolder == null) {
+            contextHolder = new AuditContext();
         }
 
-        return ctx;
+        return contextHolder;
     }
 
     /**
@@ -39,8 +38,8 @@ public class ThreadLocalAuditContextHolderStrategy implements AuditContextHolder
      */
     @Override
     public void setContext(AuditContext context) {
-        Assert.notNull(context, "Only non-null SecurityContext instances are permitted");
-        contextHolder.set(context);
+        Assert.notNull(context, "Only non-null AuditContext instances are permitted");
+        this.contextHolder = context;
     }
 
     /**
