@@ -65,7 +65,6 @@ public class EventsController {
         ModelAndView result = new ModelAndView(EVENT_MY_VIEW, "events", eventService.findEventByUser(currentUserId));
         result.addObject("currentAppUser", currentAppUser);
 
-        log.info("\n\n\n***** traceMonitor: *****\n\n{} \n\n\n", traceMonitor.printTrace());
         return result;
     }
 

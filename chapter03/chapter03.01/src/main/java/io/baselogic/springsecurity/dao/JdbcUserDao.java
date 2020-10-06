@@ -97,7 +97,7 @@ public class JdbcUserDao implements UserDao {
 
         jdbcTemplate.update(userInsertQuery, parameter, holder);
 
-        return holder.getKey().intValue();
+        return holder.getKey() == null? null: holder.getKey().intValue();
     }
 
 
