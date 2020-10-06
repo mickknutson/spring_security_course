@@ -1,6 +1,5 @@
 package io.baselogic.springsecurity.audit;
 
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.util.Assert;
 
 public class ThreadLocalAuditContextHolderStrategy implements AuditContextHolderStrategy{
