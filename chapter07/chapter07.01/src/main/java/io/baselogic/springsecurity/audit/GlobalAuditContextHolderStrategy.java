@@ -4,8 +4,6 @@ import org.springframework.util.Assert;
 
 public class GlobalAuditContextHolderStrategy implements AuditContextHolderStrategy{
 
-//    private static final ThreadLocal<AuditContext> contextHolder = new ThreadLocal<>();
-//    private static final ThreadLocal<AuditContext> contextHolder = new InheritableThreadLocal<>();
     private static AuditContext contextHolder;
 
 

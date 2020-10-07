@@ -37,9 +37,8 @@
         3.3.7-1 -+
         -->
         <webjarsBootstrap.version>3.4.1</webjarsBootstrap.version>
-        <webjarsJquery.version>3.4.1</webjarsJquery.version>
-        <webjarsLocator.version>0.39</webjarsLocator.version>
-        <webjarsLocatorCore.version>0.45</webjarsLocatorCore.version>
+        <webjarsJquery.version>3.5.1</webjarsJquery.version>
+        <webjarsLocator.version>0.40</webjarsLocator.version>
     </properties>
 
 
@@ -91,11 +90,7 @@
             <artifactId>webjars-locator</artifactId>
             <version>${webjarsLocator.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator-core</artifactId>
-            <version>${webjarsLocatorCore.version}</version>
-        </dependency>
+
 
         <!-- DATABASE: -->
         <!-- SEE Sub-Module pom.xml -->

@@ -12,14 +12,11 @@ public class AuditContextHolder {
     static {
         initialize();
     }
-    // ~ Methods
-    // ========================================================================================================
 
     /**
      * Explicitly clears the context value from the current thread.
      */
     public static void clearContext() {
-        log.info("* clearContext()");
         strategy.clearContext();
     }
 
@@ -29,7 +26,6 @@ public class AuditContextHolder {
      * @return the security context (never <code>null</code>)
      */
     public static AuditContext getContext() {
-//        log.info("* getContext()");
         return strategy.getContext();
     }
 
@@ -44,7 +40,6 @@ public class AuditContextHolder {
     }
 
     private static void initialize() {
-        log.info("* initialize()");
         strategy = new GlobalAuditContextHolderStrategy();
 
         initializeCount++;
@@ -73,7 +68,6 @@ public class AuditContextHolder {
      * Delegates the creation of a new, empty context to the configured strategy.
      */
     public static AuditContext createEmptyContext() {
-        log.info("* createEmptyContext()");
         return strategy.createEmptyContext();
     }
 
