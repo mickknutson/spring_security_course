@@ -32,7 +32,6 @@
         <webjarsLocator.version>0.40</webjarsLocator.version>
     </properties>
 
-
     <dependencies>
 
         <!-- Security: -->

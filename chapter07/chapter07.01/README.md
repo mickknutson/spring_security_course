@@ -58,7 +58,7 @@ application.yml:
 > * [Certbot (OSX)](https://certbot.eff.org/lets-encrypt/osx-apache)
 brew install certbot
 
-> * Create cert on command line
+> * Create cert on command line...
 
 ...
 
@@ -67,3 +67,4 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-
 ---
 
 # [../](../)
+
