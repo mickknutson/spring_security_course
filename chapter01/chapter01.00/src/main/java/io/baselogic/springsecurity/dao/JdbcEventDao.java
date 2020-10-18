@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A jdbc implementation of {@link EventDao}.
@@ -93,7 +94,9 @@ public class JdbcEventDao implements EventDao {
 
         jdbcTemplate.update(EVENT_INSERT_QUERY, parameter, holder);
 
-        return holder.getKey() == null? null: holder.getKey().intValue();
+        Optional<Number> optional = Optional.of(holder.getKey());
+
+        return (Integer) optional.orElse(null);
     }
 
 } // The End...

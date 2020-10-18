@@ -11,13 +11,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.session.SessionInformation;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /**
  * UserSessionControllerTests
@@ -51,7 +59,7 @@ public class UserSessionControllerTests {
                 .build();
 
         webClient = MockMvcWebClientBuilder
-                .webAppContextSetup(context)
+                .webAppContextSetup(context, springSecurity())
                 .build();
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setCssEnabled(false);
@@ -69,18 +77,13 @@ public class UserSessionControllerTests {
     @WithMockEventUserDetailsUser1
     public void show_userSessions__WithUser() throws Exception {
 
+        MvcResult result = mockMvc.perform(get("/user/sessions/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("user/sessions"))
+                .andReturn();
 
-//        MvcResult result = mockMvc.perform(get("/user/sessions/")
-//                // Simulate a valid security User:
-//                .with(user())
-//        )
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("user/sessions"))
-//                .andReturn();
-//
-//        String content = result.getResponse().getContentAsString();
-//        assertThat(content).contains("My Sessions");
-//        assertThat(content).contains("<button id=\"delete\" name=\"delete\" type=\"submit\"");
+        List<SessionInformation> sessions = (List<SessionInformation>) result.getModelAndView().getModel().get("userSessions");
+        assertThat(sessions).isEmpty() ;
     }
 
     //-----------------------------------------------------------------------//
@@ -89,6 +92,18 @@ public class UserSessionControllerTests {
     @DisplayName("Delete Session Form")
     @WithMockEventUserDetailsUser1
     public void delete_user_session_form() throws Exception {
+
+
+        // DELETE "/sessions/{sessionId}"
+        MvcResult result = mockMvc.perform(get("/user/sessions/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("user/sessions"))
+                .andReturn();
+
+        List<SessionInformation> sessions = (List<SessionInformation>) result.getModelAndView().getModel().get("userSessions");
+        assertThat(sessions).isEmpty();
+
+
 
         HtmlPage page = webClient.getPage("http://localhost/user/sessions/");
 
@@ -105,6 +120,10 @@ public class UserSessionControllerTests {
 //                .contains("Login to the Event Manager");
 //
 //        assertThat(pageAfterClick.getDocumentURI()).endsWith("/login/form?expired");
+
+
+
+        // Now remove a session:
 
     }
 

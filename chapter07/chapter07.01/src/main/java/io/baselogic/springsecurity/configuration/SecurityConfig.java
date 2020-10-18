@@ -170,8 +170,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // HTTP Security Headers
         http.headers().disable();
-        http.headers().xssProtection().disable();
-        http.headers().contentTypeOptions().disable();
 
         // Enable <frameset> in order to use H2 web console
         http.headers().frameOptions().disable();

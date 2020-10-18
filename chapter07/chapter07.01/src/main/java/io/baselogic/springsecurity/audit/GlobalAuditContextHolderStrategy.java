@@ -21,7 +21,7 @@ public class GlobalAuditContextHolderStrategy implements AuditContextHolderStrat
     @Override
     public AuditContext getContext() {
         if (contextHolder == null) {
-            contextHolder = new AuditContext();
+            contextHolder = createEmptyContext();
         }
 
         return contextHolder;

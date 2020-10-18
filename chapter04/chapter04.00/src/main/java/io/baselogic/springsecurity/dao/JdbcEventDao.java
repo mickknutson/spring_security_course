@@ -94,6 +94,7 @@ public class JdbcEventDao implements EventDao {
         jdbcTemplate.update(EVENT_INSERT_QUERY, parameter, holder);
 
         return holder.getKey() == null? null: holder.getKey().intValue();
+//        return holder.getKey() == null? null: holder.getKey().intValue();
     }
 
 } // The End...

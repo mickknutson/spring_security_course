@@ -85,7 +85,7 @@ class LoginTests {
                 .build();
 
         webClient = MockMvcWebClientBuilder
-                .webAppContextSetup(context)
+                .webAppContextSetup(context, springSecurity())
                 .build();
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setCssEnabled(false);

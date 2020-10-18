@@ -18,6 +18,7 @@ security vulnerabilities, using the following methods:
 > * X-Frame-Options
 > * X-XSS-Protection
 > * Cross-Origin Resource Sharing (CORS)
+> * Actuator Endpoints
 
 Before you read this chapter, you should already have an understanding of how Spring
 Security works. This means you should already be able to set up authentication and
@@ -35,7 +36,9 @@ straightforward.
 
 ### [Chapter 13.02](./chapter13.02/README.md) (Security HTTP response headers)
 
-### [Chapter 13.03](./chapter13.02/README.md) (CORS)
+### [Chapter 13.03](./chapter13.02/README.md) (Cross-Origin Resource Sharing (CORS))
+
+### [Chapter 13.04](./chapter13.02/README.md) (Actuator Endpoints)
 
 ---
 

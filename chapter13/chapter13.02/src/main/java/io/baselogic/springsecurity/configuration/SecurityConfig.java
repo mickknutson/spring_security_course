@@ -170,10 +170,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // Cross Origin Resource Sharing
         http.cors().disable();
 
+
         // HTTP Security Headers
         http.headers().disable();
-        http.headers().xssProtection().disable();
-        http.headers().contentTypeOptions().disable();
 
         // Enable <frameset> in order to use H2 web console
         http.headers().frameOptions().disable();

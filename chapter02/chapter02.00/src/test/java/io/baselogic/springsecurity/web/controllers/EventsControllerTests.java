@@ -94,7 +94,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events")
     @WithMockUser
-    void allEventsPage() throws Exception {
+    public void allEventsPage() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/list"))
@@ -110,7 +110,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("All Events: UnAuthorized - WithAnonymousUser - RequestPostProcessor")
     @WithAnonymousUser
-    void allEvents_not_authenticated__WithAnonymousUser() throws Exception {
+    public void allEvents_not_authenticated__WithAnonymousUser() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isUnauthorized())
@@ -127,7 +127,7 @@ class EventsControllerTests {
      */
     @Test
     @DisplayName("All Events: Authorized - WithUser - RequestPostProcessor")
-    void allEventsPage_not_authenticated__WithUser_rpp() throws Exception {
+    public void allEventsPage_not_authenticated__WithUser_rpp() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/")
                 // Simulate a valid security User:
@@ -154,7 +154,7 @@ class EventsControllerTests {
      */
     @Test
     @DisplayName("Current Users Events - UnAuthorized")
-    void testCurrentUsersEventsPage_UnAuthorized() throws Exception {
+    public void testCurrentUsersEventsPage_UnAuthorized() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
@@ -168,7 +168,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Current Users Events - WithUser")
     @WithMockUser
-    void testCurrentUsersEventsPage__WithUser() throws Exception {
+    public void testCurrentUsersEventsPage__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/my")
         )
                 .andExpect(status().isOk())
@@ -188,7 +188,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Current Users Events - WithUser - HtmlUnit")
     @WithMockUser
-    void testCurrentUsersEventsPage__WithUser__htmlUnit() throws Exception {
+    public void testCurrentUsersEventsPage__WithUser__htmlUnit() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/my");
 
         WebResponse webResponse = page.getWebResponse();
@@ -220,7 +220,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Show Event Details - user1")
     @WithMockUser
-    void testShowEvent_user1() throws Exception {
+    public void testShowEvent_user1() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/100")
         )
                 .andExpect(status().isOk())
@@ -246,7 +246,7 @@ class EventsControllerTests {
      */
     @Test
     @DisplayName("Show Event Form - WithUser")
-    void showEventForm__WithUser() throws Exception {
+    public void showEventForm__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/form")
                 // Simulate a valid security User:
                 .with(user(USER))
@@ -263,7 +263,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form Auto Populate - WithUser")
     @WithMockUser
-    void showEventFormAutoPopulate() throws Exception {
+    public void showEventFormAutoPopulate() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         HtmlButton button =  page.getHtmlElementById("auto");
@@ -284,7 +284,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form Auto Populate - admin1")
     @WithMockUser
-    void showEventFormAutoPopulate_admin1() throws Exception {
+    public void showEventFormAutoPopulate_admin1() throws Exception {
         userContext.setCurrentUser(TestUtils.admin1);
 
         HtmlPage page = webClient.getPage("http://localhost/events/form");
@@ -337,7 +337,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null email - WithUser")
     @WithMockUser
-    void createEvent_null_email() throws Exception {
+    public void createEvent_null_email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -370,7 +370,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - not found email - WithUser")
     @WithMockUser
-    void createEvent_not_found_email() throws Exception {
+    public void createEvent_not_found_email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -406,7 +406,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null when - WithUser")
     @WithMockUser
-    void createEvent_null_when() throws Exception {
+    public void createEvent_null_when() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -444,7 +444,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null summary - WithUser")
     @WithMockUser
-    void createEvent_null_summary() throws Exception {
+    public void createEvent_null_summary() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -482,7 +482,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null description - WithUser")
     @WithMockUser
-    void createEvent_null_description() throws Exception {
+    public void createEvent_null_description() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())

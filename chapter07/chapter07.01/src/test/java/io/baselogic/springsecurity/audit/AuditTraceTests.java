@@ -20,10 +20,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
@@ -33,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AuditTraceTests {
 
     @Autowired
-    TraceAspect traceAspect;
+    private TraceAspect traceAspect;
 
     @Autowired
     private MockMvc mockMvc;
@@ -56,7 +55,7 @@ public class AuditTraceTests {
                 .build();
 
         webClient = MockMvcWebClientBuilder
-                .webAppContextSetup(context)
+                .webAppContextSetup(context, springSecurity())
                 .build();
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setCssEnabled(false);
@@ -69,6 +68,7 @@ public class AuditTraceTests {
 
 
     //-----------------------------------------------------------------------//
+
 
     @Test
     @DisplayName("Test AOP Audit Trace")
@@ -91,5 +91,59 @@ public class AuditTraceTests {
         log.info("content: {}", content);
 
     }
+
+    @Test
+    @DisplayName("Test AOP Audit Aspect")
+    @WithMockEventUserDetailsUser1
+    void test_audit_aspect() throws Exception {
+
+        traceAspect.inWebLayer();
+        traceAspect.inServiceLayer();
+        traceAspect.inDaoLayer();
+        traceAspect.inUserDetailsLayer();
+
+    }
+
+
+    @Test
+    @DisplayName("Test GlobalAuditContextHolderStrategy")
+    @WithMockEventUserDetailsUser1
+    void test_GlobalAuditContextHolderStrategy() throws Exception {
+
+        GlobalAuditContextHolderStrategy strategy = new GlobalAuditContextHolderStrategy();
+
+        AuditContext emptyContext = strategy.createEmptyContext();
+        log.info("emptyContext: {}", emptyContext);
+        assertThat(emptyContext).isNotNull();
+
+        AuditContext originalContext = strategy.getContext();
+        log.info("originalContext: {}", originalContext);
+        assertThat(originalContext).isNotSameAs(emptyContext);
+
+        strategy.setContext(emptyContext);
+        assertThat(emptyContext).isNotNull();
+//        assertThat(originalContext).isEqualTo(emptyContext);
+
+    }
+
+//    @Test
+//    @DisplayName("Test AuditContextHolder")
+//    @WithMockEventUserDetailsUser1
+//    void test_AuditContextHolder() throws Exception {
+//
+//        AuditContextHolder holder = new AuditContextHolder();
+//
+//        AuditContext emptyContext = strategy.createEmptyContext();
+//        assertThat(emptyContext).isNotNull();
+//
+//        AuditContext originalContext = strategy.getContext();
+//        assertThat(originalContext).isNotSameAs(emptyContext);
+//
+//        strategy.setContext(emptyContext);
+//        assertThat(emptyContext).isNotNull();
+//        assertThat(originalContext).isSameAs(emptyContext);
+//
+//    }
+
 
 } // The End...

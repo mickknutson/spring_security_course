@@ -61,7 +61,7 @@ class WelcomeControllerTests {
 
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
-    void testHomePage() throws Exception {
+    public void testHomePage() throws Exception {
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
@@ -70,7 +70,7 @@ class WelcomeControllerTests {
 
     @Test
     @DisplayName("HTML Unit Welcome Home Page")
-    void testHomePage_htmlUnit() throws Exception {
+    public void testHomePage_htmlUnit() throws Exception {
 
         HtmlPage welcomePage = webClient.getPage("http://localhost/");
 
