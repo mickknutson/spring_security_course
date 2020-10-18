@@ -63,7 +63,7 @@ public final class IpAwarePersistentTokenRepository implements PersistentTokenRe
      * then delegates to the injected {@link PersistentTokenRepository} to do all the work.
      */
     @Override
-    public void createNewToken(PersistentRememberMeToken token) {
+    void createNewToken(PersistentRememberMeToken token) {
         String ipSeries = ipSeries(token.getSeries());
         PersistentRememberMeToken ipToken = tokenWithSeries(token, ipSeries);
         this.delegateRepository.createNewToken(ipToken);

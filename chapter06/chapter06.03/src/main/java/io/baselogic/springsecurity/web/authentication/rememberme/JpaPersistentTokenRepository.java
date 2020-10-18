@@ -23,7 +23,7 @@ public class JpaPersistentTokenRepository implements PersistentTokenRepository {
     }
 
     @Override
-    public void createNewToken(PersistentRememberMeToken token) {
+    void createNewToken(PersistentRememberMeToken token) {
         PersistentLogin newToken = new PersistentLogin(token);
         this.rememberMeTokenRepository.save(newToken);
     }

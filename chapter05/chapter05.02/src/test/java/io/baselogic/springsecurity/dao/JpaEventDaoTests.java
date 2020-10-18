@@ -51,13 +51,13 @@ class JpaEventDaoTests {
         log.info(event.toString());
 
         assertThat(event).isNotNull();
-        assertThat(event).isEqualTo(event);
+
         assertThat(event).isNotEqualTo(new Object());
         assertThat(event).isNotEqualTo(new Event());
         assertThat(event.hashCode()).isNotZero();
 
         assertThat(event.getSummary()).isEqualTo("Birthday Party");
-        assertThat(event.getOwner().getId()).isEqualTo(0);
+         assertThat(event.getOwner().getId()).isZero();
         assertThat(event.getAttendee().getId()).isEqualTo(1);
     }
 
@@ -86,9 +86,10 @@ class JpaEventDaoTests {
 
     /*@Test
     void createEvent_with_event_id() {
+        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        event.setId(12345);
+
         assertThrows(IllegalArgumentException.class, () -> {
-            Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-            event.setId(12345);
             eventDao.save(event);
         });
 
@@ -96,9 +97,10 @@ class JpaEventDaoTests {
 
     @Test
     void createEvent_null_event_owner() {
+        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        event.setOwner(null);
+
         assertThrows(ConstraintViolationException.class, () -> {
-            Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-            event.setOwner(null);
             eventDao.save(event);
         });
 
@@ -121,9 +123,10 @@ class JpaEventDaoTests {
 
     @Test
     void createEvent_null_event_when() {
+        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        event.setWhen(null);
+
         assertThrows(ConstraintViolationException.class, () -> {
-            Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-            event.setWhen(null);
             eventDao.save(event);
         });
 

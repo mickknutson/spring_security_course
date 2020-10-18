@@ -126,24 +126,30 @@ public class AuditTraceTests {
 
     }
 
-//    @Test
-//    @DisplayName("Test AuditContextHolder")
-//    @WithMockEventUserDetailsUser1
-//    void test_AuditContextHolder() throws Exception {
-//
-//        AuditContextHolder holder = new AuditContextHolder();
-//
-//        AuditContext emptyContext = strategy.createEmptyContext();
-//        assertThat(emptyContext).isNotNull();
-//
-//        AuditContext originalContext = strategy.getContext();
-//        assertThat(originalContext).isNotSameAs(emptyContext);
-//
-//        strategy.setContext(emptyContext);
-//        assertThat(emptyContext).isNotNull();
-//        assertThat(originalContext).isSameAs(emptyContext);
-//
-//    }
+    @Test
+    @DisplayName("Test AuditContextHolder")
+    @WithMockEventUserDetailsUser1
+    void test_AuditContextHolder() throws Exception {
+
+        assertThat(AuditContextHolder.getInitializeCount()).isEqualTo(1);
+
+        AuditContext context = AuditContextHolder.getContext();
+        assertThat(context).isNotNull();
+
+        AuditContext emptyContext = AuditContextHolder.createEmptyContext();
+        assertThat(emptyContext).isNotNull();
+
+        assertThat(AuditContextHolder.getContext()).isNotSameAs(emptyContext);
+
+
+        AuditContextHolder.setContext(new AuditContext());
+        assertThat(AuditContextHolder.getContext()).isNotNull();
+
+        AuditContextHolder holder = new AuditContextHolder();
+        log.info(holder.toString());
+
+
+    }
 
 
 } // The End...

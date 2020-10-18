@@ -22,7 +22,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
@@ -61,7 +60,7 @@ class WelcomeControllerTests {
 
     @Test
     @DisplayName("Mock Mvc Welcome Home Page")
-    public void testHomePage() throws Exception {
+    void testHomePage() throws Exception {
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
@@ -70,7 +69,7 @@ class WelcomeControllerTests {
 
     @Test
     @DisplayName("HTML Unit Welcome Home Page")
-    public void testHomePage_htmlUnit() throws Exception {
+    void testHomePage_htmlUnit() throws Exception {
 
         HtmlPage welcomePage = webClient.getPage("http://localhost/");
 

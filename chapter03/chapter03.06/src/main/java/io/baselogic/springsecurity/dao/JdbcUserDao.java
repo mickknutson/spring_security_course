@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A jdbc implementation of {@link UserDao}.
@@ -97,7 +98,8 @@ public class JdbcUserDao implements UserDao {
 
         jdbcTemplate.update(userInsertQuery, parameter, holder);
 
-        return holder.getKey() == null? null: holder.getKey().intValue();
+        Optional<Number> optional = Optional.of(holder.getKey());
+        return (Integer) optional.orElse(null);
     }
 
 

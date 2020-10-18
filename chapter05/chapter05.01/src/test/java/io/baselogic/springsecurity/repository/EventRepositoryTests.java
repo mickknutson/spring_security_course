@@ -21,7 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-@ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
@@ -62,13 +61,13 @@ class EventRepositoryTests {
         log.info(event.toString());
 
         assertThat(event).isNotNull();
-        assertThat(event).isEqualTo(event);
+
         assertThat(event).isNotEqualTo(new Object());
         assertThat(event).isNotEqualTo(new Event());
         assertThat(event.hashCode()).isNotZero();
 
         assertThat(event.getSummary()).isEqualTo("Birthday Party");
-        assertThat(event.getOwner().getId()).isEqualTo(0);
+         assertThat(event.getOwner().getId()).isZero();
         assertThat(event.getAttendee().getId()).isEqualTo(1);
     }
 

@@ -21,7 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Functional and Mock tests for the EventController.
  */
-@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 
 @SpringBootTest

@@ -42,7 +42,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Functional and Mock tests for the EventController.
  */
-@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
@@ -94,7 +93,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("MockMvc All Events")
     @WithMockUser
-    public void allEventsPage() throws Exception {
+    void allEventsPage() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("events/list"))
@@ -110,7 +109,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("All Events: UnAuthorized - WithAnonymousUser - RequestPostProcessor")
     @WithAnonymousUser
-    public void allEvents_not_authenticated__WithAnonymousUser() throws Exception {
+    void allEvents_not_authenticated__WithAnonymousUser() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isUnauthorized())
@@ -127,7 +126,7 @@ class EventsControllerTests {
      */
     @Test
     @DisplayName("All Events: Authorized - WithUser - RequestPostProcessor")
-    public void allEventsPage_not_authenticated__WithUser_rpp() throws Exception {
+    void allEventsPage_not_authenticated__WithUser_rpp() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/")
                 // Simulate a valid security User:
@@ -154,7 +153,7 @@ class EventsControllerTests {
      */
     @Test
     @DisplayName("Current Users Events - UnAuthorized")
-    public void testCurrentUsersEventsPage_UnAuthorized() throws Exception {
+    void testCurrentUsersEventsPage_UnAuthorized() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
@@ -168,7 +167,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Current Users Events - WithUser")
     @WithMockUser
-    public void testCurrentUsersEventsPage__WithUser() throws Exception {
+    void testCurrentUsersEventsPage__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/my")
         )
                 .andExpect(status().isOk())
@@ -188,7 +187,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Current Users Events - WithUser - HtmlUnit")
     @WithMockUser
-    public void testCurrentUsersEventsPage__WithUser__htmlUnit() throws Exception {
+    void testCurrentUsersEventsPage__WithUser__htmlUnit() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/my");
 
         WebResponse webResponse = page.getWebResponse();
@@ -220,7 +219,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Show Event Details - user1")
     @WithMockUser
-    public void testShowEvent_user1() throws Exception {
+    void testShowEvent_user1() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/100")
         )
                 .andExpect(status().isOk())
@@ -246,7 +245,7 @@ class EventsControllerTests {
      */
     @Test
     @DisplayName("Show Event Form - WithUser")
-    public void showEventForm__WithUser() throws Exception {
+    void showEventForm__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/form")
                 // Simulate a valid security User:
                 .with(user(USER))
@@ -263,7 +262,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form Auto Populate - WithUser")
     @WithMockUser
-    public void showEventFormAutoPopulate() throws Exception {
+    void showEventFormAutoPopulate() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         HtmlButton button =  page.getHtmlElementById("auto");
@@ -284,7 +283,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Show Event Form Auto Populate - admin1")
     @WithMockUser
-    public void showEventFormAutoPopulate_admin1() throws Exception {
+    void showEventFormAutoPopulate_admin1() throws Exception {
         userContext.setCurrentUser(TestUtils.admin1);
 
         HtmlPage page = webClient.getPage("http://localhost/events/form");
@@ -337,7 +336,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null email - WithUser")
     @WithMockUser
-    public void createEvent_null_email() throws Exception {
+    void createEvent_null_email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -370,7 +369,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - not found email - WithUser")
     @WithMockUser
-    public void createEvent_not_found_email() throws Exception {
+    void createEvent_not_found_email() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -406,7 +405,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null when - WithUser")
     @WithMockUser
-    public void createEvent_null_when() throws Exception {
+    void createEvent_null_when() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -444,7 +443,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null summary - WithUser")
     @WithMockUser
-    public void createEvent_null_summary() throws Exception {
+    void createEvent_null_summary() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())
@@ -482,7 +481,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Submit Event Form - null description - WithUser")
     @WithMockUser
-    public void createEvent_null_description() throws Exception {
+    void createEvent_null_description() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         assertThat(page.getTitleText())

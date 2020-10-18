@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @since chapter1.00
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 class UserContextTests {

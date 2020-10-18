@@ -36,7 +36,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since chapter01.00
  * @since chapter02.02 Started to add Spring Security Test support
  */
-@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
@@ -174,7 +173,7 @@ class EventsControllerTests {
      */
     @Test
     @DisplayName("Show Event Form")
-    public void showEventForm() throws Exception {
+    void showEventForm() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/form");
 
         String titleText = page.getTitleText();

@@ -3,38 +3,48 @@ package io.baselogic.springsecurity.web.controllers;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import io.baselogic.springsecurity.annotations.WithMockEventUserDetailsUser1;
+import io.baselogic.springsecurity.dao.TestUtils;
+import io.baselogic.springsecurity.domain.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.session.SessionInformation;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * UserSessionControllerTests
  *
  * @since chapter12.05
  */
-@ExtendWith(SpringExtension.class)
-@AutoConfigureMockMvc
 @SpringBootTest
+@AutoConfigureMockMvc
+//@WebMvcTest(controllers = UserSessionController.class)
 @Slf4j
 public class UserSessionControllerTests {
 
@@ -43,6 +53,9 @@ public class UserSessionControllerTests {
 
     // HtmlUnit uses the Rhino Engine
     private WebClient webClient;
+
+    @MockBean
+    private SessionRegistry sessionRegistry;
 
     /**
      * Customize the WebClient to work with HtmlUnit
@@ -73,9 +86,32 @@ public class UserSessionControllerTests {
     //-----------------------------------------------------------------------//
 
     @Test
-    @DisplayName("Show UserSessions Form - user1")
+    @DisplayName("Test Constructore Injection with Null SessionRegistry")
     @WithMockEventUserDetailsUser1
-    public void show_userSessions__WithUser() throws Exception {
+    void testConstructorInjection_null() throws Exception {
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new UserSessionController(null);
+        });
+    }
+
+
+    @Test
+    @DisplayName("Show UserSessions - user1")
+    @WithMockEventUserDetailsUser1
+    void show_userSessions__WithUser() throws Exception {
+
+        List<SessionInformation> userSessions = new ArrayList<>(4);
+        userSessions.add(new SessionInformation(TestUtils.user1UserDetails, "session-1", new Date()));
+        userSessions.add(new SessionInformation(TestUtils.user1UserDetails, "session-2", new Date()));
+        userSessions.add(new SessionInformation(TestUtils.user1UserDetails, "session-3", new Date()));
+        userSessions.add(new SessionInformation(TestUtils.user1UserDetails, "session-4", new Date()));
+
+        // Expectation
+        // SecurityContext:
+        given(this.sessionRegistry.getAllSessions(any(Principal.class), anyBoolean()))
+                .willReturn(userSessions);
+
 
         MvcResult result = mockMvc.perform(get("/user/sessions/"))
                 .andExpect(status().isOk())
@@ -83,7 +119,9 @@ public class UserSessionControllerTests {
                 .andReturn();
 
         List<SessionInformation> sessions = (List<SessionInformation>) result.getModelAndView().getModel().get("userSessions");
-        assertThat(sessions).isEmpty() ;
+
+        assertThat(sessions).isEqualTo(userSessions);
+
     }
 
     //-----------------------------------------------------------------------//
@@ -93,37 +131,20 @@ public class UserSessionControllerTests {
     @WithMockEventUserDetailsUser1
     public void delete_user_session_form() throws Exception {
 
+        final String sessionId = "session-1";
+        final SessionInformation userSession = new SessionInformation(TestUtils.user1UserDetails, "session-1", new Date());
+
+        // Expectation
+        // SecurityContext:
+        given(this.sessionRegistry.getSessionInformation(sessionId))
+                .willReturn(userSession);
 
         // DELETE "/sessions/{sessionId}"
-        MvcResult result = mockMvc.perform(get("/user/sessions/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("user/sessions"))
+        MvcResult result = mockMvc.perform(delete("/user/sessions/"+sessionId))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/user/sessions/"))
+                .andExpect(flash().attribute("message", "Session was removed"))
                 .andReturn();
-
-        List<SessionInformation> sessions = (List<SessionInformation>) result.getModelAndView().getModel().get("userSessions");
-        assertThat(sessions).isEmpty();
-
-
-
-        HtmlPage page = webClient.getPage("http://localhost/user/sessions/");
-
-        log.info("***: {}", page.asXml());
-
-//        assertThat(page.getTitleText())
-//                .contains("My Sessions");
-//
-//        HtmlButton button =  page.getHtmlElementById("delete");
-//
-//        HtmlPage pageAfterClick = button.click();
-//
-//        assertThat(pageAfterClick.getTitleText())
-//                .contains("Login to the Event Manager");
-//
-//        assertThat(pageAfterClick.getDocumentURI()).endsWith("/login/form?expired");
-
-
-
-        // Now remove a session:
 
     }
 
