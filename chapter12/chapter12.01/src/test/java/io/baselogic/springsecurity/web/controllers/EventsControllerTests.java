@@ -399,7 +399,7 @@ class EventsControllerTests {
 
     @Test
     @DisplayName("Validate EventUserDetails")
-    public void validate_EventUserDetails() throws Exception {
+    void validate_EventUserDetails() throws Exception {
 
         assertThat(TestUtils.user1UserDetails.isAccountNonExpired()).isTrue();
         assertThat(TestUtils.user1UserDetails.isAccountNonLocked()).isTrue();

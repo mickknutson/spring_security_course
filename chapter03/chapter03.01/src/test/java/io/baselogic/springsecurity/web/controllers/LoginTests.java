@@ -57,7 +57,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-public class LoginTests {
+class LoginTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -91,7 +91,7 @@ public class LoginTests {
     @Test
     @DisplayName("Secured Page - anonymous - isUnauthorized")
     @WithAnonymousUser
-    public void testHomePage_isUnauthorized() throws Exception {
+    void testHomePage_isUnauthorized() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -105,7 +105,7 @@ public class LoginTests {
      */
     @Test
     @DisplayName("Secured Page - anonymous - isUnauthorized - RequestPostProcessor")
-    public void test_HomePage_isUnauthorized_RequestPostProcessor() throws Exception {
+    void test_HomePage_isUnauthorized_RequestPostProcessor() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/")
                 // Simulate a valid security User:
@@ -122,7 +122,7 @@ public class LoginTests {
      */
     @Test
     @DisplayName("Secured Page - anonymous - isUnauthorized - RequestPostProcessor")
-    public void test_AllEvents_isUnauthorized_RequestPostProcessor() throws Exception {
+    void test_AllEvents_isUnauthorized_RequestPostProcessor() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events")
                 // Simulate a valid security User:
@@ -146,7 +146,7 @@ public class LoginTests {
     @Test
     @DisplayName("My Events Page - authenticated - user1")
     @WithMockUser1
-    public void testMyEventsPage_user1_authenticated() throws Exception {
+    void testMyEventsPage_user1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isOk())
@@ -165,7 +165,7 @@ public class LoginTests {
     @Test
     @DisplayName("My Events Page - authenticated - user1 - RequestPostProcessor")
     @WithMockUser1
-    public void testMyEventsPage_user1_authenticated__RequestPostProcessor() throws Exception {
+    void testMyEventsPage_user1_authenticated__RequestPostProcessor() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/my"))
 
@@ -188,7 +188,7 @@ public class LoginTests {
      */
     @Test
     @DisplayName("Form Login - authenticated - user1")
-    public void testFormLogin_user1_authenticated() throws Exception {
+    void testFormLogin_user1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(
                 formLogin()
@@ -209,7 +209,7 @@ public class LoginTests {
      */
     @Test
     @DisplayName("Form Login - invalid username - foo")
-    public void testFormLogin_invalid_username() throws Exception {
+    void testFormLogin_invalid_username() throws Exception {
 
         MvcResult result = mockMvc.perform(
                 formLogin()
@@ -228,7 +228,7 @@ public class LoginTests {
      */
     @Test
     @DisplayName("Form Login - invalid username - user1")
-    public void testFormLogin_invalid_password_user1() throws Exception {
+    void testFormLogin_invalid_password_user1() throws Exception {
 
         MvcResult result = mockMvc.perform(
                 formLogin()
@@ -252,7 +252,7 @@ public class LoginTests {
     @Test
     @DisplayName("All Events Page - authenticated - admin1")
     @WithMockAdmin1
-    public void test_AllEventsPage_admin1_authenticated() throws Exception {
+    void test_AllEventsPage_admin1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/"))
 

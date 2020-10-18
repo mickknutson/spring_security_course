@@ -73,7 +73,7 @@ public class AuditTraceTests {
     @Test
     @DisplayName("Test AOP Audit Trace")
     @WithMockEventUserDetailsUser1
-    public void test_audit_trace() throws Exception {
+    void test_audit_trace() throws Exception {
 
         mockMvc.perform(get("/events/my"))
 

@@ -83,7 +83,7 @@ public class RememberMeTests {
     @Test
     @DisplayName("Secured Page - anonymous - isUnauthorized")
     @WithAnonymousUser
-    public void test_cookie_created() throws Exception {
+    void test_cookie_created() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -111,7 +111,7 @@ public class RememberMeTests {
      */
     @Test
     @DisplayName("Form Login - authenticated - user1")
-    public void test_cookie_created2() throws Exception {
+    void test_cookie_created2() throws Exception {
 
         MvcResult result = mockMvc.perform(
                 formLogin()

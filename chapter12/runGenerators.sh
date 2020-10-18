@@ -28,9 +28,12 @@ echo "Loop through all Modules"
 export ROOT_DIR=$PWD
 
 MODULES=(
-'chapter07.00'
-'chapter07.01'
-'chapter07.02'
+'chapter12.00'
+'chapter12.01'
+'chapter12.02'
+'chapter12.03'
+'chapter12.04'
+'chapter12.05'
 )
 
 for module in "${MODULES[@]}"; do

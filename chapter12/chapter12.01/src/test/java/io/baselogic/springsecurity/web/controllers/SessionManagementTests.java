@@ -128,7 +128,7 @@ public class SessionManagementTests {
 //    @Test
     @DisplayName("All Events Page - authenticated - admin1")
     @WithMockEventUserDetailsAdmin1
-    public void test_AllEventsPage_admin1_authenticated() throws Exception {
+    void test_AllEventsPage_admin1_authenticated() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/"))
 

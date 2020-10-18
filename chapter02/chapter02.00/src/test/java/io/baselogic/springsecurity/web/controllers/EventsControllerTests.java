@@ -127,7 +127,7 @@ class EventsControllerTests {
      */
     @Test
     @DisplayName("All Events: Authorized - WithUser - RequestPostProcessor")
-    public void allEventsPage_not_authenticated__WithUser_rpp() throws Exception {
+    void allEventsPage_not_authenticated__WithUser_rpp() throws Exception {
 
         MvcResult result = mockMvc.perform(get("/events/")
                 // Simulate a valid security User:
@@ -154,7 +154,7 @@ class EventsControllerTests {
      */
     @Test
     @DisplayName("Current Users Events - UnAuthorized")
-    public void testCurrentUsersEventsPage_UnAuthorized() throws Exception {
+    void testCurrentUsersEventsPage_UnAuthorized() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/my"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
@@ -168,7 +168,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Current Users Events - WithUser")
     @WithMockUser
-    public void testCurrentUsersEventsPage__WithUser() throws Exception {
+    void testCurrentUsersEventsPage__WithUser() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/my")
         )
                 .andExpect(status().isOk())
@@ -188,7 +188,7 @@ class EventsControllerTests {
     @Test
     @DisplayName("Current Users Events - WithUser - HtmlUnit")
     @WithMockUser
-    public void testCurrentUsersEventsPage__WithUser__htmlUnit() throws Exception {
+    void testCurrentUsersEventsPage__WithUser__htmlUnit() throws Exception {
         HtmlPage page = webClient.getPage("http://localhost/events/my");
 
         WebResponse webResponse = page.getWebResponse();

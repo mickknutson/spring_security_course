@@ -1,0 +1,93 @@
+#------------------------------------------------------------------------------#
+# Application YAML #
+# inside ./src/main/resources/application.yml
+#------------------------------------------------------------------------------#
+
+# ENABLE for debug logging to show ConditionEvaluationReport :
+debug: false
+
+##---------------------------------------------------------------------------##
+spring:
+
+
+  ##---------------------------------------------------------------------------##
+  ## H2 Admin Servlet Configuration:
+  ## Note: See SecurityConfig.java for configuration:
+
+  # http://localhost:8080/admin/h2
+  h2.console.enabled: true
+
+  ##---------------------------------------------------------------------------##
+  ## Datasource Configuration:
+  ## see io.baselogic.springsecurity.configuration.DataSourceConfig
+
+  datasource:
+    ## Default URL for embedded is 'jdbc:h2:mem:testdb'
+    url: jdbc:h2:mem:dataSource;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+    schema:
+      - classpath:/schema.sql
+
+    data:
+      - classpath:/data.sql
+
+    # These items are needed for testing:
+    continue-on-error: true
+    generate-unique-name: false
+
+
+
+  ##---------------------------------------------------------------------------##
+  ## JPA
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: false
+
+    hibernate:
+      ddl-auto: none
+
+    properties:
+      hibernate:
+        format_sql: true
+
+      # These properties are only needed to dump the JPA generated ddl to a file:
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: target/create.sql
+
+
+##---------------------------------------------------------------------------##
+## Actuators:
+## https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-endpoints
+## To expose all endpoints (be aware before exposing all endpoints for production)
+# http://localhost:8080/actuator
+# http://localhost:8080/actuator/beans
+# http://localhost:8080/actuator/mappings
+management:
+  endpoints:
+    web:
+      #      base-path: /admin/actuator
+      exposure:
+        include: '*'
+
+
+##---------------------------------------------------------------------------##
+## Logging Configuration:
+logging:
+  level:
+    io:
+      baselogic:
+        testloglevel: INFO
+
+logging.level.org.hibernate.SQL: INFO
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: INFO
+
+
+##---------------------------------------------------------------------------##

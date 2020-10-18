@@ -24,8 +24,6 @@
     </modules>
 
     <properties>
-        <thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
-        <thymeleaf-extras-springsecurity5.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity5.version>
         <webjarsBootstrap.version>3.4.1</webjarsBootstrap.version>
         <webjarsJquery.version>3.5.1</webjarsJquery.version>
         <webjarsLocator.version>0.40</webjarsLocator.version>
@@ -56,13 +54,11 @@
         <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
-            <version>${thymeleaf-layout-dialect.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-            <version>${thymeleaf-extras-springsecurity5.version}</version>
         </dependency>
 
         <dependency>
@@ -77,8 +73,7 @@
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator</artifactId>
-            <version>${webjarsLocator.version}</version>
+            <artifactId>webjars-locator-core</artifactId>
         </dependency>
 
 
