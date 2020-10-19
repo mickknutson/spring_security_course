@@ -89,7 +89,7 @@ public class WebDriverTests {
 //    @Test
     @DisplayName("Test TLS Port Redirect")
     @WithMockEventUserDetailsUser1
-    public void default_port_Redirect() throws Exception {
+    void default_port_Redirect() throws Exception {
         log.info("Executing tests on port {}", localServerPort);
 
         HtmlPage page = webClient.getPage("http://localhost:"+localServerPort+"/events/form");

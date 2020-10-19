@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("tls")
 @Slf4j
-public class CustomTomcatEmbeddedServletContainerFactoryTests {
+class CustomTomcatEmbeddedServletContainerFactoryTests {
 
     int localServerPort = 8080;
 
@@ -109,7 +109,7 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
 //    @Test
     @DisplayName("Test TLS Port Redirect with WebClient")
     @WithMockEventUserDetailsUser1
-    public void default_port_Redirect() throws Exception {
+    void default_port_Redirect() throws Exception {
         log.info("Executing tests on port {}", localServerPort);
         log.info("Redirecting from [{}] to [{}]", url, redirectUrl);
 

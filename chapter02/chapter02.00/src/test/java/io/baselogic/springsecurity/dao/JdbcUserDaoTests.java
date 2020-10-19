@@ -82,7 +82,7 @@ class JdbcUserDaoTests {
     @Test
     void findAllByEmail_no_results() {
         List<AppUser> users = userDao.findAllByEmail("@baselogic.io");
-        assertThat(users.size()).isEqualTo(0);
+        assertThat(users.size()).isZero();
     }
 
 
@@ -101,10 +101,10 @@ class JdbcUserDaoTests {
 
     @Test
     void createUser_with_id() {
+        AppUser appUser = TestUtils.createMockUser("test@baselogic.com", "test", "example");
+        appUser.setId(12345);
         assertThrows(IllegalArgumentException.class, () -> {
-            AppUser user = TestUtils.createMockUser("test@baselogic.com", "test", "example");
-            user.setId(12345);
-            int userId = userDao.save(user);
+            int userId = userDao.save(appUser);
         });
     }
 

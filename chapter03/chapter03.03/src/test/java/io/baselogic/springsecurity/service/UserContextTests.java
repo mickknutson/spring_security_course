@@ -74,7 +74,7 @@ class UserContextTests {
 
     @Test
     @DisplayName("getCurrentUser - null Authentication returns null")
-    public void getCurrentUser__null_authentication() {
+    void test_getCurrentUser__null_authentication() {
 
         // Expectation
         // SecurityContext:
@@ -95,7 +95,7 @@ class UserContextTests {
     //    @Test
     @DisplayName("getCurrentUser - null User email - returns null")
     @WithMockUser("user1@baselogic.com")
-    public void getCurrentUser__null_user_email() {
+    void test_getCurrentUser__null_user_email() {
 
         // Expectation
         // SecurityContext:
@@ -114,7 +114,7 @@ class UserContextTests {
     @Test
     @DisplayName("getCurrentUser - throws IllegalStateException")
     @WithMockUser("user1@baselogic.com")
-    public void getCurrentUser__throws_IllegalStateException() {
+    void test_getCurrentUser__throws_IllegalStateException() {
 
         AppUser appUser = new AppUser();
         appUser.setEmail("test@foobar.com");
@@ -142,7 +142,7 @@ class UserContextTests {
     //-----------------------------------------------------------------------//
 
     @Test
-    void setCurrentUser() {
+    void test_setCurrentUser() {
         userContext.setCurrentUser(appUser1);
 
         assertThrows(IllegalStateException.class, () -> {
@@ -151,7 +151,7 @@ class UserContextTests {
     }
 
     @Test
-    public void setCurrentUser__UsernameNotFoundException() {
+    void test_setCurrentUser__UsernameNotFoundException() {
         assertThrows(UsernameNotFoundException.class, () -> {
             AppUser tester = new AppUser();
             tester.setEmail("foo@bar.com");
@@ -160,14 +160,14 @@ class UserContextTests {
     }
 
     @Test
-    void setCurrentUser_null_User() {
+    void test_setCurrentUser_null_User() {
         assertThrows(NullPointerException.class, () -> {
             userContext.setCurrentUser(null);
         });
     }
 
     @Test
-    void setCurrentUser_invalid_User() {
+    void test_setCurrentUser_invalid_User() {
         assertThrows(ConstraintViolationException.class, () -> {
             userContext.setCurrentUser(new AppUser());
         });
@@ -176,7 +176,7 @@ class UserContextTests {
 
     @Test
     @DisplayName("getCurrentUser with a null authentication from SecurityContext")
-    void getCurrentUser_null_authentication() {
+    void test_getCurrentUser_null_authentication() {
         SecurityContextHolder.clearContext();
         AppUser result = userContext.getCurrentUser();
         assertThat(result).isNull();

@@ -43,7 +43,7 @@ class UserContextTests {
 
 
     @Test
-    void setCurrentUser() {
+    void test_setCurrentUser() {
         userContext.setCurrentUser(owner);
 
         AppUser appUser = userContext.getCurrentUser();
@@ -53,7 +53,7 @@ class UserContextTests {
     }
 
     @Test
-    void setCurrentUser_null_User() {
+    void test_setCurrentUser_null_User() {
         assertThrows(ConstraintViolationException.class, () -> {
             userContext.setCurrentUser(null);
         });
@@ -61,7 +61,7 @@ class UserContextTests {
     }
 
     @Test
-    void setCurrentUser_invalid_User() {
+    void test_setCurrentUser_invalid_User() {
         assertThrows(IllegalArgumentException.class, () -> {
             userContext.setCurrentUser(new AppUser());
         });

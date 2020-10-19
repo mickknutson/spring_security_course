@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Slf4j
-public class ErrorControllerTests {
+class ErrorControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -52,7 +52,7 @@ public class ErrorControllerTests {
      */
     @Test
     @DisplayName("exception_INTERNAL_SERVER_ERROR")
-    public void handleInternalServerError() throws Exception {
+    void handleInternalServerError() throws Exception {
 
         Throwable throwable = new RuntimeException("Foo Bar Exception");
         ModelAndView mav = new ModelAndView("error", "error", "Foo Bar Exception");
@@ -66,7 +66,7 @@ public class ErrorControllerTests {
 
     @Test
     @DisplayName("exception_INTERNAL_SERVER_ERROR with null exception")
-    public void exception_INTERNAL_SERVER_ERROR__null_exception() throws Exception {
+    void exception_INTERNAL_SERVER_ERROR__null_exception() throws Exception {
 
         ModelAndView response = controller.handleInternalServerError(null);
 

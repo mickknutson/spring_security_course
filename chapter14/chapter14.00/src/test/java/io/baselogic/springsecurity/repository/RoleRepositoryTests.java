@@ -26,7 +26,7 @@ class RoleRepositoryTests {
     @DisplayName("RoleRepository - validateUser_User")
     void validateUser_User() {
         Role user = repository.findById(0).orElseThrow(RuntimeException::new);
-        assertThat(user.getId()).isEqualTo(0);
+        assertThat(user.getId()).isZero();
         assertThat(user.getName()).isEqualTo("ROLE_USER");
 	}
 

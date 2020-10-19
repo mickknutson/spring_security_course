@@ -56,8 +56,8 @@ class JpaUserDaoTests {
         AppUser appUser = userDao.findById(1);
 
         assertThat(appUser).isNotNull();
-        assertThat(appUser.equals(appUser)).isTrue();
-        assertThat(appUser.equals(new Object())).isFalse();
+        // assertThat(appUser.equals(appUser)).isTrue();
+        assertThat(appUser).isNotEqualTo(new Object());
         assertThat(appUser.equals(new AppUser())).isFalse();
         assertThat(appUser.hashCode()).isNotZero();
     }

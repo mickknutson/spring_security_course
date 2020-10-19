@@ -32,7 +32,7 @@ import static org.mockito.BDDMockito.given;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class EventUserAuthenticationProviderTests {
+class EventUserAuthenticationProviderTests {
 
     // Mockito:
     @MockBean
@@ -59,7 +59,7 @@ public class EventUserAuthenticationProviderTests {
 
     @Test
     @DisplayName("supports - UsernamePasswordAuthenticationToken.class")
-    public void supports__TRUE() {
+    void supports__TRUE() {
 
         boolean result = authenticationProvider.supports(UsernamePasswordAuthenticationToken.class);
 
@@ -68,7 +68,7 @@ public class EventUserAuthenticationProviderTests {
 
     @Test
     @DisplayName("supports - SpringBootTest.class")
-    public void supports__FALSE() {
+    void supports__FALSE() {
 
         boolean result = authenticationProvider.supports(SpringBootTest.class);
 
@@ -79,7 +79,7 @@ public class EventUserAuthenticationProviderTests {
 
     @Test
     @DisplayName("authenticate - null User")
-    public void authenticate__null_user() {
+    void authenticate__null_user() {
 
         // Expectation
         given(eventService.findUserByEmail(any(String.class)))
@@ -97,7 +97,7 @@ public class EventUserAuthenticationProviderTests {
 
     @Test
     @DisplayName("authenticate - incorrect_authentication_credentials")
-    public void authenticate__incorrect_authentication_credentials() {
+    void authenticate__incorrect_authentication_credentials() {
 
         // Expectation
         given(eventService.findUserByEmail(any(String.class)))

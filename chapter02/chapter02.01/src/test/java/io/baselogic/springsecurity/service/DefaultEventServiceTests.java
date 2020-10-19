@@ -181,7 +181,6 @@ class DefaultEventServiceTests {
 
     /*@Test//(expected = IllegalArgumentException.class)
     void createUser_with_id() {
-
         assertThrows(ConstraintViolationException.class, () -> {
             User user = TestUtils.createMockUser("test@baselogic.com", "test", "example");
             user.setId(12345);

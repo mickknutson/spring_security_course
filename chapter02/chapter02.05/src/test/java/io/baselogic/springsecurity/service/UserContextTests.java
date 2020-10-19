@@ -48,7 +48,7 @@ class UserContextTests {
 
 
     @Test
-    void setCurrentUser() {
+    void test_setCurrentUser() {
         userContext.setCurrentUser(owner);
 
         AppUser appUser = userContext.getCurrentUser();
@@ -58,7 +58,7 @@ class UserContextTests {
     }
 
     @Test
-    void setCurrentUser_null_User() {
+    void test_setCurrentUser_null_User() {
         assertThrows(ConstraintViolationException.class, () -> {
             userContext.setCurrentUser(null);
         });
@@ -66,7 +66,7 @@ class UserContextTests {
     }
 
     @Test
-    void setCurrentUser_invalid_User() {
+    void test_setCurrentUser_invalid_User() {
         assertThrows(IllegalArgumentException.class, () -> {
             userContext.setCurrentUser(new AppUser());
         });
@@ -74,7 +74,7 @@ class UserContextTests {
 
     @Test
     @DisplayName("getCurrentUser with a null authentication from SecurityContext")
-    void getCurrentUser_null_authentication() {
+    void test_getCurrentUser_null_authentication() {
         SecurityContextHolder.clearContext();
         AppUser result = userContext.getCurrentUser();
 //        assertThat(result).isNull();

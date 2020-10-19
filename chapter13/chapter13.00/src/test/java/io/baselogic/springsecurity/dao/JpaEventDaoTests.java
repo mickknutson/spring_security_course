@@ -70,7 +70,7 @@ class JpaEventDaoTests {
                 () -> assertThat(event.equals(new Event())).isFalse(),
                 () -> assertThat(event.hashCode()).isNotZero(),
                 () -> assertThat(event.getSummary()).isEqualTo("Birthday Party"),
-                () -> assertThat(event.getOwner().getId()).isEqualTo(0),
+                () -> assertThat(event.getOwner().getId()).isZero(),
                 () -> assertThat(event.getAttendee().getId()).isEqualTo(1)
         );
     }

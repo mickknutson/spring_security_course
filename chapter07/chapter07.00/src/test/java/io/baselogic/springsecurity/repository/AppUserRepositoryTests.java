@@ -69,8 +69,8 @@ class AppUserRepositoryTests {
         log.info(appUser.toString());
 
         assertThat(appUser).isNotNull();
-        assertThat(appUser.equals(appUser)).isTrue();
-        assertThat(appUser.equals(new Object())).isFalse();
+        // assertThat(appUser.equals(appUser)).isTrue();
+        assertThat(appUser).isNotEqualTo(new Object());
         assertThat(appUser.equals(new AppUser())).isFalse();
         assertThat(appUser.hashCode()).isNotZero();
     }
@@ -103,7 +103,7 @@ class AppUserRepositoryTests {
     @DisplayName("AppUserRepository - findAllByEmail - not found")
     void findAllByEmail_no_results() {
         List<AppUser> appUsers = repository.findAllByEmailContaining("@baselogic.io");
-        assertThat(appUsers.size()).isEqualTo(0);
+        assertThat(appUsers.size()).isZero();
     }
 
 

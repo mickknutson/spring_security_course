@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-public class AdvancedAuthorizationTests {
+class AdvancedAuthorizationTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -70,7 +70,7 @@ public class AdvancedAuthorizationTests {
     @Test
     @DisplayName("Mock Mvc login as user1")
     @WithMockEventUserDetailsUser1
-    public void login_user1_home() throws Exception {
+    void test_login_user1_home() throws Exception {
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -85,7 +85,7 @@ public class AdvancedAuthorizationTests {
     @Test
     @DisplayName("Mock Mvc login as user1 navigate to All Events")
     @WithMockEventUserDetailsUser1
-    public void login_user1_events() throws Exception {
+    void test_login_user1_events() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isForbidden())
                 .andReturn();
@@ -98,7 +98,7 @@ public class AdvancedAuthorizationTests {
     @Test
     @DisplayName("Mock Mvc login as admin1")
     @WithMockEventUserDetailsAdmin1
-    public void login_admin1_home() throws Exception {
+    void test_login_admin1_home() throws Exception {
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -113,7 +113,7 @@ public class AdvancedAuthorizationTests {
     @Test
     @DisplayName("Mock Mvc login as admin1 navigate to All Events")
     @WithMockEventUserDetailsAdmin1
-    public void login_admin1_events() throws Exception {
+    void test_login_admin1_events() throws Exception {
         MvcResult result = mockMvc.perform(get("/events/"))
                 .andExpect(status().isOk())
                 .andReturn();
