@@ -28,8 +28,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class AppUser implements Principal, Serializable {
 
-//    public AppUser() {}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

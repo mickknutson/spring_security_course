@@ -134,7 +134,7 @@ class UserContextTests {
 //        assertThrows(ClassCastException.class, () -> {
 //            userContext.getCurrentUser();
 //        });
-        // assertThat("result").isNotEqualTo("completed");
+        assertThat(eventService).isNotNull();
     }
 
 

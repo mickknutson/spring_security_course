@@ -57,7 +57,7 @@ class DefaultControllerTests {
     @Test
     @DisplayName("Default Controller - user1")
     @WithMockUser1
-    void defaultRedirect__user1() throws Exception {
+    void test_defaultRedirect__user1() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/"))
@@ -91,7 +91,7 @@ class DefaultControllerTests {
     @Test
     @DisplayName("Default Controller - admin1 - ADMIN and USER role")
     @WithMockAdmin1
-    void defaultRedirect__admin1_roles() throws Exception {
+    void test_defaultRedirect__admin1_roles() throws Exception {
         MvcResult result = mockMvc.perform(get("/default"))
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/events/"))

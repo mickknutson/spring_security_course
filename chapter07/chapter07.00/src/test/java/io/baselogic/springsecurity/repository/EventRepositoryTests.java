@@ -117,9 +117,10 @@ class EventRepositoryTests {
     @Test
     @DisplayName("EventRepository - create Event - null Owner")
     void createEvent_null_event_owner() {
+        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        event.setOwner(null);
+
         assertThrows(ConstraintViolationException.class, () -> {
-            Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-            event.setOwner(null);
             repository.save(event);
         });
 
@@ -128,20 +129,23 @@ class EventRepositoryTests {
     @Test
     @DisplayName("EventRepository - create Event - null Attendee")
     void createEvent_null_event_attendee() {
+        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        event.setAttendee(null);
+
         assertThrows(ConstraintViolationException.class, () -> {
-            Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-            event.setAttendee(null);
             repository.save(event);
         });
 
     }
 
+
     @Test
     @DisplayName("EventRepository - create Event - null Event Date")
     void createEvent_null_event_when() {
+        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        event.setWhen(null);
+
         assertThrows(ConstraintViolationException.class, () -> {
-            Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-            event.setWhen(null);
             repository.save(event);
         });
 

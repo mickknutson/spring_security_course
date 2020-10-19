@@ -107,7 +107,7 @@ class DefaultEventServiceTests {
 
     @Test
     @WithMockEventUserDetailsUser1
-    public void findAllEvents_user1() {
+    void test_findAllEvents_user1() {
 
         given(eventDao.findAll())
                 .willReturn(TestUtils.TEST_EVENTS);

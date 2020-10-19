@@ -152,9 +152,10 @@ class UserContextTests {
 
     @Test
     void test_setCurrentUser__UsernameNotFoundException() {
+        AppUser tester = new AppUser();
+        tester.setEmail("foo@bar.com");
+
         assertThrows(UsernameNotFoundException.class, () -> {
-            AppUser tester = new AppUser();
-            tester.setEmail("foo@bar.com");
             userContext.setCurrentUser(tester);
         });
     }

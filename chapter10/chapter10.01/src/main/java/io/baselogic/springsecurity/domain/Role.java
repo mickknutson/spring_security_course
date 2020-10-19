@@ -25,8 +25,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class Role implements Serializable {
 
-//    public Role() {}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

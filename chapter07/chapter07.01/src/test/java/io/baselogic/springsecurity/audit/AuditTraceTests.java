@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("tls")
 @Slf4j
-public class AuditTraceTests {
+class AuditTraceTests {
 
     @Autowired
     private TraceAspect traceAspect;
@@ -101,6 +101,8 @@ public class AuditTraceTests {
         traceAspect.inServiceLayer();
         traceAspect.inDaoLayer();
         traceAspect.inUserDetailsLayer();
+
+        assertThat(traceAspect).isNotNull();
 
     }
 

@@ -35,7 +35,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @SpringBootTest //(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("tls")
 @Slf4j
-public class WebDriverTests {
+class WebDriverTests {
 
     @Value("${server.port: 8080}")
     int localServerPort = 8080;

@@ -100,9 +100,9 @@ class JdbcUserDaoTests {
 
     @Test
     void createUser_with_id() {
+        AppUser appUser = TestUtils.createMockUser("test@baselogic.com", "test", "example");
+        appUser.setId(12345);
         assertThrows(IllegalArgumentException.class, () -> {
-            AppUser appUser = TestUtils.createMockUser("test@baselogic.com", "test", "example");
-            appUser.setId(12345);
             int userId = userDao.save(appUser);
         });
     }

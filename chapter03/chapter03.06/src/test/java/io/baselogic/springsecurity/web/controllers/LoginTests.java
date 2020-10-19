@@ -220,6 +220,7 @@ class LoginTests {
 
         //NOTE: formLogin() wont work as we have a custom login with three fields.
         // assertThat("formLogin").isNotEqualTo("Custom loginForm");
+        assertThat(mockMvc).isNotNull();
 
     }
 

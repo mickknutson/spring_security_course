@@ -29,8 +29,6 @@ import java.util.Calendar;
 @NoArgsConstructor
 public class Event implements Serializable {
 
-//    public Event() {}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

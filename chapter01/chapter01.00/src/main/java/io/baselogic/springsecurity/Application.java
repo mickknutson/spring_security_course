@@ -38,9 +38,9 @@ public class Application {
         return args -> {
 
             StringBuilder sb = new StringBuilder(1_000);
-            sb.append("\n------------------------------------------------");
+            sb.append("\n").append(LINE);
             sb.append("Let's inspect the beans provided by Spring Boot:");
-            sb.append("\n------------------------------------------------");
+            sb.append("\n").append(LINE);
 
             String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
@@ -48,11 +48,13 @@ public class Application {
                 sb.append(beanName);
             }
 
-            sb.append("\n------------------------------------------------\n");
+            sb.append("\n").append(LINE).append("\n");
 
             log.debug(sb.toString());
         };
     }
+
+    public static final String LINE = "------------------------------------------------";
 
 
 } // The End...

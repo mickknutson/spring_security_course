@@ -46,13 +46,13 @@ public class Application {
         return args -> {
             StringBuilder sb = new StringBuilder(1_000);
 
-            sb.append("\n------------------------------------------------");
+            sb.append("\n").append(LINE);
             sb.append("\nLets encrypt our standard passwords with our PasswordEncoder:");
-            sb.append("\n------------------------------------------------");
+            sb.append("\n").append(LINE);
 
             String[] passwords = {"user1", "admin1", "user2"};
             sb.append("\n\nEncoding passwords: ").append(Arrays.toString(passwords));
-            sb.append("\n------------------------------------------------\n");
+            sb.append("\n").append(LINE).append("\n");
 
             for(String raw: passwords){
                 String encoded = passwordEncoder.encode(raw);
@@ -63,10 +63,10 @@ public class Application {
 
                 sb.append("\nValue for database: \n");
                 sb.append("[").append(encoded).append("]");
-                sb.append("\n------------------------------------------------\n");
+                sb.append("\n").append(LINE).append("\n");
             }
 
-            sb.append("\n\n------------------------------------------------\n\n");
+            sb.append("\n").append("\n").append(LINE).append("\n").append("\n");
 
             log.debug(sb.toString());
         };
@@ -85,9 +85,9 @@ public class Application {
         return args -> {
 
             StringBuilder sb = new StringBuilder(1_000);
-            sb.append("\n------------------------------------------------");
+            sb.append("\n").append(LINE);
             sb.append("Let's inspect the beans provided by Spring Boot:");
-            sb.append("\n------------------------------------------------");
+            sb.append("\n").append(LINE);
 
             String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
@@ -95,11 +95,13 @@ public class Application {
                 sb.append(beanName);
             }
 
-            sb.append("\n------------------------------------------------\n");
+            sb.append("\n").append(LINE).append("\n");
 
             log.debug(sb.toString());
         };
     }
+
+    public static final String LINE = "------------------------------------------------";
 
 
 } // The End...

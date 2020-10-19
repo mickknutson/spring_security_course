@@ -52,11 +52,10 @@ public class JpaUserDao implements UserDao {
         return appUserRepository.findByEmail(email);
     }
 
-    // FIXME: Need to make a partial search:
     @Override
     @Transactional(readOnly = true)
     public List<AppUser> findAllByEmail(final @NotEmpty String partialEmail) {
-        return appUserRepository.findAll();
+        return appUserRepository.findAllByEmailContaining(partialEmail);
     }
 
 

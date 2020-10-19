@@ -173,6 +173,8 @@ public class SessionManagementTests {
 //                ;
 //
 //        log.info("*** cookies: {}", result.getResponse().getCookies());
+
+        assertThat(springSecurityFilterChain).isNotNull();
     }
 
 

@@ -38,7 +38,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-final class DomainUsernamePasswordAuthenticationFilterTests {
+class DomainUsernamePasswordAuthenticationFilterTests {
 
     @Autowired
     private DomainUsernamePasswordAuthenticationFilter filter;
