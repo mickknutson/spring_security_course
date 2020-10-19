@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title id="pageTitle">All EventManager Events</title>
@@ -16,6 +17,7 @@
 
     <div id="createEventLink" class="pull-right"><a th:href="@{/events/form}">Create Event</a></div>
     <table class="table table-bordered table-striped table-condensed">
+        <caption>Event List</caption>
         <thead>
         <tr>
             <th id="dateLabel">Date/Time</th>

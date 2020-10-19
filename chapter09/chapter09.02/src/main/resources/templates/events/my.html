@@ -17,8 +17,9 @@
         <strong th:text="${currentAppUser.email}"></strong>.
         Once security is applied this will be the events for the currently logged in appUser.
     </p>
-    <div id="createEventLink" class="pull-right" th:if="${showCreateLink}"><a th:href="@{/events/form}">Create Event</a></div>
+    <div id="createEventLink" class="pull-right"><a th:href="@{/events/form}">Create Event</a></div>
     <table class="table table-bordered table-striped table-condensed">
+        <caption>My Event List</caption>
         <thead>
         <tr>
             <th id="dateLabel">Date/Time</th>

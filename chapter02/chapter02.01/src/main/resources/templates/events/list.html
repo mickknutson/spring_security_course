@@ -9,12 +9,15 @@
 
 <div class="container">
     <th:block th:insert="fragments/header :: header"></th:block>
+    <th:block th:insert="fragments/messages :: messages"></th:block>
 
     <h2 id="heading">All Event</h2>
 
     <p>This shows all events for all appUsers. Once security is applied it will only be viewable to administrators.</p>
+
     <div id="createEventLink" class="pull-right"><a th:href="@{/events/form}">Create Event</a></div>
     <table class="table table-bordered table-striped table-condensed">
+        <caption>Event List</caption>
         <thead>
         <tr>
             <th id="dateLabel">Date/Time</th>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-
 <head>
     <title id="pageTitle">Create Event</title>
 
@@ -24,6 +23,7 @@
 
         <legend>
             <table class="table table-bordered table-striped table-condensed">
+                <caption>Create Event</caption>
                 <tr>
                     <th id="nameHeader" class="col-sm-1">
                         <label class=" col-form-label" for="attendeeEmail">Attendee Email</label>
@@ -46,7 +46,7 @@
                 </tr>
 
                 <tr>
-                    <th>
+                    <th id="summaryHeader">
                         <label class=" col-form-label" for="summary">Summary</label>
                         <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('summary')}"
                               th:errors="*{summary}"></span>
@@ -56,7 +56,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>
+                    <th id="descriptionHeader">
                         <label class=" col-form-label" for="when">Description</label>
                         <span id="fieldsErrors" class="red ui-state-error ui-state-error-text" th:if="${#fields.hasErrors('description')}"
                               th:errors="*{description}"></span>
@@ -67,7 +67,7 @@
                 </tr>
 
                 <tr>
-                    <th colspan="2">
+                    <th id="buttonsHeader" colspan="2">
                         <button type="submit" class="btn btn-default" id="submit" name="create" >Create</button>
                         <button type="submit" class="btn btn-default" id="auto" name="auto" >Auto Populate Form</button>
                     </th>

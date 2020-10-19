@@ -96,9 +96,9 @@ public class HeaderTests {
     @WithAnonymousUser
     void test_http_headers_httpStrictTransportSecurity() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-//                .andExpect(header().string("Strict-Transport-Security", "max-age=31536000 ; includeSubDomains"))
+        MvcResult result = mockMvc.perform(get("https://localhost:8443"))
+                .andExpect(status().isFound())
+                .andExpect(header().string("Strict-Transport-Security", "max-age=31536000 ; includeSubDomains"))
                 .andReturn();
     }
 
@@ -110,7 +110,7 @@ public class HeaderTests {
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 // Frames are needed for H2 Admin Console:
-//                .andExpect(header().string("X-Frame-Options", "DENY"))
+                // .andExpect(header().string("X-Frame-Options", "DENY"))
                 .andReturn();
     }
 
