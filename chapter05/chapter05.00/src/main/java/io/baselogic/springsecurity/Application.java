@@ -14,7 +14,4 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
 } // The End...

@@ -29,7 +29,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Autowired
+    @Autowired(required = false)
     private PasswordEncoder passwordEncoder;
 
     /**

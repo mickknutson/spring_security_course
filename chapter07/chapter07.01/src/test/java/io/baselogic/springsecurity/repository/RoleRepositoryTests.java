@@ -2,24 +2,34 @@ package io.baselogic.springsecurity.repository;
 
 import io.baselogic.springsecurity.domain.Role;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
-@Transactional
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DataJpaTest
 @Slf4j
 class RoleRepositoryTests {
 
     @Autowired
+    private TestEntityManager entityManager;
+
+    @Autowired
     private RoleRepository repository;
+
+
+    @BeforeEach
+    void beforeEachTest() {
+        Role test = new Role();
+        test.setId(42);
+        test.setName("TEST");
+
+//        entityManager.persist(test);
+    }
 
 	@Test
     @DisplayName("RoleRepository - validateUser_User")

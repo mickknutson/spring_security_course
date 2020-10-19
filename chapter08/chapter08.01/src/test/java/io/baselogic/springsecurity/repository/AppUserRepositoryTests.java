@@ -17,8 +17,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@Transactional
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DataJpaTest
 @Slf4j
 class AppUserRepositoryTests {
 

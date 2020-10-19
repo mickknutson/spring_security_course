@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 
 @Transactional
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest//(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 class JpaUserDaoTests {
 
