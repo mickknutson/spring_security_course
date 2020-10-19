@@ -68,7 +68,6 @@ class WelcomeControllerTests {
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!")
                 .contains("Chapter 11.00");
-        assertThat(content).contains("Custom Authorization");
 
     }
 

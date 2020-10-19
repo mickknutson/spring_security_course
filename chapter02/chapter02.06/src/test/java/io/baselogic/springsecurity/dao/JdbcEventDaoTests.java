@@ -49,8 +49,8 @@ class JdbcEventDaoTests {
         log.info(event.toString());
 
         assertThat(event).isNotNull()
-                .isNotEqualTo(new Object());
-        assertThat(event.equals(Event.builder().build())).isFalse();
+                .isNotEqualTo(new Object())
+                .isNotEqualTo(Event.builder().build());
         assertThat(event.hashCode()).isNotZero();
 
         assertThat(event.getSummary()).isEqualTo("Birthday Party");

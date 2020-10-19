@@ -68,7 +68,6 @@ class WelcomeControllerTests {
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!")
                 .contains("Chapter 04.01");
-        assertThat(content).contains("Configuring Jdbc Support");
 
     }
 

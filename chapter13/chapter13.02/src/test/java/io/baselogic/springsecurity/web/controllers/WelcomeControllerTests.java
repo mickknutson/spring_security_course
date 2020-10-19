@@ -68,7 +68,6 @@ class WelcomeControllerTests {
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!")
                 .contains("Chapter 13.02");
-        assertThat(content).contains("Additional Spring Security HTTP Features");
 
     }
 

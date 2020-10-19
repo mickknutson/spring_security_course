@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
@@ -118,6 +120,21 @@ public class UserSessionControllerTests {
         List<SessionInformation> sessions = (List<SessionInformation>) result.getModelAndView().getModel().get("userSessions");
 
         assertThat(sessions).isEqualTo(userSessions);
+
+    }
+
+
+//    @Test
+    @DisplayName("Show UserSessions - null Authentication")
+//    @WithAnonymousUser
+//    @WithUserDetails(user = null)
+    void show_userSessions__null_authentication() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/user/sessions/"))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/error"))
+                .andExpect(flash().attribute("message", "Authentication is null"))
+                .andReturn();
 
     }
 

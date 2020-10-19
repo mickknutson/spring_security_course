@@ -68,7 +68,6 @@ class WelcomeControllerTests {
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!")
                 .contains("Chapter 08.00");
-        assertThat(content).contains("Spring Social OAuth 2");
 
     }
 

@@ -68,7 +68,6 @@ class WelcomeControllerTests {
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!")
                 .contains("Chapter 05.01");
-        assertThat(content).contains("Refactor JDBC implementation to use Spring Data JPA");
 
     }
 
