@@ -45,7 +45,7 @@ class BCryptPasswordEncoderMainTests {
         String[] args = {"PASSWORD"};
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
-        assertThat("result").isNotEqualTo("completed");
+        // assertThat("result").isNotEqualTo("completed");
     }
 
     @Test
@@ -54,7 +54,7 @@ class BCryptPasswordEncoderMainTests {
         String[] args = {};
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
-        assertThat("result").isNotEqualTo("completed");
+        // assertThat("result").isNotEqualTo("completed");
     }
 
     @Test
@@ -63,7 +63,7 @@ class BCryptPasswordEncoderMainTests {
         String[] args = null;
         BCryptPasswordEncoderMain.main(args);
 //        assertThat(result).isEqualTo(PASSWORD_ENCODED);
-        assertThat("result").isNotEqualTo("completed");
+        // assertThat("result").isNotEqualTo("completed");
     }
 
 } // The End...

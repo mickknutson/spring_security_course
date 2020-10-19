@@ -46,7 +46,7 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
     }
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
         String email = token.getName();
         EventUser user = email == null ? null : eventService.findUserByEmail(email);

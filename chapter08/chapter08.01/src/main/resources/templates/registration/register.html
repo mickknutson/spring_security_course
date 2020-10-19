@@ -22,6 +22,7 @@
 
         <legend>
             <table class="table table-bordered table-striped table-condensed">
+                <caption>User Registration</caption>
                 <tr>
                     <th id="nameHeader" class="col-sm-1">
                         <label class=" col-form-label" for="firstName">First Name</label>
@@ -73,19 +74,6 @@
 
         </legend>
     </form>
-
-
-
-    <br />
-    <h3>Social Login</h3>
-    <br />
-    <form th:action="@{/registration/twitter}" method="POST" class="form-horizontal">
-        <input type="hidden" name="scope" value="public_profile" />
-        <div class="form-actions">
-            <input id="twitter-submit" class="btn" type="submit" value="Login using Twitter"/>
-        </div>
-    </form>
-
 
 </div>
 

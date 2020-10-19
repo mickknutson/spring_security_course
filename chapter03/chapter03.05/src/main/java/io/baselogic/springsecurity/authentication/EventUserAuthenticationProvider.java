@@ -41,7 +41,7 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
     }
 
     @Override
-    public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(final Authentication authentication) {
 
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 

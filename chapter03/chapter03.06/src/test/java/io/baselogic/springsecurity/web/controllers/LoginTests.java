@@ -219,7 +219,7 @@ class LoginTests {
                 .andReturn();*/
 
         //NOTE: formLogin() wont work as we have a custom login with three fields.
-        assertThat("formLogin").isNotEqualTo("Custom loginForm");
+        // assertThat("formLogin").isNotEqualTo("Custom loginForm");
 
     }
 

@@ -38,7 +38,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-public final class DomainUsernamePasswordAuthenticationFilterTests {
+final class DomainUsernamePasswordAuthenticationFilterTests {
 
     @Autowired
     private DomainUsernamePasswordAuthenticationFilter filter;
@@ -64,7 +64,7 @@ public final class DomainUsernamePasswordAuthenticationFilterTests {
 
     @Test
     @DisplayName("attempt valid Authentication")
-    public void attemptAuthentication_valid() throws ServletException, IOException{
+    void test_attemptAuthentication_valid() throws ServletException, IOException{
 
         MockHttpServletRequest request = new MockHttpServletRequest(HttpMethod.POST.name(), "/login");
         request.addParameter("username", "user1");
@@ -91,7 +91,7 @@ public final class DomainUsernamePasswordAuthenticationFilterTests {
 
     @Test
     @DisplayName("attempt Authentication with a non-POST HTTP method")
-    public void attemptAuthentication_non_POST_method() throws ServletException, IOException{
+    void test_attemptAuthentication_non_POST_method() throws ServletException, IOException{
 
         MockHttpServletRequest request = new MockHttpServletRequest(HttpMethod.GET.name(), "/login");
         request.addParameter("username", "user1");

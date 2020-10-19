@@ -30,8 +30,7 @@ public final class DomainUsernamePasswordAuthenticationFilter extends UsernamePa
 
     @Override
     public Authentication attemptAuthentication(final HttpServletRequest request,
-                                                final HttpServletResponse response)
-            throws AuthenticationException {
+                                                final HttpServletResponse response) {
 
         log.info("attemptAuthentication");
         log.info("request.getMethod(): {}", request.getMethod());
