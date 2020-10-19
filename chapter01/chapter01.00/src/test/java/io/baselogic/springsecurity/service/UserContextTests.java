@@ -62,9 +62,12 @@ class UserContextTests {
 
     @Test
     void test_setCurrentUser_invalid_User() {
+        AppUser user = new AppUser();
+
         assertThrows(IllegalArgumentException.class, () -> {
-            userContext.setCurrentUser(new AppUser());
+            userContext.setCurrentUser(user);
         });
     }
+
 
 } // The End...

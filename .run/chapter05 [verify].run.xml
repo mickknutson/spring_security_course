@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="chapter05 [verify]" type="MavenRunConfiguration" factoryName="Maven" folderName="Chapter 05">
+  <configuration default="false" name="chapter05 [clean, verify, -e]" type="MavenRunConfiguration" factoryName="Maven" folderName="Chapter 05">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />

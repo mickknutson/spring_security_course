@@ -60,9 +60,8 @@ class EventRepositoryTests {
         Event event = repository.findById(100).orElseThrow(RuntimeException::new);
         log.info(event.toString());
 
-        assertThat(event).isNotNull();
-
-        assertThat(event).isNotEqualTo(new Object());
+        assertThat(event).isNotNull()
+                .isNotEqualTo(new Object());
         assertThat(event).isNotEqualTo(new Event());
         assertThat(event.hashCode()).isNotZero();
 

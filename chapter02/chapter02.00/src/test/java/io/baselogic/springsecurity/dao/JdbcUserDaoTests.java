@@ -48,14 +48,12 @@ class JdbcUserDaoTests {
 
     @Test
     void findById() {
-        AppUser user = userDao.findById(1);
-        log.info(user.toString());
+        AppUser appUser = userDao.findById(1);
 
-        assertThat(user).isNotNull();
-        assertThat(user.equals(user)).isTrue();
-        assertThat(user.equals(new Object())).isFalse();
-        assertThat(user.equals(new AppUser())).isFalse();
-        assertThat(user.hashCode()).isNotZero();
+        assertThat(appUser).isNotNull()
+                .isNotEqualTo(new Object())
+                .hasFieldOrPropertyWithValue("id", 1);
+        assertThat(appUser.hashCode()).isNotZero();
     }
 
     @Test

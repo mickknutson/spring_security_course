@@ -99,8 +99,10 @@ class EventUserDetailsServiceTests {
         given(userDao.findByEmail(any(String.class)))
                 .willReturn(null);
 
+        String email = TestUtils.admin1.getEmail();
+
         assertThrows(UsernameNotFoundException.class, () -> {
-            eventUserDetailsService.loadUserByUsername(TestUtils.admin1.getEmail());
+            eventUserDetailsService.loadUserByUsername(email);
         });
     }
 

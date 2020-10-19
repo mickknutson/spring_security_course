@@ -202,8 +202,8 @@ class EventsControllerTests {
         assertThat(id).isEqualTo("Current Users Events");
 
         String summary = page.getHtmlElementById("description").getTextContent();
-        assertThat(summary).contains("Below you can find the events for");
-        assertThat(summary).contains("user1@baselogic.com");
+        assertThat(summary).contains("Below you can find the events for")
+                            .contains("user1@baselogic.com");
 
     }
 
@@ -430,7 +430,7 @@ class EventsControllerTests {
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-        log.info("***: {}", pageAfterClick.asXml());
+        log.debug("***: {}", pageAfterClick.asXml());
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").asXml();
         assertThat(errors).contains("Event Date/Time is required");
@@ -468,7 +468,7 @@ class EventsControllerTests {
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-        log.info("***: {}", pageAfterClick.asXml());
+        log.debug("***: {}", pageAfterClick.asXml());
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").asXml();
         assertThat(errors).contains("Summary is required");
@@ -506,7 +506,7 @@ class EventsControllerTests {
         assertThat(pageAfterClick.getTitleText())
                 .contains("Create Event");
 
-        log.info("***: {}", pageAfterClick.asXml());
+        log.debug("***: {}", pageAfterClick.asXml());
 
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").asXml();

@@ -48,10 +48,9 @@ class JpaUserDaoTests {
     void findById() {
         AppUser appUser = userDao.findById(1);
 
-        assertThat(appUser).isNotNull();
-        // assertThat(appUser.equals(appUser)).isTrue();
-        assertThat(appUser).isNotEqualTo(new Object());
-        assertThat(appUser.equals(new AppUser())).isFalse();
+        assertThat(appUser).isNotNull()
+                .isNotEqualTo(new Object())
+                .hasFieldOrPropertyWithValue("id", 1);
         assertThat(appUser.hashCode()).isNotZero();
     }
 
@@ -93,7 +92,7 @@ class JpaUserDaoTests {
     @Test
     void findAllByEmail_no_results() {
         List<AppUser> appUsers = userDao.findAllByEmail("@baselogic.io");
-        assertThat(appUsers.size()).isGreaterThanOrEqualTo(3);
+        assertThat(appUsers.size()).isZero();
     }
 
     //-----------------------------------------------------------------------//

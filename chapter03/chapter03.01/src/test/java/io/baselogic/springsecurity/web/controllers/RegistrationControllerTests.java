@@ -146,7 +146,7 @@ class RegistrationControllerTests {
                 .contains("User Registration");
 
         if(log.isTraceEnabled()){
-            log.info("***: {}", pageAfterClick.asXml());
+            log.debug("***: {}", pageAfterClick.asXml());
         }
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
@@ -185,7 +185,7 @@ class RegistrationControllerTests {
                 .contains("User Registration");
 
         if(log.isTraceEnabled()){
-            log.info("***: {}", pageAfterClick.asXml());
+            log.debug("***: {}", pageAfterClick.asXml());
         }
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
@@ -224,7 +224,7 @@ class RegistrationControllerTests {
                 .contains("User Registration");
 
         if(log.isTraceEnabled()){
-            log.info("***: {}", pageAfterClick.asXml());
+            log.debug("***: {}", pageAfterClick.asXml());
         }
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
@@ -263,7 +263,7 @@ class RegistrationControllerTests {
                 .contains("User Registration");
 
         if(log.isTraceEnabled()){
-            log.info("***: {}", pageAfterClick.asXml());
+            log.debug("***: {}", pageAfterClick.asXml());
         }
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();
@@ -302,7 +302,7 @@ class RegistrationControllerTests {
                 .contains("User Registration");
 
         if(log.isTraceEnabled()){
-            log.info("***: {}", pageAfterClick.asXml());
+            log.debug("***: {}", pageAfterClick.asXml());
         }
 
         String errors = pageAfterClick.getHtmlElementById("fieldsErrors").getTextContent();

@@ -56,7 +56,7 @@ public class MongoAppUserDao implements UserDao {
 
     @Override
     public List<AppUser> findAllByEmail(@NotEmpty String partialEmail) {
-        return appUserRepository.findAll();
+        return appUserRepository.findAllByEmailContaining(partialEmail);
     }
 
     @Override
