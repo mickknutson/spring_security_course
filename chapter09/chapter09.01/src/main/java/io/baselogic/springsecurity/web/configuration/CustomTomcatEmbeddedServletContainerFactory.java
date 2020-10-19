@@ -42,9 +42,7 @@ public class CustomTomcatEmbeddedServletContainerFactory {
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainer() {
         log.info("*** Setting Custom Tomcat specific configurations ***");
 
-        return factory -> {
-            init(factory);
-        };
+        return this::init;
     }
 
     /**

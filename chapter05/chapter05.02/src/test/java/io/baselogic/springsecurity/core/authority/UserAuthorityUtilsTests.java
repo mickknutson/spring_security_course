@@ -24,7 +24,7 @@ class UserAuthorityUtilsTests {
     @DisplayName("UserAuthorityUtilsTests - createAuthorities")
     void createAuthorities() {
         Collection<GrantedAuthority> authorities = UserAuthorityUtils.createAuthorities(TestUtils.user1);
-        assertThat(authorities.size()).isEqualTo(1);
+        assertThat(authorities).hasSize(1);
     }
 
 

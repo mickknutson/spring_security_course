@@ -151,6 +151,15 @@ class AuditTraceTests {
         log.info(holder.toString());
 
 
+        AuditContextHolderStrategy strategy = AuditContextHolder.getContextHolderStrategy();
+        assertThat(strategy).isInstanceOf(GlobalAuditContextHolderStrategy.class);
+
+
+        AuditContextHolder.clearContext();
+        AuditContext clearedContext = AuditContextHolder.getContext();
+        assertThat(clearedContext).isNotNull();
+
+
     }
 
 

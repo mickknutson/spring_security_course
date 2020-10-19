@@ -81,7 +81,7 @@ class EventRepositoryTests {
     void createEvent() {
         log.debug("******************************");
         List<Event> events = repository.findByOwner(owner);
-        assertThat(events.size()).isGreaterThanOrEqualTo(1);
+        assertThat(events.size()).isPositive();
 
         Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
         int eventId = repository.save(event).getId();
@@ -104,7 +104,7 @@ class EventRepositoryTests {
     @DisplayName("EventRepository - create Event - IllegalArgumentException > ID")
     void createEvent_with_event_id() {
         List<Event> events = repository.findByOwner(owner);
-        assertThat(events.size()).isGreaterThanOrEqualTo(1);
+        assertThat(events.size()).isPositive();
 
 //        assertThrows(IllegalArgumentException.class, () -> {
             Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");

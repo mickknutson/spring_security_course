@@ -65,7 +65,7 @@ class JpaEventDaoTests {
     void createEvent() {
         log.debug("******************************");
         List<Event> events = eventDao.findByUser(owner.getId());
-        assertThat(events.size()).isGreaterThanOrEqualTo(1);
+        assertThat(events.size()).isPositive();
 
         Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
         int eventId = eventDao.save(event);
