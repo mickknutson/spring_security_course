@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since chapter09.02 added Conditional ModelAttribute rendering tests for user1 & admin1
  * @since chapter09.03 added Access admin secured event listing tests
  */
-@ExtendWith(SpringExtension.class)
+    
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j

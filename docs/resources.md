@@ -22,6 +22,10 @@
 > * [x.509](https://en.wikipedia.org/wiki/X.509)
 > * [Transport Layer Security (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security)
 > * [letsencrypt.org TLS Certificates](https://letsencrypt.org/getting-started/)
+> * [Strict-Transport-Security (HTS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)
+> * [Certificate Transparency](https://developer.mozilla.org/en-US/docs/Web/Security/Certificate_Transparency)
+> * [HTTP Public Key Pinning (HPKP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Public_Key_Pinning)
+
 
 ## Java EE
 > * [https://www.oracle.com/africa/java/technologies/java-ee-glance.html](https://www.oracle.com/africa/java/technologies/java-ee-glance.html)

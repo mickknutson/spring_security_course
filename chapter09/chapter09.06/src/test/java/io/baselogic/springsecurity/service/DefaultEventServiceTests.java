@@ -34,7 +34,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @since chapter09.06 Updated findAllEvents() to not throw exception
  * @since chapter09.06 Updated findEventByUser methods to support @PreAuthorize("hasRole('ADMIN') or principal.id == #userId")
  */
-@ExtendWith(SpringExtension.class)
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 class DefaultEventServiceTests {

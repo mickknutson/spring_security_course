@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since chapter09.01 added Conditional rendering tests for user1 & admin1
  * @since chapter09.02 added Conditional ModelAttribute rendering tests for user1 & admin1
  */
-@ExtendWith(SpringExtension.class)
+
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j

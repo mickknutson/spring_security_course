@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since chapter09.07 Updated tests for PostAuthorize for Access admin secured event listing tests
  * @since chapter09.07 Added tests for PostAuthorize for findEventById
  */
-@ExtendWith(SpringExtension.class)
+
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j

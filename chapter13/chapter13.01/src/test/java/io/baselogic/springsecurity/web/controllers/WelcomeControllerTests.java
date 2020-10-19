@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@ExtendWith(SpringExtension.class)
+
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
@@ -69,8 +69,8 @@ class WelcomeControllerTests {
 
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!");
-        assertThat(content).contains("Chapter 12.00");
-        assertThat(content).contains("Session Management");
+        assertThat(content).contains("Chapter 13.01");
+        assertThat(content).contains("Additional Spring Security HTTP Features");
 
     }
 
@@ -84,13 +84,13 @@ class WelcomeControllerTests {
         assertThat(id).isEqualTo("Welcome to the EventManager!");
 
         String chapterHeading = welcomePage.getHtmlElementById("chapterHeading").getTextContent();
-        assertThat(chapterHeading).contains("Chapter 12.00");
+        assertThat(chapterHeading).contains("Chapter 13.01");
 
         String chapterTitle = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
         assertThat(chapterTitle).contains("Each chapter will have a slightly different summary depending on what has been done.");
 
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("Session Management");
+        assertThat(summary).contains("Additional Spring Security HTTP Features");
     }
 
     //-----------------------------------------------------------------------//

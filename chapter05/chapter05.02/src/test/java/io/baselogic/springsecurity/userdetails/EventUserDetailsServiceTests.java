@@ -24,7 +24,7 @@ import static org.mockito.BDDMockito.given;
  *
  * @since chapter03.03
  */
-@ExtendWith(SpringExtension.class)
+
 //@Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j

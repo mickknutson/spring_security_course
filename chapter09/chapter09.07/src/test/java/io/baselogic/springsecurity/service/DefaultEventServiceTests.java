@@ -35,7 +35,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @since chapter09.06 Updated findEventByUser methods to support @PreAuthorize("hasRole('ADMIN') or principal.id == #userId")
  * @since chapter09.07 Updated findEventById methods to support @PostAuthorize("hasRole('ADMIN') or authentication.principal.id == returnObject.owner.id...
  */
-@ExtendWith(SpringExtension.class)
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 class DefaultEventServiceTests {

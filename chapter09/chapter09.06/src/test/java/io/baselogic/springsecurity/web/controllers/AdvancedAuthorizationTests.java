@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since chapter09.03 added Access admin secured event listing tests
  * @since chapter09.06 added findEventByUser() tests for @PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userId")
  */
-@ExtendWith(SpringExtension.class)
+
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j

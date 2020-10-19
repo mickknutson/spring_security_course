@@ -30,7 +30,7 @@ import static org.mockito.Mockito.verify;
  * @since chapter09.04 Added @WithMockEventUserDetailsAdmin1 to findAllEvents()
  * @since chapter09.04 Added @WithMockEventUserDetailsUser1 to findAllEvents_user1()
  */
-@ExtendWith(SpringExtension.class)
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 class DefaultEventServiceTests {

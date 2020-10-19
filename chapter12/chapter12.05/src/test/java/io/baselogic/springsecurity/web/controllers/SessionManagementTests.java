@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author mickknutson
  * @since chapter12.01 Created
  */
-@ExtendWith(SpringExtension.class)
+    
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j

@@ -1,23 +1,26 @@
-# Chapter 13.01
+# Chapter 13.02
 
-## Using Spring Security CSRF protection
-In this chapter we enable default CSRF support in Spring and Thymeleaf.
+## Spring Security Headers
+In this chapter we enable support in Spring MVC.
 
 ## Tasks
 
 ### Update SecurityConfig
-> * Enabled .crsf()
+> * Enabled .contentTypeOptions()
+> * Enabled .xssProtection()
+> * Enabled .cacheControl()
+> * Enabled .frameOptions()
 
 
-### Update Unit Tests
-> * Added CSRF support for Mock Mvc using .with(csrf())
+### Adding Unit Tests
+> * Added contentTypeOptions() validation
+> * Added xssProtection() validation
+> * Added cacheControl() validation
+> * Added frameOptions() validation but disabled test due to H2 Admin Console.
 
 
 ### TODO
-> * .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-> * CsrfAuthenticationStrategy
-> * .csrfTokenRepository()
-> * .requireCsrfProtectionMatcher()
+> * Research .block()
 
 
 ---

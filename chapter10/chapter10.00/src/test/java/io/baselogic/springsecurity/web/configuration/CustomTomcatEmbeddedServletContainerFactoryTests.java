@@ -118,7 +118,7 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
 
         HtmlPage page = webClient.getPage(targetUri);
 
-        log.info("page.asText(): {}", page.asXml());
+        log.debug("page.asText(): {}", page.asXml());
 
 //        log.info("page.getDocumentURI(): {}", page.getDocumentURI());
 //        assertThat(page.getDocumentURI()).contains(redirectUrl);

@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author mickknutson
  * @since chapter12.01 Created
  */
-@ExtendWith(SpringExtension.class)
+
 @AutoConfigureWebMvc
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

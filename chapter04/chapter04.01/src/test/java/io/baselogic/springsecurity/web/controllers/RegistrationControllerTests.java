@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @since chapter03.00
  */
-@ExtendWith(SpringExtension.class)
+
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j

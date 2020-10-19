@@ -29,7 +29,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
+    
 @AutoConfigureMockMvc
 @SpringBootTest
 @ActiveProfiles("tls")
@@ -119,7 +119,7 @@ public class CustomTomcatEmbeddedServletContainerFactoryTests {
 
         HtmlPage page = webClient.getPage(targetUri);
 
-        log.info("page.asText(): {}", page.asXml());
+        log.debug("page.asText(): {}", page.asXml());
 
 //        log.info("page.getDocumentURI(): {}", page.getDocumentURI());
 //        assertThat(page.getDocumentURI()).contains(redirectUrl);

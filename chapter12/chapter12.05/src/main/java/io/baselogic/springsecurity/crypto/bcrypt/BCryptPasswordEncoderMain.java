@@ -57,7 +57,7 @@ public final class BCryptPasswordEncoderMain {
 
         sb.append("\n\n------------------------------------------------\n\n");
 
-        log.info(sb.toString());
+        log.debug(sb.toString());
     }
 
 } // The End...

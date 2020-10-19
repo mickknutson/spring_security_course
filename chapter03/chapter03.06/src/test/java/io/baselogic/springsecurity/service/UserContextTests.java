@@ -29,7 +29,7 @@ import static org.mockito.BDDMockito.given;
  * @since chapter1.00
  * @since chapter03.01 using SpringSecurityUserContext
  */
-@ExtendWith(SpringExtension.class)
+    
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j

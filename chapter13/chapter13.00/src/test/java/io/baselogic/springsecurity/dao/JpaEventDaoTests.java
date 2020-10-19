@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @since chapter5.01
  */
-@ExtendWith(SpringExtension.class)
+
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j

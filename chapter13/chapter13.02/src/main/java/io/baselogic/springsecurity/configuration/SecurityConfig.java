@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -44,10 +46,10 @@ import java.util.Map;
  * @since chapter05.01 Removed custom SQL Queries
  * @since chapter05.01 Added auth.userDetailsService(userDetailsService)
  * @since chapter13.01 Enabled CSRF
+ * @since chapter13.02 Enabled HTTP Security Headers
  */
 @Configuration
 @EnableWebSecurity
-//@EnableWebMvcSecurity
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -110,7 +112,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *          .and().logout();
      * </pre>
      *
-     * @see  org.springframework.security.access.expression.SecurityExpressionRoot
+     * @see  SecurityExpressionRoot
+     * @see HeadersConfigurer
+     *
      * @param http HttpSecurity configuration.
      * @throws Exception Authentication configuration exception
      */
@@ -172,7 +176,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         // HTTP Security Headers
-        http.headers().disable();
+        // Disable all security headers:
+        // http.headers().disable();
+
+         // You can enable only a few of the headers by first invoking
+         http.headers().defaultsDisabled()
+
+            // Enabled ContentType Headers
+            .contentTypeOptions()
+            // Enabled XSS Protection (todo: block())
+            .and().xssProtection()
+            // Enable Cache Control
+            .and().cacheControl()
+            // Enable HTTP Strict Transport Security
+            .and().httpStrictTransportSecurity()
+         ;
 
         // Enable <frameset> in order to use H2 web console
         http.headers().frameOptions().disable();

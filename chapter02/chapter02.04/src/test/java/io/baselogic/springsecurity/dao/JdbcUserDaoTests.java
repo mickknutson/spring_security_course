@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 // http://joel-costigliola.github.io/assertj/index.html
 
 
-@ExtendWith(SpringExtension.class)
+    
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j

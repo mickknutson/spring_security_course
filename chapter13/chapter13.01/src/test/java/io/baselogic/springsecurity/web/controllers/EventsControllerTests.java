@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since chapter01.00 Created
  * @since chapter13.01 Added CSRF support for Mock Mvc using .with(csrf())
  */
-@ExtendWith(SpringExtension.class)
+
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j

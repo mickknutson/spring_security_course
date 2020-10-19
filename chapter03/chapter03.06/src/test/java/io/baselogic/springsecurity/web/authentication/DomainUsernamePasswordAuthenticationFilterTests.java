@@ -34,7 +34,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
  * @author mickknutson
  * @since chapter03.06 Created Class
  */
-@ExtendWith(SpringExtension.class)
+
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
