@@ -23,10 +23,9 @@
     </modules>
 
     <properties>
-        <!-- SEE Sub-Module chapter14.00 pom.xml -->
-        <!--<webjarsBootstrap.version>3.4.1</webjarsBootstrap.version>
+        <webjarsBootstrap.version>3.4.1</webjarsBootstrap.version>
         <webjarsJquery.version>3.5.1</webjarsJquery.version>
-        <webjarsLocator.version>0.40</webjarsLocator.version>-->
+        <webjarsLocator.version>0.40</webjarsLocator.version>
     </properties>
 
 
@@ -40,20 +39,18 @@
 
 
         <!-- WEB: -->
-        <!-- Not using standard Web MVC -->
-        <!-- SEE Sub-Module chapter14.00 pom.xml -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!-- ThymeLeaf specific dependencies -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>-->
+        </dependency>
 
-        <!--<dependency>
+        <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
             <artifactId>thymeleaf-layout-dialect</artifactId>
         </dependency>
@@ -76,7 +73,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator-core</artifactId>
-        </dependency>-->
+        </dependency>
 
 
         <!-- DATABASE: -->

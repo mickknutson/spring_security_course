@@ -1,13 +1,11 @@
 package io.baselogic.springsecurity.dao;
 
 import io.baselogic.springsecurity.domain.AppUser;
-import io.baselogic.springsecurity.repository.AppUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,15 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since chapter5.01
  */
     
-@Transactional
+//@Transactional
 @SpringBootTest//(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 class JpaUserDaoTests {
-
-    // Mockito:
-//    @MockBean
-    private AppUserRepository appUserRepository;
-
 
     @Autowired
     private UserDao userDao;

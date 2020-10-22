@@ -47,7 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @Slf4j
-public class RememberMeTests {
+class RememberMeTests {
 
     @Autowired
     private MockMvc mockMvc;

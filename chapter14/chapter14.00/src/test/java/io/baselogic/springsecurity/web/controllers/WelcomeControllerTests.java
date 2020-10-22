@@ -67,7 +67,7 @@ class WelcomeControllerTests {
 
         String content = result.getResponse().getContentAsString();
         assertThat(content).contains("Welcome to the EventManager!")
-                .contains("Chapter 14.00");
+                .contains("Chapter 05.02");
 
     }
 
@@ -81,13 +81,13 @@ class WelcomeControllerTests {
         assertThat(id).isEqualTo("Welcome to the EventManager!");
 
         String chapterHeading = welcomePage.getHtmlElementById("chapterHeading").getTextContent();
-        assertThat(chapterHeading).contains("Chapter 14.00");
+        assertThat(chapterHeading).contains("Chapter 05.02");
 
         String chapterTitle = welcomePage.getHtmlElementById("chapterTitle").getTextContent();
         assertThat(chapterTitle).contains("Each chapter will have a slightly different summary depending on what has been done.");
 
         String summary = welcomePage.getHtmlElementById("summary").getTextContent();
-        assertThat(summary).contains("Reactive Spring Security");
+        assertThat(summary).contains("Refactor JPA implementation to use Spring Data Mongo DB");
     }
 
     //-----------------------------------------------------------------------//

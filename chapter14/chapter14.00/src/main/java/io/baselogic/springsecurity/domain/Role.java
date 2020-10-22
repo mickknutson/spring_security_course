@@ -1,39 +1,45 @@
 package io.baselogic.springsecurity.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * A {@link Role} is grouping of allowed Authorizations.
  *
  * @author Mick Knutson
  */
-// JPA Annotations:
-@Entity
-@Table(name = "roles")
+// Document Annotations:
+@Document(collection="role")
 
 // Lombok Annotations:
-//@Data // Throws StackOverflowError
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class Role implements Serializable {
+public class Role implements Persistable<Integer>, Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
-    @JsonBackReference
-    private Set<AppUser> users;
+    private Boolean persisted = Boolean.FALSE;
+
+
+    @PersistenceConstructor
+    public Role(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public boolean isNew() {
+        return !persisted;
+    }
+
+
 
 } // The End...

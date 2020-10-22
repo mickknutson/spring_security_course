@@ -7,8 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -21,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @since chapter5.01
  */
-
-@Transactional
+    
+//@Transactional
 @SpringBootTest//(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 class JpaEventDaoTests {
@@ -78,7 +76,7 @@ class JpaEventDaoTests {
 
     @Test
     void createEvent_null_event() {
-        assertThrows(InvalidDataAccessApiUsageException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
             eventDao.save(null);
         });
     }
@@ -107,12 +105,16 @@ class JpaEventDaoTests {
 
     @Test
     void createEvent_null_event_attendee() {
-        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-        event.setAttendee(null);
+        List<Event> eventsPre = eventDao.findAll();
+        assertThat(eventsPre.size()).isGreaterThanOrEqualTo(1);
 
-        assertThrows(ConstraintViolationException.class, () -> {
+//        assertThrows(ConstraintViolationException.class, () -> {
+            Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+            event.setAttendee(null);
             eventDao.save(event);
-        });
+//        });
+        List<Event> eventsPost = eventDao.findAll();
+        assertThat(eventsPost.size()).isGreaterThan(eventsPre.size());
 
     }
 

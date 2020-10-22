@@ -1,11 +1,11 @@
 package io.baselogic.springsecurity.repository;
 
 import io.baselogic.springsecurity.domain.AppUser;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
+public interface AppUserRepository extends MongoRepository<AppUser, Integer> {
 
     AppUser findByEmail(String email);
 

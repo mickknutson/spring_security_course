@@ -73,6 +73,7 @@ public class SpringSecurityUserContext implements UserContext {
                 authentication.getPrincipal()
         );
 
+
         AppUser result = eventService.findUserByEmail(email);
         if (result == null) {
             throw new IllegalStateException(

@@ -29,7 +29,6 @@ import javax.validation.constraints.NotNull;
  * @since chapter03.04 added support for custom EventUserDetails
  * @since chapter03.05 Removed Class
  * @since chapter05.01 Re-Created Class from chapter03.04
- * @since chapter05.01 Added custom Service name @Service("userDetailsService")
  *
  */
 @Service("userDetailsService")

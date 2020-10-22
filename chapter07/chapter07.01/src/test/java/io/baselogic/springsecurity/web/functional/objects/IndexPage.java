@@ -121,23 +121,23 @@ public class IndexPage //extends AbstractPage
 
         if(isUserAuthenticated()) {
             log.info("logoutLink: {}", logoutLink);
-            assertThat(getLogoutLink().isDisplayed()).isEqualTo(true);
-            assertThat(getLogoutLink().isEnabled()).isEqualTo(true);
+            assertThat(getLogoutLink().isDisplayed()).isTrue();
+            assertThat(getLogoutLink().isEnabled()).isTrue();
 
             log.info("authenticationName: {}", authenticationName);
-//            assertThat(getLogoutLink().isDisplayed()).isEqualTo(true);
-//            assertThat(getLogoutLink().isEnabled()).isEqualTo(true);
+//            assertThat(getLogoutLink().isDisplayed()).isTrue();
+//            assertThat(getLogoutLink().isEnabled()).isTrue();
 
         } else {
             log.info("login: {}", loginLink.isDisplayed());
             log.info("login: {}", loginLink.isEnabled());
-            assertThat(getLoginLink().isDisplayed()).isEqualTo(true);
-            assertThat(getLoginLink().isEnabled()).isEqualTo(true);
+            assertThat(getLoginLink().isDisplayed()).isTrue();
+            assertThat(getLoginLink().isEnabled()).isTrue();
 
             log.info("registrationLink: {}", registrationLink.isDisplayed());
             log.info("registrationLink: {}", registrationLink.isEnabled());
-            assertThat(getRegistrationLink().isDisplayed()).isEqualTo(true);
-            assertThat(getRegistrationLink().isEnabled()).isEqualTo(true);
+            assertThat(getRegistrationLink().isDisplayed()).isTrue();
+            assertThat(getRegistrationLink().isEnabled()).isTrue();
         }
 
         return result;
