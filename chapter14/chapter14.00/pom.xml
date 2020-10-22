@@ -17,6 +17,13 @@
         <relativePath>../</relativePath>
     </parent>
 
+    <properties>
+        <webjarsBootstrap.version>3.4.1</webjarsBootstrap.version>
+        <webjarsJquery.version>3.5.1</webjarsJquery.version>
+        <webjarsLocator.version>0.40</webjarsLocator.version>
+    </properties>
+
+
     <dependencies>
         <!-- chapter05.01: Required dependencies -->
         <dependency>
@@ -28,6 +35,46 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+
+
+        <!-- WEB: -->
+        <!-- Not using standard Web MVC -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- ThymeLeaf specific dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${webjarsBootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${webjarsJquery.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+        </dependency>
+
 
     </dependencies>
 

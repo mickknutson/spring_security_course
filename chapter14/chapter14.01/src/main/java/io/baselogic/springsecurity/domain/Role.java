@@ -1,9 +1,11 @@
 package io.baselogic.springsecurity.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -14,23 +16,21 @@ import java.util.Set;
  * @author Mick Knutson
  */
 // JPA Annotations:
-@Entity
-@Table(name = "roles")
+@Table(value = "roles")
 
 // Lombok Annotations:
-//@Data // Throws StackOverflowError
-@Getter
-@Setter
+@Data // Throws StackOverflowError
+//@Getter
+//@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
+//    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
     @JsonBackReference
     private Set<AppUser> users;
 
