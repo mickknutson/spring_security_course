@@ -6,6 +6,7 @@ This project is the example code for the Spring security course on Udemy.com
 
 * BLiNC Event Manager Application
 * 5.00.00-SNAPSHOT
+* [RELEASE NOTES](./release/README.md)
 * [BASE Logic Home](https://baselogic.io)
 * [Udemy Course Home](https://udemy.com)
 * [Youtube Chanel](https://youtube.com/c/baselogic)

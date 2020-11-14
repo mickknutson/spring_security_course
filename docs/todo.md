@@ -3,6 +3,7 @@
 > * Get Selenium / WebDriver tests to work.
 > * Refactor WebMvcConfig to remove WebMvcConfigurerAdapter
 > * Add more tests for DomainUsernamePasswordAuthenticationFilter
+> * find github page for [http://rigovanov.ru/github-emoji/](http://rigovanov.ru/github-emoji/)
 
 
 ---
@@ -21,11 +22,12 @@
 
 # Videos to create:
 > * (Section 5) How the UserRequestPostProcessor works
+> * Talk about SB upgrade and missing DEBUG logs.
 
 
 
 
-# Research :
+# Research for possible inclusion:
 > * How to test x.509 certificates
 > * @AuthenticationPrincipal
 > * Concurrency Support
@@ -34,6 +36,9 @@
 > * Spring Security Crypto Module
 > * KeyGenerators
 > * WebSocket Security
+> * chainRequestMatchers
+> * regexMatchers
+> * mvcMatchers
 
 
 

@@ -5,8 +5,7 @@
     <include resource="/org/springframework/boot/logging/logback/base.xml"/>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg%n
-            </pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %green(%logger{15}#%method\(%line\)) - %msg%n</pattern>
         </encoder>
     </appender>
 

@@ -55,4 +55,8 @@ public class EventNumberGenerator {
         return lastGivenNumber.addAndGet(1);
     }
 
+    public Integer getLastGivenNumber() {
+        return lastGivenNumber.get();
+    }
+
 } // The End...

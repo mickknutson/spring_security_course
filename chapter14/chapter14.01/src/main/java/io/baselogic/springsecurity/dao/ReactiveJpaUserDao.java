@@ -7,6 +7,7 @@ import io.baselogic.springsecurity.repository.AppUserRepository;
 import io.baselogic.springsecurity.repository.RoleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
@@ -46,30 +47,30 @@ public class ReactiveJpaUserDao implements UserDao {
     }
 
     @Override
-    public Mono<AppUser> findById(final @NotNull Integer id) {
+    public Mono<AppUser> findById(final Integer id) {
         return appUserRepository.findById(id);
     }
 
     @Override
-    public Mono<AppUser> findByEmail(final @NotEmpty String email) {
+    public Mono<AppUser> findByEmail(final String email) {
         log.debug("findByEmail: {}", email);
         return appUserRepository.findByEmail(email);
     }
 
     @Override
-    public Flux<AppUser> findAllByEmail(final @NotEmpty String partialEmail) {
+    public Flux<AppUser> findAllByEmail(final String partialEmail) {
         return appUserRepository.findAllByEmailContaining(partialEmail);
     }
 
 
     @Override
-    public Mono<AppUser> save(final @NotNull AppUser appUser) {
+    public Mono<AppUser> save(final AppUser appUser) {
 
         appUser.setId(appUserNumberGenerator.getNextGivenNumber());
 
         Set<Role> roles = new HashSet<>();
 
-        // TODO: Refactor to zithWhen
+        // TODO: Refactor to zipWhen
         Mono<Role> roleMono = roleRepository.findById(0)
                 .doOnSuccess(r -> {
                     log.trace("find ROLE: {}", r);

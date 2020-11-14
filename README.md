@@ -2,6 +2,9 @@
 
 This project is the example code for the Spring security course on Udemy.com
 
+(video)
+[![Spring Security Master Class Video](https://img.youtube.com/vi/IgKDKUPfR1A/maxresdefault.jpg)](http://www.youtube.com/watch?v=IgKDKUPfR1A "Official Release: Spring Security Master Class")
+
 ## BLiNC Event Manager Application
 
 * BLiNC Event Manager Application
@@ -39,6 +42,7 @@ has been used as the view templating engine throughout the book
 
 ---
 
+### [RELEASE NOTES](docs/release/README.md)
 ### [Building and Running the code examples](docs/building.md)
 ### [Resources](docs/resources.md)
 ### [License](docs/license.md)
@@ -63,4 +67,5 @@ We don't need stinking badges...
 
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3880/badge)](https://bestpractices.coreinfrastructure.org/projects/3880)
 
-https://tenor.com/bc2EA.gif
+
+<div class="tenor-gif-embed" data-postid="15462454" data-share-method="host" data-width="100%" data-aspect-ratio="2.3380281690140845"><a href="https://tenor.com/view/blazing-saddles-badges-gun-we-dont-need-stinking-badges-gif-15462454">Blazing Saddles GIF</a> from <a href="https://tenor.com/search/blazing-gifs">Blazing GIFs</a></div><script type="text/javascript" async src="https://tenor.com/embed.js"></script>

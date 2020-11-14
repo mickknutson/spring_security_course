@@ -59,10 +59,6 @@ public class SecurityConfig {
     private static final String HASROLE_ADMIN = "ADMIN";
 
 
-    @Autowired
-    private EventUserDetailsService userDetailsService;
-
-
     /**
      * Configure AuthenticationManager with inMemory credentials.
      *

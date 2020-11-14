@@ -50,15 +50,14 @@ public class EventUserDetailsService implements ReactiveUserDetailsService {
         log.debug("* eventUserDetailsService.findByUsername('{}')", username);
 
         return userDao.findByEmail(username)
+                // Need to figure out how to return a (UserDetails) instead of (EventUserDetails)
+//                .map(EventUserDetails::new)
                 .map(appUser -> {
-                    if (appUser == null) {
-                        log.error("UsernameNotFoundException: {}", username);
-                        throw new UsernameNotFoundException("Invalid username/password.");
-                    }
-                    EventUserDetails ud = new EventUserDetails(appUser);
+                    UserDetails ud = new EventUserDetails(appUser);
                     log.debug("UserDetails: {}", ud);
                     return ud;
-                });
+                })
+                .switchIfEmpty(Mono.error(new UsernameNotFoundException("Invalid username/password.")));
     }
 
 } // The End...

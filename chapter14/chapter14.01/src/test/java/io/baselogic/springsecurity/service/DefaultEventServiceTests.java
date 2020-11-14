@@ -1,6 +1,7 @@
 package io.baselogic.springsecurity.service;
 
 import io.baselogic.springsecurity.ReactiveTestUtils;
+import io.baselogic.springsecurity.dao.AppUserNumberGenerator;
 import io.baselogic.springsecurity.dao.EventDao;
 import io.baselogic.springsecurity.dao.TestUtils;
 import io.baselogic.springsecurity.dao.UserDao;
@@ -41,6 +42,9 @@ class DefaultEventServiceTests {
 
     @Autowired
     private EventService service;
+
+    @Autowired
+    private AppUserNumberGenerator generator;
 
     //-----------------------------------------------------------------------//
 
@@ -336,12 +340,14 @@ class DefaultEventServiceTests {
 
         Mono<AppUser> result = service.createUser(TestUtils.testUser1);
 
-        StepVerifier.create(result.log()).expectNextCount(1).expectComplete().verify();
+        StepVerifier.create(result.log())
+                .expectNextCount(1)
+                .expectComplete().verify();
 
         StepVerifier
                 .create(result.log())
                 .assertNext(r -> {
-                    assertThat(r).isNotNull()
+                    assertThat(r.getId()).isNotNull()
                             .isEqualTo(42);
                 })
                 .expectComplete()

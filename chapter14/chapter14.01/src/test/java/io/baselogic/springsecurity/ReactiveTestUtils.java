@@ -5,6 +5,7 @@ import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.web.model.RegistrationDto;
 import org.hamcrest.Matcher;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -35,14 +36,7 @@ public interface ReactiveTestUtils {
 
 
     //-----------------------------------------------------------------------//
-
-    static Mono<AppUser> createEmptyAppUserMono(){
-        return Mono.empty();
-    }
-
-    static Mono<AppUser> createMono(AppUser user){
-        return Mono.just(user);
-    }
+    // Events
 
     static Mono<Event> createEmptyEventMono(){
         return Mono.empty();
@@ -52,6 +46,26 @@ public interface ReactiveTestUtils {
         return Mono.just(event);
     }
 
+    static Flux<Event> createEmptyEventFlux(){
+        return Flux.empty();
+    }
+
+    static Flux<Event> createFlux(Event ...event){
+        return Flux.fromArray(event);
+    }
+
+
+
+    //-----------------------------------------------------------------------//
+    // AppUsers
+
+    static Mono<AppUser> createEmptyAppUserMono(){
+        return Mono.empty();
+    }
+
+    static Mono<AppUser> createMono(AppUser user){
+        return Mono.just(user);
+    }
 
     static Flux<AppUser> createEmptyAppUserFlux(){
         return Flux.empty();
@@ -61,14 +75,17 @@ public interface ReactiveTestUtils {
         return Flux.fromArray(user);
     }
 
+    //-----------------------------------------------------------------------//
+    // AppUsers
 
-    static Flux<Event> createEmptyEventFlux(){
-        return Flux.empty();
+    static Mono<UserDetails> createEmptyUserDetailsMono(){
+        return Mono.empty();
     }
 
-    static Flux<Event> createFlux(Event ...event){
-        return Flux.fromArray(event);
+    static Mono<UserDetails> createUserDetailsMono(UserDetails user){
+        return Mono.just(user);
     }
+
 
 
 

@@ -29,6 +29,9 @@ class JpaEventDaoTests {
     @Autowired
     private EventDao dao;
 
+    @Autowired
+    private EventNumberGenerator generator;
+
 
     @BeforeEach
     void beforeEachTest() {
@@ -116,7 +119,7 @@ class JpaEventDaoTests {
     void test_saveEvent_with_id() {
 
         Event event = Event.builder()
-                .id(42)
+                .id(42) // does not matter as generator creates ID for all new objects
                 .summary("Testing Event")
                 .description("testing Testing Event")
                 .when(Calendar.getInstance())
@@ -125,22 +128,26 @@ class JpaEventDaoTests {
                 .build();
 
         Flux<Event> result = dao.findAll();
-        StepVerifier.create(result.log()).expectNextCount(3).expectComplete().verify();
+        StepVerifier.create(result.log("findAll-1"))
+                .expectNextCount(3).as("findAll-1");
 
         StepVerifier
-                .create(dao.save(event).log())
+                .create(dao.save(event).log("save"))
                 .assertNext(r -> {
-                    assertThat(r).isEqualTo(42);
+                    assertThat(r).isNotNull()
+                            .isNotEqualTo(42)
+                            .isEqualTo(generator.getLastGivenNumber());
                 })
+                .consumeSubscriptionWith(n -> log.info("n: {}", n))
                 .expectComplete()
                 .verify();
 
         StepVerifier
-                .create(dao.findById(42).log())
+                .create(dao.findById(generator.getLastGivenNumber()).log("findById"))
                 .assertNext(r -> {
                     assertThat(r).isNotNull()
                             .isNotEqualTo(new Object())
-                            .hasFieldOrPropertyWithValue("id", 42)
+                            .hasFieldOrPropertyWithValue("id", generator.getLastGivenNumber())
                             .hasFieldOrPropertyWithValue("summary", "Testing Event")
                             .hasFieldOrPropertyWithValue("description", "testing Testing Event")
                             .hasFieldOrPropertyWithValue("owner.id", 1)
@@ -152,66 +159,8 @@ class JpaEventDaoTests {
                 .verify();
 
         result = dao.findAll();
-        StepVerifier.create(result.log()).expectNextCount(4).expectComplete().verify();
-    }
-
-    @Test
-    @DisplayName("test_saveEvent_no_id")
-    void test_saveEvent_no_id() {
-
-        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
-
-        StepVerifier
-                .create(dao.save(event).log())
-                .expectError(InvalidDataAccessApiUsageException.class)
-                .verify();
-    }
-
-    @Test
-    @DisplayName("EventRepository - create Event - null event")
-    void test_saveEvent_null_event() {
-        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
-
-        StepVerifier
-                .create(dao.save(event).log())
-                .expectError(InvalidDataAccessApiUsageException.class)
-                .verify();
-    }
-
-    @Test
-    @DisplayName("test_saveEvent_null_event_owner")
-    void test_saveEvent_null_event_owner() {
-        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
-        event.setOwner(null);
-
-        StepVerifier
-                .create(dao.save(event).log())
-                .expectError(InvalidDataAccessApiUsageException.class)
-                .verify();
-    }
-
-    @Test
-    @DisplayName("test_saveEvent_null_event_attendee")
-    void test_saveEvent_null_event_attendee() {
-        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
-        event.setAttendee(null);
-
-        StepVerifier
-                .create(dao.save(event).log())
-                .expectError(InvalidDataAccessApiUsageException.class)
-                .verify();
-    }
-
-    @Test
-    @DisplayName("test_saveEvent_null_event_when")
-    void test_saveEvent_null_event_when() {
-        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
-        event.setWhen(null);
-
-        StepVerifier
-                .create(dao.save(event).log())
-                .expectError(InvalidDataAccessApiUsageException.class)
-                .verify();
+        StepVerifier.create(result.log("findAll-2"))
+                .expectNextCount(4).as("findAll-2");
     }
 
 } // The End...

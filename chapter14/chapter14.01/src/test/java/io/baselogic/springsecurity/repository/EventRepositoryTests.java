@@ -2,6 +2,7 @@ package io.baselogic.springsecurity.repository;
 
 import io.baselogic.springsecurity.configuration.MongoDataInitializer;
 import io.baselogic.springsecurity.dao.TestUtils;
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,7 +53,7 @@ class EventRepositoryTests {
         Flux<Event> result = repository.findAll();
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 .expectNextCount(3)
                 .expectComplete()
                 .verify();
@@ -66,7 +67,7 @@ class EventRepositoryTests {
         Mono<Event> result = repository.findById(100);
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 .assertNext(r -> {
                     log.info("Result: {} ", r);
                     assertThat(r).isNotNull()
@@ -75,8 +76,11 @@ class EventRepositoryTests {
                             .hasFieldOrPropertyWithValue("summary", "Birthday Party")
                             .hasFieldOrPropertyWithValue("summary", "Birthday Party")
                             .hasFieldOrPropertyWithValue("persisted", false)
-                            .hasFieldOrPropertyWithValue("isNew", true)
-                    ;
+                            .isInstanceOf(Event.class);
+
+                    assertThat(r.isNew())
+                            .isTrue();
+
                     assertThat(r.hashCode()).isNotZero();
                     assertThat(r.getOwner().getId()).isZero();
                     assertThat(r.getAttendee().getId()).isEqualTo(1);
@@ -92,7 +96,7 @@ class EventRepositoryTests {
         Flux<Event> result = repository.findByOwner(0);
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 .assertNext(r -> {
                     log.info("r: {} ", r);
                     assertThat(r).isNotNull()
@@ -105,28 +109,24 @@ class EventRepositoryTests {
     }
 
 
-    /*@Test
-    @DisplayName("test_findByOwner_user1_by_Example")
-    void test_findByOwner_user1_by_Example() {
+//    @Test
+    @DisplayName("test_saveEvent_no_id")
+    void test_saveEvent_no_id() {
 
-        Event example = new Event();
-        example.setOwner(TestUtils.user1);
-
-//        Flux<Event> result = repository.findAll();
-        Flux<Event> result = repository.findAll(Example.of(example));
-//        Flux<Event> result = repository.findByOwner(TestUtils.user1);
-//        Flux<Event> result = repository.findByOwner(0);
+        Event event = Event.builder()
+//                .id(42)
+                .summary("Testing Event")
+                .description("testing Testing Event")
+                .when(Calendar.getInstance())
+                .attendee(TestUtils.attendee)
+                .owner(TestUtils.owner)
+                .build();
 
         StepVerifier
-                .create(result.log())
-                .expectNextCount(1)
-                .assertNext(r -> {
-                    log.info("r: {} ", r);
-                })
-
-                .expectComplete().verify();
-    }*/
-
+                .create(repository.save(event))
+                .expectErrorMatches( exception -> exception instanceof InvalidDataAccessApiUsageException )
+                .verify();
+    }
 
     @Test
     @DisplayName("test_saveEvent_with_id")
@@ -141,37 +141,28 @@ class EventRepositoryTests {
                 .owner(TestUtils.owner)
                 .build();
 
+        event.setPersisted(true);
+
+
         Flux<Event> result = repository.findAll();
-        StepVerifier.create(result.log()).expectNextCount(3).expectComplete().verify();
+        StepVerifier.create(result).expectNextCount(3).expectComplete().verify();
 
         StepVerifier
-                .create(repository.save(event).log())
+                .create(repository.save(event))
                 .assertNext(r -> {
-                    log.info("r: {} ", r);
                     assertThat(r).isNotNull()
                             .isNotEqualTo(new Object())
                             .hasFieldOrPropertyWithValue("id", 42)
                             .hasFieldOrPropertyWithValue("summary", "Testing Event")
                             .hasFieldOrPropertyWithValue("description", "testing Testing Event");
+                    assertThat(r.isNew()).isFalse();
 
                 })
                 .expectComplete()
                 .verify();
 
         result = repository.findAll();
-        StepVerifier.create(result.log()).expectNextCount(4).expectComplete().verify();
-    }
-
-    @Test
-    @DisplayName("test_saveEvent_no_id")
-    void test_saveEvent_no_id() {
-
-        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
-
-        StepVerifier
-                .create(repository.save(event).log())
-                .expectError(InvalidDataAccessApiUsageException.class)
-                .verify();
+        StepVerifier.create(result).expectNextCount(4).expectComplete().verify();
     }
 
     @Test
@@ -180,7 +171,7 @@ class EventRepositoryTests {
         Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
 
         StepVerifier
-                .create(repository.save(event).log())
+                .create(repository.save(event))
                 .expectError(InvalidDataAccessApiUsageException.class)
                 .verify();
     }
@@ -192,7 +183,7 @@ class EventRepositoryTests {
         event.setOwner(null);
 
         StepVerifier
-                .create(repository.save(event).log())
+                .create(repository.save(event))
                 .expectError(InvalidDataAccessApiUsageException.class)
                 .verify();
     }
@@ -204,7 +195,7 @@ class EventRepositoryTests {
         event.setAttendee(null);
 
         StepVerifier
-                .create(repository.save(event).log())
+                .create(repository.save(event))
                 .expectError(InvalidDataAccessApiUsageException.class)
                 .verify();
     }
@@ -216,7 +207,7 @@ class EventRepositoryTests {
         event.setWhen(null);
 
         StepVerifier
-                .create(repository.save(event).log())
+                .create(repository.save(event))
                 .expectError(InvalidDataAccessApiUsageException.class)
                 .verify();
     }

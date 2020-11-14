@@ -48,7 +48,7 @@ class AppUserRepositoryTests {
         Flux<AppUser> result = repository.findAll();
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 .expectNextCount(3)
                 .expectComplete()
                 .verify();
@@ -62,16 +62,15 @@ class AppUserRepositoryTests {
         Mono<AppUser> result = repository.findByEmail(username);
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 .assertNext(u -> {
-                    log.info("AppUser: {} ", u);
                     assertThat(u)
                             .hasFieldOrPropertyWithValue("id", 0)
                             .hasFieldOrPropertyWithValue("email", "user1@baselogic.com")
                             .hasFieldOrPropertyWithValue("name", "user1@baselogic.com")
                             .hasFieldOrPropertyWithValue("persisted", false)
-                            .hasFieldOrPropertyWithValue("isNew", true)
-                    ;
+                            .isInstanceOf(AppUser.class);
+                    assertThat(u.isNew()).isTrue();
 
                 })
                 .expectComplete()
@@ -86,7 +85,7 @@ class AppUserRepositoryTests {
         Mono<AppUser> result = repository.findByEmail(username);
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 //.expectNextMatches { it.isNotEmpty() }
                 .assertNext(u -> {
                     log.info("Result: {} ", u);
@@ -106,7 +105,7 @@ class AppUserRepositoryTests {
         Mono<AppUser> result = repository.findById(0);
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 .assertNext(r -> {
                     log.info("Result: {} ", r);
                     assertThat(r)
@@ -125,7 +124,7 @@ class AppUserRepositoryTests {
         Mono<AppUser> result = repository.findByEmail(username);
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 .expectNextCount(0)
                 .expectComplete()
                 .verify();
@@ -140,7 +139,7 @@ class AppUserRepositoryTests {
         Flux<AppUser> result = repository.findAllByEmailContaining(username);
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 .expectNextCount(3)
                 .expectComplete()
                 .verify();
@@ -154,7 +153,7 @@ class AppUserRepositoryTests {
         Flux<AppUser> result = repository.findAllByEmailContaining(username);
 
         StepVerifier
-                .create(result.log())
+                .create(result)
                 .expectNextCount(0)
                 .expectComplete()
                 .verify();
@@ -167,33 +166,42 @@ class AppUserRepositoryTests {
 
         AppUser testUser = TestUtils.createMockUser("test@baselogic.com", "test", "example");
 
+        Mono<AppUser> result = repository.save(testUser);
+
         StepVerifier
-                .create(repository.save(testUser).log())
-                .expectError(InvalidDataAccessApiUsageException.class)
+                .create(result.log("SAVE"))
+                .expectErrorMatches( exception -> exception instanceof InvalidDataAccessApiUsageException )
                 .verify();
     }
 
     @Test
-    @DisplayName("save user - with ID")
+    @DisplayName("save user - with Id")
     void test_saveUser_with_id() {
 
         String username = "@baselogic.com";
 
+        // Long form:
         Flux<AppUser> result = repository.findAllByEmailContaining(username);
-        StepVerifier.create(result.log()).expectNextCount(3).expectComplete().verify();
+        StepVerifier.create(result).expectNextCount(3).expectComplete().verify();
 
-//        StepVerifier.create(repository.count().log()).expectNextCount(3).expectComplete().verify();
+        // Better Form:
+        StepVerifier.create(repository.count())
+                .assertNext(r -> assertThat(r).isEqualTo(3))
+                .expectComplete().verify();
 
         AppUser testUser = TestUtils.testUser1;
+        testUser.setPersisted(true);
+
 
         StepVerifier
-                .create(repository.save(testUser).log())
+                .create(repository.save(testUser))
                 .assertNext(u -> {
                     log.info("AppUser: {} ", u);
                     assertThat(u)
                             .hasFieldOrPropertyWithValue("id", 42)
                             .hasFieldOrPropertyWithValue("email", "test@baselogic.com")
                             .hasFieldOrPropertyWithValue("password", "test");
+                    assertThat(u.isNew()).isFalse();
 
                 })
                 .expectComplete()
@@ -201,7 +209,7 @@ class AppUserRepositoryTests {
 
 
         result = repository.findAllByEmailContaining(username);
-        StepVerifier.create(result.log()).expectNextCount(4).expectComplete().verify();
+        StepVerifier.create(result).expectNextCount(4).expectComplete().verify();
     }
 
 

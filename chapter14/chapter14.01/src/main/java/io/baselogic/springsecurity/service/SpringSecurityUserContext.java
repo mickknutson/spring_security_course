@@ -73,7 +73,7 @@ public class SpringSecurityUserContext implements UserContext {
         return ReactiveSecurityContextHolder.getContext()
             .map(SecurityContext::getAuthentication)
                 .map(authentication -> {
-                    log.debug("*** Reactive authentication [{}]", authentication);
+                    log.info("*** Reactive authentication [{}]", authentication);
                     return UserAuthorityUtils.getUserEmail(
                             authentication.getPrincipal()
                     );

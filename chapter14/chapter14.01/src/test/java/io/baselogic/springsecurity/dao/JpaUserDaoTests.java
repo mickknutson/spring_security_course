@@ -27,6 +27,9 @@ class JpaUserDaoTests {
     @Autowired
     private UserDao dao;
 
+    @Autowired
+    private AppUserNumberGenerator generator;
+
 
     @BeforeEach
     void beforeEachTest() {
@@ -141,45 +144,37 @@ class JpaUserDaoTests {
 
 
     @Test
-    @DisplayName("save user - no Id")
-    void test_saveUser_no_id() {
-
-        AppUser testUser = TestUtils.createMockUser("test@baselogic.com", "test", "example");
-
-        StepVerifier
-                .create(dao.save(testUser).log())
-                .expectError(InvalidDataAccessApiUsageException.class)
-                .verify();
-    }
-
-
-    @Test
-    @DisplayName("save user - with ID")
+    @DisplayName("save user - with Id")
     void test_saveUser_with_id() {
 
         String username = "@baselogic.com";
 
         Flux<AppUser> result = dao.findAllByEmail(username);
-        StepVerifier.create(result.log()).expectNextCount(3).expectComplete().verify();
+        StepVerifier.create(result.log())
+                .expectNextCount(3).as("findAllByEmail");;
 
         AppUser testUser = TestUtils.testUser1;
 
         StepVerifier
-                .create(dao.save(testUser).log())
+                .create(dao.save(testUser).log("save"))
                 .assertNext(r -> {
-                    assertThat(r).isNotNull()
-                            .isEqualTo(42);
+                    assertThat(r.getId()).isNotNull()
+                            .isNotEqualTo(42)
+                            .isEqualTo(generator.getLastGivenNumber());
+                    assertThat(r.getPassword())
+                            .isNotNull()
+                            .isEqualTo(testUser.getPassword());
                 })
                 .expectComplete()
                 .verify();
 
-        Mono<AppUser> user = dao.findById(42);
+        Mono<AppUser> user = dao.findById(generator.getLastGivenNumber());
         StepVerifier
-                .create(user.log())
+                .create(user.log("findById"))
                 .assertNext(r -> {
                     assertThat(r).isNotNull()
                             .isNotEqualTo(new Object())
-                            .hasFieldOrPropertyWithValue("id", 42)
+                            .hasFieldOrPropertyWithValue("id", generator.getLastGivenNumber())
                             .hasFieldOrPropertyWithValue("email", "test@baselogic.com")
                             .hasFieldOrPropertyWithValue("roles.size", 1)
 //                            .hasFieldOrPropertyWithValue("roles[0].name", "ROLE_USER")
@@ -188,7 +183,8 @@ class JpaUserDaoTests {
                 }).expectComplete().verify();
 
         result = dao.findAllByEmail(username);
-        StepVerifier.create(result.log()).expectNextCount(4).expectComplete().verify();
+        StepVerifier.create(result.log("findAllByEmail"))
+                .expectNextCount(4).as("findAllByEmail");
     }
 
 

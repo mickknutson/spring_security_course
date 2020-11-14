@@ -16,7 +16,7 @@ spring:
     mongodb:
       host: localhost
       database: dataSource
-      port: 65432
+#      port: 65432
 
 
 

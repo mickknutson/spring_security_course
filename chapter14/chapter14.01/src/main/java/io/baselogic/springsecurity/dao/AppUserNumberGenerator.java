@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * EventNumberGenerator
+ * AppUserNumberGenerator
  *
  * @author mickknutson
  *
@@ -53,6 +53,10 @@ public class AppUserNumberGenerator {
 
     public Integer getNextGivenNumber() {
         return lastGivenNumber.addAndGet(1);
+    }
+
+    public Integer getLastGivenNumber() {
+        return lastGivenNumber.get();
     }
 
 } // The End...

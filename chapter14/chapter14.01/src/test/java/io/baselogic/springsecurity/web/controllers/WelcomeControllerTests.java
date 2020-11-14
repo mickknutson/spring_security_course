@@ -36,7 +36,6 @@ class WelcomeControllerTests {
 
     @Test
     @DisplayName("Welcome Home Page")
-    @WithMockEventUserDetailsUser1
     void testHomePage() {
 
 //        EntityExchangeResult result = client.get()

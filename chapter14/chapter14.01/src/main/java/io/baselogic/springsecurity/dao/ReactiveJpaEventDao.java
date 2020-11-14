@@ -38,13 +38,13 @@ public class ReactiveJpaEventDao implements EventDao {
     }
 
     @Override
-    public Mono<Event> findById(final @NotNull Integer eventId) {
+    public Mono<Event> findById(final Integer eventId) {
         return eventRepository.findById(eventId);
     }
 
 
     @Override
-    public Flux<Event> findByUser(final @NotNull Integer userId) {
+    public Flux<Event> findByUser(final Integer userId) {
         return eventRepository.findByOwner(userId);
     }
 
@@ -55,7 +55,7 @@ public class ReactiveJpaEventDao implements EventDao {
 
 
     @Override
-    public Mono<Integer> save(final @NotNull @Valid Event event) {
+    public Mono<Integer> save(final Event event) {
 
         event.setId(eventNumberGenerator.getNextGivenNumber());
         log.debug("save event: {}", event);
