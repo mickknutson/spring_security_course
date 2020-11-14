@@ -70,6 +70,21 @@ public class SpringSecurityUserContext implements UserContext {
     @Override
     public Mono<AppUser> getCurrentUser() {
 
+        /*
+        return ReactiveSecurityContextHolder.getContext()
+				.map(SecurityContext::getAuthentication)
+				.map(Authentication::getPrincipal)
+				.cast(LemonPrincipal.class)
+				.doOnNext(LemonPrincipal::eraseCredentials)
+				.map(LemonPrincipal::currentUser)
+				.zipWith(exchange.getFormData())
+				.doOnNext(tuple -> {
+					long expirationMillis = lemonReactiveService.getExpirationMillis(tuple.getT2());
+					lemonReactiveService.addAuthHeader(exchange.getResponse(), tuple.getT1(), expirationMillis);
+				})
+				.map(Tuple2::getT1);
+         */
+
         return ReactiveSecurityContextHolder.getContext()
             .map(SecurityContext::getAuthentication)
                 .map(authentication -> {
@@ -95,6 +110,15 @@ public class SpringSecurityUserContext implements UserContext {
         if (appUser.getEmail() == null) {
             throw new IllegalArgumentException("email cannot be null");
         }
+
+        /*
+                Authentication authentication = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                appUser.getPassword(),
+                userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+         */
 
         Mono<UserDetails> userDetailsMono = userDetailsService.findByUsername(appUser.getEmail())
                 .map(userDetails -> {
