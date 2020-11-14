@@ -15,8 +15,8 @@ import java.util.Arrays;
  * Main Spring boot Application class
  *
  * @author mickknutson
- * @since chapter01.00
- */
+ * @since chapter01.00 Created
+*/
 @SpringBootApplication
 @Slf4j
 public class Application {

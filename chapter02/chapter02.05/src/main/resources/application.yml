@@ -13,10 +13,6 @@ spring:
 #    mode: HTML
 
 
-#  resources:
-#    cache-period: 0
-
-
 
 ##---------------------------------------------------------------------------##
 ## H2 Servlet settings for DB

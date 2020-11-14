@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * JdbcEventDaoTests
  *
- * @since chapter1.00
+ * @since chapter01.00
  */
 
 @Transactional

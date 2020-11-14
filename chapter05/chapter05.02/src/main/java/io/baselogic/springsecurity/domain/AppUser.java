@@ -38,7 +38,7 @@ public class AppUser implements Persistable<Integer>, Serializable {
     private String email;
     private String password;
 
-    private Boolean persisted = Boolean.FALSE;
+    private boolean persisted = false;
 
 
     @DBRef(lazy = false)

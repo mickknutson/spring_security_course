@@ -20,9 +20,8 @@ import java.util.List;
  * A default implementation of {@link EventService} that delegates to {@link EventDao} and {@link UserDao}.
  *
  * @author mickknutson
-
- * @since chapter01.00
- * @since chapter03.02 adding {@link UserDetailsManager} userDetailsManager
+ * @since chapter01.00 Created
+* @since chapter03.02 adding {@link UserDetailsManager} userDetailsManager
  */
 @Service
 @Validated

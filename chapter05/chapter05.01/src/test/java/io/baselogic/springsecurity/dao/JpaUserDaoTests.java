@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * JpaEventDaoTests
  *
- * @since chapter5.01
+ * @since chapter05.01
  */
 @Transactional
 @SpringBootTest//(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

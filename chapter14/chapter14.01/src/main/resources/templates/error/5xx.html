@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title id="pageTitle">Event Manager - HTTP 5xx INTERNAL SERVER ERROR</title>
+
+    <th:block th:insert="fragments/head :: head"></th:block>
+</head>
+<body>
+
+<div class="container">
+
+    <th:block th:insert="fragments/header :: header"></th:block>
+    <th:block th:insert="fragments/messages :: messages"></th:block>
+
+    <h1 id="chapterHeading" class="alert alert-warning">HTTP 5xx INTERNAL SERVER ERROR</h1>
+    <p id="chapterTitle">Internal Server Error</p>
+    <h4 id="summary">Server administration has been notified.</h4>
+    <p>Try <a id="homeLink" th:href="@{/}">Home</a></p>
+</div>
+
+<th:block th:insert="fragments/footer :: footer"></th:block>
+
+</body>
+</html>

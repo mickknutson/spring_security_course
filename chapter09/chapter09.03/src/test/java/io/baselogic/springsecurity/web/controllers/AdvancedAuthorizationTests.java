@@ -120,7 +120,7 @@ class AdvancedAuthorizationTests {
     @Test
     @DisplayName("Login as admin1 -  with H2 Links")
     @WithMockEventUserDetailsUser1
-    public void login_user1_with_h2Link() throws Exception {
+    void login_user1_with_h2Link() throws Exception {
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -223,7 +223,7 @@ class AdvancedAuthorizationTests {
     @Test
     @DisplayName("Login as user1 -  No H2 Links")
     @WithMockEventUserDetailsAdmin1
-    public void login_admin1__no_h2Link() throws Exception {
+    void login_admin1__no_h2Link() throws Exception {
         MvcResult result = mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andReturn();

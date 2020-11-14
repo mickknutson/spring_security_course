@@ -18,7 +18,6 @@ spring:
   ## Thymeleaf configuration:
   thymeleaf:
     cache: false
-    mode: HTML
 
 
   ##---------------------------------------------------------------------------##

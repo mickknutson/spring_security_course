@@ -1,0 +1,54 @@
+#------------------------------------------------------------------------------#
+# Application YAML #
+# inside ./src/main/resources/application.yml
+#------------------------------------------------------------------------------#
+
+# ENABLE for debug logging to show ConditionEvaluationReport :
+debug: false
+
+##---------------------------------------------------------------------------##
+spring:
+
+
+  ##---------------------------------------------------------------------------##
+  ## MongoDB
+  data:
+    mongodb:
+      host: localhost
+      database: dataSource
+      port: 65432
+
+
+
+  ##---------------------------------------------------------------------------##
+  ## Thymeleaf
+  thymeleaf:
+    cache: false
+
+
+##---------------------------------------------------------------------------##
+## Actuators:
+## https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-endpoints
+## To expose all endpoints (be aware before exposing all endpoints for production)
+# http://localhost:8080/actuator
+# http://localhost:8080/actuator/beans
+# http://localhost:8080/actuator/mappings
+management:
+  endpoints:
+    web:
+      #      base-path: /admin/actuator
+      exposure:
+        include: '*'
+
+
+##---------------------------------------------------------------------------##
+## Logging Configuration:
+#logging:
+#  level:
+#    io:
+#      baselogic: DEBUG
+##        testloglevel: INFO
+#    org:
+#      springframework: INFO
+
+##---------------------------------------------------------------------------##
