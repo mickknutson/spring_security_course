@@ -1,4 +1,4 @@
-# Project TODO's
+# Release Note's
 
 > * Get Selenium / WebDriver tests to work.
 > * Refactor WebMvcConfig to remove WebMvcConfigurerAdapter

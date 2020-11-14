@@ -3,7 +3,7 @@
 
 ## Section Details
 In this section, we'll apply a minimal Spring Security configuration to start addressing our
-first finding—inadvertent privilege escalation due to a lack of URL protection.
+first finding—inadvertent privilege escalation due to the lack of URL protection.
 
 In this section, we will cover the following topics:
 
