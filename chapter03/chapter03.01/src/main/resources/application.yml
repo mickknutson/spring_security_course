@@ -22,8 +22,7 @@ spring:
   ## Note: See SecurityConfig.java for configuration:
 
   # http://localhost:8080/admin/h2
-  h2.console.enabled: false
-
+  h2.console.enabled: true
   ##---------------------------------------------------------------------------##
   ## Datasource Configuration:
   datasource:
