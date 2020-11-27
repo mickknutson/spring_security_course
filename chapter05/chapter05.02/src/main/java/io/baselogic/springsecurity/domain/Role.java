@@ -26,7 +26,7 @@ public class Role implements Persistable<Integer>, Serializable {
     private Integer id;
     private String name;
 
-    private Boolean persisted = Boolean.FALSE;
+    private boolean persisted = false;
 
 
     @PersistenceConstructor

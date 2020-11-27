@@ -22,8 +22,8 @@ import java.util.Optional;
  * A jdbc implementation of {@link UserDao}.
  *
  * @author mickknutson
- * @since chapter01.00
- *
+ * @since chapter01.00 Created
+*
  */
 @Repository
 @Validated

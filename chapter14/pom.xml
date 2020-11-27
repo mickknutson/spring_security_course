@@ -19,13 +19,11 @@
 
     <modules>
         <module>chapter14.00</module>
-<!--        <module>chapter14.01</module>-->
+        <module>chapter14.01</module>
+<!--        <module>chapter14.02</module>-->
     </modules>
 
     <properties>
-        <webjarsBootstrap.version>3.4.1</webjarsBootstrap.version>
-        <webjarsJquery.version>3.5.1</webjarsJquery.version>
-        <webjarsLocator.version>0.40</webjarsLocator.version>
     </properties>
 
 
@@ -39,13 +37,17 @@
 
 
         <!-- WEB: -->
-        <dependency>
+        <!-- SEE Sub-Module chapter14.00 pom.xml
+        These were moved to chapter14.00 as the remaining chapters
+        will not use the MVC Web.
+         -->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- ThymeLeaf specific dependencies -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
@@ -73,7 +75,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator-core</artifactId>
-        </dependency>
+        </dependency>-->
 
 
         <!-- DATABASE: -->
@@ -127,7 +129,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+        <!-- SEE Sub-Module chapter14.00 pom.xml
+            These were moved to chapter14.00 as the remaining chapters
+            will not use the MVC Web.
+        -->
+        <!--<dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
             <scope>test</scope>
@@ -137,7 +143,7 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>htmlunit-driver</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 

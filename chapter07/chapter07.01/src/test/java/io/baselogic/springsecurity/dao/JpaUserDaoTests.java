@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * JpaEventDaoTests
  *
- * @since chapter5.01
+ * @since chapter05.01
  */
 @SpringBootTest//(classes = TestJavaConfiguration.class)
 @Slf4j

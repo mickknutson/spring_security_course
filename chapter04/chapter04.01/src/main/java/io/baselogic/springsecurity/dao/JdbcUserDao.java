@@ -22,8 +22,8 @@ import java.util.Optional;
  * A jdbc implementation of {@link UserDao}.
  *
  * @author mickknutson
- * @since chapter01.00
- *
+ * @since chapter01.00 Created
+*
  */
 @Repository
 @Validated
@@ -82,6 +82,11 @@ public class JdbcUserDao implements UserDao {
         return jdbcTemplate.query(sql, userRowMapper);
     }
 
+    /**
+     * FIXME: need to add AppUser to USER Table in addition to the APP_USER table.
+     * @param newAppUser
+     * @return
+     */
     @Override
     public Integer save(final @NotNull AppUser newAppUser) {
         if (newAppUser.getId() != null) {

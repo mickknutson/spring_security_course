@@ -1,27 +1,34 @@
 # Project TODO's
 
 > * Get Selenium / WebDriver tests to work.
-> * Fix webjars
 > * Refactor WebMvcConfig to remove WebMvcConfigurerAdapter
 > * Add more tests for DomainUsernamePasswordAuthenticationFilter
+> * find github page for [http://rigovanov.ru/github-emoji/](http://rigovanov.ru/github-emoji/)
 
 
 ---
 
 
 # Sections for next course module
-> * -----> Remember-Me Services
-> * -----> Client Certificate Authentication with TLS
-> * -----> Fine-Grained Access Control
+> * (done) Remember-Me Services
+> * (done) Client Certificate Authentication with TLS
+> * (done) Fine-Grained Access Control
 > * Access Control Lists
 > * Custom Authorization
-> * -----> Session Management
-> * -----> Additional Spring Security Features
+> * (done) Session Management
+> * (done) Additional Spring Security Features
+> * (in-progress) Reactive Spring Security
 
 
-# Research :
+# Videos to create:
+> * (Section 5) How the UserRequestPostProcessor works
+> * Talk about SB upgrade and missing DEBUG logs.
+
+
+
+
+# Research for possible inclusion:
 > * How to test x.509 certificates
-> * How to test Html Form login page
 > * @AuthenticationPrincipal
 > * Concurrency Support
 > * Spring Data Integration
@@ -29,6 +36,11 @@
 > * Spring Security Crypto Module
 > * KeyGenerators
 > * WebSocket Security
+> * chainRequestMatchers
+> * regexMatchers
+> * mvcMatchers
+
+
 
 ---
 

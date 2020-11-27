@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * JpaEventDaoTests
  *
- * @since chapter5.01
+ * @since chapter05.01
  */
 
 @Transactional

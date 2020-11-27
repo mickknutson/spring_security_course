@@ -7,14 +7,11 @@
 #debug: true
 
 spring:
-  ## Thymeleaf configuration:
+
+  ##---------------------------------------------------------------------------##
+  ## Thymeleaf
   thymeleaf:
     cache: false
-    mode: HTML
-
-
-#  resources:
-#    cache-period: 0
 
 
 

@@ -1,6 +1,5 @@
 package io.baselogic.springsecurity.service;
 
-import io.baselogic.springsecurity.configuration.SecurityConfig;
 import io.baselogic.springsecurity.core.authority.UserAuthorityUtils;
 import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.EventUserDetails;

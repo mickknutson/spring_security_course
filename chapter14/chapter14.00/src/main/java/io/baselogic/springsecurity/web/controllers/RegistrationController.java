@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
  * @since chapter04.01 The registration form does not add user to USERS table, only APPUSERS
  */
 @Controller
-@RequestMapping("registration")
+@RequestMapping("/registration")
 //@Validated
 @Slf4j
 public class RegistrationController {
@@ -58,7 +58,7 @@ public class RegistrationController {
                                final BindingResult result,
                                final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            result.getAllErrors().forEach( e -> log.info("error: {}", e) );
+            result.getAllErrors().forEach( e -> log.error("error: {}", e) );
             return REG_FORM_VIEW;
         }
 

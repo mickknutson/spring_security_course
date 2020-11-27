@@ -24,7 +24,7 @@ import static org.mockito.BDDMockito.given;
 /**
  * UserContextTests
  *
- * @since chapter1.00
+ * @since chapter01.00
  */
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

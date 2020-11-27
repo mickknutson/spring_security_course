@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * JdbcEventDaoTests
  *
- * @since chapter1.00
+ * @since chapter01.00
  */
 @Transactional
 @SpringBootTest
@@ -48,8 +48,7 @@ class JdbcEventDaoTests {
         Event event = eventDao.findById(100);
         log.info(event.toString());
 
-        assertThat(event).isNotNull()
-                .isNotEqualTo(new Object())
+        assertThat(event)
                 .isNotEqualTo(Event.builder().build());
         assertThat(event.hashCode()).isNotZero();
 

@@ -10,9 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * ErrorController
  *
- * @since chapter01.00
  * @author mickknutson
- */
+ * @since chapter01.00 Created
+*/
 @ControllerAdvice
 @Slf4j
 public class ErrorController {
