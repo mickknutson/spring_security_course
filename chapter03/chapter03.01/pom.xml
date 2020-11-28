@@ -18,6 +18,12 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <groupId>io.florianlopes</groupId>
+            <artifactId>spring-mvc-test-utils</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>

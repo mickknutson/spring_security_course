@@ -68,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         am.inMemoryAuthentication()
                 .withUser("user1@baselogic.com").password("{noop}user1").roles(ROLE_USER)
                 .and().withUser("admin1@baselogic.com").password("{noop}admin1").roles(ROLE_USER, ROLE_ADMIN)
+                .and().withUser("user2@baselogic.com").password("{noop}user2").roles(ROLE_USER)
         ;
 
         log.debug("***** Password for user 'user1@baselogic.com' is 'user1'");
