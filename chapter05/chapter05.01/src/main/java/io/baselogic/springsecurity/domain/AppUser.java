@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +17,10 @@ import java.util.Set;
  * {@link AppUser} is this applications notion of a user. It is good to use your own objects to interact with a
  * user especially in large applications. This ensures that as you evolve your security requirements (update Spring
  * Security, leverage new Spring Security modules, or even swap out security implementations) you can do so easily.
+ *
+ * @author mickknutson
+ * @since chapter01.00 created
+ * @since chapter05.01 Updated for JPA
  */
 // JPA Annotations:
 @Entity

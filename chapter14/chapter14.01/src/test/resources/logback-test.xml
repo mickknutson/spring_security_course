@@ -25,7 +25,7 @@
         <appender-ref ref="FILE" />
     </root>
 
-    <logger name="io.baselogic" level="info" additivity="false">
+    <logger name="io.baselogic" level="trace" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE" />
     </logger>

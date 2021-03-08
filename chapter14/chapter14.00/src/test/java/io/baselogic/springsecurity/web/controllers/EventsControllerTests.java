@@ -166,6 +166,8 @@ class EventsControllerTests {
     @WithMockEventUserDetailsUser1
     void testCurrentUsersEventsPage_htmlUnit() throws Exception {
 
+        // Could add Mockito to stub out Service Layer.
+
         MvcResult result = mockMvc.perform(get("/events/my"))
 
                 .andExpect(status().isOk())
@@ -256,11 +258,6 @@ class EventsControllerTests {
 
                 .andReturn();
     }
-
-    private Matcher<String> doesNotContainString(String s) {
-        return CoreMatchers.not(containsString(s));
-    }
-
 
     @Test
     @DisplayName("Submit Event Form")

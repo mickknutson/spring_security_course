@@ -6,6 +6,7 @@ import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.EventUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,6 +45,9 @@ import java.security.Principal;
 @Slf4j
 public class SpringSecurityUserContext implements UserContext {
 
+    @Autowired
+    private ReactiveAuthenticationManager authenticationManager;
+
     private final EventService eventService;
     private final ReactiveUserDetailsService userDetailsService;
 
@@ -70,21 +75,6 @@ public class SpringSecurityUserContext implements UserContext {
     @Override
     public Mono<AppUser> getCurrentUser() {
 
-        /*
-        return ReactiveSecurityContextHolder.getContext()
-				.map(SecurityContext::getAuthentication)
-				.map(Authentication::getPrincipal)
-				.cast(LemonPrincipal.class)
-				.doOnNext(LemonPrincipal::eraseCredentials)
-				.map(LemonPrincipal::currentUser)
-				.zipWith(exchange.getFormData())
-				.doOnNext(tuple -> {
-					long expirationMillis = lemonReactiveService.getExpirationMillis(tuple.getT2());
-					lemonReactiveService.addAuthHeader(exchange.getResponse(), tuple.getT1(), expirationMillis);
-				})
-				.map(Tuple2::getT1);
-         */
-
         return ReactiveSecurityContextHolder.getContext()
             .map(SecurityContext::getAuthentication)
                 .map(authentication -> {
@@ -111,15 +101,6 @@ public class SpringSecurityUserContext implements UserContext {
             throw new IllegalArgumentException("email cannot be null");
         }
 
-        /*
-                Authentication authentication = new UsernamePasswordAuthenticationToken(
-                userDetails,
-                appUser.getPassword(),
-                userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-         */
-
         Mono<UserDetails> userDetailsMono = userDetailsService.findByUsername(appUser.getEmail())
                 .map(userDetails -> {
                     log.info("* userDetails ({})", userDetails);
@@ -128,28 +109,20 @@ public class SpringSecurityUserContext implements UserContext {
                             appUser.getPassword(),
                             userDetails.getAuthorities());
                 })
+                .flatMap(authenticationManager::authenticate)
                 .map(authentication -> {
-                    Context context = ReactiveSecurityContextHolder.withAuthentication(authentication);
+                    log.info("* auth ({})", authentication);
+                    SecurityContext ctx = new SecurityContextImpl(authentication);
+                    Context context = ReactiveSecurityContextHolder.withSecurityContext(
+                            Mono.just(ctx));
+
+                    log.info("* ctx.auth ({})", ctx.getAuthentication());
                     log.info("* context ({})", context);
                     context.stream().forEach(e -> log.info("* e ({})", e));
 
-                    log.info("* auth ({})", authentication);
                     return (UserDetails) authentication.getPrincipal();
 
                 });
-
-//        Mono<UserDetails> UserDetailsMono =  authenticationMono.zipWhen(authentication ->
-//                        ReactiveSecurityContextHolder.getContext(),
-//
-//                (auth, context) -> {
-//                    ReactiveSecurityContextHolder.withAuthentication(auth);
-//                    context.setAuthentication(auth);
-//
-//                    log.info("* context ({})", context);
-//                    log.info("* auth ({})", auth);
-//                    log.info("* authentication ({})", context.getAuthentication());
-//                    return (UserDetails) auth.getPrincipal();
-//        }).log("SET_CURRENT_USER");
 
         return userDetailsMono.doOnSuccess(u -> log.info("* u ({})", u)).then();
 

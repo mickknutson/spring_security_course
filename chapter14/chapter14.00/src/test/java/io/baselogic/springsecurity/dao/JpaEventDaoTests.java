@@ -17,25 +17,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * JpaEventDaoTests
  *
- * @since chapter05.01
+ * @since chapter05.01 Created
  */
-    
-//@Transactional
-@SpringBootTest//(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
+@SpringBootTest
 @Slf4j
 class JpaEventDaoTests {
 
     @Autowired
     private EventDao eventDao;
 
-    private AppUser owner = new AppUser();
-    private AppUser attendee = new AppUser();
-
     @BeforeEach
-    void beforeEachTest() {
-        owner.setId(1);
-        attendee.setId(0);
-    }
+    void beforeEachTest() {}
 
 
     @Test
@@ -49,12 +42,13 @@ class JpaEventDaoTests {
         log.info(event.toString());
 
         assertThat(event).isNotNull()
-                .isNotEqualTo(new Object());
-        assertThat(event).isNotEqualTo(new Event());
+                .isNotEqualTo(new Object())
+                .isNotEqualTo(new Event());
         assertThat(event.hashCode()).isNotZero();
+        assertThat(event.isNew()).isTrue();
 
         assertThat(event.getSummary()).isEqualTo("Birthday Party");
-         assertThat(event.getOwner().getId()).isZero();
+        assertThat(event.getOwner().getId()).isZero();
         assertThat(event.getAttendee().getId()).isEqualTo(1);
     }
 
@@ -62,16 +56,20 @@ class JpaEventDaoTests {
     @Test
     void createEvent() {
         log.debug("******************************");
-        List<Event> events = eventDao.findByUser(owner.getId());
+        List<Event> events = eventDao.findByUser(TestUtils.owner.getId());
         assertThat(events.size()).isPositive();
 
-        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
+        event.setPersisted(true);
+        assertThat(event.isNew()).isFalse();
+
         int eventId = eventDao.save(event);
 
-        List<Event> newEvents = eventDao.findByUser(owner.getId());
-        assertThat(newEvents.size()).isGreaterThanOrEqualTo(2);
+        List<Event> newEvents = eventDao.findByUser(TestUtils.owner.getId());
+        assertThat(newEvents.size()).isGreaterThan(events.size());
+
         // find eventId in List...
-//        assertThat(newEvents.get(3)).isEqualTo(3);
+//        assertThat(newEvents.get(eventId).isNew()).isFalse();
     }
 
     @Test
@@ -94,7 +92,7 @@ class JpaEventDaoTests {
 
     @Test
     void createEvent_null_event_owner() {
-        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
         event.setOwner(null);
 
         assertThrows(ConstraintViolationException.class, () -> {
@@ -109,9 +107,9 @@ class JpaEventDaoTests {
         assertThat(eventsPre.size()).isGreaterThanOrEqualTo(1);
 
 //        assertThrows(ConstraintViolationException.class, () -> {
-            Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-            event.setAttendee(null);
-            eventDao.save(event);
+        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
+        event.setAttendee(null);
+        eventDao.save(event);
 //        });
         List<Event> eventsPost = eventDao.findAll();
         assertThat(eventsPost.size()).isGreaterThan(eventsPre.size());
@@ -120,7 +118,7 @@ class JpaEventDaoTests {
 
     @Test
     void createEvent_null_event_when() {
-        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
         event.setWhen(null);
 
         assertThrows(ConstraintViolationException.class, () -> {

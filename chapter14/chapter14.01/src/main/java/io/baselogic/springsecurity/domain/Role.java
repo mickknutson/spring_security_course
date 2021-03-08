@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,9 @@ import java.io.Serializable;
 /**
  * A {@link Role} is grouping of allowed Authorizations.
  *
- * @author Mick Knutson
+ * @author mickknutson
+ * @since chapter05.01 Created for JPA
+ * @since chapter05.02 Updated for MongoDB
  */
 // Document Annotations:
 @Document(collection="role")
@@ -22,6 +25,7 @@ import java.io.Serializable;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Role implements Persistable<Integer>, Serializable {
 
     @Id
@@ -35,12 +39,6 @@ public class Role implements Persistable<Integer>, Serializable {
     public Role(Integer id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public Role(Integer id, String name, Boolean persisted) {
-        this.id = id;
-        this.name = name;
-        this.persisted = persisted;
     }
 
     @Override

@@ -43,7 +43,7 @@ public class MongoDataInitializer {
     public void setUp() {
         log.info(STAR);
         log.info("* Clean the database");
-        log.info(STAR);
+        log.info(LINE);
 
         appUserRepository.deleteAll().block();
         roleRepository.deleteAll().block();
@@ -58,37 +58,25 @@ public class MongoDataInitializer {
         log.info("--> seedEvents");
         seedEvents();
 
-        log.info(STAR);
+        log.info(LINE);
         log.info("* The End...");
-        log.info("*******************************************************");
+        log.info(STAR);
     }
 
 
     private Role user_role;
     private Role admin_role;
 
-    // Roles
-    {
-        user_role = new Role(0, "ROLE_USER");
-        admin_role = new Role(1, "ROLE_ADMIN");
-    }
-
-
     private AppUser user1;
     private AppUser admin1;
     private AppUser user2;
 
-    // AppUsers
-    {
-        user1 = new AppUser(0, "user1@baselogic.com", "{bcrypt}$2a$04$qr7RWyqOnWWC1nwotUW1nOe1RD5.mKJVHK16WZy6v49pymu1WDHmi","User","1");
-        admin1 = new AppUser(1,"admin1@baselogic.com","{bcrypt}$2a$04$0CF/Gsquxlel3fWq5Ic/ZOGDCaXbMfXYiXsviTNMQofWRXhvJH3IK","Admin","1");
-        user2 = new AppUser(2,"user2@baselogic.com",  "{bcrypt}$2a$04$PiVhNPAxunf0Q4IMbVeNIuH4M4ecySWHihyrclxW..PLArjLbg8CC","User2","2");
-
-    }
-
 
 
     private void seedAppUsers(){
+        user1 = new AppUser(0, "user1@baselogic.com", "{bcrypt}$2a$04$qr7RWyqOnWWC1nwotUW1nOe1RD5.mKJVHK16WZy6v49pymu1WDHmi","User","1");
+        admin1 = new AppUser(1,"admin1@baselogic.com","{bcrypt}$2a$04$0CF/Gsquxlel3fWq5Ic/ZOGDCaXbMfXYiXsviTNMQofWRXhvJH3IK","Admin","1");
+        user2 = new AppUser(2,"user2@baselogic.com",  "{bcrypt}$2a$04$PiVhNPAxunf0Q4IMbVeNIuH4M4ecySWHihyrclxW..PLArjLbg8CC","User2","2");
 
         // user1
         user1.addRole(user_role);
@@ -116,6 +104,10 @@ public class MongoDataInitializer {
      * insert into role(id, name) values (1, "ROLE_ADMIN");
      */
     private void seedRoles(){
+
+        user_role = new Role(0, "ROLE_USER");
+        admin_role = new Role(1, "ROLE_ADMIN");
+
         user_role = roleRepository.save(user_role).block();
         admin_role = roleRepository.save(admin_role).block();
 

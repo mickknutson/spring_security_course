@@ -69,7 +69,8 @@ public class EventUserAuthenticationProvider implements AuthenticationProvider {
 
         return new UsernamePasswordAuthenticationToken(
                 new EventUserDetails(appUser),
-                presentedPassword,
+//                presentedPassword,
+                encodedPassword,
                 authorities);
     }
 

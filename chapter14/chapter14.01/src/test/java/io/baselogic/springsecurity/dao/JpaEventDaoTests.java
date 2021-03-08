@@ -65,7 +65,7 @@ class JpaEventDaoTests {
         Mono<Event> result = dao.findById(100);
 
         StepVerifier
-                .create(result.log())
+                .create(result.log("FINDBYID"))
                 .assertNext(r -> {
                     log.info("Result: {} ", r);
                     assertThat(r).isNotNull()
@@ -86,7 +86,7 @@ class JpaEventDaoTests {
         Flux<Event> result = dao.findByUser(0);
 
         StepVerifier
-                .create(result.log())
+                .create(result.log("FINDBYUSER"))
                 .assertNext(r -> {
                     log.info("Result: {} ", r);
                     assertThat(r).isNotNull()
@@ -125,6 +125,7 @@ class JpaEventDaoTests {
                 .when(Calendar.getInstance())
                 .attendee(TestUtils.attendee)
                 .owner(TestUtils.owner)
+                .persisted(true)
                 .build();
 
         Flux<Event> result = dao.findAll();

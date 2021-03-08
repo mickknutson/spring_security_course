@@ -24,14 +24,8 @@ class EventRepositoryTests {
     @Autowired
     private EventRepository repository;
 
-    private AppUser owner = new AppUser();
-    private AppUser attendee = new AppUser();
-
     @BeforeEach
-    void beforeEachTest() {
-        owner.setId(1);
-        attendee.setId(0);
-    }
+    void beforeEachTest() {}
 
 
     @Test
@@ -42,7 +36,7 @@ class EventRepositoryTests {
 
     @Test
     @DisplayName("EventRepository - find all Event")
-    void findAll() {
+    void test_findAll() {
         List<Event> events = repository.findAll();
         log.info("***** Events: {}", events);
         assertThat(events.size()).isGreaterThanOrEqualTo(3);
@@ -51,7 +45,7 @@ class EventRepositoryTests {
 
     @Test
     @DisplayName("EventRepository - find Event by id")
-    void find() {
+    void test_find() {
         Event event = repository.findById(100).orElseThrow(RuntimeException::new);
         log.info(event.toString());
 
@@ -68,23 +62,23 @@ class EventRepositoryTests {
 
     @Test
     @DisplayName("EventRepository - create Event")
-    void createEvent() {
+    void test_createEvent() {
         log.debug("******************************");
-        List<Event> events = repository.findByOwner(owner);
+        List<Event> events = repository.findByOwner(TestUtils.owner);
         assertThat(events.size()).isPositive();
 
-        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
         int eventId = repository.save(event).getId();
 
-        List<Event> newEvents = repository.findByOwner(owner);
-        assertThat(newEvents.size()).isGreaterThanOrEqualTo(2);
+        List<Event> newEvents = repository.findByOwner(TestUtils.owner);
+        assertThat(newEvents.size()).isGreaterThan(events.size());
         // find eventId in List...
 //        assertThat(newEvents.get(3)).isEqualTo(3);
     }
 
     @Test
     @DisplayName("EventRepository - create Event - null event")
-    void createEvent_null_event() {
+    void test_createEvent_null_event() {
         assertThrows(InvalidDataAccessApiUsageException.class, () -> {
             repository.save(null);
         });
@@ -92,25 +86,24 @@ class EventRepositoryTests {
 
     @Test
     @DisplayName("EventRepository - create Event - IllegalArgumentException > ID")
-    void createEvent_with_event_id() {
-        List<Event> events = repository.findByOwner(owner);
+    void test_createEvent_with_event_id() {
+        List<Event> events = repository.findByOwner(TestUtils.owner);
         assertThat(events.size()).isPositive();
 
-//        assertThrows(IllegalArgumentException.class, () -> {
-            Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
-            event.setId(12345);
-            repository.save(event);
-//        });
-        List<Event> events2 = repository.findByOwner(owner);
-        assertThat(events2.size()).isGreaterThanOrEqualTo(2);
+        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
+        event.setId(12345);
+        repository.save(event);
+
+        List<Event> newEvents = repository.findByOwner(TestUtils.owner);
+        assertThat(newEvents.size()).isGreaterThan(events.size());
 
 
     }
 
     @Test
     @DisplayName("EventRepository - create Event - null Owner")
-    void createEvent_null_event_owner() {
-        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+    void test_createEvent_null_event_owner() {
+        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
         event.setOwner(null);
 
         assertThrows(ConstraintViolationException.class, () -> {
@@ -121,8 +114,8 @@ class EventRepositoryTests {
 
     @Test
     @DisplayName("EventRepository - create Event - null Attendee")
-    void createEvent_null_event_attendee() {
-        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+    void test_createEvent_null_event_attendee() {
+        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
         event.setAttendee(null);
 
         assertThrows(ConstraintViolationException.class, () -> {
@@ -133,8 +126,8 @@ class EventRepositoryTests {
 
     @Test
     @DisplayName("EventRepository - create Event - null Event Date")
-    void createEvent_null_event_when() {
-        Event event = TestUtils.createMockEvent(owner, attendee, "Testing Event");
+    void test_createEvent_null_event_when() {
+        Event event = TestUtils.createMockEvent(TestUtils.owner, TestUtils.attendee, "Testing Event");
         event.setWhen(null);
 
         assertThrows(ConstraintViolationException.class, () -> {

@@ -8,6 +8,7 @@ import io.baselogic.springsecurity.web.model.EventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -30,10 +31,8 @@ import java.util.Calendar;
  */
 @Controller
 @RequestMapping("/events")
-//@Validated
 @Slf4j
 public class EventsController {
-
 
     private final EventService eventService;
     private final UserContext userContext;
@@ -58,7 +57,6 @@ public class EventsController {
 
     @GetMapping("/")
     public String allEvents(final Model model) {
-        log.debug("* allEvents");
 
         Flux<Event> events = eventService.findAllEvents();
         model.addAttribute("events", events);
@@ -68,7 +66,6 @@ public class EventsController {
 
     @GetMapping("/my")
     public Mono<String> userEvents(final Model model) {
-        log.debug("* userEvents");
 
         return userContext.getCurrentUser()
                 .map( appUser -> {
@@ -109,7 +106,7 @@ public class EventsController {
      *
      */
     @PostMapping(value = "/new", params = "auto")
-    public Mono<String> showEventFormAutoPopulate(final Model model,
+    public Mono<String> autoPopulateShowEventForm(final Model model,
                                                   final @ModelAttribute EventDto eventDto) {
         log.debug("*** showEventFormAutoPopulate({}, {})", model, eventDto);
 
@@ -131,12 +128,10 @@ public class EventsController {
         }).then(Mono.just(EVENT_CREATE_VIEW));
     }
 
-    @PostMapping("/new")
+    @PostMapping(value = "/new")
     public Mono<String> createEvent(final Model model,
                                     final @Valid EventDto eventDto,
                                     final BindingResult result) {
-
-        log.debug("* createEvent({}, {})", model, eventDto);
 
         if (result.hasErrors()) {
             result.getAllErrors().forEach( e -> log.error("** error: {}", e) );
@@ -156,20 +151,28 @@ public class EventsController {
 
         //-----------------------------------------------------------------------//
 
-        // TODO: Might consider moving this to the Service layer:
         Mono<AppUser> attendeeMono = eventService.findUserByEmail(eventDto.getAttendeeEmail());
+
+        // CTRL + SPACE
+        // CTRL + B
 
         Mono<Event> newEventMono = eventInputMono.zipWith(
                 attendeeMono, (event, attendee) -> {
+                    log.info("***** Event: {}, Attendee: {}", event, attendee);
                     if (attendee == null) {
                         result.rejectValue("attendeeEmail", "event.new.attendeeEmail.missing");
                     } else {
-                        log.debug("attendee.subscribe: {}", attendee);
                         event.setAttendee(attendee);
                     }
                     return event;
-                });
+                }).switchIfEmpty(Mono.defer(() -> {
+                    log.info("Attendee Not found!");
+                    result.rejectValue("attendeeEmail", "event.new.attendeeEmail.missing");
+                    return Mono.just(new Event());
+                }))
+                .log("1.ZIPWITH");
 
+        newEventMono.subscribe();
 
         //-----------------------------------------------------------------------//
         // New Error?
@@ -183,10 +186,8 @@ public class EventsController {
         Mono<Event> finalEventMono = newEventMono.zipWith(
                 currentUserMono, (event, owner) -> {
                     event.setOwner(owner);
-                    log.debug("newEventMono.zipWith: e: {}, o: {}", event, owner);
                     return event;
-                });
-
+                }).log("2.ZIPWITH");
 
         return finalEventMono.flatMap(eventService::createEvent)
                 .then(userEvents(model));

@@ -19,7 +19,7 @@ import java.util.List;
  * This replaces data.sql and schema.sql
  *
  * @author mickknutson
- * @since chapter05.02
+ * @since chapter05.02 Created for Mongo
  *
  */
 @Configuration
@@ -37,37 +37,31 @@ public class MongoDataInitializer {
 
     @PostConstruct
     public void setUp() {
-        log.info("*******************************************************");
-        log.info("* Clean the database");
-        log.info("*******************************************************");
+        log.debug(STAR);
+        log.debug("* Clean the database");
+        log.debug(LINE);
+
         appUserRepository.deleteAll();
         roleRepository.deleteAll();
         eventRepository.deleteAll();
 
-        log.info("seedRoles");
+        log.debug("seedRoles");
         seedRoles();
 
-        log.info("seedAppUsers");
+        log.debug("seedAppUsers");
         seedAppUsers();
-        log.info("seedEvents");
+        log.debug("seedEvents");
         seedEvents();
 
-        log.info("*******************************************************");
-        log.info("* The End...");
-        log.info("*******************************************************");
+        log.debug(LINE);
+        log.debug("* The End...");
+        log.debug(STAR);
     }
 
     private AppUser user1;
     private AppUser admin1;
     private AppUser user2;
 
-    // AppUsers
-    {
-        user1 = new AppUser(0, "user1@baselogic.com","{bcrypt}$2a$04$qr7RWyqOnWWC1nwotUW1nOe1RD5.mKJVHK16WZy6v49pymu1WDHmi","User","1");
-        admin1 = new AppUser(1,"admin1@baselogic.com","{bcrypt}$2a$04$0CF/Gsquxlel3fWq5Ic/ZOGDCaXbMfXYiXsviTNMQofWRXhvJH3IK","Admin","1");
-        user2 = new AppUser(2,"user2@baselogic.com","{bcrypt}$2a$04$PiVhNPAxunf0Q4IMbVeNIuH4M4ecySWHihyrclxW..PLArjLbg8CC","User2","2");
-
-    }
 
     private Role user_role;
     private Role admin_role;
@@ -97,9 +91,9 @@ public class MongoDataInitializer {
                 "Birthday Party",
                 "Time to have my yearly party!",
                 new GregorianCalendar(2020,6,3,6,36,00),
-                user1,
-                admin1
-                );
+                user1, // Owner
+                admin1 // Attendee
+        );
 
         // Event 2
         Event event2 = new Event(
@@ -107,9 +101,9 @@ public class MongoDataInitializer {
                 "Mountain Bike Race",
                 "Deer Valley mountain bike race",
                 new GregorianCalendar(2020,11,23,13,00,00),
-                user2,
-                user1
-                );
+                user2, // Owner
+                user1  // Attendee
+        );
 
         // Event 3
         Event event3 = new Event(
@@ -117,22 +111,32 @@ public class MongoDataInitializer {
                 "Lunch",
                 "Eating lunch together",
                 new GregorianCalendar(2020,8,14,11,30,00),
-                admin1,
-                user2
-                );
+                admin1, // Owner
+                user2   // Attendee
+        );
 
         // save Event
         eventRepository.save(event1);
         eventRepository.save(event2);
         eventRepository.save(event3);
 
-        List<Event> events = eventRepository.findAll();
+        List<Event> results = eventRepository.findAll();
 
-        log.info("Events [{}]: {}", events.size(), events);
+        log.info("*** Events [{}]:", results.size());
+        results.forEach(e -> {
+            log.info("Event: {} \n", e);
+            log.info("summary: {}, owner: {}, attendee: {}",
+                    e.getSummary(),
+                    e.getOwner().getEmail(),
+                    e.getAttendee().getEmail());
+        });
     }
 
 
     private void seedAppUsers(){
+        user1 = new AppUser(0, "user1@baselogic.com","{bcrypt}$2a$04$qr7RWyqOnWWC1nwotUW1nOe1RD5.mKJVHK16WZy6v49pymu1WDHmi","User","1");
+        admin1 = new AppUser(1,"admin1@baselogic.com","{bcrypt}$2a$04$0CF/Gsquxlel3fWq5Ic/ZOGDCaXbMfXYiXsviTNMQofWRXhvJH3IK","Admin","1");
+        user2 = new AppUser(2,"user2@baselogic.com","{bcrypt}$2a$04$PiVhNPAxunf0Q4IMbVeNIuH4M4ecySWHihyrclxW..PLArjLbg8CC","User2","2");
 
         // user1
         user1.addRole(user_role);
@@ -149,9 +153,21 @@ public class MongoDataInitializer {
         appUserRepository.save(admin1);
         appUserRepository.save(user2);
 
-        List<AppUser> users = appUserRepository.findAll();
+        List<AppUser> results = appUserRepository.findAll();
 
-        log.info("AppUsers [{}]: {}", users.size(), users);
+        log.info("*** AppUsers [{}]:", results.size());
+        results.forEach(e -> {
+            log.info("AppUser: {} \n", e);
+            log.info("id: {}, email: {}, passeword: {}",
+                    e.getId(),
+                    e.getEmail(),
+                    e.getPassword());
+
+        });
     }
+
+    public static final String LINE = "------------------------------------------------";
+    public static final String STAR = "*******************************************************";
+
 
 } // The End...

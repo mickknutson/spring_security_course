@@ -9,21 +9,13 @@ debug: false
 ##---------------------------------------------------------------------------##
 spring:
 
-
   ##---------------------------------------------------------------------------##
   ## MongoDB
   data:
     mongodb:
       host: localhost
       database: dataSource
-#      port: 65432
-
-
-
-  ##---------------------------------------------------------------------------##
-  ## Thymeleaf
-  thymeleaf:
-    cache: false
+      #port: 65432 # 27017
 
 
 ##---------------------------------------------------------------------------##
@@ -43,12 +35,14 @@ management:
 
 ##---------------------------------------------------------------------------##
 ## Logging Configuration:
-#logging:
-#  level:
-#    io:
-#      baselogic: DEBUG
-##        testloglevel: INFO
-#    org:
-#      springframework: INFO
+logging:
+  level:
+    io:
+      baselogic:
+        testloglevel: trace
+
+    org.springframework.boot.autoconfigure.mongo.embedded: off
+    org.mongodb: off
+
 
 ##---------------------------------------------------------------------------##

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -17,7 +18,8 @@ import java.util.Calendar;
  * fields are required.
  *
  * @author mickknutson
- *
+ * @since chapter01.00 created
+ * @since chapter05.01 Updated for JPA
  */
 // JPA Annotations:
 @Entity
@@ -29,6 +31,8 @@ import java.util.Calendar;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Event implements Serializable {
+
+//    public Event() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,11 +47,6 @@ public class Event implements Serializable {
     @NotNull(message = "When is required (yyyy-MM-dd HH:mm)")
     @Column(name="event_date")
     private Calendar when;
-
-
-
-
-
 
 
     @NotNull(message = "Owner is required")

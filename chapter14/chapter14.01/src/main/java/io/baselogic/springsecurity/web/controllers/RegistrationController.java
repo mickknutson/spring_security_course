@@ -7,6 +7,7 @@ import io.baselogic.springsecurity.service.UserContext;
 import io.baselogic.springsecurity.web.model.RegistrationDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +38,7 @@ import javax.validation.constraints.NotNull;
 @Slf4j
 public class RegistrationController {
 
+
     private final EventService eventService;
     private final UserContext userContext;
 
@@ -61,7 +63,7 @@ public class RegistrationController {
                                            final @Valid RegistrationDto registrationDto,
                                            final BindingResult result) {
 
-
+        log.info("* createRegistration");
         if (result.hasErrors()) {
             log.error("* result.hasErrors()");
             result.getAllErrors().forEach( e -> log.error("error: {}", e) );
@@ -111,43 +113,43 @@ public class RegistrationController {
 //                    log.debug("Newly Created user {}.", newRegistration);
 //                }).log();
 
-        Mono<AppUser> createdAppUserMono = newUserMono.flatMap(eventService::createUser);
+        Mono<AppUser> createdAppUserMono = newUserMono
+                .flatMap(eventService::createUser);
+
+        Mono<AppUser> authenticatedUserMono = createdAppUserMono
+                .map(u -> {
+                    log.debug("u {}.", u);
+                    userContext.setCurrentUser(u).subscribe();
+                    return u;
+                })
+                .map(y -> {
+                    log.debug("* y {}.", y);
+                    userContext.getCurrentUser()
+                            .doOnEach(z -> log.debug("* z {}.", z));
+                    return y;
+                })
+                ;
 
 
-//        Mono<AppUser> newAppUserMono = newUserMono.zipWhen(newUserRegistration ->
-//                        createdAppUser,
-//
-//                (newUserRegistration, registeredAppUser) -> {
-//                    log.debug("newUserRegistration {}, registeredAppUser: {}", newUserRegistration, registeredAppUser);
-//                    return registeredAppUser;
-//                });
-
-//        newAppUserMono.doOnSuccess(u -> log.debug("u {}.", u)).subscribe();
-
-
-
-
-        Mono<AppUser> authenticatedUserMono = createdAppUserMono.zipWhen(createdAppUser ->
+        /*Mono<AppUser> authenticatedUserMono = createdAppUserMono.zipWhen(createdAppUser ->
 
                         userContext.setCurrentUser(createdAppUser),
 
                 (createdAppUser, authenticatedUser) -> {
-                    log.debug("createdAppUser {}, authenticatedUser: {}", createdAppUser, authenticatedUser);
+                    log.debug("* createdAppUser {}, authenticatedUser: {}", createdAppUser, authenticatedUser);
                     return createdAppUser;
-                });
-
-        authenticatedUserMono.doOnSuccess(u -> log.debug("u {}.", u)).subscribe();
-
-
-
-//        Mono<Void> fooMono = newAppUserMono.flatMap(userContext::setCurrentUser);
-//        log.debug("fooMono {}.", fooMono);
-
-
-        Mono<AppUser> currentUserMono = userContext.getCurrentUser();
-        currentUserMono.doOnSuccess(u -> log.debug("u {}.", u)).subscribe();
+                });*/
 
         authenticatedUserMono
+                .doOnSuccess(u -> log.debug("u {}.", u)).subscribe();
+
+
+
+        // Do this for testing
+//        Mono<AppUser> currentUserMono = userContext.getCurrentUser();
+//        currentUserMono.doOnSuccess(u -> log.debug("u {}.", u)).subscribe();
+
+        /*authenticatedUserMono
                 .doOnSuccess(u -> {
                     StringBuilder sb = new StringBuilder("Registration Successful.");
                     sb.append(" Account created for '")
@@ -158,7 +160,7 @@ public class RegistrationController {
 
 //            return Mono.just("redirect:/");
 
-        });
+        });*/
 
         return Mono.just("redirect:/");
 

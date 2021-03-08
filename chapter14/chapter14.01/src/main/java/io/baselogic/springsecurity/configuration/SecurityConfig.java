@@ -3,6 +3,7 @@ package io.baselogic.springsecurity.configuration;
 import io.baselogic.springsecurity.service.DefaultEventService;
 import io.baselogic.springsecurity.service.EventService;
 import io.baselogic.springsecurity.userdetails.EventUserDetailsService;
+import io.baselogic.springsecurity.web.handlers.CustomServerAuthenticationSuccessHandler;
 import io.baselogic.springsecurity.web.handlers.RedirectingAccessDeniedHandler;
 import io.baselogic.springsecurity.web.handlers.CustomServerLogoutHandler;
 import io.baselogic.springsecurity.web.handlers.RedirectingServerLogoutSuccessHandler;
@@ -88,6 +89,9 @@ public class SecurityConfig {
     }
 
     @Autowired
+    private CustomServerAuthenticationSuccessHandler customServerAuthenticationSuccessHandler;
+
+    @Autowired
     private RedirectingAccessDeniedHandler redirectingAccessDeniedHandler;
 
     @Autowired
@@ -120,6 +124,9 @@ public class SecurityConfig {
                         .pathMatchers("/").permitAll()
 
                         .pathMatchers("/login").permitAll()
+                        .pathMatchers("/login*").permitAll()
+                        .pathMatchers("/login/*").permitAll()
+                        .pathMatchers("/login/**").permitAll()
                         .pathMatchers("/logout").permitAll()
 
                         .pathMatchers("/admin/*").hasRole(HASROLE_ADMIN)
@@ -133,16 +140,20 @@ public class SecurityConfig {
             http.httpBasic().disable();
 
         // The default AccessDeniedException
-        http.exceptionHandling().accessDeniedHandler(redirectingAccessDeniedHandler);
+        http.exceptionHandling().accessDeniedHandler(
+                redirectingAccessDeniedHandler
+                        .accessDeniedPage("/error/403")
+        );
 
         // Login Configuration
-        http.formLogin(form -> form.loginPage("/login"));
+        http.formLogin(form ->
+                form.loginPage("/login")
+                .authenticationSuccessHandler(
+                        customServerAuthenticationSuccessHandler
+                                .defaultSuccessUrl("/default")
+                )
+        );
 
-//        http.formLogin(form ->
-//                form.loginPage("/login")
-////                .authenticationSuccessHandler(customServerAuthenticationSuccessHandler)
-//        );
-//
         // Logout Configuration
         http.logout(logout -> {
             logout.logoutUrl("/logout")
@@ -150,7 +161,10 @@ public class SecurityConfig {
                     .requiresLogout(new PathPatternParserServerWebExchangeMatcher("/logout"))
                     // FIXME: Cannot seem to have both:
 //                    .logoutHandler(customServerLogoutHandler)
-                    .logoutSuccessHandler(redirectingServerLogoutSuccessHandler)
+                    .logoutSuccessHandler(
+                            redirectingServerLogoutSuccessHandler
+                                    .logoutSuccessUrl("/login?logout")
+                    )
             ;
         });
 

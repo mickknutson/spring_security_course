@@ -84,7 +84,7 @@ public class EventsController {
      * @since chapter03.04 removed user id check (currentAppUser.getId() == 0 ? 1 : 0;)
      *
      */
-    @PostMapping(value = "/new", params = "auto")
+    @PostMapping(path = "/new", params = "auto")
     public String showEventFormAutoPopulate(final @ModelAttribute EventDto eventDto) {
         // provide default values to make user submission easier
         eventDto.setSummary("A new event....");

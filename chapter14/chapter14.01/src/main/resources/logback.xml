@@ -16,7 +16,7 @@
         <immediateFlush>true</immediateFlush>
         <encoder>
             <pattern>%d %p %c{1.} [%t] %m%n</pattern>
-<!--            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg%n</pattern>-->
+            <!--            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg%n</pattern>-->
         </encoder>
     </appender>
 
@@ -26,7 +26,7 @@
         <appender-ref ref="FILE" />
     </root>
 
-    <logger name="io.baselogic" level="INFO" additivity="false">
+    <logger name="io.baselogic" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 
@@ -34,13 +34,13 @@
         <appender-ref ref="FILE" />
     </logger>
 
-    <logger name="org.springframework" level="INFO" additivity="false">
+    <logger name="org.springframework.web" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="org.springframework.security" level="INFO" additivity="false">
+    <logger name="org.springframework.security" level="DEBUG" additivity="false">
         <appender-ref ref="FILE" />
-<!--        <appender-ref ref="STDOUT"/>-->
+        <!--<appender-ref ref="STDOUT"/>-->
     </logger>
 
 </configuration>

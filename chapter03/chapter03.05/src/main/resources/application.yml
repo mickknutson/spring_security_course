@@ -36,6 +36,7 @@ spring:
     continue-on-error: true
     generate-unique-name: true
 
+
 ##---------------------------------------------------------------------------##
 ## Actuators:
 ## https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-endpoints

@@ -9,14 +9,10 @@ import java.util.List;
 
 public interface EventRepository extends MongoRepository<Event, Integer> {
 
-    List<Event> findByOwner(AppUser appUser);
-
-
-
-
+    List<Event> findAllByOwner(AppUser appUser);
 
     @Query("{'owner.id' : ?0}")
-    List<Event> findByUser(Integer id);
+    List<Event> findByOwner(Integer id);
 
 
 } // The End...

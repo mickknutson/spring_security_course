@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.web.server.authorization.ServerAccessDeniedHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -20,6 +21,8 @@ import reactor.core.publisher.Mono;
 @Component
 @Slf4j
 public class RedirectingAccessDeniedHandler implements ServerAccessDeniedHandler {
+
+    private String accessDeniedPage = "/";
 
 
     public RedirectingAccessDeniedHandler() {
@@ -38,12 +41,20 @@ public class RedirectingAccessDeniedHandler implements ServerAccessDeniedHandler
 
         log.debug("*** handle({}, {})", serverWebExchange, e.getMessage());
 
-        log.info("*** Throw AccessDeniedException ***");
+        log.error("*** Throw AccessDeniedException ***");
+        log.error("*** AccessDeniedException: {}", e.getCause());
+        e.printStackTrace();
+
         ServerHttpRequest request = serverWebExchange.getRequest();
         ServerHttpResponse response = serverWebExchange.getResponse();
 
-        return ReactiveHandlerUtils.sendRedirect(request, response, "/error/403")
-                .then();
+        return ReactiveHandlerUtils.sendRedirect(request, response, accessDeniedPage);
     }
+
+    public RedirectingAccessDeniedHandler accessDeniedPage(String accessDeniedPage) {
+        this.accessDeniedPage = accessDeniedPage;
+        return this;
+    }
+
 
 } // The End...

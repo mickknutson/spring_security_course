@@ -13,7 +13,9 @@ import java.util.Set;
 /**
  * A {@link Role} is grouping of allowed Authorizations.
  *
- * @author Mick Knutson
+ * @author mickknutson
+ * @since chapter05.01 Created for JPA
+ * @since chapter05.02 Updated for MongoDB
  */
 // JPA Annotations:
 @Entity

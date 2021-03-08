@@ -43,7 +43,7 @@ class RoleRepositoryTests {
     @Test
     @DisplayName("test_findById_user1")
     @Order(2)
-    void test_findById_USER() {
+    void test_findById_ROLE_USER() {
         Mono<Role> result = repository.findById(0);
 
         StepVerifier
@@ -67,14 +67,10 @@ class RoleRepositoryTests {
     @DisplayName("findAll")
     @Order(3)
 	void test_findAll() {
-        log.info("*** test_findAll");
-
         Flux<Role> result = repository.findAll();
 
-        result.doOnEach( r-> log.info("*** Role: {}", r));
-
         StepVerifier
-                .create(repository.findAll())
+                .create(result)
                 .expectNext(Role.builder().id(0).name("ROLE_USER").persisted(false).build())
                 .expectNext(Role.builder().id(1).name("ROLE_ADMIN").persisted(false).build())
                 .expectComplete()

@@ -18,7 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @since chapter02.02 Added formLogin and logout configuration
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

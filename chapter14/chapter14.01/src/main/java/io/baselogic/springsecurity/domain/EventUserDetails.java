@@ -20,7 +20,7 @@ import java.util.Collection;
  * </ul>
  *
  * @author mickknutson
- * @since chapter03.04
+ * @since chapter03.04 Created
  *
  */
 public class EventUserDetails
@@ -33,9 +33,6 @@ public class EventUserDetails
         setFirstName(appUser.getFirstName());
         setLastName(appUser.getLastName());
         setPassword(appUser.getPassword());
-
-        // FIXME: Need to add this to other instances.
-        setRoles(appUser.getRoles());
     }
 
     @Override

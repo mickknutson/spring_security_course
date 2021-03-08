@@ -9,13 +9,14 @@ debug: false
 ##---------------------------------------------------------------------------##
 spring:
 
-
   ##---------------------------------------------------------------------------##
   ## MongoDB
   data:
     mongodb:
       host: localhost
       database: dataSource
+#      TODO: Move to a PROFILE:
+#      port: 65432
 
 
 ##---------------------------------------------------------------------------##
@@ -39,6 +40,10 @@ logging:
   level:
     io:
       baselogic:
-        testloglevel: INFO
+        testloglevel: trace
+
+    org.springframework.boot.autoconfigure.mongo.embedded: off
+    org.mongodb: off
+
 
 ##---------------------------------------------------------------------------##

@@ -24,7 +24,7 @@ import reactor.core.publisher.Mono;
 public class CustomServerLogoutHandler implements ServerLogoutHandler {
 
     public CustomServerLogoutHandler() {
-        log.debug("*** RedirectingServerLogoutHandler ***");
+        log.debug("*** CustomServerLogoutHandler ***");
     }
 
     /**

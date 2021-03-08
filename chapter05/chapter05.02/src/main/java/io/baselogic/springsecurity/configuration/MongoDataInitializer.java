@@ -19,7 +19,7 @@ import java.util.List;
  * This replaces data.sql and schema.sql
  *
  * @author mickknutson
- * @since chapter05.02
+ * @since chapter05.02 Created for Mongo
  *
  */
 @Configuration
@@ -37,9 +37,10 @@ public class MongoDataInitializer {
 
     @PostConstruct
     public void setUp() {
-        log.info("*******************************************************");
+        log.info(STAR);
         log.info("* Clean the database");
-        log.info("*******************************************************");
+        log.info(LINE);
+
         appUserRepository.deleteAll();
         roleRepository.deleteAll();
         eventRepository.deleteAll();
@@ -52,22 +53,15 @@ public class MongoDataInitializer {
         log.info("seedEvents");
         seedEvents();
 
-        log.info("*******************************************************");
+        log.info(LINE);
         log.info("* The End...");
-        log.info("*******************************************************");
+        log.info(STAR);
     }
 
     private AppUser user1;
     private AppUser admin1;
     private AppUser user2;
 
-    // AppUsers
-    {
-        user1 = new AppUser(0, "user1@baselogic.com","{bcrypt}$2a$04$qr7RWyqOnWWC1nwotUW1nOe1RD5.mKJVHK16WZy6v49pymu1WDHmi","User","1");
-        admin1 = new AppUser(1,"admin1@baselogic.com","{bcrypt}$2a$04$0CF/Gsquxlel3fWq5Ic/ZOGDCaXbMfXYiXsviTNMQofWRXhvJH3IK","Admin","1");
-        user2 = new AppUser(2,"user2@baselogic.com","{bcrypt}$2a$04$PiVhNPAxunf0Q4IMbVeNIuH4M4ecySWHihyrclxW..PLArjLbg8CC","User2","2");
-
-    }
 
     private Role user_role;
     private Role admin_role;
@@ -133,6 +127,9 @@ public class MongoDataInitializer {
 
 
     private void seedAppUsers(){
+        user1 = new AppUser(0, "user1@baselogic.com","{bcrypt}$2a$04$qr7RWyqOnWWC1nwotUW1nOe1RD5.mKJVHK16WZy6v49pymu1WDHmi","User","1");
+        admin1 = new AppUser(1,"admin1@baselogic.com","{bcrypt}$2a$04$0CF/Gsquxlel3fWq5Ic/ZOGDCaXbMfXYiXsviTNMQofWRXhvJH3IK","Admin","1");
+        user2 = new AppUser(2,"user2@baselogic.com","{bcrypt}$2a$04$PiVhNPAxunf0Q4IMbVeNIuH4M4ecySWHihyrclxW..PLArjLbg8CC","User2","2");
 
         // user1
         user1.addRole(user_role);
@@ -153,5 +150,9 @@ public class MongoDataInitializer {
 
         log.info("AppUsers [{}]: {}", users.size(), users);
     }
+
+    public static final String LINE = "------------------------------------------------";
+    public static final String STAR = "*******************************************************";
+
 
 } // The End...

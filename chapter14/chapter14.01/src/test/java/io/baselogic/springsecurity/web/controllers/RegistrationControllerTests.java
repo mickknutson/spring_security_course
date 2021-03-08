@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
@@ -42,9 +43,8 @@ class RegistrationControllerTests {
 
     @Test
     @DisplayName("Show Registration Form - WithAnonymousUser")
-//    @WithAnonymousUser
-    @WithMockEventUserDetailsUser1
-    void showRegistrationForm__WithUser() throws Exception {
+    @WithAnonymousUser
+    void showRegistrationForm() throws Exception {
 
 //        EntityExchangeResult result = client.get()
 //                .uri("/registration/form")

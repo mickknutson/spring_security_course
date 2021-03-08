@@ -1,10 +1,12 @@
 package io.baselogic.springsecurity.dao;
 
+import io.baselogic.springsecurity.domain.AppUser;
 import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.repository.EventRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 import reactor.core.publisher.Flux;
@@ -45,7 +47,16 @@ public class ReactiveJpaEventDao implements EventDao {
 
     @Override
     public Flux<Event> findByUser(final Integer userId) {
-        return eventRepository.findByOwner(userId);
+        Event example = new Event();
+        AppUser user = new AppUser();
+        user.setId(userId);
+        example.setOwner(user);
+
+        log.info("findByUser: {}", example);
+
+//        return eventRepository.findAll(Example.of(example)).log("FINDBYUSER");
+//        return eventRepository.findAllByOwner(user).log("FINDBYUSER");
+        return eventRepository.findByOwner(userId).log("FINDBYUSER");
     }
 
     @Override

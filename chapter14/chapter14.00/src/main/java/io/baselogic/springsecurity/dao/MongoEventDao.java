@@ -5,14 +5,13 @@ import io.baselogic.springsecurity.domain.Event;
 import io.baselogic.springsecurity.repository.EventRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A MongoDb Document implementation of {@link EventDao}.
@@ -26,14 +25,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MongoEventDao implements EventDao {
 
     private final EventRepository eventRepository;
-
-    // Simple Primary Key Generator
-    private final AtomicInteger eventPK = new AtomicInteger(102);
+    private final EventNumberGenerator eventNumberGenerator;
 
 
-    @Autowired
-    public MongoEventDao(final @NotNull EventRepository eventRepository) {
+    public MongoEventDao(final EventRepository eventRepository,
+                         final EventNumberGenerator eventNumberGenerator) {
+        Assert.notNull(eventRepository, "eventRepository cannot be null");
+        Assert.notNull(eventNumberGenerator, "eventNumberGenerator cannot be null");
+
         this.eventRepository = eventRepository;
+        this.eventNumberGenerator = eventNumberGenerator;
     }
 
 
@@ -50,7 +51,11 @@ public class MongoEventDao implements EventDao {
         user.setId(userId);
         example.setOwner(user);
 
-        return eventRepository.findAll(Example.of(example));
+        log.info("findByUser: {}", example);
+
+//        return eventRepository.findAll(Example.of(example));
+//        return eventRepository.findAllByOwner(user);
+        return eventRepository.findByOwner(userId);
     }
 
 
@@ -62,10 +67,7 @@ public class MongoEventDao implements EventDao {
     @Override
     public Integer save(final @NotNull @Valid Event event) {
 
-        if(event.getId() == null) {
-            // Get the next PK instance
-            event.setId(eventPK.incrementAndGet());
-        }
+        event.setId(eventNumberGenerator.getNextGivenNumber());
 
         Event newEvent = eventRepository.save(event);
         return newEvent.getId();

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotEmpty;
@@ -31,16 +32,18 @@ public class MongoAppUserDao implements UserDao {
 
     private final AppUserRepository appUserRepository;
     private final RoleRepository roleRepository;
+    private final AppUserNumberGenerator appUserNumberGenerator;
 
-    // Simple Primary Key Generator
-    private final AtomicInteger userPK = new AtomicInteger(10);
+    public MongoAppUserDao(final AppUserRepository appUserRepository,
+                           final RoleRepository roleRepository,
+                           final AppUserNumberGenerator appUserNumberGenerator) {
+        Assert.notNull(appUserRepository, "appUserRepository cannot be null");
+        Assert.notNull(roleRepository, "roleRepository cannot be null");
+        Assert.notNull(appUserNumberGenerator, "appUserNumberGenerator cannot be null");
 
-
-    @Autowired
-    public MongoAppUserDao(final @NotNull AppUserRepository appUserRepository,
-                           final @NotNull RoleRepository roleRepository) {
         this.appUserRepository = appUserRepository;
         this.roleRepository = roleRepository;
+        this.appUserNumberGenerator = appUserNumberGenerator;
     }
 
 
@@ -62,6 +65,8 @@ public class MongoAppUserDao implements UserDao {
     @Override
     public Integer save(final @NotNull AppUser appUser) {
 
+        appUser.setId(appUserNumberGenerator.getNextGivenNumber());
+
         Role example = new Role();
         example.setId(0);
 
@@ -69,16 +74,10 @@ public class MongoAppUserDao implements UserDao {
 
         roles.add(
                 roleRepository.findOne(Example.of(example))
-                .orElseThrow(()-> new EmptyResultDataAccessException(1))
+                .orElseThrow(()-> new EmptyResultDataAccessException("No Roles found", 1))
         );
 
         appUser.setRoles(roles);
-
-        if(appUser.getId() == null) {
-            // Get the next PK instance
-            appUser.setId(userPK.incrementAndGet());
-        }
-
 
         AppUser result = appUserRepository.save(appUser);
 

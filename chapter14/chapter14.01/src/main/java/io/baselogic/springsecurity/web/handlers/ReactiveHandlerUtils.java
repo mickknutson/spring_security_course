@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.web.handlers;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -43,9 +44,19 @@ public interface ReactiveHandlerUtils {
                                    final ServerHttpResponse serverHttpResponse,
                                    final String uriPath){
 
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUri(serverHttpRequest.getURI());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder
+                .fromUri(serverHttpRequest.getURI());
 
-        UriComponents uriComponents = uriBuilder.replacePath(uriPath).build();
+        String[] split = StringUtils.split(uriPath, "?");
+        String query = "";
+        if(split.length == 2 && split[1] != null){
+            query = split[1];
+        }
+
+        UriComponents uriComponents = uriBuilder
+                .replacePath(split[0])
+                .replaceQuery(query)
+                .build();
         URI uri = uriComponents.toUri();
 
         serverHttpResponse.setStatusCode(HttpStatus.MOVED_PERMANENTLY);

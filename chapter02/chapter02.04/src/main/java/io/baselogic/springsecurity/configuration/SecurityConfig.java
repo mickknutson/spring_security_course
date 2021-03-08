@@ -21,7 +21,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @since chapter02.04 converted antMatchers to SPeL expressions
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

@@ -19,17 +19,17 @@ class RoleRepositoryTests {
 	@Test
     @DisplayName("RoleRepository - validateUser_User")
     void validateUser_User() {
-        Role user = repository.findById(0).orElseThrow(RuntimeException::new);
-        assertThat(user.getId()).isZero();
-        assertThat(user.getName()).isEqualTo("ROLE_USER");
+        Role result = repository.findById(0).orElseThrow(RuntimeException::new);
+        assertThat(result.getId()).isZero();
+        assertThat(result.getName()).isEqualTo("ROLE_USER");
 	}
 
 	@Test
     @DisplayName("RoleRepository - validateUser_Admin")
 	void validateUser_Admin() {
-        Role user = repository.findById(1).orElseThrow(RuntimeException::new);
-        assertThat(user.getId()).isEqualTo(1);
-        assertThat(user.getName()).isEqualTo("ROLE_ADMIN");
+        Role result = repository.findById(1).orElseThrow(RuntimeException::new);
+        assertThat(result.getId()).isEqualTo(1);
+        assertThat(result.getName()).isEqualTo("ROLE_ADMIN");
 	}
 
 } // The End...

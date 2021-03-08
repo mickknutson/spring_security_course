@@ -19,7 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @since chapter02.03 Added basic role-based authorization
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

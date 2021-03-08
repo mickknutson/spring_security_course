@@ -1,5 +1,7 @@
 package io.baselogic.springsecurity.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -12,14 +14,18 @@ import java.io.Serializable;
 /**
  * A {@link Role} is grouping of allowed Authorizations.
  *
- * @author Mick Knutson
+ * @author mickknutson
+ * @since chapter05.01 Created for JPA
+ * @since chapter05.02 Updated for MongoDB
  */
 // Document Annotations:
 @Document(collection="role")
 
 // Lombok Annotations:
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Role implements Persistable<Integer>, Serializable {
 
     @Id

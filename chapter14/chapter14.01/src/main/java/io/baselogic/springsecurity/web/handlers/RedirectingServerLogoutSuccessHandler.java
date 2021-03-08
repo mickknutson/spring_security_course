@@ -2,10 +2,12 @@ package io.baselogic.springsecurity.web.handlers;
 
 import io.baselogic.springsecurity.domain.EventUserDetails;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +34,8 @@ import java.net.URL;
 @Slf4j
 public class RedirectingServerLogoutSuccessHandler implements ServerLogoutSuccessHandler {
 
+    private String logoutSuccessUrl = "/login?logout";
+
     public RedirectingServerLogoutSuccessHandler() {
         log.debug("*** RedirectingServerLogoutSuccessHandler ***");
     }
@@ -50,15 +54,25 @@ public class RedirectingServerLogoutSuccessHandler implements ServerLogoutSucces
         log.info("*** onLogoutSuccess({}, {})", exchange, authentication);
 
         ServerWebExchange serverWebExchange = exchange.getExchange();
+        serverWebExchange.getSession().subscribe(s -> s.invalidate());
+
         ServerHttpRequest request = serverWebExchange.getRequest();
         ServerHttpResponse response = serverWebExchange.getResponse();
-
         response.getCookies().clear();
-        performLogout(authentication);
+        request.getCookies().clear();
 
-        return ReactiveHandlerUtils.sendRedirect(request, response)
-//                .then()
-                ;
+//        performLogout(authentication);
+
+        log.debug("send redirect to {}", logoutSuccessUrl);
+
+        String path = logoutSuccessUrl.substring(0, logoutSuccessUrl.indexOf('?'));
+        String query = logoutSuccessUrl.substring(logoutSuccessUrl.indexOf('?'));
+
+        log.debug("path {}", path);
+        log.debug("query {}", query);
+        log.debug("send redirect to {}", logoutSuccessUrl);
+
+        return ReactiveHandlerUtils.sendRedirect(request, response, logoutSuccessUrl);
 
     }
 
@@ -70,21 +84,27 @@ public class RedirectingServerLogoutSuccessHandler implements ServerLogoutSucces
      * @param authentication Authentication to logout
      */
     private Mono<String> performLogout(final Authentication authentication){
-        log.info("*** performLogout({})", authentication.getName());
+        log.debug("*** performLogout({})", authentication.getName());
 
         StringBuilder sb = new StringBuilder("Logout Success");
 
         if (authentication != null) {
             sb.append(" for ").append(authentication.getName());
-            authentication.setAuthenticated(false);
-            ReactiveSecurityContextHolder.clearContext();
+//            authentication.setAuthenticated(false);
+//            ReactiveSecurityContextHolder.clearContext();
         }
 
         sb.append(".");
 
-        log.warn(sb.toString());
+        log.info(sb.toString());
 
         return Mono.just(sb.toString());
+    }
+
+
+    public RedirectingServerLogoutSuccessHandler logoutSuccessUrl(final String logoutSuccessUrl) {
+        this.logoutSuccessUrl = logoutSuccessUrl;
+        return this;
     }
 
 

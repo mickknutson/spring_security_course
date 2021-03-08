@@ -41,7 +41,7 @@ import java.util.Map;
  * @since chapter04.01 Added .jdbcAuthentication() and Exposed 'JdbcUserDetailsManager' as 'UserDetailsManager' named 'userDetailsService'
  */
 @Configuration
-@EnableWebSecurity//(debug = true)
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

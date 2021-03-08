@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @since chapter01.00
  * @since chapter04.02 Can only setCurrentUser() with a user that exist in the db.
  */
-    
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j

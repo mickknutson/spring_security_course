@@ -33,7 +33,7 @@ import java.util.Map;
  * @since chapter03.03 Removed userDetailsService() and configure(HttpSecurity) methods
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

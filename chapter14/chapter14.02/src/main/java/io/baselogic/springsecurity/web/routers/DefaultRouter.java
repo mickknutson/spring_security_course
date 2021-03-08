@@ -14,9 +14,10 @@ import org.springframework.web.reactive.function.server.ServerResponse;
  *
  * @author mickknutson
  *
- * @since chapter14.01 Refactored for WebFLux
+ * @since chapter14.01 Refactored for WebFlux
  */
-//@Configuration
+//@Configuration --> Load-time Stereoptype
+//@Component --> Run-time Stereotype
 public class DefaultRouter {
 
     @Bean
@@ -24,8 +25,8 @@ public class DefaultRouter {
 
         return RouterFunctions
                 // URI: "/"
-                .route(RequestPredicates.GET("/")
-                        .and(RequestPredicates.accept(MediaType.TEXT_HTML)), defaultHandler::welcome)
+                .route(RequestPredicates.GET("/") // This cannot change at runtime
+                        .and(RequestPredicates.accept(MediaType.TEXT_HTML)), defaultHandler::welcome) // This can change at runtime
 
                 // URI: "/login"
                 .andRoute(RequestPredicates.GET("/login")

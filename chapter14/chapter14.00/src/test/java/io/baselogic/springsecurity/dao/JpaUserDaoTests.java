@@ -14,9 +14,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * JpaEventDaoTests
  *
- * @since chapter05.01
+ * @since chapter05.02 Created
  */
-    
+
 //@Transactional
 @SpringBootTest//(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
@@ -25,15 +25,9 @@ class JpaUserDaoTests {
     @Autowired
     private UserDao userDao;
 
-    private AppUser owner = new AppUser();
-    private AppUser attendee = new AppUser();
-
 
     @BeforeEach
-    void beforeEachTest() {
-        owner.setId(1);
-        attendee.setId(0);
-    }
+    void beforeEachTest() {}
 
     //-----------------------------------------------------------------------//
 
@@ -50,6 +44,7 @@ class JpaUserDaoTests {
                 .isNotEqualTo(new Object())
                 .hasFieldOrPropertyWithValue("id", 1);
         assertThat(appUser.hashCode()).isNotZero();
+        assertThat(appUser.isNew()).isTrue();
     }
 
     @Test
@@ -105,8 +100,8 @@ class JpaUserDaoTests {
         int userId = userDao.save(appUser);
         assertThat(userId).isGreaterThanOrEqualTo(3);
 
-        appUsers = userDao.findAllByEmail("baselogic.com");
-        assertThat(appUsers.size()).isGreaterThanOrEqualTo(4);
+        List<AppUser> newAppUsers = userDao.findAllByEmail("baselogic.com");
+        assertThat(newAppUsers.size()).isGreaterThan(appUsers.size());
     }
 
 

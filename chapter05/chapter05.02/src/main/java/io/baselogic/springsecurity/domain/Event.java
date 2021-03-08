@@ -21,7 +21,9 @@ import java.util.Calendar;
  * fields are required.
  *
  * @author mickknutson
- *
+ * @since chapter01.00 created
+ * @since chapter05.01 Updated for JPA
+ * @since chapter05.02 Updated for MongoDB
  */
 // Document Annotations:
 @Document(collection="events")
@@ -44,7 +46,6 @@ public class Event implements Persistable<Integer>, Serializable {
 
     @NotNull(message = "When is required (yyyy-MM-dd HH:mm)")
     private Calendar when;
-
 
     @NotNull(message = "Owner is required")
     @DBRef

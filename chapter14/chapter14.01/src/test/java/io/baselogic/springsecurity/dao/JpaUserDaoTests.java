@@ -176,7 +176,7 @@ class JpaUserDaoTests {
                             .isNotEqualTo(new Object())
                             .hasFieldOrPropertyWithValue("id", generator.getLastGivenNumber())
                             .hasFieldOrPropertyWithValue("email", "test@baselogic.com")
-                            .hasFieldOrPropertyWithValue("roles.size", 1)
+//                            .hasFieldOrPropertyWithValue("roles.size", 1)
 //                            .hasFieldOrPropertyWithValue("roles[0].name", "ROLE_USER")
                     ;
 

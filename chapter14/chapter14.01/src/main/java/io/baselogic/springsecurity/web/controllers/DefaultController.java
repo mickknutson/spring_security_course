@@ -1,12 +1,11 @@
 package io.baselogic.springsecurity.web.controllers;
 
-import io.baselogic.springsecurity.domain.EventUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.reactive.function.server.ServerRequest;
 
 /**
  * <p>
@@ -71,17 +70,17 @@ public class DefaultController {
 
     @GetMapping("/default")
     public String defaultAfterLogin(final Authentication authentication) {
-        log.info("* defaultAfterLogin");
+        log.debug("* defaultAfterLogin");
 
-        EventUserDetails principal = (EventUserDetails) authentication.getPrincipal();
-        log.info("principal: [{}]", principal);
-//        log.info("principal Authorities: [{}]", principal.getAuthorities());
+        String result = "redirect:/";
 
-        if (principal.getAuthorities().contains("ADMIN")) {
-            return "redirect:/events/";
+        for(GrantedAuthority r: authentication.getAuthorities()) {
+            if(r.getAuthority().equals("ROLE_ADMIN")){
+                result = "redirect:/events/";
+            }
         }
 
-        return "redirect:/";
+        return result;
     }
 
 } // The End...

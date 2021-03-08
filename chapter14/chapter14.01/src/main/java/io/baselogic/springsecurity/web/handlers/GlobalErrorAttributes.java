@@ -35,7 +35,7 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes{
         map.put("status", getStatus().value());
         map.put("error", getMessage());
 
-        map.forEach(log::error);
+        map.forEach((k, v) -> log.error("{}: [{}]", k, v));
 
         log.error("* status: [{}], message: [{}]", getStatus().toString(), getMessage());
 

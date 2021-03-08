@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
-<html  xml:lang="en"
-       xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 <div class="container">
 
@@ -22,7 +21,7 @@
                     </ul>
                     <ul class="nav navbar-nav pull-right" sec:authorize="isAuthenticated()">
                         <li>
-                            <p class="navbar-text">Welcome <div class="navbar-text" th:text="${#authentication.name}">User</div></p>
+                            <p class="navbar-text">Welcome <div class="navbar-text"><span sec:authentication="name">User</span></div></p>
                         </li>
                         <li>
                             <a id="navLogoutLink" class="btn btn-default" role="button"  th:href="@{/logout}">Logout</a>

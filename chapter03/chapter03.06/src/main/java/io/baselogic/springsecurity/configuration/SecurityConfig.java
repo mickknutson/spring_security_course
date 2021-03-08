@@ -44,7 +44,7 @@ import java.util.Map;
  * @since chapter03.06 Added DomainUsernamePasswordAuthenticationFilter support
  */
 @Configuration
-@EnableWebSecurity//(debug = true)
+@EnableWebSecurity(debug = false)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

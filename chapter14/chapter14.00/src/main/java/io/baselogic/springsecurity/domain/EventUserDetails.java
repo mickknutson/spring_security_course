@@ -20,7 +20,7 @@ import java.util.Collection;
  * </ul>
  *
  * @author mickknutson
- * @since chapter03.04
+ * @since chapter03.04 Created
  *
  */
 public class EventUserDetails

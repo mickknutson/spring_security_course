@@ -1,5 +1,6 @@
 package io.baselogic.springsecurity.web.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerTypePredicate;
 import org.springframework.web.reactive.config.*;
 import org.springframework.web.reactive.result.view.ViewResolver;
+import org.thymeleaf.spring5.view.reactive.ThymeleafReactiveViewResolver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,11 +28,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Configuration
 // Issue with turning this on:
-//@EnableWebFlux
+@EnableWebFlux
 @ComponentScan(basePackages = {
-        "io.baselogic.springsecurity.web.controllers",
-        "io.baselogic.springsecurity.web.handlers",
-        "io.baselogic.springsecurity.web.model"
+        "io.baselogic.springsecurity.web"
 })
 public class WebMvcConfig implements WebFluxConfigurer {
 
@@ -38,9 +38,18 @@ public class WebMvcConfig implements WebFluxConfigurer {
             "classpath:/META-INF/resources/", "classpath:/resources/",
             "classpath:/static/", "classpath:/public/"};
 
+    @Autowired
+    private ThymeleafReactiveViewResolver thymeleafReactiveViewResolver;
+
+
     @Description("addResourceHandlers")
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+
+        // Add WebJars for Bootstrap & jQuery
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/")
+                .resourceChain(false);
 
         registry.addResourceHandler("/**")
                 .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS)
@@ -50,22 +59,12 @@ public class WebMvcConfig implements WebFluxConfigurer {
     }
 
 
-    /*@Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        ViewResolver resolver = ... ;
-        registry.viewResolver(resolver);
-    }*/
-
-
-    /*@Description("configurePathMatching")
     @Override
-    public void configurePathMatching(final PathMatchConfigurer configurer) {
-        configurer
-                .setUseCaseSensitiveMatch(true)
-                .setUseTrailingSlashMatch(false)
-                .addPathPrefix("/api",
-                        HandlerTypePredicate.forAnnotation(RestController.class));
-    }*/
+    public void configureViewResolvers(final ViewResolverRegistry registry) {
+        registry.viewResolver(thymeleafReactiveViewResolver);
+
+        registry.order(1);
+    }
 
 
     // i18N support
